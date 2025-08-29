@@ -18,3 +18,4 @@ Route::get('/callpaper', function () {
 Route::get('/steering-committes', function () {
     return view('SteeringCommittes');
 })->name('steering.committes');
+
