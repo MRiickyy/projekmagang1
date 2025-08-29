@@ -13,3 +13,9 @@ Route::get('/author', function () {
 Route::get('/callpaper', function () {
     return view('callpaper');
 });
+
+// Route untuk halaman Steering Committees
+Route::get('/steering-committes', function () {
+    return view('SteeringCommittes');
+})->name('steering.committes');
+
