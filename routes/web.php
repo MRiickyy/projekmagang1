@@ -9,3 +9,7 @@ Route::get('/', function () {
 Route::get('/author', function () {
     return view('author'); // ini yang penting
 });
+
+Route::get('/callpaper', function () {
+    return view('callpaper');
+});
