@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- BODY SECTION: AUTHOR INFORMATION -->
-    <main class="bg-white py-16">
+    <main class="bg-white my-12">
         <div class="max-w-5xl mx-auto px-5">
 
             <!-- Title -->
