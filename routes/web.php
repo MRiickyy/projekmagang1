@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome'); // default
+    return view('home');
 });
 
 Route::get('/author', function () {
@@ -18,4 +18,3 @@ Route::get('/callpaper', function () {
 Route::get('/steering-committes', function () {
     return view('SteeringCommittes');
 })->name('steering.committes');
-
