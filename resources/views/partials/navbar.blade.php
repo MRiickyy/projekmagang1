@@ -12,40 +12,82 @@
             <a href="/callpaper" class="hover:text-[#9ae6b4]">Call for Papers</a>
 
             <!-- Speakers dengan dropdown -->
-            <div class="relative">
-                <button id="dropdownBtn" class="hover:text-[#9ae6b4] flex items-center gap-1">
+            <div class="relative dropdown">
+                <button class="dropdown-btn flex items-center gap-1 hover:text-[#9ae6b4]">
                     Speakers
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
-
-                <!-- Dropdown menu -->
-                <div id="dropdownMenu"
-                    class="absolute left-0 mt-2 w-40 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
+                <div
+                    class="dropdown-menu absolute left-0 mt-2 w-48 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
                     <a href="/keynote-speaker" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Keynote Speakers</a>
                     <a href="/tutorial-speaker" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Tutorial Speakers</a>
                 </div>
             </div>
 
-            <a href="#" class="hover:text-[#9ae6b4]">Committees</a>
+            <!-- Committees dengan dropdown -->
+            <div class="relative dropdown">
+                <button class="dropdown-btn flex items-center gap-1 hover:text-[#9ae6b4]">
+                    Committees
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div
+                    class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
+                    <a href="/steering-committees" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Steering Committees</a>
+                    <a href="/technical-program-committees" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Technical Program Committees</a>
+                    <a href="/organizing-committe" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Organizing Committees</a>
+                </div>
+            </div>
+
+            <!-- For Authors dengan dropdown -->
+            <div class="relative dropdown">
+                <button class="dropdown-btn flex items-center gap-1 hover:text-[#9ae6b4]">
+                    For Authors
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div
+                    class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
+                    <a href="/author" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Author Information</a>
+                    <a href="/registration" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Registration</a>
+                    <a href="/contact" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Contacts</a>
+                </div>
+            </div>
+
             <a href="#" class="hover:text-[#9ae6b4]">Events</a>
-            <a href="/author" class="hover:text-[#9ae6b4]">For Authors</a>
         </div>
     </div>
 </nav>
-<script>
-    const dropdownBtn = document.getElementById("dropdownBtn");
-    const dropdownMenu = document.getElementById("dropdownMenu");
 
-    dropdownBtn.addEventListener("click", () => {
-        dropdownMenu.classList.toggle("hidden");
+<!-- Script Dropdown -->
+<script>
+    const dropdowns = document.querySelectorAll(".dropdown");
+
+    dropdowns.forEach(dropdown => {
+        const btn = dropdown.querySelector(".dropdown-btn");
+        const menu = dropdown.querySelector(".dropdown-menu");
+
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+
+            // Tutup semua dropdown lain dulu
+            dropdowns.forEach(d => {
+                if (d !== dropdown) {
+                    d.querySelector(".dropdown-menu").classList.add("hidden");
+                }
+            });
+
+            // Toggle dropdown yang diklik
+            menu.classList.toggle("hidden");
+        });
     });
 
-    // Optional: klik di luar untuk nutup dropdown
-    document.addEventListener("click", (e) => {
-        if (!dropdownBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
-            dropdownMenu.classList.add("hidden");
-        }
+    // Klik di luar semua dropdown → tutup semuanya
+    document.addEventListener("click", () => {
+        dropdowns.forEach(d => d.querySelector(".dropdown-menu").classList.add("hidden"));
     });
 </script>

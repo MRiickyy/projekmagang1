@@ -11,6 +11,9 @@
     {{-- Navbar --}}
     @include('partials.navbar')
 
+    {{-- Header --}}
+    @include('partials.header')
+
     {{-- Konten Halaman --}}
     <main>
         @yield('content')
