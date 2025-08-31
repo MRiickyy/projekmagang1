@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Steering Committees - ICOICT 2025')
+@section('title', 'Organizing Committee - ICOICT 2025')
 
 @section('content')
+
 
   <!-- Steering Committees Section -->
   <section class="py-16 bg-slate-50">

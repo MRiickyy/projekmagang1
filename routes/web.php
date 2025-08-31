@@ -33,10 +33,10 @@ Route::get('/steering-committes', function () {
 
 // Route untuk halaman Steering Committees
 Route::get('/TPC', function () {
-    return view('TechnicalProgramCommittees');
-})->name('Technical.ProgramCommittees');
+    return view('TechnicalProgramCommittee');
+})->name('Technical.ProgramCommittee');
 
 // Route untuk halaman Steering Committees
 Route::get('/organizing-commiting', function () {
-    return view('OrganizingCommiting');
+    return view('OrganizingCommittee');
 })->name('Organizing.Commiting');
