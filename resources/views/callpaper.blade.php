@@ -25,30 +25,92 @@
     </div>
   </nav>
 
-  {{-- Hero --}}
-  <header class="min-h-[70vh] flex items-center bg-gradient-to-r from-[#1E293B] via-[#334155] to-[#0F172A]">
-    <div class="max-w-7xl mx-auto px-5 py-16 grid md:grid-cols-2 gap-8 items-center">
-      <div>
-        <h1 class="text-5xl md:text-7xl font-extrabold leading-tight text-white">
-          THE 13TH ICOICT 
-          <span class="bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
-            2025
-          </span>
-        </h1>
-        <p class="mt-4 text-slate-200 text-xl max-w-xl">
-          International Conference on Information and Communication Technology
-        </p>
-        <div class="mt-6 flex items-center gap-3">
-          <a href="#" class="px-7 py-3 rounded-full shadow-lg bg-slate-800/70 hover:bg-slate-700 text-white text-lg">
+  <header class="min-h-[-70vh] flex items-center bg-gradient-to-r from-[#1E293B] via-[#334155] to-[#0F172A]">
+
+        <div class="max-w-7xl mx-auto px-5 py-16 md:py-20 grid md:grid-cols-2 gap-8 items-center">
+            <div>
+               <h1 class="text-4xl md:text-5xl font-extrabold leading-snug text-white">
+                THE 13TH ICOICT 
+                <span class="bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
+                    2025
+                </span>
+                </h1>
+
+
+                <p class="mt-4 text-slate-200 text-xl max-w-xl">
+                    International Conference on Information and Communication Technology
+                </p>
+
+                <div class="mt-6 flex items-center gap-3">
+                    <a href="#" class="px-7 py-3 rounded-full shadow-lg bg-slate-800/70 hover:bg-slate-700 text-white text-lg">
             Register Now
           </a>
           <a href="#" class="px-7 py-3 rounded-full shadow-lg bg-[#25d366] hover:bg-[#1fb857] text-black font-semibold text-lg">
             Submit Your Paper
           </a>
+                      
+                </div>
+            </div>
+
+            <!-- countdown glass card -->
+            <div class="flex flex-col md:items-end items-center">
+                <div class="flex gap-4 mt-4 text-slate-300">
+                    <!-- simple social icons -->
+                    <svg class="h-9 w-9" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 3a.75.75 0 110 1.5A.75.75 0 0117 5zM12 7a5 5 0 110 10 5 5 0 010-10z" />
+                    </svg>
+                    <svg class="h-9 w-9" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M22.46 6c-.77.35-1.6.58-2.46.69a4.27 4.27 0 001.88-2.36 8.54 8.54 0 01-2.7 1.03 4.26 4.26 0 00-7.26 3.88A12.1 12.1 0 013 5.15a4.25 4.25 0 001.32 5.67 4.22 4.22 0 01-1.93-.53v.05a4.26 4.26 0 003.42 4.17 4.33 4.33 0 01-1.92.07 4.27 4.27 0 003.98 2.95A8.55 8.55 0 012 19.55a12.06 12.06 0 006.53 1.91c7.84 0 12.13-6.5 12.13-12.13l-.01-.55A8.67 8.67 0 0022.46 6z" />
+                    </svg>
+                    <svg class="h-9 w-9" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M10 15l5.19-3L10 9v6z" />
+                        <path
+                            d="M21 7a2 2 0 00-2-2H5C3.9 5 3 5.9 3 7v10a2 2 0 002 2h14a2 2 0 002-2V7zM5 17V7h14v10H5z" />
+                    </svg>
+                </div>
+                <p class="text-lg text-slate-200 mb-3">Bandung (Hybrid), 30–31 July 2025</p>
+                <div class="flex justify-center">
+                    <!-- Box Luaran -->
+                    <div class="flex gap-6 p-6 rounded-3xl shadow-2xl bg-gradient-to-br from-[#2B3545] to-[#3B4A60]">
+
+                        <!-- Box 1 -->
+                        <div
+                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
+                            <div class="text-5xl font-extrabold text-white">24</div>
+                            <div class="text-sm tracking-wider text-slate-200 mt-1">DAYS</div>
+                        </div>
+
+                        <!-- Box 2 -->
+                        <div
+                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
+                            <div class="text-5xl font-extrabold text-white">14</div>
+                            <div class="text-sm tracking-wider text-slate-200 mt-1">HOURS</div>
+                        </div>
+
+                        <!-- Box 3 -->
+                        <div
+                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
+                            <div class="text-5xl font-extrabold text-white">5</div>
+                            <div class="text-sm tracking-wider text-slate-200 mt-1">MINUTES</div>
+                        </div>
+
+                        <!-- Box 4 -->
+                        <div
+                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
+                            <div class="text-5xl font-extrabold text-white">40</div>
+                            <div class="text-sm tracking-wider text-slate-200 mt-1">SECONDS</div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
         </div>
-      </div>
-    </div>
-  </header>
+    </header>
+  
 
   {{-- Call for Papers --}}
   <section class="max-w-7xl mx-auto px-5 py-16">
@@ -101,39 +163,55 @@
   </section>
 
   {{-- Submission Guidelines --}}
-  <section class="max-w-4xl mx-auto px-5 py-12">
-    <h3 class="text-2xl font-bold mb-4 text-slate-800">SUBMISSION GUIDELINES</h3>
-    <p class="text-slate-600 leading-relaxed">
-      All papers must be original, technical-type paper, not published or under consideration elsewhere, 
-      and must be submitted electronically in PDF format. Accepted papers will be submitted to IEEE Xplore.
+<section class="max-w-7xl mx-auto px-5 py-16">
+    <h3 class="text-2xl font-bold mb-4 text-slate-800 relative inline-block
+    after:content-[''] after:block after:w-full after:h-0.5 
+    after:mt-2 after:bg-gradient-to-r after:from-[#00e676] after:to-[#38bdf8]">
+  SUBMISSION GUIDELINES
+</h3>
+</h3>
+<p class="text-slate-700 leading-relaxed">
+        All papers must be original, a technical-type paper, not published or  under  consideration elsewhere, and conform to the specified IEEE format.
+       Selected papers will undergo a rigorous peer-review process. Accepted  and presented papers will be submitted for inclusion into the IEEE 
+        Xplore subject to meeting IEEE’s scope and quality requirements.
     </p>
   </section>
 
   {{-- Important Dates --}}
-  <section class="bg-slate-100 py-16">
-    <div class="max-w-5xl mx-auto px-5 text-center">
-      <h3 class="text-2xl font-bold text-slate-800">IMPORTANT DATE (ROUND 2)</h3>
-      <div class="grid gap-6 md:grid-cols-3 mt-10">
-        <div class="bg-white shadow-md rounded-xl p-6">
-          <b class="block text-lg text-slate-800">Paper Submission Deadline</b>
-          <span class="text-slate-600">April 25, 2025</span>
-        </div>
-        <div class="bg-white shadow-md rounded-xl p-6">
-          <b class="block text-lg text-slate-800">Notification of Acceptance</b>
-          <span class="text-slate-600">May 16, 2025</span>
-        </div>
-        <div class="bg-white shadow-md rounded-xl p-6">
-          <b class="block text-lg text-slate-800">Camera-Ready Paper Deadline</b>
-          <span class="text-slate-600">June 20, 2025</span>
-        </div>
-      </div>
-    </div>
+   <section class="max-w-7xl mx-auto px-5 py-16">
+  <h3 class="text-2xl font-bold mb-4 text-slate-800 relative inline-block
+    after:content-[''] after:block after:w-full after:h-0.5 
+    after:mt-2 after:bg-gradient-to-r after:from-[#00e676] after:to-[#38bdf8]">
+    IMPORTANT DATE (ROUND 2)
+
+</h3>
+      <div class="flex flex-wrap gap-4 mt-6">
+  <!-- Box 1 -->
+  <div class="border border-slate-300 rounded-xl px-6 py-3 text-center shadow-sm">
+    <p class="font-semibold text-slate-800">Paper Submission Deadline</p>
+    <p class="italic text-slate-600">April 15, 2025</p>
+  </div>
+
+  <!-- Box 2 -->
+  <div class="border border-slate-300 rounded-xl px-6 py-3 text-center shadow-sm">
+    <p class="font-semibold text-slate-800">Notification of Acceptance</p>
+    <p class="italic text-slate-600">May 15, 2025</p>
+  </div>
+
+  <!-- Box 3 -->
+  <div class="border border-slate-300 rounded-xl px-6 py-3 text-center shadow-sm">
+    <p class="font-semibold text-slate-800">Camera-Ready Paper Deadline</p>
+    <p class="italic text-slate-600">June 30, 2025</p>
+  </div>
+</div>
+
   </section>
 
   {{-- Join Section --}}
-  <section class="text-center py-16 bg-gradient-to-r from-[#1f3c77] to-[#0f172a] text-white">
-    <h4 class="text-2xl font-bold">JOIN US!</h4>
-    <p class="mt-3 max-w-2xl mx-auto">Share your insights and contribute to advancing knowledge in AI, IoT, and Data Science Technologies.</p>
+  <section class="text-center py-16 bg-gradient-to-r from-[#1E293B] via-[#334155] to-[#0F172A]">
+    <h4 class="text-2xl font-bold bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">JOIN US!</h4>
+    
+    <p class="mt-3 max-w-2xl mx-auto text-[#FFFFFF]">Share your insights and contribute to advancing knowledge in AI, IoT, and Data Science Technologies.</p>
     <a href="#" class="mt-6 inline-block px-7 py-3 rounded-full bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
       Submit Your Paper
     </a>
