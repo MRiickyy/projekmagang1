@@ -13,12 +13,12 @@
       <h2 class="text-3xl font-extrabold text-slate-800 text-center mb-4 relative inline-block
         after:content-[''] after:block after:w-full after:h-0.5 after:mt-2 
         after:bg-gradient-to-r after:from-[#00e676] after:to-[#38bdf8]">
-        STEERING COMMITTEES
+        ORGANIZING COMMITING
       </h2>
 
       <!-- Subtitle -->
       <div class="mt-8 bg-slate-600 text-white font-bold text-center py-3 px-6 rounded-xl shadow-md">
-        THE ICOICT 2026 STEERING COMMITTEES
+        THE ICOICT 2026 ORGANIZING COMMITING
       </div>
 
       <!-- Committees List -->
