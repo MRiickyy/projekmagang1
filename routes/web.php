@@ -10,6 +10,10 @@ Route::get('/author', function () {
     return view('author'); // ini yang penting
 });
 
+Route::get('/registration', function () {
+    return view('registration'); // ini yang penting
+});
+
 Route::get('/callpaper', function () {
     return view('callpaper');
 });

@@ -89,7 +89,7 @@
         </div>
     </header>
 
-        <!-- BODY SECTION: AUTHOR INFORMATION -->
+    <!-- BODY SECTION: AUTHOR INFORMATION -->
     <main class="bg-white py-16">
         <div class="max-w-5xl mx-auto px-5">
 
