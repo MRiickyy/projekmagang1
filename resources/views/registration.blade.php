@@ -1,39 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ICOICT 2025</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+@section('title', 'Keynote Speakers - ICOICT 2025')
 
-<body class="bg-[#0b0f14] text-slate-100 antialiased">
-
-    <!-- Topbar / Navbar -->
-    <nav class="bg-[#1a1f27]/95 backdrop-blur supports-backdrop-blur sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
-            <!-- Logo text gradient -->
-            <a href="/"
-                class="text-2xl font-extrabold tracking-wide bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
-                ICOICT 2025
-            </a>
-            <div class="hidden md:flex items-center gap-8 font-semibold text-slate-200">
-                <a href="#" class="hover:text-[#9ae6b4]">Call for Papers</a>
-                <a href="#" class="hover:text-[#9ae6b4]">Speakers</a>
-                <a href="#" class="hover:text-[#9ae6b4]">Committees</a>
-                <a href="#" class="hover:text-[#9ae6b4]">Events</a>
-                <a href="#" class="hover:text-[#9ae6b4]">For Authors</a>
-            </div>
-        </div>
-    </nav>
-
+@section('content')
     <!-- HERO -->
     <header class="min-h-screen flex items-center bg-gradient-to-r from-[#1E293B] via-[#334155] to-[#0F172A]">
 
-        <div class="max-w-7xl mx-auto px-5 py-16 md:py-20 grid md:grid-cols-2 gap-8 items-center">
+        <div class="max-w-7xl mx-auto px-5 py-16 md:py-20 grid md:grid-cols-2 gap-8 items-center scale-[.8] origin-top">
             <div>
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-tight">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl text-white font-extrabold leading-tight">
                     THE 13TH ICOICT
                     <span
                         class="font-extrabold tracking-wide bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
@@ -47,11 +22,11 @@
 
                 <div class="mt-6 flex items-center gap-3">
                     <a href="#" class="inline-flex items-center gap-2 bg-slate-800/70 hover:bg-slate-700 text-white 
-           text-lg px-7 py-3 rounded-full shadow-lg">
+            text-lg px-7 py-3 rounded-full shadow-lg">
                         Register Now
                     </a>
                     <a href="#" class="inline-flex items-center gap-2 bg-[#25d366] hover:bg-[#1fb857] 
-           text-black font-semibold text-lg px-7 py-3 rounded-full shadow-lg">
+            text-black font-semibold text-lg px-7 py-3 rounded-full shadow-lg">
                         Submit Your Paper
                     </a>
 
@@ -79,7 +54,7 @@
                 <p class="text-lg text-slate-200 mb-3">Bandung (Hybrid), 30–31 July 2025</p>
                 <div class="flex gap-4 bg-slate-900/40 ring-1 ring-white/10 shadow-2xl px-9 py-7 rounded-2xl">
                     @foreach (['DAYS'=>24,'HOURS'=>14,'MINUTES'=>5,'SECONDS'=>40] as $label=>$val)
-                    <div class="min-w-[95px] text-center">
+                    <div class="min-w-[95px] text-center text-white">
                         <div class="text-5xl font-bold">{{ $val }}</div>
                         <div class="text-[11px] tracking-wider text-slate-300">{{ $label }}</div>
                     </div>
@@ -89,29 +64,100 @@
         </div>
     </header>
 
-      
+    <!-- BODY -->
+    <main class="bg-white py-16">
+        <div class="max-w-5xl mx-auto px-5">
 
-    <!-- Footer (3 columns) -->
-        <footer class="mt-10 bg-gradient-to-br from-[#0f172a] to-[#1f2937]">
-            <div class="max-w-7xl mx-auto px-5 py-10 grid md:grid-cols-3 gap-6">
-                <div class="rounded-xl bg-slate-900/40 ring-1 ring-white/10 p-6 text-center">
-                    <div class="font-extrabold mb-2">ICoICT 2025 Organized By :</div>
-                    <div class="text-slate-200">Telkom University Indonesia</div>
-                    <div class="mt-2 text-slate-300 text-sm">Co – Hosts :<br />Multimedia University Malaysia</div>
+            <!-- Title -->
+            <div class="text-center mb-8">
+                <h1 class="relative inline-block text-3xl md:text-5xl font-bold tracking-wide text-[#1a1f27]/95">
+                    REGISTRATION
+                    <!-- Garis bawah -->
+                    <span class="block h-1 w-40 mx-auto mt-2 bg-gradient-to-r from-green-500 to-blue-500"></span>
+                </h1>
+            </div>
+
+
+            <!-- CTA Box -->
+            <div class="mt-10 bg-[#1a1f27] rounded-xl p-8 shadow-xl space-y-8 text-center text-white">
+                <p class="mb-2 text-white">
+                    Please Register Here
+                </p>
+                <a href="#"
+                   class="inline-flex items-center justify-center rounded-full bg-[#25d366] hover:bg-[#1fb857] transition px-6 py-2 font-semibold shadow">
+                    Registration Form
+                </a>
+            </div>
+
+            <!-- Notes Section -->
+            <div class="mt-6 bg-gray-100 rounded-xl p-6 shadow-lg">
+                <h2 class="text-lg font-semibold mb-3">Notes:</h2>
+                <ul class="list-disc list-inside space-y-1">
+                    <li>Maximum number of pages for a normal paper is 6</li>
+                    <li>To be eligible for the IEEE Member rate you must be an active IEEE Member</li>
+                    <li>To be eligible for the student rate you must provide your student ID/Letter of proof</li>
+                </ul>
+
+                <h2 class="text-lg font-semibold mt-4 mb-2">The conference fee include:</h2>
+                <ul class="list-disc list-inside">
+                    <li>To be announced.</li>
+                </ul>
+            </div>
+
+            <!-- Payment Methods -->
+            <div class="mt-6 space-y-4 text-black leading-relaxed">
+                <h1 class="text-3xl font-bold mb-3 text-center text-[#1a1f27]/95">Payment Methods</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Virtual Account -->
+                <div class="bg-gray-100 rounded-xl p-6 shadow-lg">
+                    <div class="flex items-center justify-center w-8 h-8 bg-gray-200 rounded-full mb-4">
+                        <span class="font-bold text-gray-700">1</span>
+                    </div>
+                    <h2 class="text-xl font-bold mb-3 text-center text-[#1a1f27]/95">Virtual Account</h2>
+                    <ul class="list-disc list-inside text-black leading-relaxed">
+                        <li><span class="font-semibold">Bank Name (in full):</span> Bank Negara Indonesia (PERSERO)</li>
+                        <li><span class="font-semibold">Account Name:</span> Telkom University – ICOICT 2025</li>
+                        <li><span class="font-semibold">Virtual Account Number:</span> 8321066202400127</li>
+                    </ul>
+                    <p class="text-red-600 mt-3 font-medium">
+                        Important: Please include your paper ID information on the payment slip.
+                    </p>
                 </div>
 
-                <div class="rounded-xl bg-slate-900/40 ring-1 ring-white/10 p-6 text-center">
-                    <div class="font-extrabold mb-2">Sponsored By :</div>
-                    <div class="text-slate-200">IEEE Indonesia Section</div>
-                </div>
-
-                <div class="rounded-xl bg-slate-900/40 ring-1 ring-white/10 p-6 text-center">
-                    <div class="font-extrabold mb-2">Visitors</div>
-                    <div class="text-slate-300 text-sm">[Flag counter / analytics placeholder]</div>
+                <!-- PayPal -->
+                <div class="bg-gray-100 rounded-xl p-6 shadow-lg">
+                    <div class="flex items-center justify-center w-8 h-8 bg-gray-200 rounded-full mb-4">
+                        <span class="font-bold text-gray-700">2</span>
+                    </div>
+                    <h2 class="text-xl font-bold mb-3 text-center text-[#1a1f27]/95">PayPal</h2>
+                    <ul class="list-disc list-inside text-black leading-relaxed">
+                        <li><span class="font-semibold">PayPal Email Address:</span> kangandrian@telkomuniversity.ac.id</li>
+                    </ul>
+                    <p class="font-semibold text-black mt-3">Additional Information:</p>
+                    <ol class="list-decimal list-inside text-black leading-relaxed">
+                        <li>Transfer the full registration fee plus a 5% PayPal currency conversion fee.</li>
+                        <li>Ensure the fee is transferred under the registrant’s name, clearly stated on the payment slip.</li>
+                        <li>Include your paper ID information on the payment slip.</li>
+                    </ol>
                 </div>
             </div>
-        </footer>
 
-</body>
+            <!-- Registration Procedures -->
+            <div class="bg-gray-100 rounded-xl p-6 shadow-lg">
+                <h2 class="text-xl font-bold mb-3 text-[#1a1f27]/95">Registration Procedures</h2>
+                <ol class="list-decimal list-inside text-black leading-relaxed">
+                    <li>Complete the payment according to the method of your choice.</li>
+                    <li>Register for the conference using the following link:
+                        <a href="https://tel-u.ac.id/icoict2025" class="text-sky-500 underline">
+                            https://tel-u.ac.id/icoict2025
+                        </a>
+                    </li>
+                    <li>If registering at the IEEE member or student rate, attach a copy of your IEEE member card or student card/verification letter.</li>
+                    <li>Ensure all required information and supporting documents (e.g., payment proof/slip) are included before submitting the form.</li>
+                </ol>
+            </div>
+        </div>
+    </main>
 
-</html>
+@endsection
