@@ -9,7 +9,7 @@
 
             <!-- Title -->
             <div class="text-center mb-8">
-                <h1 class="relative inline-block text-3xl md:text-5xl font-bold tracking-wide text-[#1a1f27]/95">
+                <h1 class="relative inline-block text-3xl font-bold tracking-wide text-[#1a1f27]/95">
                     AUTHOR INFORMATION
                     <!-- Garis bawah -->
                     <span class="block h-1 w-40 mx-auto mt-2 bg-gradient-to-r from-green-500 to-blue-500"></span>
