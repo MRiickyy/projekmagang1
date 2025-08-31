@@ -6,10 +6,13 @@
     <title>@yield('title', 'ICOICT 2025')</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="font-sans bg-gray-100 text-gray-800">
+<body class="font-sans bg-white text-gray-800">
 
     {{-- Navbar --}}
     @include('partials.navbar')
+
+    {{-- Header --}}
+    @include('partials.header')
 
     {{-- Konten Halaman --}}
     <main>
