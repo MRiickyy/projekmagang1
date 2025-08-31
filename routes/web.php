@@ -30,3 +30,13 @@ Route::get('/keynote-speaker', function () {
 Route::get('/steering-committes', function () {
     return view('SteeringCommittes');
 })->name('steering.committes');
+
+// Route untuk halaman Steering Committees
+Route::get('/TPC', function () {
+    return view('TechnicalProgramCommittees');
+})->name('Technical.ProgramCommittees');
+
+// Route untuk halaman Steering Committees
+Route::get('/organizing-commiting', function () {
+    return view('OrganizingCommiting');
+})->name('Organizing.Commiting');
