@@ -218,7 +218,7 @@
                         the broader frame
                         of current technology developments, especially related to the event's theme.
                     </p>
-                    <a href="#" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
+                    <a href="/keynote-speaker" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
                         Read More <span aria-hidden="true">›</span>
                     </a>
                 </div>
@@ -228,7 +228,7 @@
                         Renowned subject-matter experts are invited to conduct interactive sessions that provide
                         in-depth knowledge and practical guidance on specific topics.
                     </p>
-                    <a href="#" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
+                    <a href="/tutorial-speaker" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
                         Read More <span aria-hidden="true">›</span>
                     </a>
                 </div>
