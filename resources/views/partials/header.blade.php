@@ -1,12 +1,11 @@
 <!-- HEADER -->
-<header class="min-h-screen flex items-center bg-gradient-to-r from-[#1E293B] via-[#334155] to-[#0F172A]">
+<header class="min-h-[-70vh] flex items-center bg-gradient-to-r from-[#1E293B] via-[#334155] to-[#0F172A]">
 
-    <div class="max-w-7xl mx-auto px-5 py-16 md:py-20 grid md:grid-cols-2 gap-8 items-center scale-[.8] origin-top">
+    <div class="max-w-7xl mx-auto px-5 py-16 md:py-20 grid md:grid-cols-2 gap-8 items-center">
         <div>
-            <h1 class="text-5xl md:text-7xl lg:text-8xl text-white font-extrabold leading-tight">
+            <h1 class="text-4xl md:text-5xl font-extrabold leading-snug text-white">
                 THE 13TH ICOICT
-                <span
-                    class="font-extrabold tracking-wide bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
+                <span class="bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
                     2025
                 </span>
             </h1>

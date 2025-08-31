@@ -5,7 +5,7 @@
 @section('content')
 <!-- SPEAKERS -->
 <section class="max-w-5xl mx-auto my-12 px-6">
-    <h3 class="text-center text-2xl font-bold mb-10">TUTORIAL SPEAKERS
+    <h3 class="text-center text-3xl font-bold mb-10">TUTORIAL SPEAKERS
         <!-- Garis bawah -->
         <span class="block h-1 w-40 mx-auto mt-2 bg-gradient-to-r from-green-500 to-blue-500"></span>
     </h3>
