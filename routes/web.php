@@ -13,3 +13,7 @@ Route::get('/author', function () {
 Route::get('/callpaper', function () {
     return view('callpaper');
 });
+
+Route::get('/speakers', function () {
+    return view('speakers');
+});
