@@ -27,7 +27,7 @@ Route::get('/keynote-speaker', function () {
 });
 
 // Route untuk halaman Steering Committees
-Route::get('/steering-committes', function () {
+Route::get('/steering-committees', function () {
     return view('SteeringCommittes');
 })->name('steering.committes');
 
@@ -37,6 +37,6 @@ Route::get('/TPC', function () {
 })->name('Technical.ProgramCommittee');
 
 // Route untuk halaman Steering Committees
-Route::get('/organizing-commiting', function () {
+Route::get('/organizing-committee', function () {
     return view('OrganizingCommittee');
 })->name('Organizing.Commiting');
