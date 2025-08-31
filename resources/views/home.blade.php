@@ -165,28 +165,28 @@
                         <!-- Box 1 -->
                         <div
                             class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
-                            <div class="text-5xl font-extrabold text-white">24</div>
+                            <div class="text-5xl font-bold text-white">24</div>
                             <div class="text-sm tracking-wider text-slate-200 mt-1">DAYS</div>
                         </div>
 
                         <!-- Box 2 -->
                         <div
                             class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
-                            <div class="text-5xl font-extrabold text-white">14</div>
+                            <div class="text-5xl font-bold text-white">14</div>
                             <div class="text-sm tracking-wider text-slate-200 mt-1">HOURS</div>
                         </div>
 
                         <!-- Box 3 -->
                         <div
                             class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
-                            <div class="text-5xl font-extrabold text-white">5</div>
+                            <div class="text-5xl font-bold text-white">5</div>
                             <div class="text-sm tracking-wider text-slate-200 mt-1">MINUTES</div>
                         </div>
 
                         <!-- Box 4 -->
                         <div
                             class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
-                            <div class="text-5xl font-extrabold text-white">40</div>
+                            <div class="text-5xl font-bold text-white">40</div>
                             <div class="text-sm tracking-wider text-slate-200 mt-1">SECONDS</div>
                         </div>
 
