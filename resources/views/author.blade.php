@@ -1,39 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ICOICT 2025</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+@section('title', 'Keynote Speakers - ICOICT 2025')
 
-<body class="bg-[#0b0f14] text-slate-100 antialiased">
-
-    <!-- Topbar / Navbar -->
-    <nav class="bg-[#1a1f27]/95 backdrop-blur supports-backdrop-blur sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
-            <!-- Logo text gradient -->
-            <a href="/"
-                class="text-2xl font-extrabold tracking-wide bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
-                ICOICT 2025
-            </a>
-            <div class="hidden md:flex items-center gap-8 font-semibold text-slate-200">
-                <a href="#" class="hover:text-[#9ae6b4]">Call for Papers</a>
-                <a href="#" class="hover:text-[#9ae6b4]">Speakers</a>
-                <a href="#" class="hover:text-[#9ae6b4]">Committees</a>
-                <a href="#" class="hover:text-[#9ae6b4]">Events</a>
-                <a href="#" class="hover:text-[#9ae6b4]">For Authors</a>
-            </div>
-        </div>
-    </nav>
-
+@section('content')
     <!-- HERO -->
     <header class="min-h-screen flex items-center bg-gradient-to-r from-[#1E293B] via-[#334155] to-[#0F172A]">
 
-        <div class="max-w-7xl mx-auto px-5 py-16 md:py-20 grid md:grid-cols-2 gap-8 items-center">
+        <div class="max-w-7xl mx-auto px-5 py-16 md:py-20 grid md:grid-cols-2 gap-8 items-center scale-[.8] origin-top">
             <div>
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-tight">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl text-white font-extrabold leading-tight">
                     THE 13TH ICOICT
                     <span
                         class="font-extrabold tracking-wide bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
@@ -47,11 +22,11 @@
 
                 <div class="mt-6 flex items-center gap-3">
                     <a href="#" class="inline-flex items-center gap-2 bg-slate-800/70 hover:bg-slate-700 text-white 
-           text-lg px-7 py-3 rounded-full shadow-lg">
+            text-lg px-7 py-3 rounded-full shadow-lg">
                         Register Now
                     </a>
                     <a href="#" class="inline-flex items-center gap-2 bg-[#25d366] hover:bg-[#1fb857] 
-           text-black font-semibold text-lg px-7 py-3 rounded-full shadow-lg">
+            text-black font-semibold text-lg px-7 py-3 rounded-full shadow-lg">
                         Submit Your Paper
                     </a>
 
@@ -79,7 +54,7 @@
                 <p class="text-lg text-slate-200 mb-3">Bandung (Hybrid), 30–31 July 2025</p>
                 <div class="flex gap-4 bg-slate-900/40 ring-1 ring-white/10 shadow-2xl px-9 py-7 rounded-2xl">
                     @foreach (['DAYS'=>24,'HOURS'=>14,'MINUTES'=>5,'SECONDS'=>40] as $label=>$val)
-                    <div class="min-w-[95px] text-center">
+                    <div class="min-w-[95px] text-center text-white">
                         <div class="text-5xl font-bold">{{ $val }}</div>
                         <div class="text-[11px] tracking-wider text-slate-300">{{ $label }}</div>
                     </div>
@@ -115,7 +90,7 @@
             </div>
 
             <!-- Intro Paragraph -->
-            <div class="mt-6 space-y-4 text-black leading-relaxed">
+            <div class="mt-6 space-y-4 text-black leading-relaxed text-justify">
                 <p>
                     Prospective authors are invited to submit full papers with maximum of 6 pages (including tables,
                     figures and references) in standard IEEE double-column format; Extra fee for more pages. Our
@@ -133,7 +108,7 @@
             </div>
 
             <!-- Card Section -->
-            <div class="bg-gray-100 rounded-xl p-6 text-center shadow-lg border border-black">
+            <div class="mt-6 bg-gray-100 rounded-xl p-6 shadow-lg text-justify">
 
                 <!-- SELECTION PROCESS -->
                 <section>
@@ -155,7 +130,7 @@
 
                 <!-- PREPARATION OF CONTRIBUTIONS -->
                 <section>
-                    <h2 class="text-xl font-bold mb-3 text-black">PREPARATION OF CONTRIBUTIONS</h2>
+                    <h2 class="text-xl font-bold mb-3 mt-3 text-black">PREPARATION OF CONTRIBUTIONS</h2>
                     <p class="text-black leading-relaxed">
                         The manuscript template can be downloaded from:
                         <a href="https://www.ieee.org/conferences/publishing/templates.html"
@@ -164,7 +139,7 @@
                         </a>
                     </p>
                     <p class="text-black leading-relaxed mt-3">
-                        <span class="font-semibold">The submission of Camera-Ready Paper in Ms. Word or Zipped LaTex format (A4 size)
+                        <span class="font-semibold">The manuscript of Camera-Ready Paper in Ms. Word or Zipped LaTex format (A4 size)
                         is also needed as supplementary material at the Registration stage.</span>
                     </p>
                     <p class="text-black leading-relaxed mt-3">
@@ -177,7 +152,7 @@
 
                 <!-- NON-PRESENTED PAPER POLICY -->
                 <section>
-                    <h2 class="text-xl font-bold mb-3 text-black">NON-PRESENTED PAPER POLICY</h2>
+                    <h2 class="text-xl font-bold mb-3 mt-3 text-black">NON-PRESENTED PAPER POLICY</h2>
                     <p class="text-black leading-relaxed">
                         The committee reserves the right to exclude a paper from distribution after the conference if the
                         paper is not presented at the conference.
@@ -187,28 +162,4 @@
             </div>
         </div>
     </main>
-
-    <!-- Footer (3 columns) -->
-    <footer class="mt-10 bg-gradient-to-br from-[#0f172a] to-[#1f2937]">
-        <div class="max-w-7xl mx-auto px-5 py-10 grid md:grid-cols-3 gap-6">
-            <div class="rounded-xl bg-slate-900/40 ring-1 ring-white/10 p-6 text-center">
-                <div class="font-extrabold mb-2">ICoICT 2025 Organized By :</div>
-                <div class="text-slate-200">Telkom University Indonesia</div>
-                <div class="mt-2 text-slate-300 text-sm">Co – Hosts :<br />Multimedia University Malaysia</div>
-            </div>
-
-            <div class="rounded-xl bg-slate-900/40 ring-1 ring-white/10 p-6 text-center">
-                <div class="font-extrabold mb-2">Sponsored By :</div>
-                <div class="text-slate-200">IEEE Indonesia Section</div>
-            </div>
-
-            <div class="rounded-xl bg-slate-900/40 ring-1 ring-white/10 p-6 text-center">
-                <div class="font-extrabold mb-2">Visitors</div>
-                <div class="text-slate-300 text-sm">[Flag counter / analytics placeholder]</div>
-            </div>
-        </div>
-    </footer>
-
-</body>
-
-</html>
+@endsection
