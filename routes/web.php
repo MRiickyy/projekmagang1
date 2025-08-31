@@ -14,6 +14,14 @@ Route::get('/callpaper', function () {
     return view('callpaper');
 });
 
+Route::get('/tutorial-speaker', function () {
+    return view('tutorialspeaker');
+});
+
+Route::get('/keynote-speaker', function () {
+    return view('keynotespeaker');
+});
+
 // Route untuk halaman Steering Committees
 Route::get('/steering-committes', function () {
     return view('SteeringCommittes');
