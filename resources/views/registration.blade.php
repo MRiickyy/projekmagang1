@@ -89,6 +89,72 @@
                 </a>
             </div>
 
+            <!-- Pricing Table -->
+            <div class="overflow-x-auto">
+                <div class="overflow-hidden rounded-lg shadow-md border border-gray-200 mt-6">
+                    <table class="w-full text-center">
+                        <thead class="bg-gray-100">
+                        <tr>
+                            <th class="border border-gray-200 px-4 py-3 text-left">Category</th>
+                            <th colspan="2" class="border border-gray-200 px-4 py-3">Physical Mode</th>
+                            <th colspan="2" class="border border-gray-200 px-4 py-3">Online Mode</th>
+                        </tr>
+                        <tr>
+                            <th class="border border-gray-200 px-4 py-2"></th>
+                            <th class="border border-gray-200 px-4 py-2">USD</th>
+                            <th class="border border-gray-200 px-4 py-2">IDR</th>
+                            <th class="border border-gray-200 px-4 py-2">USD</th>
+                            <th class="border border-gray-200 px-4 py-2">IDR</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="odd:bg-white even:bg-gray-50">
+                            <td class="border border-gray-200 px-4 py-2 text-left">IEEE Member</td>
+                            <td class="border border-gray-200 px-4 py-2">400</td>
+                            <td class="border border-gray-200 px-4 py-2">4,700,000</td>
+                            <td class="border border-gray-200 px-4 py-2">300</td>
+                            <td class="border border-gray-200 px-4 py-2">4,000,000</td>
+                        </tr>
+                        <tr class="odd:bg-white even:bg-gray-50">
+                            <td class="border border-gray-200 px-4 py-2 text-left">Non-IEEE Member</td>
+                            <td class="border border-gray-200 px-4 py-2">450</td>
+                            <td class="border border-gray-200 px-4 py-2">5,700,000</td>
+                            <td class="border border-gray-200 px-4 py-2">350</td>
+                            <td class="border border-gray-200 px-4 py-2">5,000,000</td>
+                        </tr>
+                        <tr class="odd:bg-white even:bg-gray-50">
+                            <td class="border border-gray-200 px-4 py-2 text-left">Student IEEE Member</td>
+                            <td class="border border-gray-200 px-4 py-2">300</td>
+                            <td class="border border-gray-200 px-4 py-2">4,000,000</td>
+                            <td class="border border-gray-200 px-4 py-2">250</td>
+                            <td class="border border-gray-200 px-4 py-2">3,000,000</td>
+                        </tr>
+                        <tr class="odd:bg-white even:bg-gray-50">
+                            <td class="border border-gray-200 px-4 py-2 text-left">Student Non-IEEE Member</td>
+                            <td class="border border-gray-200 px-4 py-2">330</td>
+                            <td class="border border-gray-200 px-4 py-2">4,500,000</td>
+                            <td class="border border-gray-200 px-4 py-2">280</td>
+                            <td class="border border-gray-200 px-4 py-2">3,500,000</td>
+                        </tr>
+                        <tr class="odd:bg-white even:bg-gray-50">
+                            <td class="border border-gray-200 px-4 py-2 text-left">Non-Presenter</td>
+                            <td class="border border-gray-200 px-4 py-2">150</td>
+                            <td class="border border-gray-200 px-4 py-2">1,500,000</td>
+                            <td class="border border-gray-200 px-4 py-2">50</td>
+                            <td class="border border-gray-200 px-4 py-2">800,000</td>
+                        </tr>
+                        <tr class="odd:bg-white even:bg-gray-50">
+                            <td class="border border-gray-200 px-4 py-2 text-left">Additional Page (fee for 1 page)</td>
+                            <td class="border border-gray-200 px-4 py-2">40</td>
+                            <td class="border border-gray-200 px-4 py-2">600,000</td>
+                            <td class="border border-gray-200 px-4 py-2">40</td>
+                            <td class="border border-gray-200 px-4 py-2">600,000</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>    
+            </div>
+
             <!-- Notes Section -->
             <div class="mt-6 bg-gray-100 rounded-xl p-6 shadow-lg">
                 <h2 class="text-lg font-semibold mb-3">Notes:</h2>
@@ -106,7 +172,7 @@
 
             <!-- Payment Methods -->
             <div class="mt-6 space-y-4 text-black leading-relaxed">
-                <h1 class="text-3xl font-bold mb-3 text-center text-[#1a1f27]/95">Payment Methods</h2>
+                <h1 class="text-3xl font-bold mb-6 text-center text-[#1a1f27]/95">Payment Methods</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                 <!-- Virtual Account -->
