@@ -131,7 +131,7 @@
            text-lg px-7 py-3 rounded-full shadow-lg">
                         Register Now
                     </a>
-                    <a href="#" class="inline-flex items-center gap-2 bg-[#25d366] hover:bg-[#1fb857] 
+                    <a href="#" class="inline-flex items-center gap-2 bg-[#47BA77] hover:bg-[#1fb857] 
            text-black font-semibold text-lg px-7 py-3 rounded-full shadow-lg">
                         Submit Your Paper
                     </a>
@@ -198,18 +198,22 @@
 
 
     <!-- Banner image + red pill headline -->
-    <section class="bg-[#0b0f14]">
+    <section class="bg-white">
         <div class="max-w-7xl mx-auto px-5">
+            <!-- Banner -->
             <img src="{{ asset('images/telkom.jpg') }}" alt="city"
                 class="w-screen h-64 md:h-80 object-cover rounded-sm">
-            <div class="flex items-center justify-between gap-6 -mt-10 md:-mt-12">
-                <div class="bg-[#df3a3a] text-white text-sm md:text-base px-6 py-3 rounded-full shadow-lg">
+
+            <<div class="flex items-center justify-between gap-6 -mt-10 md:-mt-12">
+                <div class="bg-[#df3a3a] text-white text-base md:text-lg px-8 py-4 rounded-full shadow-lg flex-grow">
                     Driving a Sustainable Future with AI, IoT, and Data Science Technologies
                 </div>
                 <img src="{{ asset('images/logo.png') }}" class="h-10 md:h-12" alt="logo">
-            </div>
+        </div>
+
         </div>
     </section>
+
 
     <!-- Welcome -->
     <section class="bg-[#FFFFFF] text-slate-700">
@@ -268,9 +272,6 @@
     </section>
 
 
-
-
-
     <!-- Important Dates -->
     <section class="bg-white text-slate-700">
         <div class="max-w-7xl mx-auto px-5 py-10">
@@ -312,65 +313,67 @@
     <section class="bg-white">
         <div
             class="max-w-7xl mx-auto px-5 pt-4 background: linear-gradient(90deg, #1E293B 0%, #1A202C 0%, #212C40 30%, #334155 55%, #0F172A 100%);">
-            <div class="text-center mb-6 p-6 rounded-2xl bg-[#2A394E]">
-                <div
-                    class="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
-                    Don't miss it!
+            <<div class="text-center mb-6 p-6 rounded-2xl bg-[#2A394E]">
+                <div class="text-2xl md:text-3xl font-extrabold">
+                    <span
+                        class="bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
+                        Don't miss it!
+                    </span>
                 </div>
                 <a href="#"
-                    class="inline-flex items-center gap-2 mt-3 bg-[#25d366] hover:bg-[#1fb857] text-black font-semibold px-5 py-2 rounded-full">
+                    class="inline-flex items-center gap-2 mt-3 bg-[#47BA77] hover:bg-[#1fb857] text-black font-semibold px-5 py-2 rounded-full">
                     Submit Your Paper
                 </a>
+        </div>
+
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="rounded-2xl bg-gradient-to-br from-[#0f172a] to-[#1f2937] p-6 shadow-lg">
+                <div class="text-xl font-extrabold tracking-wide">KEYNOTE SPEAKERS</div>
+                <p class="mt-3 text-slate-300">
+                    Distinguished experts are invited to deliver a speech to elevate and inspire the audience
+                    about
+                    the broader frame
+                    of current technology developments, especially related to the event's theme.
+                </p>
+                <a href="/keynote-speaker" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
+                    Read More <span aria-hidden="true">›</span>
+                </a>
             </div>
-
-
-
-
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="rounded-2xl bg-gradient-to-br from-[#0f172a] to-[#1f2937] p-6 shadow-lg">
-                    <div class="text-xl font-extrabold tracking-wide">KEYNOTE SPEAKERS</div>
-                    <p class="mt-3 text-slate-300">
-                        Distinguished experts are invited to deliver a speech to elevate and inspire the audience
-                        about
-                        the broader frame
-                        of current technology developments, especially related to the event's theme.
-                    </p>
-                    <a href="/keynote-speaker" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
-                        Read More <span aria-hidden="true">›</span>
-                    </a>
-                </div>
-                <div class="rounded-2xl bg-gradient-to-br from-[#0f172a] to-[#1f2937] p-6 shadow-lg">
-                    <div class="text-xl font-extrabold tracking-wide">TUTORIAL SPEAKERS</div>
-                    <p class="mt-3 text-slate-300">
-                        Renowned subject-matter experts are invited to conduct interactive sessions that provide
-                        in-depth knowledge and practical guidance on specific topics.
-                    </p>
-                    <a href="/tutorial-speaker"
-                        class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
-                        Read More <span aria-hidden="true">›</span>
-                    </a>
-                </div>
+            <div class="rounded-2xl bg-gradient-to-br from-[#0f172a] to-[#1f2937] p-6 shadow-lg">
+                <div class="text-xl font-extrabold tracking-wide">TUTORIAL SPEAKERS</div>
+                <p class="mt-3 text-slate-300">
+                    Renowned subject-matter experts are invited to conduct interactive sessions that provide
+                    in-depth knowledge and practical guidance on specific topics.
+                </p>
+                <a href="/tutorial-speaker" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
+                    Read More <span aria-hidden="true">›</span>
+                </a>
             </div>
+        </div>
         </div>
     </section>
 
     <!-- Footer (3 columns) -->
     <footer class="mt-10 bg-gradient-to-br from-[#0f172a] to-[#1f2937]">
         <div class="max-w-7xl mx-auto px-5 py-10 grid md:grid-cols-3 gap-6">
-            <div class="rounded-xl bg-slate-900/40 ring-1 ring-white/10 p-6 text-center">
-                <div class="font-extrabold mb-2">ICoICT 2025 Organized By :</div>
-                <div class="text-slate-200">Telkom University Indonesia</div>
-                <div class="mt-2 text-slate-300 text-sm">Co – Hosts :<br />Multimedia University Malaysia</div>
+            <div class="rounded-xl bg-[#F2F6F9] ring-1 ring-white/10 p-6 text-center">
+                <div class="text-slate-700 font-extrabold mb-2">ICoICT 2025 Organized By :</div>
+                <div class="text-slate-700">Telkom University Indonesia</div>
+                <img src="{{ asset('images/logoTelkom.png') }}" class="h-8 md:h-8 mx-auto mt-4" alt="logoTelkom">
+                <div class="mt-4 text-slate-700 text-sm">Co – Hosts :<br />Multimedia University Malaysia</div>
+                <img src="{{ asset('images/logoMMU.png') }}" class="h-6 md:h-8 mx-auto mt-4" alt="logoMMU">
             </div>
 
-            <div class="rounded-xl bg-slate-900/40 ring-1 ring-white/10 p-6 text-center">
-                <div class="font-extrabold mb-2">Sponsored By :</div>
-                <div class="text-slate-200">IEEE Indonesia Section</div>
+            <div class="rounded-xl bg-[#F2F6F9] ring-1 ring-white/10 p-6 text-center">
+                <div class="text-slate-700 font-extrabold mb-2">Sponsored By :</div>
+                <div class="text-slate-700">IEEE Indonesia Section</div>
+                <img src="{{ asset('images/logoIEEE.png') }}" class="h-8 md:h-12 mx-auto" alt="logoIEEE">
             </div>
 
-            <div class="rounded-xl bg-slate-900/40 ring-1 ring-white/10 p-6 text-center">
-                <div class="font-extrabold mb-2">Visitors</div>
-                <div class="text-slate-300 text-sm">[Flag counter / analytics placeholder]</div>
+            <div class="rounded-xl bg-[#F2F6F9] ring-1 ring-white/10 p-6 text-center">
+                <div class="text-slate-700 font-extrabold mb-2">Visitors</div>
+                <img src="{{ asset('images/benderaVisitor.png') }}" class="h-25 md:h-25 mx-auto" alt="benderaVisitor">
             </div>
         </div>
     </footer>
