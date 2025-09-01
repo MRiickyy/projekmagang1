@@ -26,6 +26,10 @@ Route::get('/keynote-speaker', function () {
     return view('keynotespeaker');
 });
 
+Route::get('contact', function () {
+    return view('contact');
+});
+
 // Route untuk halaman Steering Committees
 Route::get('/steering-committees', function () {
     return view('SteeringCommittes');
