@@ -19,7 +19,7 @@
            text-lg px-7 py-3 rounded-full shadow-lg">
                     Register Now
                 </a>
-                <a href="#" class="inline-flex items-center gap-2 bg-[#25d366] hover:bg-[#1fb857] 
+                <a href="#" class="inline-flex items-center gap-2 bg-[#47BA77] hover:bg-[#1fb857] 
            text-black font-semibold text-lg px-7 py-3 rounded-full shadow-lg">
                     Submit Your Paper
                 </a>
@@ -41,14 +41,14 @@
                 </svg>
                 <svg class="h-9 w-9" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M10 15l5.19-3L10 9v6z" />
-                    <path
-                        d="M21 7a2 2 0 00-2-2H5C3.9 5 3 5.9 3 7v10a2 2 0 002 2h14a2 2 0 002-2V7zM5 17V7h14v10H5z" />
+                    <path d="M21 7a2 2 0 00-2-2H5C3.9 5 3 5.9 3 7v10a2 2 0 002 2h14a2 2 0 002-2V7zM5 17V7h14v10H5z" />
                 </svg>
             </div>
             <p class="text-lg text-slate-200 mb-3">Bandung (Hybrid), 30–31 July 2025</p>
             <div class="flex gap-6 p-6 rounded-3xl shadow-2xl bg-gradient-to-br from-[#2B3545] to-[#3B4A60]">
                 @foreach (['DAYS'=>24,'HOURS'=>14,'MINUTES'=>5,'SECONDS'=>40] as $label=>$val)
-                <div class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75] text-center text-white">
+                <div
+                    class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75] text-center text-white">
                     <div class="text-5xl font-bold">{{ $val }}</div>
                     <div class="text-[11px] tracking-wider text-slate-300">{{ $label }}</div>
                 </div>
