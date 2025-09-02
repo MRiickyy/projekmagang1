@@ -6,7 +6,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/author', function () {
+Route::get('/author-information', function () {
     return view('author'); // ini yang penting
 });
 
@@ -14,19 +14,19 @@ Route::get('/registration', function () {
     return view('registration'); // ini yang penting
 });
 
-Route::get('/callpaper', function () {
+Route::get('/call-for-papers', function () {
     return view('callpaper');
 });
 
-Route::get('/tutorial-speaker', function () {
+Route::get('/tutorial-speakers-2025', function () {
     return view('tutorialspeaker');
 });
 
-Route::get('/keynote-speaker', function () {
+Route::get('/keynote-speakers-2025', function () {
     return view('keynotespeaker');
 });
 
-Route::get('contact', function () {
+Route::get('contacts', function () {
     return view('contact');
 });
 
@@ -36,11 +36,11 @@ Route::get('/steering-committees', function () {
 })->name('steering.committes');
 
 // Route untuk halaman Steering Committees
-Route::get('/TPC', function () {
+Route::get('/technical-program-committees', function () {
     return view('TechnicalProgramCommittee');
 })->name('Technical.ProgramCommittee');
 
 // Route untuk halaman Steering Committees
-Route::get('/organizing-committee', function () {
+Route::get('/organizing-committe', function () {
     return view('OrganizingCommittee');
 })->name('Organizing.Commiting');
