@@ -18,16 +18,16 @@ Route::get('/callpaper', function () {
     return view('callpaper');
 });
 
-Route::get('/tutorialspeaker', function () {
+Route::get('/tutorial-speakers-2025', function () {
     return view('tutorialspeaker');
 });
 
-Route::get('/keynotespeaker', function () {
+Route::get('/keynote-speakers-2025', function () {
     return view('keynotespeaker');
 });
 
-Route::get('/contact', function () {
-    return view('contact');
+Route::get('/contacts', function () {
+    return view('contacts');
 });
 
 Route::get('/detailspeakerK', function () {
