@@ -26,7 +26,7 @@ Route::get('/keynote-speakers-2025', function () {
     return view('keynotespeaker');
 });
 
-Route::get('/contacts', function () {
+Route::get('contacts', function () {
     return view('contact');
 });
 
