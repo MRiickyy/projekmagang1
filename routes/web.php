@@ -27,7 +27,7 @@ Route::get('/keynote-speakers-2025', function () {
 });
 
 Route::get('/contacts', function () {
-    return view('contacts');
+    return view('contact');
 });
 
 Route::get('/detailspeakerK', function () {
