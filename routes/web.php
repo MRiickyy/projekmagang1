@@ -18,11 +18,11 @@ Route::get('/callpaper', function () {
     return view('callpaper');
 });
 
-Route::get('/tutorial-speaker', function () {
+Route::get('/tutorialspeaker', function () {
     return view('tutorialspeaker');
 });
 
-Route::get('/keynote-speaker', function () {
+Route::get('/keynotespeaker', function () {
     return view('keynotespeaker');
 });
 
