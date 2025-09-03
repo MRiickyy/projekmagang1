@@ -4,14 +4,14 @@
 
 @section('content')
 <!-- SPEAKERS -->
-<section class="max-w-5xl mx-auto my-12 px-6">
+<section class="max-w-7xl mx-auto my-12 px-5">
     <h3 class="text-center text-3xl font-bold mb-10">TUTORIAL SPEAKERS
         <!-- Garis bawah -->
         <span class="block h-1 w-40 mx-auto mt-2 bg-gradient-to-r from-green-500 to-blue-500"></span>
     </h3>
 
     <!-- CARD -->
-    <div class="bg-gray-100 rounded-lg shadow-md flex items-start mb-6 overflow-hidden">
+    <div class="bg-gray-100 rounded-lg shadow-md flex items-center mb-6 overflow-hidden">
         <img src="https://2025.icoict.org/wp-content/uploads/sites/13/2024/11/Eisuke-Kita-1.png" alt="Prof. Eisuke Kita"
             class="w-40 h-40 object-cover rounded-xl m-4">
         <div class="flex flex-col justify-between p-4 flex-1">
@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </div>
-            <a href="#"
+            <a href="detailspeakerT"
                 class="self-end bg-[#0a2a43] hover:bg-[#103d60] text-white px-5 py-2 rounded-full text-sm flex items-center gap-2">
                 Read More
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
@@ -48,7 +48,7 @@
     </div>
 
     <!-- COPY CARD -->
-    <div class="bg-gray-100 rounded-lg shadow-md flex items-start mb-6 overflow-hidden">
+    <div class="bg-gray-100 rounded-lg shadow-md flex items-center mb-6 overflow-hidden">
         <img src="https://2025.icoict.org/wp-content/uploads/sites/13/2024/11/Eisuke-Kita-1.png" alt="Speaker 2"
             class="w-40 h-40 object-cover rounded-xl m-4">
         <div class="flex flex-col justify-between p-4 flex-1">
@@ -73,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <a href="#"
+            <a href="detailspeakerT"
                 class="self-end bg-[#0a2a43] hover:bg-[#103d60] text-white px-5 py-2 rounded-full text-sm flex items-center gap-2">
                 Read More
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"

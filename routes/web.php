@@ -30,6 +30,14 @@ Route::get('contacts', function () {
     return view('contact');
 });
 
+Route::get('/detailspeakerK', function () {
+    return view('detailspeakerK');
+});
+
+Route::get('/detailspeakerT', function () {
+    return view('detailspeakerT');
+});
+
 // Route untuk halaman Steering Committees
 Route::get('/steering-committees', function () {
     return view('SteeringCommittes');
