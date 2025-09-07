@@ -30,3 +30,7 @@ Route::get('/keynote-speaker', function () {
 Route::get('/steering-committes', function () {
     return view('SteeringCommittes');
 })->name('steering.committes');
+
+Route::get('/login', function () {
+    return view('login');
+});
