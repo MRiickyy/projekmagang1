@@ -9,7 +9,7 @@
 
         <!-- Menu -->
         <div class="hidden md:flex items-center gap-8 font-semibold text-slate-200">
-            <a href="/callpaper" class="hover:text-[#9ae6b4]">Call for Papers</a>
+            <a href="/call-for-papers" class="hover:text-[#9ae6b4]">Call for Papers</a>
 
             <!-- Speakers dengan dropdown -->
             <div class="relative dropdown">
@@ -21,8 +21,8 @@
                 </button>
                 <div
                     class="dropdown-menu absolute left-0 mt-2 w-48 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
-                    <a href="/keynote-speaker" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Keynote Speakers</a>
-                    <a href="/tutorial-speaker" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Tutorial Speakers</a>
+                    <a href="/keynote-speakers-2025" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Keynote Speakers</a>
+                    <a href="/tutorial-speakers-2025" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Tutorial Speakers</a>
                 </div>
             </div>
 
@@ -52,9 +52,9 @@
                 </button>
                 <div
                     class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
-                    <a href="/author" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Author Information</a>
+                    <a href="/author-information" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Author Information</a>
                     <a href="/registration" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Registration</a>
-                    <a href="/contact" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Contacts</a>
+                    <a href="/contacts" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Contacts</a>
                 </div>
             </div>
 
