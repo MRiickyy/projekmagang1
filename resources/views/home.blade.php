@@ -8,25 +8,106 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-[#0b0f14] text-slate-100 antialiased">
+<body class="bg-white text-slate-100 antialiased">
 
     <!-- Topbar / Navbar -->
     <nav class="bg-[#1a1f27]/95 backdrop-blur supports-backdrop-blur sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
-            <!-- Logo text gradient -->
+            <!-- Logo -->
             <a href="/"
                 class="text-2xl font-extrabold tracking-wide bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
                 ICOICT 2025
             </a>
+
+            <!-- Menu -->
             <div class="hidden md:flex items-center gap-8 font-semibold text-slate-200">
-                <a href="#" class="hover:text-[#9ae6b4]">Call for Papers</a>
-                <a href="#" class="hover:text-[#9ae6b4]">Speakers</a>
-                <a href="#" class="hover:text-[#9ae6b4]">Committees</a>
+                <a href="/call-for-papers" class="hover:text-[#9ae6b4]">Call for Papers</a>
+
+                <!-- Speakers dengan dropdown -->
+                <div class="relative dropdown">
+                    <button class="dropdown-btn flex items-center gap-1 hover:text-[#9ae6b4]">
+                        Speakers
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div
+                        class="dropdown-menu absolute left-0 mt-2 w-48 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
+                        <a href="/keynote-speakers-2025" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Keynote
+                            Speakers</a>
+                        <a href="/tutorial-speakers-2025" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Tutorial
+                            Speakers</a>
+                    </div>
+                </div>
+
+                <!-- Committees dengan dropdown -->
+                <div class="relative dropdown">
+                    <button class="dropdown-btn flex items-center gap-1 hover:text-[#9ae6b4]">
+                        Committees
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div
+                        class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
+                        <a href="/steering-committees" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Steering
+                            Committees</a>
+                        <a href="/technical-program-committees" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Technical
+                            Program Committees</a>
+                        <a href="/organizing-committe" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Organizing
+                            Committees</a>
+                    </div>
+                </div>
+
+                <!-- For Authors dengan dropdown -->
+                <div class="relative dropdown">
+                    <button class="dropdown-btn flex items-center gap-1 hover:text-[#9ae6b4]">
+                        For Authors
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div
+                        class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
+                        <a href="/author-information" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Author Information</a>
+                        <a href="/registration" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Registration</a>
+                        <a href="/contacts" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Contacts</a>
+                    </div>
+                </div>
+
                 <a href="#" class="hover:text-[#9ae6b4]">Events</a>
-                <a href="#" class="hover:text-[#9ae6b4]">For Authors</a>
             </div>
         </div>
     </nav>
+
+    <!-- Script Dropdown -->
+    <script>
+    const dropdowns = document.querySelectorAll(".dropdown");
+
+    dropdowns.forEach(dropdown => {
+        const btn = dropdown.querySelector(".dropdown-btn");
+        const menu = dropdown.querySelector(".dropdown-menu");
+
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+
+            // Tutup semua dropdown lain dulu
+            dropdowns.forEach(d => {
+                if (d !== dropdown) {
+                    d.querySelector(".dropdown-menu").classList.add("hidden");
+                }
+            });
+
+            // Toggle dropdown yang diklik
+            menu.classList.toggle("hidden");
+        });
+    });
+
+    // Klik di luar semua dropdown → tutup semuanya
+    document.addEventListener("click", () => {
+        dropdowns.forEach(d => d.querySelector(".dropdown-menu").classList.add("hidden"));
+    });
+    </script>
 
     <!-- HERO -->
     <header class="min-h-screen flex items-center bg-gradient-to-r from-[#1E293B] via-[#334155] to-[#0F172A]">
@@ -50,7 +131,7 @@
            text-lg px-7 py-3 rounded-full shadow-lg">
                         Register Now
                     </a>
-                    <a href="#" class="inline-flex items-center gap-2 bg-[#25d366] hover:bg-[#1fb857] 
+                    <a href="#" class="inline-flex items-center gap-2 bg-[#47BA77] hover:bg-[#1fb857] 
            text-black font-semibold text-lg px-7 py-3 rounded-full shadow-lg">
                         Submit Your Paper
                     </a>
@@ -77,13 +158,39 @@
                     </svg>
                 </div>
                 <p class="text-lg text-slate-200 mb-3">Bandung (Hybrid), 30–31 July 2025</p>
-                <div class="flex gap-4 bg-slate-900/40 ring-1 ring-white/10 shadow-2xl px-9 py-7 rounded-2xl">
-                    @foreach (['DAYS'=>24,'HOURS'=>14,'MINUTES'=>5,'SECONDS'=>40] as $label=>$val)
-                    <div class="min-w-[95px] text-center">
-                        <div class="text-5xl font-bold">{{ $val }}</div>
-                        <div class="text-[11px] tracking-wider text-slate-300">{{ $label }}</div>
+                <div class="flex justify-center">
+                    <!-- Box Luaran -->
+                    <div class="flex gap-6 p-6 rounded-3xl shadow-2xl bg-gradient-to-br from-[#2B3545] to-[#3B4A60]">
+
+                        <!-- Box 1 -->
+                        <div
+                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
+                            <div class="text-5xl font-bold text-white">24</div>
+                            <div class="text-sm tracking-wider text-slate-200 mt-1">DAYS</div>
+                        </div>
+
+                        <!-- Box 2 -->
+                        <div
+                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
+                            <div class="text-5xl font-bold text-white">14</div>
+                            <div class="text-sm tracking-wider text-slate-200 mt-1">HOURS</div>
+                        </div>
+
+                        <!-- Box 3 -->
+                        <div
+                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
+                            <div class="text-5xl font-bold text-white">5</div>
+                            <div class="text-sm tracking-wider text-slate-200 mt-1">MINUTES</div>
+                        </div>
+
+                        <!-- Box 4 -->
+                        <div
+                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
+                            <div class="text-5xl font-bold text-white">40</div>
+                            <div class="text-sm tracking-wider text-slate-200 mt-1">SECONDS</div>
+                        </div>
+
                     </div>
-                    @endforeach
                 </div>
             </div>
         </div>
@@ -91,23 +198,28 @@
 
 
     <!-- Banner image + red pill headline -->
-    <section class="bg-[#0b0f14]">
+    <section class="bg-white">
         <div class="max-w-7xl mx-auto px-5">
-            <img src="{{ asset('images/telkom.jpg') }}" alt="city" class="w-full h-64 md:h-80 object-cover rounded-sm">
-            <div class="flex items-center justify-between gap-6 -mt-10 md:-mt-12">
-                <div class="bg-[#df3a3a] text-white text-sm md:text-base px-6 py-3 rounded-full shadow-lg">
+            <!-- Banner -->
+            <img src="{{ asset('images/telkom.jpg') }}" alt="city"
+                class="w-screen h-64 md:h-80 object-cover rounded-sm">
+
+            <<div class="flex items-center justify-between gap-6 -mt-10 md:-mt-12">
+                <div class="bg-[#df3a3a] text-white text-base md:text-lg px-8 py-4 rounded-full shadow-lg flex-grow">
                     Driving a Sustainable Future with AI, IoT, and Data Science Technologies
                 </div>
                 <img src="{{ asset('images/logo.png') }}" class="h-10 md:h-12" alt="logo">
-            </div>
+        </div>
+
         </div>
     </section>
 
+
     <!-- Welcome -->
-    <section class="bg-[#0b0f14]">
+    <section class="bg-[#FFFFFF] text-slate-700">
         <div class="max-w-7xl mx-auto px-5 mt-8">
             <h3 class="text-xl md:text-2xl font-extrabold">Welcome to ICoICT 2025!</h3>
-            <p class="mt-4 text-slate-300 leading-relaxed">
+            <p class="mt-4 leading-relaxed">
                 We are thrilled to invite you to the International Conference on Information and Communication
                 Technology (ICoICT) 2025,
                 which will take place in a hybrid format, offering both onsite and online participation options. This
@@ -115,25 +227,22 @@
                 conference will be held from July 30–31, 2025, with our main venue located in Bandung, Indonesia.
             </p>
 
-            <div class="bg-slate-800/40 ring-1 ring-white/10 p-5 md:p-6 rounded-xl mt-6">
+            <div class="bg-[#F2F6F9] ring-1 ring-white/10 p-5 md:p-6 rounded-xl mt-6">
                 <p class="font-semibold mb-3">We welcome submissions of technical paper in the following tracks (but not
                     limited to):</p>
-                <ol class="list-decimal list-inside space-y-1 text-slate-200">
+                <ol class="list-decimal list-inside space-y-1">
                     <li>Artificial Intelligence and Machine Learning</li>
                     <li>Data Science and Its Implementations</li>
                     <li>IoT System and Infrastructure</li>
                     <li>Information Technology Applications</li>
                 </ol>
-                <p class="mt-4 text-slate-300 text-sm">
+                <p class="mt-4 text-sm">
                     Accepted and presented papers will be submitted for inclusion into the IEEE Xplore subject to
                     meeting IEEE’s scope and quality requirements.
                 </p>
             </div>
         </div>
-    </section>
 
-    <!-- Papers from previous -->
-    <section class="bg-[#0b0f14]">
         <div class="max-w-7xl mx-auto px-5 mt-10">
             <h3 class="text-xl md:text-2xl font-extrabold mb-4">
                 Papers from the previous ICoICT 2013 until 2024 have been published in IEEE Xplore and indexed in
@@ -142,9 +251,9 @@
 
             <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 @for ($y = 2013; $y <= 2024; $y++) <a href="#"
-                    class="block rounded-xl border border-slate-700/60 bg-slate-800/40 px-4 py-4 hover:bg-slate-700/40 transition shadow">
+                    class="block rounded-xl border border-slate-700/60 bg-[#F2F6F9] px-4 py-4 hover:bg-slate-700/40 transition shadow">
                     <div class="font-bold">ICoICT {{ $y }} :</div>
-                    <div class="text-slate-300 text-sm leading-5 break-words">
+                    <div class="text-slate-700 text-sm leading-5 break-words">
                         https://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=xxxxxxx
                     </div>
                     </a>
@@ -153,8 +262,8 @@
 
             <!-- ISBN -->
             <div class="mt-8">
-                <h4 class="font-extrabold text-slate-100">With ISBN Information:</h4>
-                <p class="mt-2 text-slate-300 text-sm">
+                <h4 class="font-extrabold text-slate-700">With ISBN Information:</h4>
+                <p class="mt-2 text-slate-700 text-sm">
                     Electronic ISBN: 978-1-6654-0447-1 <br />
                     USB ISBN: 978-1-6654-0446-4
                 </p>
@@ -162,13 +271,14 @@
         </div>
     </section>
 
+
     <!-- Important Dates -->
-    <section class="bg-white text-slate-900">
+    <section class="bg-white text-slate-700">
         <div class="max-w-7xl mx-auto px-5 py-10">
             <h3 class="text-xl md:text-2xl font-extrabold mb-4">Important Dates :</h3>
             <div class="grid md:grid-cols-2 gap-6">
                 <!-- Round 1 -->
-                <div class="bg-white rounded-xl shadow-md ring-1 ring-slate-200 p-6">
+                <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6">
                     <h5 class="text-center font-extrabold tracking-wide text-slate-700 mb-4">TIMELINE ROUND 1</h5>
                     <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-3">
                         <div class="text-[#df3a3a] font-bold">DECEMBER 31, 2024</div>
@@ -182,7 +292,7 @@
                     </div>
                 </div>
                 <!-- Round 2 -->
-                <div class="bg-white rounded-xl shadow-md ring-1 ring-slate-200 p-6">
+                <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6">
                     <h5 class="text-center font-extrabold tracking-wide text-slate-700 mb-4">TIMELINE ROUND 2</h5>
                     <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-3">
                         <div class="text-[#df3a3a] font-bold">APRIL 15, 2025</div>
@@ -200,59 +310,70 @@
     </section>
 
     <!-- Don't miss it + Speakers -->
-    <section class="bg-[#0b0f14]">
-        <div class="max-w-7xl mx-auto px-5 pt-4">
-            <div class="text-center mb-6">
-                <div class="text-2xl md:text-3xl font-extrabold text-[#27d399]">Don't miss it!</div>
+    <section class="bg-white">
+        <div
+            class="max-w-7xl mx-auto px-5 pt-4 background: linear-gradient(90deg, #1E293B 0%, #1A202C 0%, #212C40 30%, #334155 55%, #0F172A 100%);">
+            <<div class="text-center mb-6 p-6 rounded-2xl bg-[#2A394E]">
+                <div class="text-2xl md:text-3xl font-extrabold">
+                    <span
+                        class="bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
+                        Don't miss it!
+                    </span>
+                </div>
                 <a href="#"
-                    class="inline-flex items-center gap-2 mt-3 bg-[#25d366] hover:bg-[#1fb857] text-black font-semibold px-5 py-2 rounded-full">
+                    class="inline-flex items-center gap-2 mt-3 bg-[#47BA77] hover:bg-[#1fb857] text-black font-semibold px-5 py-2 rounded-full">
                     Submit Your Paper
                 </a>
-            </div>
+        </div>
 
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="rounded-2xl bg-gradient-to-br from-[#0f172a] to-[#1f2937] p-6 shadow-lg">
-                    <div class="text-xl font-extrabold tracking-wide">KEYNOTE SPEAKERS</div>
-                    <p class="mt-3 text-slate-300">
-                        Distinguished experts are invited to deliver a speech to elevate and inspire the audience about
-                        the broader frame
-                        of current technology developments, especially related to the event's theme.
-                    </p>
-                    <a href="/keynote-speaker" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
-                        Read More <span aria-hidden="true">›</span>
-                    </a>
-                </div>
-                <div class="rounded-2xl bg-gradient-to-br from-[#0f172a] to-[#1f2937] p-6 shadow-lg">
-                    <div class="text-xl font-extrabold tracking-wide">TUTORIAL SPEAKERS</div>
-                    <p class="mt-3 text-slate-300">
-                        Renowned subject-matter experts are invited to conduct interactive sessions that provide
-                        in-depth knowledge and practical guidance on specific topics.
-                    </p>
-                    <a href="/tutorial-speaker" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
-                        Read More <span aria-hidden="true">›</span>
-                    </a>
-                </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="rounded-2xl bg-gradient-to-br from-[#0f172a] to-[#1f2937] p-6 shadow-lg">
+                <div class="text-xl font-extrabold tracking-wide">KEYNOTE SPEAKERS</div>
+                <p class="mt-3 text-slate-300">
+                    Distinguished experts are invited to deliver a speech to elevate and inspire the audience
+                    about
+                    the broader frame
+                    of current technology developments, especially related to the event's theme.
+                </p>
+                <a href="/keynote-speaker" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
+                    Read More <span aria-hidden="true">›</span>
+                </a>
             </div>
+            <div class="rounded-2xl bg-gradient-to-br from-[#0f172a] to-[#1f2937] p-6 shadow-lg">
+                <div class="text-xl font-extrabold tracking-wide">TUTORIAL SPEAKERS</div>
+                <p class="mt-3 text-slate-300">
+                    Renowned subject-matter experts are invited to conduct interactive sessions that provide
+                    in-depth knowledge and practical guidance on specific topics.
+                </p>
+                <a href="/tutorial-speaker" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
+                    Read More <span aria-hidden="true">›</span>
+                </a>
+            </div>
+        </div>
         </div>
     </section>
 
     <!-- Footer (3 columns) -->
     <footer class="mt-10 bg-gradient-to-br from-[#0f172a] to-[#1f2937]">
         <div class="max-w-7xl mx-auto px-5 py-10 grid md:grid-cols-3 gap-6">
-            <div class="rounded-xl bg-slate-900/40 ring-1 ring-white/10 p-6 text-center">
-                <div class="font-extrabold mb-2">ICoICT 2025 Organized By :</div>
-                <div class="text-slate-200">Telkom University Indonesia</div>
-                <div class="mt-2 text-slate-300 text-sm">Co – Hosts :<br />Multimedia University Malaysia</div>
+            <div class="rounded-xl bg-[#F2F6F9] ring-1 ring-white/10 p-6 text-center">
+                <div class="text-slate-700 font-extrabold mb-2">ICoICT 2025 Organized By :</div>
+                <div class="text-slate-700">Telkom University Indonesia</div>
+                <img src="{{ asset('images/logoTelkom.png') }}" class="h-8 md:h-8 mx-auto mt-4" alt="logoTelkom">
+                <div class="mt-4 text-slate-700 text-sm">Co – Hosts :<br />Multimedia University Malaysia</div>
+                <img src="{{ asset('images/logoMMU.png') }}" class="h-6 md:h-8 mx-auto mt-4" alt="logoMMU">
             </div>
 
-            <div class="rounded-xl bg-slate-900/40 ring-1 ring-white/10 p-6 text-center">
-                <div class="font-extrabold mb-2">Sponsored By :</div>
-                <div class="text-slate-200">IEEE Indonesia Section</div>
+            <div class="rounded-xl bg-[#F2F6F9] ring-1 ring-white/10 p-6 text-center">
+                <div class="text-slate-700 font-extrabold mb-2">Sponsored By :</div>
+                <div class="text-slate-700">IEEE Indonesia Section</div>
+                <img src="{{ asset('images/logoIEEE.png') }}" class="h-8 md:h-12 mx-auto" alt="logoIEEE">
             </div>
 
-            <div class="rounded-xl bg-slate-900/40 ring-1 ring-white/10 p-6 text-center">
-                <div class="font-extrabold mb-2">Visitors</div>
-                <div class="text-slate-300 text-sm">[Flag counter / analytics placeholder]</div>
+            <div class="rounded-xl bg-[#F2F6F9] ring-1 ring-white/10 p-6 text-center">
+                <div class="text-slate-700 font-extrabold mb-2">Visitors</div>
+                <img src="{{ asset('images/benderaVisitor.png') }}" class="h-25 md:h-25 mx-auto" alt="benderaVisitor">
             </div>
         </div>
     </footer>

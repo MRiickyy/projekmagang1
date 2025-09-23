@@ -6,7 +6,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/author', function () {
+Route::get('/author-information', function () {
     return view('author'); // ini yang penting
 });
 
@@ -14,20 +14,32 @@ Route::get('/registration', function () {
     return view('registration'); // ini yang penting
 });
 
-Route::get('/callpaper', function () {
+Route::get('/call-for-papers', function () {
     return view('callpaper');
 });
 
-Route::get('/tutorial-speaker', function () {
+Route::get('/tutorial-speakers-2025', function () {
     return view('tutorialspeaker');
 });
 
-Route::get('/keynote-speaker', function () {
+Route::get('/keynote-speakers-2025', function () {
     return view('keynotespeaker');
 });
 
+Route::get('contacts', function () {
+    return view('contact');
+});
+
+Route::get('/detailspeakerK', function () {
+    return view('detailspeakerK');
+});
+
+Route::get('/detailspeakerT', function () {
+    return view('detailspeakerT');
+});
+
 // Route untuk halaman Steering Committees
-Route::get('/steering-committes', function () {
+Route::get('/steering-committees', function () {
     return view('SteeringCommittes');
 })->name('steering.committes');
 

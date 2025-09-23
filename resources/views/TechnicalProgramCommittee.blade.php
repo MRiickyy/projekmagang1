@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Steering Committees - ICOICT 2025')
+@section('title', 'Technical Program Committee - ICOICT 2025')
 
 @section('content')
 
@@ -9,14 +9,14 @@
     <div class="max-w-6xl mx-auto px-5">
 
         <!-- Title -->
-        <h3 class="text-center text-3xl font-bold mb-10">STREERING COMMITTEES
+        <h3 class="text-center text-3xl font-bold mb-10">TECHNICAL PROGRAM COMMMITTEES
             <!-- Garis bawah -->
             <span class="block h-1 w-40 mx-auto mt-2 bg-gradient-to-r from-green-500 to-blue-500"></span>
         </h3>
 
         <!-- Subtitle -->
         <div class="mt-8 bg-slate-600 text-white font-bold text-center py-3 px-6 rounded-xl shadow-md">
-            THE ICOICT 2026 STEERING COMMITTEES
+            THE ICOICT 2026 TECHNICAL PROGRAM COMMITTEES
         </div>
 
         <!-- Committees List -->
