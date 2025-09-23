@@ -47,12 +47,6 @@ Route::get('/login', function () {
     return view('login');
 });
 
-// Route untuk halaman Steering Committees
-Route::get('/technical-program-committees', function () {
-    return view('TechnicalProgramCommittee');
-})->name('Technical.ProgramCommittee');
-
-// Route untuk halaman Steering Committees
-Route::get('/organizing-committe', function () {
-    return view('OrganizingCommittee');
-})->name('Organizing.Commiting');
+Route::get('/newacc', function () {
+    return view('newacc');
+});
