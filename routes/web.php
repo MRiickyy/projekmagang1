@@ -34,3 +34,7 @@ Route::get('/steering-committes', function () {
 Route::get('/login', function () {
     return view('login');
 });
+
+Route::get('/newacc', function () {
+    return view('newacc');
+});
