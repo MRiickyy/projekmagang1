@@ -5,26 +5,23 @@
 @section('content')
 <!-- SPEAKERS -->
 <section class="max-w-7xl mx-auto my-12 px-5">
-    <h3 class="text-center text-3xl font-bold mb-10">
+    <!-- <h3 class="text-center text-3xl font-bold mb-10">
         KEYNOTE SPEAKER
         <span class="block h-1 w-40 mx-auto mt-2 bg-gradient-to-r from-green-500 to-blue-500"></span>
-    </h3>
+    </h3> -->
 
     <!-- CARD -->
     <div class="bg-gray-50 rounded-xl shadow-lg p-6 flex flex-col md:flex-row gap-6 items-center md:items-center">
         <!-- Image -->
-        <img src="https://2025.icoict.org/wp-content/uploads/sites/13/2024/11/Eisuke-Kita-1.png" alt="Prof. Eisuke Kita"
+        <img src="https://2025.icoict.org/wp-content/uploads/sites/13/2024/11/Eisuke-Kita-1.png" alt="{{ $speaker->name }}"
             class="w-40 h-40 object-cover rounded-lg">
 
         <div class="flex-1 space-y-4">
             <div>
-                <h4 class="text-xl font-bold">Prof. Eisuke Kita</h4>
-                <p class="text-red-600 font-semibold">Nagoya University</p>
+                <h4 class="text-xl font-bold">{{ $speaker->name }}</h4>
+                <p class="text-red-600 font-semibold">{{ $speaker->university }}</p>
                 <p class="text-gray-700 mt-2">
-                    Prof. Eisuke Kita (北 栄祐) is a dean and a professor at the Graduate School of Informatics
-                    of Nagoya University. He received his Doctor of Engineering degree from the Graduate School of
-                    Engineering of Nagoya University. His Research fields include mathematical model of vehicle
-                    platoon and traffic flow control.
+                    {{ $speaker->biodata }}
                 </p>
             </div>
 
