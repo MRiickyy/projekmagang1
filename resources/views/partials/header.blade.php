@@ -15,11 +15,11 @@
             </p>
 
             <div class="mt-6 flex items-center gap-3">
-                <a href="#" class="inline-flex items-center gap-2 bg-slate-800/70 hover:bg-slate-700 text-white 
+                <a href="/newacc" class="inline-flex items-center gap-2 bg-slate-800/70 hover:bg-slate-700 text-white 
            text-lg px-7 py-3 rounded-full shadow-lg">
                     Register Now
                 </a>
-                <a href="#" class="inline-flex items-center gap-2 bg-[#47BA77] hover:bg-[#1fb857] 
+                <a href="/login" class="inline-flex items-center gap-2 bg-[#47BA77] hover:bg-[#1fb857] 
            text-black font-semibold text-lg px-7 py-3 rounded-full shadow-lg">
                     Submit Your Paper
                 </a>

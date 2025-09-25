@@ -43,6 +43,14 @@ Route::get('/steering-committees', function () {
     return view('SteeringCommittes');
 })->name('steering.committes');
 
+Route::get('/technical-program-committees', function () {
+    return view('TechnicalProgramCommittee');
+});
+
+Route::get('/organizing-committe', function () {
+    return view('OrganizingCommittee');
+});
+
 Route::get('/login', function () {
     return view('login');
 });
