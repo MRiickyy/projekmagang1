@@ -840,7 +840,7 @@
       <!-- Back to Login Link -->
       <div class="mt-6 text-center">
         <p class="text-sm text-gray-600">
-          Already have an account? <a href="#" class="text-blue-700 hover:underline font-medium">Back to Login</a>
+          Already have an account? <a href="/login" class="text-blue-700 hover:underline font-medium">Back to Login</a>
         </p>
       </div>
 

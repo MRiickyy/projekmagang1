@@ -127,11 +127,11 @@
                 </p>
 
                 <div class="mt-6 flex items-center gap-3">
-                    <a href="#" class="inline-flex items-center gap-2 bg-slate-800/70 hover:bg-slate-700 text-white 
+                    <a href="/newacc" class="inline-flex items-center gap-2 bg-slate-800/70 hover:bg-slate-700 text-white 
            text-lg px-7 py-3 rounded-full shadow-lg">
                         Register Now
                     </a>
-                    <a href="#" class="inline-flex items-center gap-2 bg-[#47BA77] hover:bg-[#1fb857] 
+                    <a href="/login" class="inline-flex items-center gap-2 bg-[#47BA77] hover:bg-[#1fb857] 
            text-black font-semibold text-lg px-7 py-3 rounded-full shadow-lg">
                         Submit Your Paper
                     </a>
@@ -320,7 +320,7 @@
                         Don't miss it!
                     </span>
                 </div>
-                <a href="#"
+                <a href="/login"
                     class="inline-flex items-center gap-2 mt-3 bg-[#47BA77] hover:bg-[#1fb857] text-black font-semibold px-5 py-2 rounded-full">
                     Submit Your Paper
                 </a>
@@ -336,7 +336,7 @@
                     the broader frame
                     of current technology developments, especially related to the event's theme.
                 </p>
-                <a href="/keynote-speaker" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
+                <a href="/keynote-speakers-2025" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
                     Read More <span aria-hidden="true">›</span>
                 </a>
             </div>
@@ -346,7 +346,7 @@
                     Renowned subject-matter experts are invited to conduct interactive sessions that provide
                     in-depth knowledge and practical guidance on specific topics.
                 </p>
-                <a href="/tutorial-speaker" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
+                <a href="/tutorial-speakers-2025" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
                     Read More <span aria-hidden="true">›</span>
                 </a>
             </div>

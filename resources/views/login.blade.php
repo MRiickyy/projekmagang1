@@ -37,8 +37,8 @@
                 <a href="#" class="text-icoict-green hover:text-icoict-green-dark hover:underline">Reset</a>
             </p>
             <p class="text-sm mt-2">
-                Need an account? 
-                <a href="#" class="text-icoict-green hover:text-icoict-green-dark hover:underline font-medium">Create one</a>
+                Need an account?
+                <a href="/newacc" class="text-icoict-green hover:text-icoict-green-dark hover:underline font-medium">Create one</a>
             </p>
         </div>
 
