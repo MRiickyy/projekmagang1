@@ -281,28 +281,20 @@
                 <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6">
                     <h5 class="text-center font-extrabold tracking-wide text-slate-700 mb-4">TIMELINE ROUND 1</h5>
                     <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-3">
-                        <div class="text-[#df3a3a] font-bold">DECEMBER 31, 2024</div>
-                        <div>Paper Submission Deadline</div>
-                        <div class="text-[#df3a3a] font-bold">JANUARY 31, 2025</div>
-                        <div>Notification of Papers Acceptance</div>
-                        <div class="text-[#df3a3a] font-bold">FEBRUARY 28, 2025</div>
-                        <div>Registration Deadline</div>
-                        <div class="text-[#df3a3a] font-bold">MARCH 15, 2025</div>
-                        <div>Camera-Ready Submissions</div>
+                        @foreach ($timelines1 as $timeline)
+                        <div class="text-[#df3a3a] font-bold">{{ $timeline->month }} {{  $timeline->date }}, {{ $timeline->year }}</div>
+                        <div>{{ $timeline->title }}</div>
+                        @endforeach
                     </div>
                 </div>
                 <!-- Round 2 -->
                 <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6">
                     <h5 class="text-center font-extrabold tracking-wide text-slate-700 mb-4">TIMELINE ROUND 2</h5>
                     <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-3">
-                        <div class="text-[#df3a3a] font-bold">APRIL 15, 2025</div>
-                        <div>Paper Submission Deadline | Round 2</div>
-                        <div class="text-[#df3a3a] font-bold">MAY 21, 2025</div>
-                        <div>Notification of Papers Acceptance</div>
-                        <div class="text-[#df3a3a] font-bold">JUNE 15, 2025</div>
-                        <div>Registration Deadline</div>
-                        <div class="text-[#df3a3a] font-bold">JUNE 30, 2025</div>
-                        <div>Camera-Ready Submissions</div>
+                        @foreach ($timelines2 as $timeline)
+                        <div class="text-[#df3a3a] font-bold">{{ $timeline->month }} {{  $timeline->date }}, {{ $timeline->year }}</div>
+                        <div>{{ $timeline->title }}</div>
+                        @endforeach
                     </div>
                 </div>
             </div>
