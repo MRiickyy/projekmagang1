@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SpeakerController;
 use App\Http\Controllers\CommitteeController;
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 
 Route::get('/author-information', function () {
     return view('author'); // ini yang penting
@@ -50,3 +51,4 @@ Route::get('/speakers/{id}', [SpeakerController::class, 'detailspeaker'])->name(
 Route::get('/steering-committees', [CommitteeController::class, 'steering']);
 Route::get('/technical-committees', [CommitteeController::class, 'technical']);
 Route::get('/organizing-committees', [CommitteeController::class, 'organizing']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
