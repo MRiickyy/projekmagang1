@@ -1,21 +1,21 @@
 @extends('layouts.app')
 
-@section('title', 'Technical Program Committees - ICOICT 2025')
+@section('title', 'Organizing Committees - ICOICT 2025')
 
 @section('content')
 
-<!-- Technical Program Committees Section -->
+<!-- Organizing Committees Section -->
 <section class="py-16 bg-slate-50">
     <div class="max-w-6xl mx-auto px-5">
 
         <!-- Title -->
-        <h3 class="text-center text-3xl font-bold mb-10">TECHNICAL PROGRAM COMMITTEES
+        <h3 class="text-center text-3xl font-bold mb-10">ORGANIZING COMMITTEES
             <span class="block h-1 w-40 mx-auto mt-2 bg-gradient-to-r from-green-500 to-blue-500"></span>
         </h3>
 
         <!-- Subtitle -->
         <div class="mt-8 bg-slate-600 text-white font-bold text-center py-3 px-6 rounded-xl shadow-md">
-            THE ICOICT 2026 TECHNICAL PROGRAM COMMITTEES
+            THE ICOICT 2026 ORGANIZING COMMITTEES
         </div>
 
         <!-- Committees List -->
@@ -32,7 +32,7 @@
                 </div>
                 @empty
                 <div class="text-center text-gray-600 bg-gray-100 py-10 rounded-lg shadow-md">
-                    <p class="text-lg font-semibold">Belum ada Technical Program Committees yang tersedia.</p>
+                    <p class="text-lg font-semibold">Belum ada Organizing Committees yang tersedia.</p>
                 </div>
             @endforelse
         </div>
