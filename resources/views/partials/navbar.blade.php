@@ -37,8 +37,8 @@
                 <div
                     class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
                     <a href="/steering-committees" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Steering Committees</a>
-                    <a href="/technical-program-committees" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Technical Program Committees</a>
-                    <a href="/organizing-committe" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Organizing Committees</a>
+                    <a href="/technical-committees" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Technical Program Committees</a>
+                    <a href="/organizing-committees" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Organizing Committees</a>
                 </div>
             </div>
 
