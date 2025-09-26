@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SpeakerController;
 use App\Http\Controllers\CommitteeController;
+use App\Http\Controllers\AuthorInformationController;
 
 // Route::get('/', function () {
 //     return view('home');
@@ -52,3 +53,6 @@ Route::get('/steering-committees', [CommitteeController::class, 'steering']);
 Route::get('/technical-committees', [CommitteeController::class, 'technical']);
 Route::get('/organizing-committees', [CommitteeController::class, 'organizing']);
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Route Author
+Route::get('/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
