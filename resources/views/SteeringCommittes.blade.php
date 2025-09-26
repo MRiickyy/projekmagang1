@@ -9,8 +9,7 @@
     <div class="max-w-6xl mx-auto px-5">
 
         <!-- Title -->
-        <h3 class="text-center text-3xl font-bold mb-10">STREERING COMMITTEES
-            <!-- Garis bawah -->
+        <h3 class="text-center text-3xl font-bold mb-10">STEERING COMMITTEES
             <span class="block h-1 w-40 mx-auto mt-2 bg-gradient-to-r from-green-500 to-blue-500"></span>
         </h3>
 
@@ -21,55 +20,17 @@
 
         <!-- Committees List -->
         <div class="mt-8 space-y-4">
-
-            <!-- Card Full Width -->
-            <div class="flex items-center gap-3 bg-blue-100 rounded-xl px-4 py-3 shadow">
-                <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zM12 14c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
-                </svg>
-                <div>
-                    <p class="font-semibold text-slate-800">Prof. Dr. Adiwijaya, S.Si., M.Si.</p>
-                    <p class="text-sm text-slate-600 italic">Telkom University, Indonesia</p>
+            @foreach($committees as $committee)
+                <div class="flex items-center gap-3 {{ $loop->even ? 'bg-gray-100' : 'bg-blue-100' }} rounded-xl px-4 py-3 shadow">
+                    <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zM12 14c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
+                    </svg>
+                    <div>
+                        <p class="font-semibold text-slate-800">{{ $committee->name }} <span class="text-sm text-slate-500">({{ $committee->role }})</span></p>
+                        <p class="text-sm text-slate-600 italic">{{ $committee->university }}, {{ $committee->country }}</p>
+                    </div>
                 </div>
-            </div>
-
-            <div class="flex items-center gap-3 bg-gray-100 rounded-xl px-4 py-3 shadow">
-                <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zM12 14c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
-                </svg>
-                <div>
-                    <p class="font-semibold text-slate-800">Prof. Dr. Adiwijaya, S. Si., M.Si.</p>
-                    <p class="text-sm text-slate-600 italic">Telkom University, Indonesia</p>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-3 bg-blue-100 rounded-xl px-4 py-3 shadow">
-                <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zM12 14c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
-                </svg>
-                <div>
-                    <p class="font-semibold text-slate-800">Prof. Dr. Adiwijaya, S.Si., M.Si.</p>
-                    <p class="text-sm text-slate-600 italic">Telkom University, Indonesia</p>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-3 bg-gray-100 rounded-xl px-4 py-3 shadow">
-                <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zM12 14c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
-                </svg>
-                <div>
-                    <p class="font-semibold text-slate-800">Prof. Dr. Adiwijaya, S.Si., M.Si.</p>
-                    <p class="text-sm text-slate-600 italic">Telkom University, Indonesia</p>
-                </div>
-            </div>
-
-
-
-
+            @endforeach
         </div>
     </div>
 </section>
