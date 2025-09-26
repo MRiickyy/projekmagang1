@@ -1,11 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SpeakerController;
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 
 Route::get('/author-information', function () {
     return view('author'); // ini yang penting
@@ -57,3 +58,5 @@ Route::get('/keynote-speakers-2025', [SpeakerController::class, 'keynote']);
 Route::get('/tutorial-speakers-2025', [SpeakerController::class, 'tutorial']);
 
 Route::get('/speakers/{id}', [SpeakerController::class, 'detailspeaker'])->name('detail.speaker');
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
