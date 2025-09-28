@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('university');
             $table->string('image')->nullable(); // kalau kadang ga ada foto
             $table->text('biodata');
-            $table->longText('full_biodata')->nullable();
             $table->enum('speaker_type', ['keynote', 'tutorial']); // hanya 2 pilihan
 
             $table->timestamps();

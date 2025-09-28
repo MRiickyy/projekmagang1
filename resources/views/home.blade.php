@@ -83,31 +83,31 @@
 
     <!-- Script Dropdown -->
     <script>
-    const dropdowns = document.querySelectorAll(".dropdown");
+        const dropdowns = document.querySelectorAll(".dropdown");
 
-    dropdowns.forEach(dropdown => {
-        const btn = dropdown.querySelector(".dropdown-btn");
-        const menu = dropdown.querySelector(".dropdown-menu");
+        dropdowns.forEach(dropdown => {
+            const btn = dropdown.querySelector(".dropdown-btn");
+            const menu = dropdown.querySelector(".dropdown-menu");
 
-        btn.addEventListener("click", (e) => {
-            e.stopPropagation();
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
 
-            // Tutup semua dropdown lain dulu
-            dropdowns.forEach(d => {
-                if (d !== dropdown) {
-                    d.querySelector(".dropdown-menu").classList.add("hidden");
-                }
+                // Tutup semua dropdown lain dulu
+                dropdowns.forEach(d => {
+                    if (d !== dropdown) {
+                        d.querySelector(".dropdown-menu").classList.add("hidden");
+                    }
+                });
+
+                // Toggle dropdown yang diklik
+                menu.classList.toggle("hidden");
             });
-
-            // Toggle dropdown yang diklik
-            menu.classList.toggle("hidden");
         });
-    });
 
-    // Klik di luar semua dropdown → tutup semuanya
-    document.addEventListener("click", () => {
-        dropdowns.forEach(d => d.querySelector(".dropdown-menu").classList.add("hidden"));
-    });
+        // Klik di luar semua dropdown → tutup semuanya
+        document.addEventListener("click", () => {
+            dropdowns.forEach(d => d.querySelector(".dropdown-menu").classList.add("hidden"));
+        });
     </script>
 
     <!-- HERO -->
@@ -160,7 +160,8 @@
                     </svg>
                 </div>
                 <p class="text-lg text-slate-200 mb-3">
-                    {{ $homeContents['hero_location_date']->content ?? 'Bandung (Hybrid), 30–31 July 2025' }}</p>
+                    {{ $homeContents['hero_location_date']->content ?? 'Bandung (Hybrid), 30–31 July 2025' }}
+                </p>
                 <div class="flex justify-center">
                     <!-- Box Luaran -->
                     <div class="flex gap-6 p-6 rounded-3xl shadow-2xl bg-gradient-to-br from-[#2B3545] to-[#3B4A60]">
@@ -283,28 +284,27 @@
         <div class="max-w-7xl mx-auto px-5 py-10">
             <h3 class="text-xl md:text-2xl font-extrabold mb-4">Important Dates :</h3>
             <div class="grid md:grid-cols-2 gap-6">
-                <!-- Round 1 -->
-                <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6">
-                    <h5 class="text-center font-extrabold tracking-wide text-slate-700 mb-4">TIMELINE ROUND 1</h5>
+                @forelse ($timelines as $round => $items)
+                <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6 mb-6">
+                    <h5 class="text-center font-extrabold tracking-wide text-slate-700 mb-4">
+                        TIMELINE ROUND {{ $round }}
+                    </h5>
                     <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-3">
-                        @foreach ($timelines1 as $timeline)
-                        <div class="text-[#df3a3a] font-bold">{{ $timeline->month }} {{  $timeline->date }},
-                            {{ $timeline->year }}</div>
+                        @foreach ($items as $timeline)
+                        <div class="text-[#df3a3a] font-bold">
+                            {{ \Carbon\Carbon::parse($timeline->date)->translatedFormat('F d, Y') }}
+                        </div>
                         <div>{{ $timeline->title }}</div>
                         @endforeach
                     </div>
                 </div>
-                <!-- Round 2 -->
-                <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6">
-                    <h5 class="text-center font-extrabold tracking-wide text-slate-700 mb-4">TIMELINE ROUND 2</h5>
-                    <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-3">
-                        @foreach ($timelines2 as $timeline)
-                        <div class="text-[#df3a3a] font-bold">{{ $timeline->month }} {{  $timeline->date }},
-                            {{ $timeline->year }}</div>
-                        <div>{{ $timeline->title }}</div>
-                        @endforeach
+                @empty
+                <div class="col-span-2">
+                    <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6 mb-6 flex justify-center items-center min-h-[150px]">
+                        <p class="text-gray-500 font-semibold text-center">Belum ada data timeline yang tersedia.</p>
                     </div>
                 </div>
+                @endforelse
             </div>
         </div>
     </section>

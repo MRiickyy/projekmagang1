@@ -21,7 +21,10 @@ class SpeakerController extends Controller
 
     public function detailspeaker($slug)
     {
-        $speaker = Speaker::where('slug', $slug)->firstOrFail();
+        $speaker = Speaker::where('slug', $slug)
+            ->with('description')
+            ->firstOrFail();
+
         return view('speakers.detail', compact('speaker'));
     }
 }
