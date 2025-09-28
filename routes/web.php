@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthorInformationController;
 use App\Http\Controllers\ContactInfoController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\MapLocationController;
+use App\Http\Controllers\RegistrationController;
 
 // Route::get('/', function () {
 //     return view('home');
