@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeContentController;
 use App\Http\Controllers\SpeakerController;
 use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\AuthorInformationController;
+use App\Http\Controllers\RegistrationController;
 
 // Route::get('/', function () {
 //     return view('home');
@@ -65,5 +66,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('/home-contents/{homeContent}', [HomeContentController::class, 'destroy'])->name('home_contents.destroy');
 });
 
-// Route Author
 Route::get('/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
+Route::get('/registration', [RegistrationController::class, 'index'])->name('registration.index');
