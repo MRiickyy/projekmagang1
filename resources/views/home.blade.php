@@ -69,7 +69,8 @@
                     </button>
                     <div
                         class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
-                        <a href="/author-information" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Author Information</a>
+                        <a href="/author-information" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Author
+                            Information</a>
                         <a href="/registration" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Registration</a>
                         <a href="/contacts" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Contacts</a>
                     </div>
@@ -82,31 +83,31 @@
 
     <!-- Script Dropdown -->
     <script>
-        const dropdowns = document.querySelectorAll(".dropdown");
+    const dropdowns = document.querySelectorAll(".dropdown");
 
-        dropdowns.forEach(dropdown => {
-            const btn = dropdown.querySelector(".dropdown-btn");
-            const menu = dropdown.querySelector(".dropdown-menu");
+    dropdowns.forEach(dropdown => {
+        const btn = dropdown.querySelector(".dropdown-btn");
+        const menu = dropdown.querySelector(".dropdown-menu");
 
-            btn.addEventListener("click", (e) => {
-                e.stopPropagation();
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
 
-                // Tutup semua dropdown lain dulu
-                dropdowns.forEach(d => {
-                    if (d !== dropdown) {
-                        d.querySelector(".dropdown-menu").classList.add("hidden");
-                    }
-                });
-
-                // Toggle dropdown yang diklik
-                menu.classList.toggle("hidden");
+            // Tutup semua dropdown lain dulu
+            dropdowns.forEach(d => {
+                if (d !== dropdown) {
+                    d.querySelector(".dropdown-menu").classList.add("hidden");
+                }
             });
-        });
 
-        // Klik di luar semua dropdown → tutup semuanya
-        document.addEventListener("click", () => {
-            dropdowns.forEach(d => d.querySelector(".dropdown-menu").classList.add("hidden"));
+            // Toggle dropdown yang diklik
+            menu.classList.toggle("hidden");
         });
+    });
+
+    // Klik di luar semua dropdown → tutup semuanya
+    document.addEventListener("click", () => {
+        dropdowns.forEach(d => d.querySelector(".dropdown-menu").classList.add("hidden"));
+    });
     </script>
 
     <!-- HERO -->
@@ -115,15 +116,16 @@
         <div class="max-w-7xl mx-auto px-5 py-16 md:py-20 grid md:grid-cols-2 gap-8 items-center">
             <div>
                 <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-tight">
-                    THE 13TH ICOICT
+                    {{ $homeContents['hero_title']->content ?? 'Default Title' }}
                     <span
                         class="font-extrabold tracking-wide bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
-                        2025
+                        {{ $homeContents['hero_year']->content ?? '2025' }}
                     </span>
                 </h1>
 
+
                 <p class="mt-4 text-slate-200 text-xl max-w-xl">
-                    International Conference on Information and Communication Technology
+                    {{ $homeContents['hero_subtitle']->content ?? 'Default Subtitle' }}
                 </p>
 
                 <div class="mt-6 flex items-center gap-3">
@@ -157,7 +159,8 @@
                             d="M21 7a2 2 0 00-2-2H5C3.9 5 3 5.9 3 7v10a2 2 0 002 2h14a2 2 0 002-2V7zM5 17V7h14v10H5z" />
                     </svg>
                 </div>
-                <p class="text-lg text-slate-200 mb-3">Bandung (Hybrid), 30–31 July 2025</p>
+                <p class="text-lg text-slate-200 mb-3">
+                    {{ $homeContents['hero_location_date']->content ?? 'Bandung (Hybrid), 30–31 July 2025' }}</p>
                 <div class="flex justify-center">
                     <!-- Box Luaran -->
                     <div class="flex gap-6 p-6 rounded-3xl shadow-2xl bg-gradient-to-br from-[#2B3545] to-[#3B4A60]">
@@ -204,12 +207,12 @@
             <img src="{{ asset('images/telkom.jpg') }}" alt="city"
                 class="w-screen h-64 md:h-80 object-cover rounded-sm">
 
-            <<div class="flex items-center justify-between gap-6 -mt-10 md:-mt-12">
+            <div class="flex items-center justify-between gap-6 -mt-10 md:-mt-12">
                 <div class="bg-[#df3a3a] text-white text-base md:text-lg px-8 py-4 rounded-full shadow-lg flex-grow">
-                    Driving a Sustainable Future with AI, IoT, and Data Science Technologies
+                    {{ $homeContents['banner_text']->content ?? 'Default Banner Text' }}
                 </div>
                 <img src="{{ asset('images/logo.png') }}" class="h-10 md:h-12" alt="logo">
-        </div>
+            </div>
 
         </div>
     </section>
@@ -218,58 +221,61 @@
     <!-- Welcome -->
     <section class="bg-[#FFFFFF] text-slate-700">
         <div class="max-w-7xl mx-auto px-5 mt-8">
-            <h3 class="text-xl md:text-2xl font-extrabold">Welcome to ICoICT 2025!</h3>
+            <h3 class="text-xl md:text-2xl font-extrabold">
+                {!! $homeContents['welcome_title']->content ?? 'Welcome to ICoICT 2025!' !!}
+            </h3>
+
             <p class="mt-4 leading-relaxed">
-                We are thrilled to invite you to the International Conference on Information and Communication
-                Technology (ICoICT) 2025,
-                which will take place in a hybrid format, offering both onsite and online participation options. This
-                year’s
-                conference will be held from July 30–31, 2025, with our main venue located in Bandung, Indonesia.
+                {!! $homeContents['welcome_text']->content ?? 'Default welcome text...' !!}
             </p>
 
             <div class="bg-[#F2F6F9] ring-1 ring-white/10 p-5 md:p-6 rounded-xl mt-6">
-                <p class="font-semibold mb-3">We welcome submissions of technical paper in the following tracks (but not
-                    limited to):</p>
+                <p class="font-semibold mb-3">
+                    {!! $homeContents['welcome_tracks_intro']->content ?? 'Default tracks intro...' !!}
+                </p>
+
                 <ol class="list-decimal list-inside space-y-1">
-                    <li>Artificial Intelligence and Machine Learning</li>
-                    <li>Data Science and Its Implementations</li>
-                    <li>IoT System and Infrastructure</li>
-                    <li>Information Technology Applications</li>
+                    {!! collect(explode('<br>', $homeContents['welcome_tracks']->content ?? 'Artificial
+                    Intelligence<br>Data Science'))->map(fn($track) => "<li>$track</li>")->implode('') !!}
                 </ol>
+
                 <p class="mt-4 text-sm">
-                    Accepted and presented papers will be submitted for inclusion into the IEEE Xplore subject to
-                    meeting IEEE’s scope and quality requirements.
+                    {!! $homeContents['welcome_tracks_footer']->content ?? 'Default footer text...' !!}
                 </p>
             </div>
         </div>
 
         <div class="max-w-7xl mx-auto px-5 mt-10">
             <h3 class="text-xl md:text-2xl font-extrabold mb-4">
-                Papers from the previous ICoICT 2013 until 2024 have been published in IEEE Xplore and indexed in
-                Scopus:
+                {!! $homeContents['welcome_prev_title']->content ?? 'Default prev title...' !!}
             </h3>
 
             <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                @for ($y = 2013; $y <= 2024; $y++) <a href="#"
+                @foreach ($homeContents['icoict_links'] ?? [] as $year => $url)
+                <a href="{{ $url }}" target="_blank"
                     class="block rounded-xl border border-slate-700/60 bg-[#F2F6F9] px-4 py-4 hover:bg-slate-700/40 transition shadow">
-                    <div class="font-bold">ICoICT {{ $y }} :</div>
+                    <div class="font-bold">ICoICT {{ $year }} :</div>
                     <div class="text-slate-700 text-sm leading-5 break-words">
-                        https://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=xxxxxxx
+                        {{ $url }}
                     </div>
-                    </a>
-                    @endfor
+                </a>
+                @endforeach
             </div>
 
-            <!-- ISBN -->
+
+
             <div class="mt-8">
-                <h4 class="font-extrabold text-slate-700">With ISBN Information:</h4>
+                <h4 class="font-extrabold text-slate-700">
+                    {!! $homeContents['welcome_isbn_title']->content ?? 'With ISBN Information:' !!}
+                </h4>
                 <p class="mt-2 text-slate-700 text-sm">
-                    Electronic ISBN: 978-1-6654-0447-1 <br />
-                    USB ISBN: 978-1-6654-0446-4
+                    {!! $homeContents['welcome_isbn_text']->content ?? 'Electronic ISBN: 000-0-0000-0000-0' !!}
+                </p>
                 </p>
             </div>
         </div>
     </section>
+
 
 
     <!-- Important Dates -->
@@ -277,27 +283,28 @@
         <div class="max-w-7xl mx-auto px-5 py-10">
             <h3 class="text-xl md:text-2xl font-extrabold mb-4">Important Dates :</h3>
             <div class="grid md:grid-cols-2 gap-6">
-                @forelse ($timelines as $round => $items)
-                <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6 mb-6">
-                    <h5 class="text-center font-extrabold tracking-wide text-slate-700 mb-4">
-                        TIMELINE ROUND {{ $round }}
-                    </h5>
+                <!-- Round 1 -->
+                <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6">
+                    <h5 class="text-center font-extrabold tracking-wide text-slate-700 mb-4">TIMELINE ROUND 1</h5>
                     <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-3">
-                        @foreach ($items as $timeline)
-                        <div class="text-[#df3a3a] font-bold">
-                            {{ \Carbon\Carbon::parse($timeline->date)->translatedFormat('F d, Y') }}
-                        </div>
+                        @foreach ($timelines1 as $timeline)
+                        <div class="text-[#df3a3a] font-bold">{{ $timeline->month }} {{  $timeline->date }},
+                            {{ $timeline->year }}</div>
                         <div>{{ $timeline->title }}</div>
                         @endforeach
                     </div>
                 </div>
-                @empty
-                <div class="col-span-2">
-                    <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6 mb-6 flex justify-center items-center min-h-[150px]">
-                        <p class="text-gray-500 font-semibold text-center">Belum ada data timeline yang tersedia.</p>
+                <!-- Round 2 -->
+                <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6">
+                    <h5 class="text-center font-extrabold tracking-wide text-slate-700 mb-4">TIMELINE ROUND 2</h5>
+                    <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-3">
+                        @foreach ($timelines2 as $timeline)
+                        <div class="text-[#df3a3a] font-bold">{{ $timeline->month }} {{  $timeline->date }},
+                            {{ $timeline->year }}</div>
+                        <div>{{ $timeline->title }}</div>
+                        @endforeach
                     </div>
                 </div>
-                @endforelse
             </div>
         </div>
     </section>
@@ -306,7 +313,7 @@
     <section class="bg-white">
         <div
             class="max-w-7xl mx-auto px-5 pt-4 background: linear-gradient(90deg, #1E293B 0%, #1A202C 0%, #212C40 30%, #334155 55%, #0F172A 100%);">
-            <<div class="text-center mb-6 p-6 rounded-2xl bg-[#2A394E]">
+            <div class="text-center mb-6 p-6 rounded-2xl bg-[#2A394E]">
                 <div class="text-2xl md:text-3xl font-extrabold">
                     <span
                         class="bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
@@ -317,33 +324,33 @@
                     class="inline-flex items-center gap-2 mt-3 bg-[#47BA77] hover:bg-[#1fb857] text-black font-semibold px-5 py-2 rounded-full">
                     Submit Your Paper
                 </a>
-        </div>
+            </div>
 
 
-        <div class="grid md:grid-cols-2 gap-6">
-            <div class="rounded-2xl bg-gradient-to-br from-[#0f172a] to-[#1f2937] p-6 shadow-lg">
-                <div class="text-xl font-extrabold tracking-wide">KEYNOTE SPEAKERS</div>
-                <p class="mt-3 text-slate-300">
-                    Distinguished experts are invited to deliver a speech to elevate and inspire the audience
-                    about
-                    the broader frame
-                    of current technology developments, especially related to the event's theme.
-                </p>
-                <a href="/keynote-speakers-2025" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
-                    Read More <span aria-hidden="true">›</span>
-                </a>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="rounded-2xl bg-gradient-to-br from-[#0f172a] to-[#1f2937] p-6 shadow-lg">
+                    <div class="text-xl font-extrabold tracking-wide">
+                        {!!$homeContents['speakers_keynote_title']->content ??'KEYNOTE SPEAKERS' !!}</div>
+                    <p class="mt-3 text-slate-300">
+                        {!!$homeContents['speakers_keynote_text']->content ??'Distinguished experts...'!!}
+                    </p>
+                    <a href="/keynote-speakers-2025"
+                        class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
+                        Read More <span aria-hidden="true">›</span>
+                    </a>
+                </div>
+                <div class="rounded-2xl bg-gradient-to-br from-[#0f172a] to-[#1f2937] p-6 shadow-lg">
+                    <div class="text-xl font-extrabold tracking-wide">
+                        {!!$homeContents['speakers_tutorial_title']->content ??'TUTORIAL SPEAKERS' !!}</div>
+                    <p class="mt-3 text-slate-300">
+                        {!!$homeContents['speakers_tutorial_text']->content ??'Renowned subject-matter...' !!}
+                    </p>
+                    <a href="/tutorial-speakers-2025"
+                        class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
+                        Read More <span aria-hidden="true">›</span>
+                    </a>
+                </div>
             </div>
-            <div class="rounded-2xl bg-gradient-to-br from-[#0f172a] to-[#1f2937] p-6 shadow-lg">
-                <div class="text-xl font-extrabold tracking-wide">TUTORIAL SPEAKERS</div>
-                <p class="mt-3 text-slate-300">
-                    Renowned subject-matter experts are invited to conduct interactive sessions that provide
-                    in-depth knowledge and practical guidance on specific topics.
-                </p>
-                <a href="/tutorial-speakers-2025" class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
-                    Read More <span aria-hidden="true">›</span>
-                </a>
-            </div>
-        </div>
         </div>
     </section>
 
