@@ -13,12 +13,8 @@ return new class extends Migration
     {
         Schema::create('speakers', function (Blueprint $table) {
             $table->id();
-
-            // Relasi ke tabel seminars
-            // $table->unsignedBigInteger('seminar_id');
-            // $table->foreign('seminar_id')->references('id')->on('seminars')->onDelete('cascade');
-
             $table->string('name');
+            $table->string('slug')->unique();
             $table->string('university');
             $table->string('image')->nullable(); // kalau kadang ga ada foto
             $table->text('biodata');

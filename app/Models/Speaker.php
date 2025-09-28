@@ -12,6 +12,7 @@ class Speaker extends Model
     protected $fillable = [
         // 'seminar_id',
         'name',
+        'slug',
         'university',
         'image',
         'biodata',
