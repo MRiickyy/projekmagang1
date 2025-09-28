@@ -46,7 +46,7 @@ Route::get('/newacc', function () {
 Route::get('/keynote-speakers-2025', [SpeakerController::class, 'keynote']);
 Route::get('/tutorial-speakers-2025', [SpeakerController::class, 'tutorial']);
 
-Route::get('/speakers/{id}', [SpeakerController::class, 'detailspeaker'])->name('detail.speaker');
+Route::get('/speakers/{slug}', [SpeakerController::class, 'detailspeaker'])->name('detail.speaker');
 
 // Route Committees
 Route::get('/steering-committees', [CommitteeController::class, 'steering']);

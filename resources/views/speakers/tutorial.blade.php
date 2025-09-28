@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Keynote Speakers - ICOICT 2025')
+@section('title', 'Tutorial Speakers - ICOICT 2025')
 
 @section('content')
 <!-- SPEAKERS -->
 <section class="max-w-7xl mx-auto my-12 px-5">
-    <h3 class="text-center text-3xl font-bold mb-10">KEYNOTE SPEAKERS
+    <h3 class="text-center text-3xl font-bold mb-10">TUTORIAL SPEAKERS
         <!-- Garis bawah -->
         <span class="block h-1 w-40 mx-auto mt-2 bg-gradient-to-r from-green-500 to-blue-500"></span>
     </h3>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <a href="{{ route('detail.speaker', $speaker->id) }}"
+            <a href="{{ route('detail.speaker', $speaker->slug) }}"
                 class="self-end bg-[#0a2a43] hover:bg-[#103d60] text-white px-5 py-2 rounded-full text-sm flex items-center gap-2">
                 Read More
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
@@ -40,9 +40,9 @@
         </div>
     </div>
     @empty
-    <div class="text-center text-gray-600 bg-gray-100 py-10 rounded-lg shadow-md">
-        <p class="text-lg font-semibold">Belum ada Tutorial Speaker yang tersedia.</p>
-    </div>
+        <div class="text-center text-gray-600 bg-gray-100 py-10 rounded-lg shadow-md">
+            <p class="text-lg font-semibold">Belum ada Tutorial Speaker yang tersedia.</p>
+        </div>
     @endforelse
 
 </section>
