@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Timeline extends Model
 {
     protected $fillable = [
+        'round_number',
         'date',
         'title',
-        'timeline_number',
     ];
 }

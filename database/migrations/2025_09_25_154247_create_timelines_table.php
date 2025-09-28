@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('timelines', function (Blueprint $table) {
             $table->id();
-            $table->integer('timeline_number'); // nomor urut timeline
-            $table->integer('date');
-            $table->text('month');
-            $table->integer('year');
-            $table->text('title');
+            $table->unsignedInteger('round_number');
+            $table->date('date');
+            $table->string('title');
             $table->timestamps();
         });
     }

@@ -9,11 +9,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Ambil hanya beberapa timeline (misalnya 3 terbaru)
-        $timelines1 = Timeline::orderBy('date', 'asc')->where('timeline_number', '=', 1)->get();
-        $timelines2 = Timeline::orderBy('date', 'asc')->where('timeline_number', '=', 2)->get();
+        $timelines = Timeline::orderBy('round_number')
+            ->orderBy('date')
+            ->get()
+            ->groupBy('round_number');
 
-        return view('home', ['timelines1' => $timelines1,
-                            'timelines2' => $timelines2]);
+        return view('home', compact('timelines'));
     }
 }
