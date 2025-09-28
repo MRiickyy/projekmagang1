@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <a href="{{ route('detail.speaker', $speaker->id) }}"
+            <a href="{{ route('detail.speaker', $speaker->slug) }}"
                 class="self-end bg-[#0a2a43] hover:bg-[#103d60] text-white px-5 py-2 rounded-full text-sm flex items-center gap-2">
                 Read More
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
@@ -41,7 +41,7 @@
     </div>
     @empty
     <div class="text-center text-gray-600 bg-gray-100 py-10 rounded-lg shadow-md">
-        <p class="text-lg font-semibold">Belum ada Tutorial Speaker yang tersedia.</p>
+        <p class="text-lg font-semibold">Belum ada Keynote Speaker yang tersedia.</p>
     </div>
     @endforelse
 

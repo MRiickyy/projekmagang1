@@ -19,9 +19,9 @@ class SpeakerController extends Controller
         return view('tutorialspeaker', compact('speakers'));
     }
 
-    public function detailspeaker($id)
+    public function detailspeaker($slug)
     {
-        $speaker = Speaker::findOrFail($id);
+        $speaker = Speaker::where('slug', $slug)->firstOrFail();
         return view('detailspeakerK', compact('speaker'));
     }
 }
