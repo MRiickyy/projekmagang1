@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SpeakerController;
 use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\AuthorInformationController;
+use App\Http\Controllers\RegistrationController;
 
 // Route::get('/', function () {
 //     return view('home');
@@ -56,3 +57,5 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Route Author
 Route::get('/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
+Route::get('/registration', [RegistrationController::class, 'index'])->name('registration.index');
+
