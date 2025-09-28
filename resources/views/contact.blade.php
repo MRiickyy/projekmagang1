@@ -13,64 +13,49 @@
     <!-- CONTACT INFO -->
     <h3 class="font-bold text-gray-800 mb-4">CONTACT US AT</h3>
     <div class="flex flex-col space-y-4 mb-10 w-full">
+        @foreach($contacts as $contact)
         <div class="flex items-center gap-4 bg-gray-100 rounded-xl shadow p-4 w-full">
-            <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-blue-600 text-white">
-                <i class="fas fa-globe text-lg"></i>
+            {{-- Icon + warna berdasarkan type, tapi type tidak ditampilkan --}}
+            <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full 
+                    @if($contact->type === 'website') bg-blue-600
+                    @elseif($contact->type === 'email') bg-green-500
+                    @elseif($contact->type === 'edas') bg-purple-600
+                    @elseif($contact->type === 'phone') bg-orange-500 @endif
+                    text-white">
+                @if($contact->type === 'website') <i class="fas fa-globe text-lg"></i>
+                @elseif($contact->type === 'email') <i class="fas fa-envelope text-lg"></i>
+                @elseif($contact->type === 'edas') <i class="fas fa-file-alt text-lg"></i>
+                @elseif($contact->type === 'phone') <i class="fas fa-phone text-lg"></i> @endif
             </div>
-            <div class="w-full">
-                <p class="font-bold text-gray-900">Conference Website</p>
-                <p class="text-sm text-gray-600">https://conference-website.com</p>
-            </div>
-        </div>
 
-        <div class="flex items-center gap-4 bg-gray-100 rounded-xl shadow p-4 w-full">
-            <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-green-500 text-white">
-                <i class="fas fa-envelope text-lg"></i>
-            </div>
+            {{-- Konten: hanya title & value --}}
             <div class="w-full">
-                <p class="font-bold text-gray-900">Official Email Address</p>
-                <p class="text-sm text-gray-600">conference@email.com</p>
+                <p class="font-bold text-gray-900">{{ $contact->title}}</p>
+                <p class="text-sm text-gray-600">{{ $contact->value }}</p>
             </div>
         </div>
-
-        <div class="flex items-center gap-4 bg-gray-100 rounded-xl shadow p-4 w-full">
-            <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-purple-600 text-white">
-                <i class="fas fa-file-alt text-lg"></i>
-            </div>
-            <div class="w-full">
-                <p class="font-bold text-gray-900">EDAS Submission Link</p>
-                <p class="text-sm text-gray-600">https://edas.info/conference</p>
-            </div>
-        </div>
-
-        <div class="flex items-center gap-4 bg-gray-100 rounded-xl shadow p-4 w-full">
-            <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-orange-500 text-white">
-                <i class="fas fa-phone text-lg"></i>
-            </div>
-            <div class="w-full">
-                <p class="font-bold text-gray-900">Phone ( WhatsApp )</p>
-                <p class="text-sm text-gray-600">+62 812 3456 7890</p>
-            </div>
-        </div>
+        @endforeach
     </div>
+
 
 
     <!-- CONTACT FORM -->
     <h3 class="font-bold text-gray-800 mb-4">SEND US A MESSAGE</h3>
-    <form class="space-y-4 w-full">
+    <form action="{{ route('contact.send') }}" method="POST" class="space-y-4 w-full">
+        @csrf
         <div>
             <label class="block font-medium">Name</label>
-            <input type="text" placeholder="Your Name"
+            <input type="text" name="name" placeholder="Your Name"
                 class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
         <div>
             <label class="block font-medium">Email</label>
-            <input type="email" placeholder="Your Email"
+            <input type="email" name="email" placeholder="Your Email"
                 class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
         <div>
             <label class="block font-medium">Message</label>
-            <textarea placeholder="Your Message" rows="4"
+            <textarea name="message" placeholder="Your Message" rows="4"
                 class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
         </div>
         <div class="flex justify-end">
@@ -79,6 +64,7 @@
             </button>
         </div>
     </form>
+
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 </section>
@@ -92,9 +78,8 @@
         </h2>
 
         <div class="flex justify-center">
-            <iframe class="w-full md:w-4/5 h-96 rounded-lg shadow-lg"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63363.17630783987!2d107.5731166!3d-6.9034443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e7d2e5c4e2df%3A0x301e8f1fc28da30!2sBandung%2C%20West%20Java!5e0!3m2!1sen!2sid!4v1700000000000"
-                allowfullscreen="" loading="lazy"></iframe>
+            <iframe class="w-full md:w-4/5 h-96 rounded-lg shadow-lg" src="{{ $map->link }}" allowfullscreen=""
+                loading="lazy"></iframe>
         </div>
     </div>
 </section>
