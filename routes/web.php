@@ -5,6 +5,9 @@ use App\Http\Controllers\HomeContentController;
 use App\Http\Controllers\SpeakerController;
 use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\AuthorInformationController;
+use App\Http\Controllers\ContactInfoController;
+use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\MapLocationController;
 
 // Route::get('/', function () {
 //     return view('home');
@@ -22,9 +25,9 @@ Route::get('/call-for-papers', function () {
     return view('callpaper');
 });
 
-Route::get('contacts', function () {
-    return view('contact');
-});
+// Route::get('/contacts', function () {
+//     return view('contact');
+// });
 
 Route::get('/detailspeakerK', function () {
     return view('detailspeakerK');
@@ -67,3 +70,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 // Route Author
 Route::get('/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
+
+//Route Contact
+Route::get('/contacts', [ContactInfoController::class, 'index'])->name('contact');
+Route::post('/contact/send', [ContactMessageController::class, 'store'])->name('contact.send');
+Route::get('/contacts', [MapLocationController::class, 'index'])->name('contact');
+// Halaman Admin Contact
+Route::prefix('admin')->group(function () {
+    Route::get('/contact-infos', [ContactInfoController::class, 'indexAdmin'])->name('admin.contact_infos.indexAdmin');
+    Route::get('/contact-infos/create', [ContactInfoController::class, 'create'])->name('admin.contact_infos.create');
+    Route::post('/contact-infos', [ContactInfoController::class, 'store'])->name('admin.contact_infos.store');
+    Route::get('/contact-infos/{contact}/edit', [ContactInfoController::class, 'edit'])->name('admin.contact_infos.edit');
+    Route::put('/contact-infos/{contact}', [ContactInfoController::class, 'update'])->name('admin.contact_infos.update');
+    Route::delete('/contact-infos/{contact}', [ContactInfoController::class, 'destroy'])->name('admin.contact_infos.destroy');
+});
