@@ -15,10 +15,19 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'icoict2025',
-            'email' => 'icoict@gmail.com',
-            'password' => bcrypt('icoict2025'),
+        $this->call([
+            SpeakerSeeder::class,
+            TimelineSeeder::class,
+            ContactInfoSeeder::class,
+            HomeContentSeeder::class,
+            MapLocationSeeder::class,
+            // tambahkan seeder lain di sini
         ]);
+
+        // User::factory()->create([
+        //     'name' => 'icoict2025',
+        //     'email' => 'icoict@gmail.com',
+        //     'password' => bcrypt('icoict2025'),
+        // ]);
     }
 }
