@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeContentController;
+use App\Http\Controllers\CallPaperController;
 use App\Http\Controllers\SpeakerController;
 use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\AuthorInformationController;
@@ -84,4 +85,17 @@ Route::prefix('admin')->group(function () {
     Route::get('/contact-infos/{contact}/edit', [ContactInfoController::class, 'edit'])->name('admin.contact_infos.edit');
     Route::put('/contact-infos/{contact}', [ContactInfoController::class, 'update'])->name('admin.contact_infos.update');
     Route::delete('/contact-infos/{contact}', [ContactInfoController::class, 'destroy'])->name('admin.contact_infos.destroy');
+});
+
+
+//Route Call Paper
+Route::get('/call-for-papers', [CallPaperController::class, 'index'])->name('call_papers');
+// Halaman Admin Call Paper
+Route::prefix('admin')->group(function () {
+    Route::get('/call-papers', [CallPaperController::class, 'indexAdmin'])->name('admin.call_papers');
+    Route::get('/call-papers/create', [CallPaperController::class, 'create'])->name('admin.call_papers.create');
+    Route::post('/call-papers', [CallPaperController::class, 'store'])->name('admin.call_papers.store');
+    Route::get('/call-papers/{callPaper}/edit', [CallPaperController::class, 'edit'])->name('admin.call_papers.edit');
+    Route::put('/call-papers/{callPaper}', [CallPaperController::class, 'update'])->name('admin.call_papers.update');
+    Route::delete('/call-papers/{callPaper}', [CallPaperController::class, 'destroy'])->name('admin.call_papers.destroy');
 });
