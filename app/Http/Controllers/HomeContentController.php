@@ -22,23 +22,12 @@ class HomeContentController extends Controller
                 return [$year => $item->content];
             });
 
-        // Ambil data timeline (tanpa diurutkan)
-        $timelines1 = collect();
-        $timelines2 = collect();
+        $timelines = Timeline::orderBy('round_number')
+            ->orderBy('date')
+            ->get()
+            ->groupBy('round_number');
 
-        if (class_exists(Timeline::class) && Schema::hasTable('timelines')) {
-            if (Schema::hasColumn('timelines', 'timeline_number')) {
-                $timelines1 = Timeline::where('timeline_number', 1)->get();
-                $timelines2 = Timeline::where('timeline_number', 2)->get();
-            } else {
-                $all = Timeline::all();
-                $mid = (int) ceil($all->count() / 2);
-                $timelines1 = $all->slice(0, $mid)->values();
-                $timelines2 = $all->slice($mid)->values();
-            }
-        }
-
-        return view('home', compact('homeContents', 'timelines1', 'timelines2'));
+        return view('home', compact('homeContents', 'timelines'));
     }
 
     // Bagian Admin tetap sama

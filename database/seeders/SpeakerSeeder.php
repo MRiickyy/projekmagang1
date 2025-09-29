@@ -15,7 +15,7 @@ class SpeakerSeeder extends Seeder
     public function run(): void
     {
         // Insert Speaker
-        $speaker = Speaker::create([
+        $speaker = Speaker::firstOrCreate([
             'name' => 'Assoc. Prof. Ts. Dr. Afizan Azman',
             'university' => 'Multimedia University, Malaysia',
             'slug' => 'assoc-prof-ts-dr-afizan-azman',
