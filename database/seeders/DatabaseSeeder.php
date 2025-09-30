@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder
             ContactInfoSeeder::class,
             HomeContentSeeder::class,
             MapLocationSeeder::class,
+            AuthorInformationSeeder::class,
+            RegistrationSeeder::class,
+            RegistrationFeeSeeder::class,
             // tambahkan seeder lain di sini
         ]);
 

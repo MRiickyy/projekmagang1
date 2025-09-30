@@ -19,9 +19,7 @@ Route::get('/author-information', function () {
     return view('author'); // ini yang penting
 });
 
-Route::get('/registration', function () {
-    return view('registration'); // ini yang penting
-});
+Route::get('/registration', [RegistrationController::class, 'index'])->name('registration.index');
 
 Route::get('/call-for-papers', function () {
     return view('callpaper');
