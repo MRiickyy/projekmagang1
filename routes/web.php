@@ -11,9 +11,9 @@ use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\MapLocationController;
 use App\Http\Controllers\RegistrationController;
 
-// Route::get('/', function () {
-//     return view('home');
-// });
+Route::get('/', function () {
+return view('home');
+ });
 
 Route::get('/author-information', function () {
     return view('author'); // ini yang penting
@@ -49,4 +49,66 @@ Route::get('/newacc', function () {
 Route::get('/keynote-speakers-2025', [SpeakerController::class, 'keynote']);
 Route::get('/tutorial-speakers-2025', [SpeakerController::class, 'tutorial']);
 
+Route::get('/speakers/{slug}', [SpeakerController::class, 'detailspeaker'])->name('detail.speaker');
+
+// Route Committees
+Route::get('/steering-committees', [CommitteeController::class, 'steering']);
+Route::get('/technical-committees', [CommitteeController::class, 'technical']);
+Route::get('/organizing-committees', [CommitteeController::class, 'organizing']);
+
+//Route Home
+Route::get('/', [HomeContentController::class, 'index'])->name('home');
+// Halaman Admin
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/home-contents', [HomeContentController::class, 'adminIndex'])->name('home_contents.index');
+    Route::get('/home-contents/create', [HomeContentController::class, 'create'])->name('home_contents.create');
+    Route::post('/home-contents', [HomeContentController::class, 'store'])->name('home_contents.store');
+    Route::get('/home-contents/{homeContent}/edit', [HomeContentController::class, 'edit'])->name('home_contents.edit');
+    Route::put('/home-contents/{homeContent}', [HomeContentController::class, 'update'])->name('home_contents.update');
+    Route::delete('/home-contents/{homeContent}', [HomeContentController::class, 'destroy'])->name('home_contents.destroy');
+});
+
+// Route Author
+Route::get('/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
+
+//Route Contact
+Route::get('/contacts', [ContactInfoController::class, 'index'])->name('contact');
+Route::post('/contact/send', [ContactMessageController::class, 'store'])->name('contact.send');
+Route::get('/contacts', [MapLocationController::class, 'index'])->name('contact');
+// Halaman Admin Contact
+Route::prefix('admin')->group(function () {
+    Route::get('/contact-infos', [ContactInfoController::class, 'indexAdmin'])->name('admin.contact_infos.indexAdmin');
+    Route::get('/contact-infos/create', [ContactInfoController::class, 'create'])->name('admin.contact_infos.create');
+    Route::post('/contact-infos', [ContactInfoController::class, 'store'])->name('admin.contact_infos.store');
+    Route::get('/contact-infos/{contact}/edit', [ContactInfoController::class, 'edit'])->name('admin.contact_infos.edit');
+    Route::put('/contact-infos/{contact}', [ContactInfoController::class, 'update'])->name('admin.contact_infos.update');
+    Route::delete('/contact-infos/{contact}', [ContactInfoController::class, 'destroy'])->name('admin.contact_infos.destroy');
+});
+
+
+//Route Call Paper
+Route::get('/call-for-papers', [CallPaperController::class, 'index'])->name('call_papers');
+// Halaman Admin Call Paper
+Route::prefix('admin')->group(function () {
+    Route::get('/call-papers', [CallPaperController::class, 'indexAdmin'])->name('admin.call_papers');
+    Route::get('/call-papers/create', [CallPaperController::class, 'create'])->name('admin.call_papers.create');
+    Route::post('/call-papers', [CallPaperController::class, 'store'])->name('admin.call_papers.store');
+    Route::get('/call-papers/{callPaper}/edit', [CallPaperController::class, 'edit'])->name('admin.call_papers.edit');
+    Route::put('/call-papers/{callPaper}', [CallPaperController::class, 'update'])->name('admin.call_papers.update');
+    Route::delete('/call-papers/{callPaper}', [CallPaperController::class, 'destroy'])->name('admin.call_papers.destroy');
+});
 Route::get('/speakers/{id}', [SpeakerController::class, 'detailspeaker'])->name('detail.speaker');
+
+
+Route::get('/admin/login', function () {
+    return view('loginAdmin');
+})->name('admin.login');
+
+Route::get('/admin/speakers', function () {
+    return view('speakerAdmin'); // file: resources/views/keyspeakers.blade.php
+})->name('admin.speakers');
+
+// Halaman Committees Admin
+Route::get('/admin/committees', function () {
+    return view('committeesAdmin'); // file: resources/views/committees.blade.php
+})->name('admin.committees');
