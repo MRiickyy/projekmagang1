@@ -11,9 +11,9 @@ use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\MapLocationController;
 use App\Http\Controllers\RegistrationController;
 
-// Route::get('/', function () {
-//     return view('home');
-// });
+Route::get('/', function () {
+return view('home');
+ });
 
 Route::get('/author-information', function () {
     return view('author'); // ini yang penting
@@ -97,3 +97,18 @@ Route::prefix('admin')->group(function () {
     Route::put('/call-papers/{callPaper}', [CallPaperController::class, 'update'])->name('admin.call_papers.update');
     Route::delete('/call-papers/{callPaper}', [CallPaperController::class, 'destroy'])->name('admin.call_papers.destroy');
 });
+Route::get('/speakers/{id}', [SpeakerController::class, 'detailspeaker'])->name('detail.speaker');
+
+
+Route::get('/admin/login', function () {
+    return view('loginAdmin');
+})->name('admin.login');
+
+Route::get('/admin/speakers', function () {
+    return view('speakerAdmin'); // file: resources/views/keyspeakers.blade.php
+})->name('admin.speakers');
+
+// Halaman Committees Admin
+Route::get('/admin/committees', function () {
+    return view('committeesAdmin'); // file: resources/views/committees.blade.php
+})->name('admin.committees');
