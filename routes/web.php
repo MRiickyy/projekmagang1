@@ -115,6 +115,16 @@ Route::get('/admin/home-selection', function () {
     return view('/admin/home_contents_admin');
 });
 
+// Halaman form tambah home contents
+Route::get('/admin/home-contents/tambah', function () {
+    return view('admin.tambah_home_contents_admin');
+})->name('admin.home_contents.tambah');
+
+// Halaman tambah committee 
+Route::get('/admin/committees/tambah', function () {
+    return view('/admin/tambah_committeesAdmin');
+})->name('admin.committees.tambah');
+
 // Halaman Author Information Admin
 Route::get('/admin/author', function () {
     return view('/admin/authorinformationAdmin'); 
