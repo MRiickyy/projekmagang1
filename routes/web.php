@@ -15,26 +15,8 @@ Route::get('/', function () {
 return view('home');
  });
 
-Route::get('/author-information', function () {
-    return view('author'); // ini yang penting
-});
-
-Route::get('/registration', [RegistrationController::class, 'index'])->name('registration.index');
-
 Route::get('/call-for-papers', function () {
     return view('callpaper');
-});
-
-// Route::get('/contacts', function () {
-//     return view('contact');
-// });
-
-Route::get('/detailspeakerK', function () {
-    return view('detailspeakerK');
-});
-
-Route::get('/detailspeakerT', function () {
-    return view('detailspeakerT');
 });
 
 Route::get('/login', function () {
@@ -49,27 +31,22 @@ Route::get('/newacc', function () {
 Route::get('/keynote-speakers-2025', [SpeakerController::class, 'keynote']);
 Route::get('/tutorial-speakers-2025', [SpeakerController::class, 'tutorial']);
 Route::get('/speakers/{slug}', [SpeakerController::class, 'detailspeaker'])->name('detail.speaker');
-Route::get('/admin/speakers', [SpeakerController::class, 'adminList'])->name('admin.speaker_list');
+Route::get('/admin/speakers', [SpeakerController::class, 'adminList'])->name('admin.speakers');
 
 // Route Committees
 Route::get('/steering-committees', [CommitteeController::class, 'steering']);
 Route::get('/technical-committees', [CommitteeController::class, 'technical']);
 Route::get('/organizing-committees', [CommitteeController::class, 'organizing']);
+Route::get('/admin/committees', [CommitteeController::class, 'adminList'])->name('admin.committees');
 
 //Route Home
 Route::get('/', [HomeContentController::class, 'index'])->name('home');
 // Halaman Admin
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/home-contents', [HomeContentController::class, 'adminIndex'])->name('home_contents.index');
-    Route::get('/home-contents/create', [HomeContentController::class, 'create'])->name('home_contents.create');
-    Route::post('/home-contents', [HomeContentController::class, 'store'])->name('home_contents.store');
-    Route::get('/home-contents/{homeContent}/edit', [HomeContentController::class, 'edit'])->name('home_contents.edit');
-    Route::put('/home-contents/{homeContent}', [HomeContentController::class, 'update'])->name('home_contents.update');
-    Route::delete('/home-contents/{homeContent}', [HomeContentController::class, 'destroy'])->name('home_contents.destroy');
-});
+Route::get('/admin/home-contents-admin/tambah', [HomeContentController::class, 'adminList'])->name('admin.tambah_home_contents_admin');
 
-// Route Author
+// Route For Author
 Route::get('/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
+Route::get('/registration', [RegistrationController::class, 'index'])->name('registration.index');
 
 //Route Contact
 Route::get('/contacts', [ContactInfoController::class, 'index'])->name('contact');
@@ -84,7 +61,6 @@ Route::prefix('admin')->group(function () {
     Route::put('/contact-infos/{contact}', [ContactInfoController::class, 'update'])->name('admin.contact_infos.update');
     Route::delete('/contact-infos/{contact}', [ContactInfoController::class, 'destroy'])->name('admin.contact_infos.destroy');
 });
-
 
 //Route Call Paper
 Route::get('/call-for-papers', [CallPaperController::class, 'index'])->name('call_papers');
@@ -104,12 +80,12 @@ Route::get('/admin/login', function () {
 
 Route::get('/admin/speakerss', function () {
     return view('speakerAdmin'); // file: resources/views/keyspeakers.blade.php
-})->name('admin.speakers');
+})->name('admin.speakerss');
 
 // Halaman Committees Admin
-Route::get('/admin/committees', function () {
+Route::get('/admin/committee', function () {
     return view('/admin/committeesAdmin'); // file: resources/views/committees.blade.php
-})->name('admin.committees');
+})->name('admin.committeess');
 
 Route::get('/admin/home-selection', function () {
     return view('/admin/home_contents_admin');
@@ -127,15 +103,20 @@ Route::get('/admin/committees/tambah', function () {
 
 // Halaman Author Information Admin
 Route::get('/admin/author', function () {
-    return view('authorinformationAdmin'); 
+    return view('/admin/authorinformationAdmin'); 
 })->name('admin.author');
 
 // Halaman Registrations Admin
 Route::get('/admin/registrations', function () {
-    return view('registrationsAdmin'); 
+    return view('/admin/registrationsAdmin'); 
 })->name('admin.registrations');
 
 // Route untuk Contacts Admin
 Route::get('/admin/contacts', function () {
     return view('/admin/contacts_Admin'); // ini file yang kamu buat
 })->name('admin.contacts');
+
+// Halaman Tambah Author Information Admin
+Route::get('/admin/author/tambah', function () {
+    return view('/admin/tambah_authorinformationAdmin'); 
+})->name('admin.authorinformationAdmin.tambah');

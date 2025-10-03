@@ -31,12 +31,13 @@ class HomeContentController extends Controller
     }
 
     // Bagian Admin tetap sama
-    public function adminIndex()
+    public function adminList()
     {
         $homeContents = HomeContent::all();
-        return view('admin.home_contents.index', compact('homeContents'));
+        return view('admin.tambah_home_contents_admin', compact('homeContents'));
     }
 
+    
     public function create()
     {
         return view('admin.home_contents.create');
