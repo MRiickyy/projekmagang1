@@ -111,6 +111,12 @@ Route::get('/admin/registrations', function () {
     return view('/admin/registrationsAdmin'); 
 })->name('admin.registrations');
 
+// Route untuk Contacts Admin
+Route::get('/admin/contacts', function () {
+    return view('/admin/contacts_Admin'); // ini file yang kamu buat
+})->name('admin.contacts');
+
+
 // Halaman Tambah Author Information Admin
 Route::get('/admin/author/tambah', function () {
     return view('/admin/tambah_authorinformationAdmin'); 
