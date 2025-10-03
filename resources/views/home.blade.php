@@ -83,31 +83,31 @@
 
     <!-- Script Dropdown -->
     <script>
-        const dropdowns = document.querySelectorAll(".dropdown");
+    const dropdowns = document.querySelectorAll(".dropdown");
 
-        dropdowns.forEach(dropdown => {
-            const btn = dropdown.querySelector(".dropdown-btn");
-            const menu = dropdown.querySelector(".dropdown-menu");
+    dropdowns.forEach(dropdown => {
+        const btn = dropdown.querySelector(".dropdown-btn");
+        const menu = dropdown.querySelector(".dropdown-menu");
 
-            btn.addEventListener("click", (e) => {
-                e.stopPropagation();
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
 
-                // Tutup semua dropdown lain dulu
-                dropdowns.forEach(d => {
-                    if (d !== dropdown) {
-                        d.querySelector(".dropdown-menu").classList.add("hidden");
-                    }
-                });
-
-                // Toggle dropdown yang diklik
-                menu.classList.toggle("hidden");
+            // Tutup semua dropdown lain dulu
+            dropdowns.forEach(d => {
+                if (d !== dropdown) {
+                    d.querySelector(".dropdown-menu").classList.add("hidden");
+                }
             });
-        });
 
-        // Klik di luar semua dropdown → tutup semuanya
-        document.addEventListener("click", () => {
-            dropdowns.forEach(d => d.querySelector(".dropdown-menu").classList.add("hidden"));
+            // Toggle dropdown yang diklik
+            menu.classList.toggle("hidden");
         });
+    });
+
+    // Klik di luar semua dropdown → tutup semuanya
+    document.addEventListener("click", () => {
+        dropdowns.forEach(d => d.querySelector(".dropdown-menu").classList.add("hidden"));
+    });
     </script>
 
     <!-- HERO -->
@@ -300,7 +300,8 @@
                 </div>
                 @empty
                 <div class="col-span-2">
-                    <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6 mb-6 flex justify-center items-center min-h-[150px]">
+                    <div
+                        class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6 mb-6 flex justify-center items-center min-h-[150px]">
                         <p class="text-gray-500 font-semibold text-center">Belum ada data timeline yang tersedia.</p>
                     </div>
                 </div>
