@@ -117,3 +117,8 @@ Route::get('/admin/committees', function () {
 Route::get('/admin/author', function () {
     return view('authorinformationAdmin'); 
 })->name('admin.author');
+
+// Halaman Registrations Admin
+Route::get('/admin/registrations', function () {
+    return view('registrationsAdmin'); 
+})->name('admin.registrations');
