@@ -114,11 +114,16 @@ Route::get('/admin/committees', function () {
 })->name('admin.committees');
 
 Route::get('/admin/home-selection', function () {
-    return view('home_contents_admin');
+    return view('/admin/home_contents_admin');
 });
 
 // Halaman Author Information Admin
 Route::get('/admin/author', function () {
     return view('authorinformationAdmin'); 
 })->name('admin.author');
+
+// Halaman form tambah home contents
+Route::get('/admin/home-contents/tambah', function () {
+    return view('admin.tambah_home_contents_admin');
+})->name('admin.home_contents.tambah');
 
