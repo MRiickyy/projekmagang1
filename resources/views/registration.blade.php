@@ -90,49 +90,36 @@
         <div class="mt-6 space-y-4 text-black leading-relaxed">
             <h1 class="text-3xl font-bold mb-6 text-center text-[#1a1f27]/95">Payment Methods</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                @foreach($paymentMethods as $method)
+                    <div class="p-6 bg-gray-100 rounded-xl shadow-lg">
+                        <h3 class="text-xl text-center font-bold mb-4">{{ $method->method_name }}</h3>
 
-                <!-- Virtual Account -->
-                <div class="bg-gray-100 rounded-xl p-6 shadow-lg">
-                    <div class="flex items-center justify-center w-8 h-8 bg-gray-200 rounded-full mb-4">
-                        <span class="font-bold text-gray-700">1</span>
-                    </div>
-                    <h2 class="text-xl font-bold mb-3 text-center text-[#1a1f27]/95">Virtual Account</h2>
-                    <ul class="list-disc list-inside text-black leading-relaxed">
-                        <li><span class="font-semibold">Bank Name:</span> {{ $registration->bank_name ?? 'Bank Negara Indonesia (PERSERO)' }}</li>
-                        <li><span class="font-semibold">Account Name:</span> {{ $registration->account_name ?? 'Telkom University – ICOICT 2025' }}</li>
-                        <li><span class="font-semibold">Virtual Account Number:</span> {{ $registration->virtual_account ?? '0000000000' }}</li>
-                    </ul>
-                    <p class="text-red-600 mt-3 font-medium">
-                        Important: Please include your paper ID information on the payment slip.
-                    </p>
-                </div>
+                        @if($method->method_name === 'Virtual Account')
+                            <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                                <li><strong>Bank Name:</strong> {{ $method->bank_name }}</li>
+                                <li><strong>Account Name:</strong> {{ $method->account_name }}</li>
+                                <li><strong>Virtual Account Number:</strong> {{ $method->virtual_account_number }}</li>
+                            </ul>
+                            @if($method->important_notes)
+                                <p class="mt-3 text-red-600 font-semibold">
+                                    {{ $method->important_notes }}
+                                </p>
+                            @endif
+                        @elseif($method->method_name === 'PayPal')
+                            <li><strong>PayPal Email Address:</strong> {{ $method->paypal_email }}</li>
 
-                <!-- PayPal -->
-                <div class="bg-gray-100 rounded-xl p-6 shadow-lg">
-                    <div class="flex items-center justify-center w-8 h-8 bg-gray-200 rounded-full mb-4">
-                        <span class="font-bold text-gray-700">2</span>
+                            @if($method->additional_info)
+                                <p class="mt-2 font-bold">Additional Information:</p>
+                                <p class="text-gray-700 space-y-1 leading-relaxed">
+                                    {{ $method->additional_info }}
+                                </p>
+                            @endif
+                        @endif
                     </div>
-                    <h2 class="text-xl font-bold mb-3 text-center text-[#1a1f27]/95">PayPal</h2>
-                    <ul class="list-disc list-inside text-black leading-relaxed">
-                        <li><span class="font-semibold">PayPal Email Address:</span> {{ $registration->paypal_email ?? 'example@domain.com' }}</li>
-                    </ul>
-                    <p class="font-semibold text-black mt-3">Additional Information:</p>
-                    @if($registration->paypal_info)
-                        <ol class="list-decimal list-inside text-black leading-relaxed">
-                            @foreach(explode("\n", $registration->paypal_info) as $info)
-                                <li>{{ $info }}</li>
-                            @endforeach
-                        </ol>
-                    @else
-                        <ol class="list-decimal list-inside text-black leading-relaxed">
-                            <li>Transfer the full registration fee plus a 5% PayPal currency conversion fee.</li>
-                            <li>Ensure the fee is transferred under the registrant’s name, clearly stated on the payment slip.</li>
-                            <li>Include your paper ID information on the payment slip.</li>
-                        </ol>
-                    @endif
-                </div>
+                @endforeach
             </div>
         </div>
+
 
         <!-- Registration Procedures -->
         <div class="bg-gray-100 rounded-xl p-6 shadow-lg mt-6">
