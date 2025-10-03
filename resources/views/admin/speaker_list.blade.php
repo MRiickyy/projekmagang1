@@ -10,8 +10,7 @@
 
         <!-- Tombol Tambah & Cetak -->
         <div class="flex justify-between mb-4">
-            <a href="#"
-                class="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600">Tambah</a>
+            <a href="#" class="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600">Tambah</a>
         </div>
 
         <!-- Tabel -->
@@ -42,7 +41,8 @@
                             <form action="#" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
+                                <button type="submit"
+                                    class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
                             </form>
                             <a href="#" class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</a>
                         </td>

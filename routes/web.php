@@ -42,14 +42,7 @@ Route::get('/admin/committees', [CommitteeController::class, 'adminList'])->name
 //Route Home
 Route::get('/', [HomeContentController::class, 'index'])->name('home');
 // Halaman Admin
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/home-contents', [HomeContentController::class, 'adminIndex'])->name('home_contents.index');
-    Route::get('/home-contents/create', [HomeContentController::class, 'create'])->name('home_contents.create');
-    Route::post('/home-contents', [HomeContentController::class, 'store'])->name('home_contents.store');
-    Route::get('/home-contents/{homeContent}/edit', [HomeContentController::class, 'edit'])->name('home_contents.edit');
-    Route::put('/home-contents/{homeContent}', [HomeContentController::class, 'update'])->name('home_contents.update');
-    Route::delete('/home-contents/{homeContent}', [HomeContentController::class, 'destroy'])->name('home_contents.destroy');
-});
+Route::get('/admin/home-contents-admin/tambah', [HomeContentController::class, 'adminList'])->name('admin.tambah_home_contents_admin');
 
 // Route For Author
 Route::get('/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
