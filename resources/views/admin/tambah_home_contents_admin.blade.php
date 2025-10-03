@@ -31,8 +31,6 @@
                         <td class="px-4 py-2 border">{{ $homeContent->id }}</td>
                         <td class="px-4 py-2 border">{{ $homeContent-> section }}</td>
                         <td class="px-4 py-2 border">{{ $homeContent->content }}</td>
-                        <td class="px-4 py-2 border">{{ $homeContent->created_at }}</td>
-                        <td class="px-4 py-2 border">{{ $homeContent->updated_at }}</td>
                         <td class="px-4 py-2 border space-x-2">
                             <a href="#" class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</a>
                             <form action="#" method="POST" class="inline">
