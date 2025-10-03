@@ -41,11 +41,32 @@ return new class extends Migration
             $table->integer('idr_online')->nullable();
             $table->timestamps();
         });
+
+        Schema::create('payment_methods', function (Blueprint $table) {
+            $table->id();
+            $table->string('method_name');
+
+            // Virtual Account fields
+            $table->string('bank_name')->nullable();
+            $table->string('account_name')->nullable();
+            $table->string('virtual_account_number')->nullable();
+
+            // PayPal fields
+            $table->string('paypal_email')->nullable();
+            $table->text('additional_info')->nullable();
+
+            // Catatan penting
+            $table->text('important_notes')->nullable();
+
+            $table->timestamps();
+        });
+
     }
 
     public function down(): void
     {
         Schema::dropIfExists('registration_fees');
         Schema::dropIfExists('registrations');
+        Schema::dropIfExists('payment_methods');
     }
 };
