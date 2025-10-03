@@ -112,3 +112,7 @@ Route::get('/admin/speakers', function () {
 Route::get('/admin/committees', function () {
     return view('committeesAdmin'); // file: resources/views/committees.blade.php
 })->name('admin.committees');
+
+Route::get('/admin/home-selection', function () {
+    return view('home_contents_admin');
+});
