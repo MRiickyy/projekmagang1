@@ -116,3 +116,4 @@ Route::get('/admin/committees', function () {
 Route::get('/admin/home-selection', function () {
     return view('home_contents_admin');
 });
+
