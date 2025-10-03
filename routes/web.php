@@ -48,8 +48,8 @@ Route::get('/newacc', function () {
 // Route Speaker
 Route::get('/keynote-speakers-2025', [SpeakerController::class, 'keynote']);
 Route::get('/tutorial-speakers-2025', [SpeakerController::class, 'tutorial']);
-
 Route::get('/speakers/{slug}', [SpeakerController::class, 'detailspeaker'])->name('detail.speaker');
+Route::get('/admin/speakers', [SpeakerController::class, 'adminList'])->name('admin.speaker_list');
 
 // Route Committees
 Route::get('/steering-committees', [CommitteeController::class, 'steering']);
@@ -97,14 +97,12 @@ Route::prefix('admin')->group(function () {
     Route::put('/call-papers/{callPaper}', [CallPaperController::class, 'update'])->name('admin.call_papers.update');
     Route::delete('/call-papers/{callPaper}', [CallPaperController::class, 'destroy'])->name('admin.call_papers.destroy');
 });
-Route::get('/speakers/{id}', [SpeakerController::class, 'detailspeaker'])->name('detail.speaker');
-
 
 Route::get('/admin/login', function () {
     return view('loginAdmin');
 })->name('admin.login');
 
-Route::get('/admin/speakers', function () {
+Route::get('/admin/speakerss', function () {
     return view('speakerAdmin'); // file: resources/views/keyspeakers.blade.php
 })->name('admin.speakers');
 
@@ -126,4 +124,3 @@ Route::get('/admin/author', function () {
 Route::get('/admin/home-contents/tambah', function () {
     return view('admin.tambah_home_contents_admin');
 })->name('admin.home_contents.tambah');
-
