@@ -122,7 +122,15 @@ Route::get('/admin/author/tambah', function () {
     return view('/admin/tambah_authorinformationAdmin'); 
 })->name('admin.authorinformationAdmin.tambah');
 
+<<<<<<< HEAD
 // Route untuk tambah Contacts_Admin
 Route::get('/admin/contacts/tambah', function () {
     return view('/admin/tambah_contacts_Admin'); // ini file yang kamu buat
 })->name('admin.contacts.tambah');
+=======
+// Halaman Tambah Registrations Admin
+Route::get('/admin/registrations/tambah', function () {
+    return view('/admin/tambah_registrationsAdmin'); 
+})->name('admin.registrationsAdmin.tambah');
+
+>>>>>>> 0febd0609e8f0a6e66b975aa14439808cb4791ce
