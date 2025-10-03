@@ -41,7 +41,7 @@
     </div>
     @empty
         <div class="text-center text-gray-600 bg-gray-100 py-10 rounded-lg shadow-md">
-            <p class="text-lg font-semibold">Belum ada Tutorial Speaker yang tersedia.</p>
+            <p class="text-lg font-semibold">There are no Tutorial Speaker available yet.</p>
         </div>
     @endforelse
 

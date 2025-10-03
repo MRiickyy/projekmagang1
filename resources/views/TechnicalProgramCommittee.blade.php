@@ -32,7 +32,7 @@
                 </div>
                 @empty
                 <div class="text-center text-gray-600 bg-gray-100 py-10 rounded-lg shadow-md">
-                    <p class="text-lg font-semibold">Belum ada Technical Program Committees yang tersedia.</p>
+                    <p class="text-lg font-semibold">There are no Technical Program Committees available yet.</p>
                 </div>
             @endforelse
         </div>
