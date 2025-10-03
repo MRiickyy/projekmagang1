@@ -103,10 +103,15 @@ Route::get('/admin/committees/tambah', function () {
 
 // Halaman Author Information Admin
 Route::get('/admin/author', function () {
-    return view('authorinformationAdmin'); 
+    return view('/admin/authorinformationAdmin'); 
 })->name('admin.author');
 
 // Halaman Registrations Admin
 Route::get('/admin/registrations', function () {
-    return view('registrationsAdmin'); 
+    return view('/admin/registrationsAdmin'); 
 })->name('admin.registrations');
+
+// Halaman Tambah Author Information Admin
+Route::get('/admin/author/tambah', function () {
+    return view('/admin/tambah_authorinformationAdmin'); 
+})->name('admin.authorinformationAdmin.tambah');

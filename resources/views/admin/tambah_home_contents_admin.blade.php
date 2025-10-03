@@ -22,8 +22,6 @@
                         <th class="px-4 py-2 border">ID</th>
                         <th class="px-4 py-2 border">Section</th>
                         <th class="px-4 py-2 border">Content</th>
-                        <th class="px-4 py-2 border">Created At</th>
-                        <th class="px-4 py-2 border">Updated At</th>
                         <th class="px-4 py-2 border">Action</th>
                     </tr>
                 </thead>
