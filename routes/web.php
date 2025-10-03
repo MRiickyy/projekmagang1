@@ -134,3 +134,8 @@ Route::get('/admin/author', function () {
 Route::get('/admin/registrations', function () {
     return view('/admin/registrationsAdmin'); 
 })->name('admin.registrations');
+
+// Halaman Tambah Author Information Admin
+Route::get('/admin/author/tambah', function () {
+    return view('/admin/tambah_authorinformationAdmin'); 
+})->name('admin.authorinformationAdmin.tambah');
