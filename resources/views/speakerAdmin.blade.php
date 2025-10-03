@@ -60,13 +60,6 @@
                            class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none">
                 </div>
 
-                <!-- Full Biodata -->
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">Full Biodata</label>
-                    <textarea name="full_biodata" rows="4"
-                              class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"></textarea>
-                </div>
-
                 <!-- Speaker Type -->
                 <div>
                     <label class="block text-sm font-bold text-slate-900 mb-2">Speaker Type</label>
@@ -80,6 +73,15 @@
                             Tutorial Speakers
                         </label>
                     </div>
+                </div>
+
+                <h2 class="text-base font-semibold text-slate-900 mb-6">Description Speakers</h2>
+
+                <!-- Content -->
+                <div>
+                    <label class="block text-sm font-bold text-slate-900 mb-1">Content</label>
+                    <textarea name="content" rows="4"
+                              class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"></textarea>
                 </div>
 
                 <!-- Action Buttons -->
