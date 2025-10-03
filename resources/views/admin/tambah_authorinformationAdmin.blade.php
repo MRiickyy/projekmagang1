@@ -12,14 +12,33 @@
     <aside class="w-64 min-h-screen bg-[#1a1f27]/95 shadow-md">
         <div class="px-6 py-6 text-lg font-bold">Dashboard Admin</div>
         <nav class="px-4 space-y-3 text-sm">
+
             <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Dashboard</a>
             <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">HomeSelection</a>
             <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Call For Papers</a>
             <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Speakers</a>
             <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Committees</a>
-            <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">For Authors</a>
+
+            <!-- For Authors with submenu -->
+            <div x-data="{ open: true }" class="space-y-1">
+                <button @click="open = !open" 
+                    class="w-full flex justify-between items-center px-3 py-2 rounded hover:bg-[#334155]">
+                    <span>For Authors</span>
+                    <svg :class="{'rotate-180': open}" class="w-4 h-4 transform transition-transform" 
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                            d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div x-show="open" class="ml-4 space-y-1">
+                    <a href="/author-informations" class="block px-3 py-2 rounded text-[#00e676] font-semibold">Author Informations</a>
+                    <a href="/registrations" class="block px-3 py-2 rounded hover:bg-[#334155]">Registrations</a>
+                    <a href="/contacts" class="block px-3 py-2 rounded hover:bg-[#334155]">Contacts</a>
+                </div>
+                </div>
+            </div>
             <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Events</a>
-            <a href="#" class="block px-3 py-2 rounded text-[#00e676] font-semibold">Author Informations</a>
+
         </nav>
     </aside>
 
