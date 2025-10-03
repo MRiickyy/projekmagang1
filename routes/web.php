@@ -117,10 +117,10 @@ Route::get('/admin/home-selection', function () {
 
 // Halaman Author Information Admin
 Route::get('/admin/author', function () {
-    return view('authorinformationAdmin'); 
+    return view('/admin/authorinformationAdmin'); 
 })->name('admin.author');
 
 // Halaman Registrations Admin
 Route::get('/admin/registrations', function () {
-    return view('registrationsAdmin'); 
+    return view('/admin/registrationsAdmin'); 
 })->name('admin.registrations');
