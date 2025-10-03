@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             AuthorInformationSeeder::class,
             RegistrationSeeder::class,
             RegistrationFeeSeeder::class,
+            PaymentMethodsSeeder::class,
+            CallPaperSeeder::class,
             // tambahkan seeder lain di sini
         ]);
 

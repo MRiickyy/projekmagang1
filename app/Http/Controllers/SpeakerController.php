@@ -27,4 +27,10 @@ class SpeakerController extends Controller
 
         return view('speakers.detail', compact('speaker'));
     }
+
+    public function adminList()
+    {
+        $speakers = Speaker::all();
+        return view('admin.speaker_list', compact('speakers'));
+    }
 }
