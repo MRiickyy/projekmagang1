@@ -108,7 +108,7 @@ Route::get('/admin/speakerss', function () {
 
 // Halaman Committees Admin
 Route::get('/admin/committees', function () {
-    return view('committeesAdmin'); // file: resources/views/committees.blade.php
+    return view('/admin/committeesAdmin'); // file: resources/views/committees.blade.php
 })->name('admin.committees');
 
 Route::get('/admin/home-selection', function () {
@@ -124,3 +124,8 @@ Route::get('/admin/author', function () {
 Route::get('/admin/home-contents/tambah', function () {
     return view('admin.tambah_home_contents_admin');
 })->name('admin.home_contents.tambah');
+
+// Halaman tambah committee 
+Route::get('/admin/committees/tambah', function () {
+    return view('/admin/tambah_committeesAdmin');
+})->name('admin.committees.tambah');
