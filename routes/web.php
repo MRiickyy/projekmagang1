@@ -134,3 +134,8 @@ Route::get('/admin/author', function () {
 Route::get('/admin/registrations', function () {
     return view('registrationsAdmin'); 
 })->name('admin.registrations');
+
+// Route untuk Contacts Admin
+Route::get('/admin/contacts', function () {
+    return view('/admin/contacts_Admin'); // ini file yang kamu buat
+})->name('admin.contacts');
