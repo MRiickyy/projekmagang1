@@ -121,3 +121,8 @@ Route::get('/admin/contacts', function () {
 Route::get('/admin/author/tambah', function () {
     return view('/admin/tambah_authorinformationAdmin'); 
 })->name('admin.authorinformationAdmin.tambah');
+
+// Route untuk tambah Contacts_Admin
+Route::get('/admin/contacts/tambah', function () {
+    return view('/admin/tambah_contacts_Admin'); // ini file yang kamu buat
+})->name('admin.contacts.tambah');
