@@ -117,3 +117,8 @@ Route::get('/admin/home-selection', function () {
     return view('home_contents_admin');
 });
 
+// Halaman Author Information Admin
+Route::get('/admin/author', function () {
+    return view('authorinformationAdmin'); 
+})->name('admin.author');
+
