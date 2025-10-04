@@ -30,14 +30,17 @@ Route::get('/newacc', function () {
 // Route Speaker
 Route::get('/keynote-speakers-2025', [SpeakerController::class, 'keynote']);
 Route::get('/tutorial-speakers-2025', [SpeakerController::class, 'tutorial']);
-Route::get('/speakers/{slug}', [SpeakerController::class, 'detailspeaker'])->name('detail.speaker');
-Route::get('/admin/speakers', [SpeakerController::class, 'adminList'])->name('admin.speakers');
+Route::get('/speakers/{slug}', [SpeakerController::class, 'detailSpeaker'])->name('detail.speaker');
+Route::get('/admin/speakers', [SpeakerController::class, 'listSpeakers'])->name('admin.speakers');
+Route::get('/admin/speakers/add', [SpeakerController::class, 'addForm'])->name('add.form.speakers');
+Route::post('/admin/speakers/add', [SpeakerController::class, 'addSpeaker'])->name('add.speakers');
 
 // Route Committees
 Route::get('/steering-committees', [CommitteeController::class, 'steering']);
 Route::get('/technical-committees', [CommitteeController::class, 'technical']);
 Route::get('/organizing-committees', [CommitteeController::class, 'organizing']);
-Route::get('/admin/committees', [CommitteeController::class, 'adminList'])->name('admin.committees');
+Route::get('/admin/committees', [CommitteeController::class, 'list_committees'])->name('admin.committees');
+Route::get('/admin/committees/add', [CommitteeController::class, 'add_committee'])->name('add.committees');
 
 //Route Home
 Route::get('/', [HomeContentController::class, 'index'])->name('home');
