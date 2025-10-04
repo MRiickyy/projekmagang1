@@ -24,9 +24,14 @@ class CommitteeController extends Controller
         return view('OrganizingCommittees', compact('committees'));
     }
 
-    public function adminList()
+    public function list_committees()
     {
         $committees = Committee::all();
-        return view('admin.committees_list', compact('committees'));
+        return view('admin.committees.list_committees', compact('committees'));
+    }
+
+    public function add_committee()
+    {
+        return view('admin.committees.add_committee');
     }
 }
