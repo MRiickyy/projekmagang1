@@ -101,10 +101,9 @@ Route::get('/admin/committees/tambah', function () {
     return view('/admin/tambah_committeesAdmin');
 })->name('admin.committees.tambah');
 
-// Halaman Author Information Admin
-Route::get('/admin/author', function () {
-    return view('/admin/authorinformationAdmin'); 
-})->name('admin.author');
+// Admin: form edit + simpan
+Route::get('/admin/author-information', [AuthorInformationController::class, 'adminIndex'])->name('admin.author-information.index');
+Route::post('/admin/author-information', [AuthorInformationController::class, 'update'])->name('admin.author-information.update');
 
 // Halaman Registrations Admin
 Route::get('/admin/registrations', function () {
