@@ -39,8 +39,9 @@ Route::post('/admin/speakers/add', [SpeakerController::class, 'addSpeaker'])->na
 Route::get('/steering-committees', [CommitteeController::class, 'steering']);
 Route::get('/technical-committees', [CommitteeController::class, 'technical']);
 Route::get('/organizing-committees', [CommitteeController::class, 'organizing']);
-Route::get('/admin/committees', [CommitteeController::class, 'list_committees'])->name('admin.committees');
-Route::get('/admin/committees/add', [CommitteeController::class, 'add_committee'])->name('add.committees');
+Route::get('/admin/committees', [CommitteeController::class, 'listCommittees'])->name('admin.committees');
+Route::get('/admin/committees/add', [CommitteeController::class, 'addForm'])->name('add.form.committees');
+Route::post('/admin/committees/add', [CommitteeController::class, 'addCommittee'])->name('add.committees');
 
 //Route Home
 Route::get('/', [HomeContentController::class, 'index'])->name('home');

@@ -30,9 +30,29 @@ class SpeakerController extends Controller
         return view('speakers.detail', compact('speaker'));
     }
 
-    public function listSpeakers()
+    public function listSpeakers(Request $request)
     {
-        $speakers = Speaker::all();
+        $query = Speaker::query();
+
+        // 🔍 Search by name or university
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('university', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter by type (keynote/tutorial)
+        if ($request->filled('type')) {
+            $query->where('speaker_type', $request->type);
+        }
+
+        // ⬆️ Sort Ascending by name
+        $speakers = $query->orderBy('name', 'asc')->paginate(10);
+
+        // Biar filter tetap nyangkut ketika pindah halaman
+        $speakers->appends($request->all());
         return view('admin.speakers.list_speakers', compact('speakers'));
     }
 

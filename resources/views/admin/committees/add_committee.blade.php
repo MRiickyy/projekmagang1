@@ -1,95 +1,72 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit dan Tambah Committees</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="min-h-screen flex flex-col bg-gradient-to-r from-[#1E293B] via-[#334155] to-[#0F172A] text-slate-100">
+@extends('layouts.admin')
 
-<!-- Header -->
-<header class="bg-[#1a1f27]/95 backdrop-blur shadow-md">
-    <div class="max-w-7xl mx-auto px-6 py-5">
-        <h1 class="text-2xl font-bold tracking-normal">
-            Edit dan 
-            <span class="bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent font-bold">
-                Tambah Committees
-            </span>
-        </h1>
-    </div>
-</header>
+@section('title', 'Add Committee')
 
-<!-- Content -->
-<main class="flex-1 flex justify-center items-start px-4 py-10">
-    <div class="w-full max-w-3xl bg-[#F2F6F9] rounded-lg shadow-xl p-6 text-slate-800">
-        
-        <h2 class="text-base font-semibold text-slate-900 mb-6">Informasi Committees</h2>
+@section('content')
+<div class="w-full max-w-3xl bg-[#F2F6F9] mx-auto rounded-lg shadow-xl p-6 text-slate-800">
 
-        <form action="#" method="POST" enctype="multipart/form-data" class="space-y-5">
-            @csrf
+    <!-- Title -->
+    <h2 class="text-lg font-bold text-slate-900 mb-6">Committee Information</h2>
 
-            <!-- Name -->
-            <div>
-                <label class="block text-sm font-bold text-slate-900 mb-1">Name</label>
-                <input type="text" name="name" 
-                       class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none">
-            </div>
+    <form action="{{ route('add.committees') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
+        @csrf
 
-            <!-- Role -->
-            <div>
-                <label class="block text-sm font-bold text-slate-900 mb-1">Role</label>
-                <input type="text" name="role" 
-                       class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none">
-            </div>
+        <!-- Name -->
+        <div>
+            <label class="block text-sm font-semibold text-slate-900 mb-1">Full Name</label>
+            <input type="text" name="name"
+                class="w-full border border-gray-300 bg-gray-100 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
 
-            <!-- University -->
-            <div>
-                <label class="block text-sm font-bold text-slate-900 mb-1">University</label>
-                <input type="text" name="university" 
-                       class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none">
-            </div>
+        <!-- Role -->
+        <div>
+            <label class="block text-sm font-semibold text-slate-900 mb-1">Role</label>
+            <input type="text" name="role"
+                class="w-full border border-gray-300 bg-gray-100 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
 
-            <!-- Country -->
-            <div>
-                <label class="block text-sm font-bold text-slate-900 mb-1">Country</label>
-                <input type="text" name="country" 
-                       class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none">
-            </div>
+        <!-- University -->
+        <div>
+            <label class="block text-sm font-semibold text-slate-900 mb-1">University</label>
+            <input type="text" name="university"
+                class="w-full border border-gray-300 bg-gray-100 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
 
-            <!-- Committees Type -->
-            <div>
-                <label class="block text-sm font-bold text-slate-900 mb-2">Committees Type</label>
-                <div class="border border-gray-400 bg-gray-100 rounded-md px-4 py-3 space-y-2">
-                    <label class="flex items-center gap-2">
-                        <input type="radio" name="committee_type" value="organizing" class="focus:ring-0">
-                        Organizing
-                    </label>
-                    <label class="flex items-center gap-2">
-                        <input type="radio" name="committee_type" value="scientific" class="focus:ring-0">
-                        Scientific
-                    </label>
-                    <label class="flex items-center gap-2">
-                        <input type="radio" name="committee_type" value="steering" class="focus:ring-0">
-                        Steering
-                    </label>
-                </div>
-            </div>
+        <!-- Country -->
+        <div>
+            <label class="block text-sm font-semibold text-slate-900 mb-1">Country</label>
+            <input type="text" name="country"
+                class="w-full border border-gray-300 bg-gray-100 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
 
-            <!-- Action Buttons -->
-            <div class="flex justify-end gap-3 pt-4">
-                <button type="reset" 
-                        class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
-                    Batal
-                </button>
-                <button type="submit" 
-                        class="px-6 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">
-                    Simpan
-                </button>
-            </div>
-        </form>
-    </div>
-</main>
+        <!-- Committee Type -->
+        <div>
+            <label class="block text-sm font-semibold text-slate-900 mb-2">Committee Type</label>
+            <label class="flex items-center gap-2 text-sm">
+                <input type="radio" name="type" value="steering" class="focus:ring-0">
+                Steering Committee
+            </label>
+            <label class="flex items-center gap-2 text-sm">
+                <input type="radio" name="type" value="technical program" class="focus:ring-0">
+                Technical Program Committee
+            </label>
+            <label class="flex items-center gap-2 text-sm">
+                <input type="radio" name="type" value="organizing" class="focus:ring-0">
+                Organizing Committee
+            </label>
+        </div>
 
-</body>
-</html>
+        <!-- Action Buttons -->
+        <div class="flex justify-end gap-3 pt-6">
+            <button type="reset"
+                class="px-6 py-2 text-sm rounded-md bg-gray-600 text-white hover:bg-gray-700 transition">
+                Cancel
+            </button>
+            <button type="submit"
+                class="px-6 py-2 text-sm rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md hover:opacity-90 transition">
+                Save
+            </button>
+        </div>
+    </form>
+</div>
+@endsection
