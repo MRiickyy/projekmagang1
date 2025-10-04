@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Committee;
+use Illuminate\Http\Request;
 
 class CommitteeController extends Controller
 {
@@ -24,14 +25,43 @@ class CommitteeController extends Controller
         return view('OrganizingCommittees', compact('committees'));
     }
 
-    public function list_committees()
+    public function listCommittees(Request $request)
     {
-        $committees = Committee::all();
+        $query = Committee::query();
+
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('university', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+
+        $committees = $query->orderBy('name', 'asc')->paginate(10);
+
         return view('admin.committees.list_committees', compact('committees'));
     }
 
-    public function add_committee()
+    public function addForm()
     {
         return view('admin.committees.add_committee');
+    }
+
+    public function addCommittee(Request $request)
+    {
+        $validated = $request->validate([
+            'name'       => 'required|string|max:255',
+            'role'       => 'required|string|max:255',
+            'university' => 'nullable|string|max:255',
+            'country'    => 'nullable|string|max:255',
+            'type'       => 'required|in:steering,technical program,organizing',
+        ]);
+
+        Committee::create($validated);
+
+        return redirect()->route('admin.committees')->with('success', 'Committee has been added successfully!');
     }
 }
