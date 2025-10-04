@@ -25,11 +25,11 @@ class SpeakerSeeder extends Seeder
         // Insert Deskripsi Speaker
         $deskripsi = [
             [
-                'type' => 'abstract',
+                'title' => 'abstract',
                 'content' => 'Future Directions of AI in Societal Impact Project ...',
             ],
             [
-                'type' => 'research_focus',
+                'title' => 'research_focus',
                 'content' => '1. Human Computer Interaction (HCI)
                 2. Artificial Intelligence (AI)
                 3. Data Analytics and Machine Learning
@@ -37,11 +37,11 @@ class SpeakerSeeder extends Seeder
                 5. Internet of Things',
             ],
             [
-                'type' => 'professional_event',
+                'title' => 'professional_event',
                 'content' => 'Invited speaker at The 5th Annual Global Congress of Knowledge Economy 2018 (Qingdao, China).',
             ],
             [
-                'type' => 'training_workshop',
+                'title' => 'training_workshop',
                 'content' => 'Delivered training programs for various organizations, including: JPWM, MCMC, Kementerian Pendidikan Malaysia, UPEN, etc.',
             ],
         ];
@@ -49,7 +49,7 @@ class SpeakerSeeder extends Seeder
         foreach ($deskripsi as $desc) {
             DescriptionSpeaker::create([
                 'speaker_id' => $speaker->id,
-                'type'       => $desc['type'],
+                'title'       => $desc['title'],
                 'content'    => $desc['content'],
             ]);
         }

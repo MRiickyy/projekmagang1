@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class DescriptionSpeaker extends Model
 {
-    protected $table = 'description_speaker';
+    protected $table = 'description_speakers';
 
     protected $fillable = [
         'speaker_id',
-        'type',   // contoh: abstract, research_focus, dll
+        'title',   // contoh: abstract, research_focus, dll
         'content',
     ];
 
