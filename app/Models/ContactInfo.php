@@ -9,5 +9,6 @@ class ContactInfo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type', 'title', 'value'];
+    protected $fillable = ['section', 'type', 'title', 'value', 'link'];
+
 }

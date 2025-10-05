@@ -10,9 +10,9 @@ return new class extends Migration
     {
         Schema::create('contact_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('type');   // contoh: website, email, edas, phone
-            $table->string('title');  // contoh: "Conference Website"
-            $table->string('value');  // contoh: "https://conference-website.com"
+            $table->string('type');   
+            $table->string('title');  
+            $table->string('value');  
             $table->timestamps();
         });
     }

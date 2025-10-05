@@ -13,7 +13,7 @@
     <!-- CONTACT INFO -->
     <h3 class="font-bold text-gray-800 mb-4">CONTACT US AT</h3>
     <div class="flex flex-col space-y-4 mb-10 w-full">
-        @foreach($contacts as $contact)
+        @foreach($contactInfos as $contact)
         <div class="flex items-center gap-4 bg-gray-100 rounded-xl shadow p-4 w-full">
             {{-- Icon + warna berdasarkan type, tapi type tidak ditampilkan --}}
             <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full 

@@ -8,7 +8,6 @@ use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\AuthorInformationController;
 use App\Http\Controllers\ContactInfoController;
 use App\Http\Controllers\ContactMessageController;
-use App\Http\Controllers\MapLocationController;
 use App\Http\Controllers\RegistrationController;
 
 Route::get('/', [HomeContentController::class, 'index']);
@@ -25,6 +24,10 @@ Route::get('/login', function () {
 Route::get('/newacc', function () {
     return view('newacc');
 });
+
+
+
+
 
 // Route Speaker
 Route::get('/keynote-speakers-2025', [SpeakerController::class, 'keynote']);
@@ -48,9 +51,15 @@ Route::get('/admin/home-contents/add', [HomeContentController::class, 'addHome']
 Route::post('/admin/home-contents/store', [HomeContentController::class, 'store'])->name('admin.store_home_contents_admin');
 
 //Route Contact
-Route::get('/contacts', [ContactInfoController::class, 'index'])->name('contact');
-Route::post('/contact/send', [ContactMessageController::class, 'store'])->name('contact.send');
-Route::get('/contacts', [MapLocationController::class, 'index'])->name('contact');
+// User mengirim pesan
+Route::post('/contacts', [ContactMessageController::class, 'store'])->name('contact.send');
+Route::get('/contacts', [ContactInfoController::class, 'index'])->name('contact'); 
+Route::get('/admin/contacts', [ContactInfoController::class, 'listContact'])->name('admin.list_contacts_Admin');
+Route::get('/admin/contacts/add', [ContactInfoController::class, 'addHome'])->name('admin.add_contacts_Admin');
+Route::post('/admin/contacts/store', [ContactInfoController::class, 'store'])->name('admin.store_contacts_Admin');
+
+
+
 
 
 
@@ -69,14 +78,11 @@ Route::delete('/admin/delete-authorinformation/{id}', [AuthorInformationControll
 Route::get('/admin/registrations', function () {
     return view('/admin/registrationsAdmin'); 
 })->name('admin.registrations');
-// Route untuk Contacts Admin
-Route::get('/admin/contacts', function () {
-    return view('/admin/contacts_Admin'); // ini file yang kamu buat
-})->name('admin.contacts');
-// Route untuk tambah Contacts_Admin
-Route::get('/admin/contacts/tambah', function () {
-    return view('/admin/tambah_contacts_Admin'); // ini file yang kamu buat
-})->name('admin.contacts.tambah');
+
+
+
+
+
 // Halaman Tambah Registrations Admin
 Route::get('/admin/registrations/tambah', function () {
     return view('/admin/tambah_registrationsAdmin'); 
@@ -103,14 +109,6 @@ Route::get('/admin/committee', function () {
     return view('/admin/committeesAdmin'); // file: resources/views/committees.blade.php
 })->name('admin.committeess');
 
-Route::get('/admin/home-selection', function () {
-    return view('/admin/home_contents_admin');
-});
-
-// Halaman form tambah home contents
-Route::get('/admin/home-contents/tambah', function () {
-    return view('admin.tambah_home_contents_admin');
-})->name('admin.home_contents.tambah');
 
 // Halaman tambah committee 
 Route::get('/admin/committees/tambah', function () {

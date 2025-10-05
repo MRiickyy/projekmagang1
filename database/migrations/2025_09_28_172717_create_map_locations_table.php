@@ -11,8 +11,8 @@ return new class extends Migration
     {
         Schema::create('map_locations', function (Blueprint $table) {
             $table->id();
-            $table->string('title'); // misal: "Bandung Office"
-            $table->text('link');    // link iframe Google Maps
+            $table->string('title'); 
+            $table->text('link');    
             $table->timestamps();
         });
     }
