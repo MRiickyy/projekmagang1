@@ -7,18 +7,35 @@ use Illuminate\Http\Request;
 
 class AuthorInformationController extends Controller
 {
-    // Untuk user (lihat informasi author)
+    //====USER====\\
     public function index()
     {
         $authorInfo = AuthorInformation::first();
         return view('author', compact('authorInfo'));
     }
 
-    // Untuk admin (tampilan form edit)
+    //===ADMIN====\\
+    // admin: displays the author information table
     public function adminIndex()
     {
+        $authorInfos = AuthorInformation::all(); // ambil semua data
+        return view('admin.authorinformationAdmin', compact('authorInfos'));
+    }
+
+    // admin: delete
+    public function delete($id)
+    {
+        $authorInfo = AuthorInformation::findOrFail($id);
+        $authorInfo->delete();
+        return redirect()->route('admin.authorinformationAdmin')->with('success', 'data deleted successfully');
+    }
+
+
+    // Untuk admin (tampilan form edit)
+    public function adminAuthorEdit()
+    {
         $authorInfo = AuthorInformation::first();
-        return view('admin.authorinformationAdmin', compact('authorInfo'));
+        return view('admin.edit_authorinformationAdmin', compact('authorInfo'));
     }
 
     // Untuk admin (simpan data)
@@ -41,6 +58,6 @@ class AuthorInformationController extends Controller
             $validated
         );
 
-        return redirect()->route('admin.authorinformationAdmin.tambah')->with('success', 'Author Information saved successfully!');
+        return redirect()->route('admin.authorinformationAdmin')->with('success', 'Author Information saved successfully!');
     }
 }
