@@ -49,9 +49,10 @@
 
 
             <div class="flex justify-end gap-3 pt-4">
-                <button type="reset" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                <a href="{{ route('admin.list_home_contents_admin') }}"
+                    class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
                     Cancel
-                </button>
+                </a>
                 <button type="submit"
                     class="px-6 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">
                     Save
