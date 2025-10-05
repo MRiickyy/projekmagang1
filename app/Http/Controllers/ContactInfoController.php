@@ -4,29 +4,63 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ContactInfo;
+use App\Models\ContactMessage;
+use App\Models\MapLocation;
 
 class ContactInfoController extends Controller
 {
+    // Halaman user contact
     public function index()
     {
-        $contacts = ContactInfo::all();
-        return view('contact', compact('contacts'));
+        $contactInfos = ContactInfo::all();
+        $map = MapLocation::latest()->first();
+
+        return view('contact', compact('contactInfos', 'map'));
     }
 
-    public function edit(ContactInfo $contact)
+    // Halaman admin list contacts
+    public function listContact()
     {
-        return view('admin.contact_infos.edit', compact('contact'));
+        $contactInfos = ContactInfo::all();
+        $mapLocations = MapLocation::all();
+        $contactMessages = ContactMessage::all();
+
+        return view('admin.list_contacts_Admin', compact('contactInfos', 'mapLocations', 'contactMessages'));
     }
 
-    public function update(Request $request, ContactInfo $contact)
+    // Halaman admin add contact
+    public function addHome()
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'value' => 'required|string|max:255',
+        return view('admin.add_contacts_Admin');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'section' => 'required|string',
+            'type'    => 'nullable|string',
+            'title'   => 'required|string',
+            'value'   => 'nullable|string',
+            'link'    => 'nullable|string',
         ]);
 
-        $contact->update($validated);
+        if ($request->section === 'create_contact_infos') {
+            ContactInfo::create([
+                'type'  => $request->type,
+                'title' => $request->title,
+                'value' => $request->value,
+            ]);
+        } elseif ($request->section === 'create_map_locations_table') {
+            MapLocation::create([
+                'title' => $request->title,
+                'link'  => $request->link,
+            ]);
+        }
 
-        return redirect()->route('contact')->with('success', 'Contact info updated!');
+        return redirect()->route('admin.list_contacts_Admin')
+                        ->with('success', 'Contact berhasil ditambahkan!');
     }
+
+
+
 }
