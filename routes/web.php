@@ -48,9 +48,41 @@ Route::get('/', [HomeContentController::class, 'index'])->name('home');
 // Halaman Admin
 Route::get('/admin/home-contents-admin/tambah', [HomeContentController::class, 'adminList'])->name('admin.tambah_home_contents_admin');
 
-// Route For Author
+
+
+
+//====ROUTE USER & ADMIN FOR AUTHOR====\\
+// user
 Route::get('/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
 Route::get('/registration', [RegistrationController::class, 'index'])->name('registration.index');
+// admin: displays the author information table
+Route::get('/admin/mainAuthorInformation', [AuthorInformationController::class, 'adminIndex'])->name('admin.authorinformationAdmin');
+// admin: form edit + save
+Route::get('/admin/edit-authorInformation', [AuthorInformationController::class, 'adminAuthorEdit'])->name('admin.edit_authorinformationAdmin');
+Route::post('/admin/edit-authorInformation', [AuthorInformationController::class, 'update'])->name('admin.update_authorinformation');
+// admin: delete
+Route::delete('/admin/delete-authorinformation/{id}', [AuthorInformationController::class, 'delete'])->name('admin.delete_authorinformationAdmin');
+// Halaman Registrations Admin
+Route::get('/admin/registrations', function () {
+    return view('/admin/registrationsAdmin'); 
+})->name('admin.registrations');
+// Route untuk Contacts Admin
+Route::get('/admin/contacts', function () {
+    return view('/admin/contacts_Admin'); // ini file yang kamu buat
+})->name('admin.contacts');
+// Route untuk tambah Contacts_Admin
+Route::get('/admin/contacts/tambah', function () {
+    return view('/admin/tambah_contacts_Admin'); // ini file yang kamu buat
+})->name('admin.contacts.tambah');
+// Halaman Tambah Registrations Admin
+Route::get('/admin/registrations/tambah', function () {
+    return view('/admin/tambah_registrationsAdmin'); 
+})->name('admin.registrationsAdmin.tambah');
+
+
+
+
+
 
 //Route Contact
 Route::get('/contacts', [ContactInfoController::class, 'index'])->name('contact');
@@ -104,33 +136,3 @@ Route::get('/admin/home-contents/tambah', function () {
 Route::get('/admin/committees/tambah', function () {
     return view('/admin/tambah_committeesAdmin');
 })->name('admin.committees.tambah');
-
-// Admin: form edit + simpan
-Route::get('/admin/author-information', [AuthorInformationController::class, 'adminIndex'])->name('admin.author-information.index');
-Route::post('/admin/author-information', [AuthorInformationController::class, 'update'])->name('admin.author-information.update');
-
-// Halaman Registrations Admin
-Route::get('/admin/registrations', function () {
-    return view('/admin/registrationsAdmin'); 
-})->name('admin.registrations');
-
-// Route untuk Contacts Admin
-Route::get('/admin/contacts', function () {
-    return view('/admin/contacts_Admin'); // ini file yang kamu buat
-})->name('admin.contacts');
-
-
-// Halaman Tambah Author Information Admin
-Route::get('/admin/author/tambah', function () {
-    return view('/admin/tambah_authorinformationAdmin'); 
-})->name('admin.authorinformationAdmin.tambah');
-
-// Route untuk tambah Contacts_Admin
-Route::get('/admin/contacts/tambah', function () {
-    return view('/admin/tambah_contacts_Admin'); // ini file yang kamu buat
-})->name('admin.contacts.tambah');
-
-// Halaman Tambah Registrations Admin
-Route::get('/admin/registrations/tambah', function () {
-    return view('/admin/tambah_registrationsAdmin'); 
-})->name('admin.registrationsAdmin.tambah');
