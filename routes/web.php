@@ -11,9 +11,8 @@ use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\MapLocationController;
 use App\Http\Controllers\RegistrationController;
 
-Route::get('/', function () {
-return view('home');
- });
+Route::get('/', [HomeContentController::class, 'index']);
+
 
 Route::get('/call-for-papers', function () {
     return view('callpaper');
@@ -44,10 +43,14 @@ Route::get('/admin/committees/add', [CommitteeController::class, 'addForm'])->na
 Route::post('/admin/committees/add', [CommitteeController::class, 'addCommittee'])->name('add.committees');
 
 //Route Home
-Route::get('/', [HomeContentController::class, 'index'])->name('home');
-// Halaman Admin
-Route::get('/admin/home-contents-admin/tambah', [HomeContentController::class, 'adminList'])->name('admin.tambah_home_contents_admin');
+Route::get('/admin/home-contents', [HomeContentController::class, 'listHome'])->name('admin.list_home_contents_admin');
+Route::get('/admin/home-contents/add', [HomeContentController::class, 'addHome'])->name('admin.add_home_contents_admin');
+Route::post('/admin/home-contents/store', [HomeContentController::class, 'store'])->name('admin.store_home_contents_admin');
 
+//Route Contact
+Route::get('/contacts', [ContactInfoController::class, 'index'])->name('contact');
+Route::post('/contact/send', [ContactMessageController::class, 'store'])->name('contact.send');
+Route::get('/contacts', [MapLocationController::class, 'index'])->name('contact');
 
 
 
@@ -83,32 +86,9 @@ Route::get('/admin/registrations/tambah', function () {
 
 
 
-
-//Route Contact
-Route::get('/contacts', [ContactInfoController::class, 'index'])->name('contact');
-Route::post('/contact/send', [ContactMessageController::class, 'store'])->name('contact.send');
-Route::get('/contacts', [MapLocationController::class, 'index'])->name('contact');
-// Halaman Admin Contact
-Route::prefix('admin')->group(function () {
-    Route::get('/contact-infos', [ContactInfoController::class, 'indexAdmin'])->name('admin.contact_infos.indexAdmin');
-    Route::get('/contact-infos/create', [ContactInfoController::class, 'create'])->name('admin.contact_infos.create');
-    Route::post('/contact-infos', [ContactInfoController::class, 'store'])->name('admin.contact_infos.store');
-    Route::get('/contact-infos/{contact}/edit', [ContactInfoController::class, 'edit'])->name('admin.contact_infos.edit');
-    Route::put('/contact-infos/{contact}', [ContactInfoController::class, 'update'])->name('admin.contact_infos.update');
-    Route::delete('/contact-infos/{contact}', [ContactInfoController::class, 'destroy'])->name('admin.contact_infos.destroy');
-});
-
 //Route Call Paper
 Route::get('/call-for-papers', [CallPaperController::class, 'index'])->name('call_papers');
-// Halaman Admin Call Paper
-Route::prefix('admin')->group(function () {
-    Route::get('/call-papers', [CallPaperController::class, 'indexAdmin'])->name('admin.call_papers');
-    Route::get('/call-papers/create', [CallPaperController::class, 'create'])->name('admin.call_papers.create');
-    Route::post('/call-papers', [CallPaperController::class, 'store'])->name('admin.call_papers.store');
-    Route::get('/call-papers/{callPaper}/edit', [CallPaperController::class, 'edit'])->name('admin.call_papers.edit');
-    Route::put('/call-papers/{callPaper}', [CallPaperController::class, 'update'])->name('admin.call_papers.update');
-    Route::delete('/call-papers/{callPaper}', [CallPaperController::class, 'destroy'])->name('admin.call_papers.destroy');
-});
+
 
 Route::get('/admin/login', function () {
     return view('loginAdmin');

@@ -11,10 +11,11 @@ class HomeContentController extends Controller
 {
     public function index()
     {
-        // Ambil semua data home_contents dan jadikan key berdasarkan section
+        
         $homeContents = HomeContent::all()->keyBy('section');
+        $timelines = Timeline::all()->groupBy('round_number');
 
-        // Ambil semua link ICoICT dari home_contents
+       
         $homeContents['icoict_links'] = $homeContents
             ->filter(fn($item, $key) => str_starts_with($key, 'icoict_link_'))
             ->mapWithKeys(function ($item, $key) {
@@ -31,29 +32,34 @@ class HomeContentController extends Controller
     }
 
     // Bagian Admin tetap sama
-    public function adminList()
+    public function listHome()
     {
         $homeContents = HomeContent::all();
-        return view('admin.tambah_home_contents_admin', compact('homeContents'));
+        return view('admin.list_home_contents_admin', compact('homeContents'));
     }
 
     
-    public function create()
+    public function addHome()
     {
-        return view('admin.home_contents.create');
+        return view('admin.add_home_contents_admin');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'section' => 'required|string|unique:home_contents,section',
+            'section' => 'required|string',
             'content' => 'required|string',
         ]);
+        
 
         HomeContent::create($request->only('section', 'content'));
 
-        return redirect()->route('admin.home_contents.index')->with('success', 'Content created');
+        
+        return redirect()
+            ->route('admin.list_home_contents_admin')
+            ->with('success', 'Content berhasil ditambahkan!');
     }
+
 
     public function edit(HomeContent $homeContent)
     {

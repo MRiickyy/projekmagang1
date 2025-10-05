@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('layouts.admin')
 
 @section('title', 'List Home Contents')
 
@@ -10,9 +10,16 @@
 
         <!-- Tombol Tambah & Cetak -->
         <div class="flex justify-between mb-4">
-            <a href="#" class="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600">Tambah</a>
+            <a href="{{ route('admin.add_home_contents_admin') }}"
+                class="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600">Add</a>
 
         </div>
+
+        @if(session('success'))
+        <div class="mb-4 p-3 bg-green-100 text-green-700 rounded">
+            {{ session('success') }}
+        </div>
+        @endif
 
         <!-- Tabel -->
         <div class="overflow-x-auto">
@@ -23,6 +30,8 @@
                         <th class="px-4 py-2 border">Section</th>
                         <th class="px-4 py-2 border">Content</th>
                         <th class="px-4 py-2 border">Action</th>
+                        <th class="px-4 py-2 border">Created At</th>
+                        <th class="px-4 py-2 border">Updated At</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white text-slate-800">
@@ -31,15 +40,21 @@
                         <td class="px-4 py-2 border">{{ $homeContent->id }}</td>
                         <td class="px-4 py-2 border">{{ $homeContent-> section }}</td>
                         <td class="px-4 py-2 border">{{ $homeContent->content }}</td>
+                        <td class="px-4 py-2 border">{{ $homeContent-> created_at }}</td>
+                        <td class="px-4 py-2 border">{{ $homeContent-> updated_at }}</td>
                         <td class="px-4 py-2 border space-x-2">
-                            <a href="#" class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</a>
-                            <form action="#" method="POST" class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit"
-                                    class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
-                            </form>
-                            <a href="#" class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</a>
+                            <div class="flex justify-center gap-2">
+                                <a href="#"
+                                    class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</a>
+                                <form action="#" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
+                                </form>
+                                <a href="#"
+                                    class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</a>
+                            </div>
                         </td>
                     </tr>
 
