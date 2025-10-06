@@ -36,17 +36,9 @@
                     class="border rounded px-10 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400">
             </div>
 
-            <!-- Dropdown -->
-            <select name="type" class="border rounded px-3 py-2">
-                <option value="">-- All Types --</option>
-                <option value="steering" {{ request()->get('type') == 'steering' ? 'selected' : '' }}>Steering</option>
-                <option value="technical program" {{ request()->get('type') == 'technical program' ? 'selected' : '' }}>Technical Program</option>
-                <option value="organizing" {{ request()->get('type') == 'organizing' ? 'selected' : '' }}>Organizing</option>
-            </select>
-
             <!-- Button -->
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                Filter
+                Search
             </button>
         </form>
     </div>
@@ -82,7 +74,7 @@
                         <div class="flex justify-center gap-2">
                             <a href="#"
                                 class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</a>
-                            <form action="#" method="POST" class="inline">
+                            <form action="#" method="POST" class="inline delete-item">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"
