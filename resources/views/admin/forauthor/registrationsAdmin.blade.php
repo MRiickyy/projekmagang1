@@ -155,7 +155,7 @@
 
                 <!-- Section: Payment Method -->
                 <div x-show="tab === 'payment'">
-                    <h2 class="text-lg font-semibold text-slate-900 mb-4">Daftar Payment Method</h2>
+                    <h2 class="text-lg font-semibold text-slate-900 mb-4">Payment Method</h2>
                     <table class="w-full border border-gray-300 rounded-lg overflow-hidden">
                         <thead class="bg-gray-200 text-slate-900">
                             <tr>

@@ -18,14 +18,6 @@ return new class extends Migration
             $table->text('notes')->nullable();
             $table->text('conference_fee_include')->nullable();
 
-            // Payment Methods
-            $table->string('bank_name')->nullable();
-            $table->string('account_name')->nullable();
-            $table->string('virtual_account')->nullable();
-
-            $table->string('paypal_email')->nullable();
-            $table->text('paypal_info')->nullable();
-
             // Registration Procedures
             $table->text('registration_procedures')->nullable();
 

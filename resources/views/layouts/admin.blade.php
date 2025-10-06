@@ -5,7 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin Dashboard')</title>
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js untuk sidebar submenu -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+
+
     <style>
         /* Animasi transisi */
         .sidebar {
@@ -16,11 +23,33 @@
             transform: translateX(-100%);
         }
     </style>
+
+    <!-- Script untuk tab Messages, Infos, Locations -->
+    <script>
+    function openTab(evt, tabName) {
+        let tabcontent = document.getElementsByClassName("tabcontent");
+        for (let i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        let tablinks = document.getElementsByClassName("tablink");
+        for (let i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("border-b-2", "border-teal-400", "text-teal-400");
+        }
+
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("border-b-2", "border-teal-400", "text-teal-400");
+    }
+
+    window.onload = function() {
+        document.getElementById("defaultOpen").click();
+    }
+    </script>
 </head>
 
 <body class="min-h-screen flex bg-gradient-to-r from-[#1E293B] via-[#334155] to-[#0F172A] text-slate-100">
 
-    <div class="flex min-h-screen w-full bg-gray-100">
+    <div x-data="{ openAuthors: false }" class="flex min-h-screen w-full">
 
         <!-- Sidebar -->
         <aside id="sidebar" class="sidebar w-64 bg-[#1a1f27]/95 shadow-md text-white flex flex-col fixed h-full z-20">
@@ -29,28 +58,31 @@
             </div>
 
             <nav class="flex-1 px-4 py-6 space-y-3 text-sm">
-                <a href="#"
-                    class="block px-3 py-2 rounded {{ request()->routeIs('admin.dashboard') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">
-                    Dashboard
-                </a>
+                <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Dashboard</a>
                 <a href="{{ route('admin.list_home_contents_admin') }}"
-                    class="block px-3 py-2 rounded {{ request()->routeIs('admin.list_home_contents_admin') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">
-                    Home Contents
-                </a>
+                    class="block px-3 py-2 rounded {{ request()->routeIs('admin.list_home_contents_admin') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Home
+                    Contents</a>
                 <a href="{{ route('admin.speakers') }}"
-                    class="block px-3 py-2 rounded {{ request()->routeIs('admin.speakers') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">
-                    Speakers
-                </a>
+                    class="block px-3 py-2 rounded {{ request()->routeIs('admin.speakers') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Speakers</a>
                 <a href="{{ route('admin.committees') }}"
-                    class="block px-3 py-2 rounded {{ request()->routeIs('admin.committees') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">
-                    Committees
-                </a>
-                <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">
-                    For Authors
-                </a>
-                <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">
-                    Events
-                </a>
+                    class="block px-3 py-2 rounded {{ request()->routeIs('admin.committees') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Committees</a>
+
+                <!-- Submenu For Authors -->
+                <button @click="openAuthors = !openAuthors"
+                    class="flex items-center justify-between w-full px-3 py-2 rounded hover:bg-[#334155] focus:outline-none">
+                    <span>For Authors</span>
+                    <svg :class="{'rotate-90': openAuthors}" class="w-3 h-3 transition-transform" fill="none"
+                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+                <div x-show="openAuthors" x-collapse class="ml-4 space-y-2 mt-2">
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Author Informations</a>
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Registration</a>
+                    <a href="#" class="block px-3 py-2 rounded text-[#00e676] font-semibold">Contacts</a>
+                </div>
+
+                <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Events</a>
             </nav>
         </aside>
 
@@ -78,11 +110,14 @@
 
             <!-- Page Content -->
             <main class="flex-1 px-6 py-10">
+
                 @yield('content')
+
             </main>
         </div>
     </div>
 
+    <!-- Sidebar Toggle Script -->
     <script>
         const toggleBtn = document.getElementById("toggleSidebar");
         const sidebar = document.getElementById("sidebar");

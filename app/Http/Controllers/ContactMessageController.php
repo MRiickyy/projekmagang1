@@ -7,17 +7,16 @@ use App\Models\ContactMessage;
 
 class ContactMessageController extends Controller
 {
-    // Method untuk menyimpan pesan contact
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'message' => 'required|string',
         ]);
 
-        ContactMessage::create($validated);
+        ContactMessage::create($request->all());
 
-        return redirect()->back()->with('success', 'Message sent successfully!');
+        return redirect()->route('contacts')->with('success', 'Message Sent Successfully!');
     }
-} // <- pastikan ini kurung kurawal penutup class ada
+}

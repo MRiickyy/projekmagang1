@@ -19,26 +19,25 @@ class AuthorInformationController extends Controller
     public function adminIndex()
     {
         $authorInfos = AuthorInformation::all(); // ambil semua data
-        return view('admin.authorinformationAdmin', compact('authorInfos'));
+        return view('admin.forauthor.authorinformationAdmin', compact('authorInfos'));
     }
 
-    // admin: delete
-    public function delete($id)
+    // Untuk admin: halaman detail
+    public function adminAuthorDetail()
     {
-        $authorInfo = AuthorInformation::findOrFail($id);
-        $authorInfo->delete();
-        return redirect()->route('admin.authorinformationAdmin')->with('success', 'data deleted successfully');
+        $authorInfo = AuthorInformation::first();
+        return view('admin.forauthor.detail_authorinformationAdmin', compact('authorInfo'));
     }
 
 
-    // Untuk admin (tampilan form edit)
+    // admin: form edit
     public function adminAuthorEdit()
     {
         $authorInfo = AuthorInformation::first();
-        return view('admin.edit_authorinformationAdmin', compact('authorInfo'));
+        return view('admin.forauthor.edit_authorinformationAdmin', compact('authorInfo'));
     }
 
-    // Untuk admin (simpan data)
+    // admin: update
     public function update(Request $request)
     {
         $validated = $request->validate([
@@ -54,10 +53,10 @@ class AuthorInformationController extends Controller
         ]);
 
         AuthorInformation::updateOrCreate(
-            ['id' => 1], // pastikan hanya ada 1 data
+            ['id' => 1],
             $validated
         );
 
-        return redirect()->route('admin.authorinformationAdmin')->with('success', 'Author Information saved successfully!');
+        return redirect()->route('admin.forauthor.authorinformationAdmin')->with('success', 'Author Information saved successfully!');
     }
 }

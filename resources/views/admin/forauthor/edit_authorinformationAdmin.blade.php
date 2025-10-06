@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Edit dan Tambah Author Information</title>
+    <title>Author Information Edit</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen flex flex-col bg-gradient-to-r from-[#1E293B] via-[#334155] to-[#0F172A] text-slate-100">
@@ -25,8 +25,9 @@
 
         <h2 class="text-base font-semibold text-slate-900 mb-6">Author Information</h2>
 
-        <form action="#" method="POST" enctype="multipart/form-data" class="space-y-5">
+        <form action="{{ route('admin.forauthor.update_authorinformation') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
             @csrf
+
 
             <!-- Title -->
             <div>

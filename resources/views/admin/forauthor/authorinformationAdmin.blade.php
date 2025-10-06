@@ -91,20 +91,12 @@
                                     <td class="px-4 py-2 border border-gray-300 max-w-[200px] truncate break-words" title="{{ $author->preparation_of_contributions }}">{{ $author->preparation_of_contributions }}</td>
                                     <td class="px-4 py-2 border border-gray-300 max-w-[200px] truncate break-words" title="{{ $author->non_presented_policy }}">{{ $author->non_presented_policy }}</td>
                                     <td class="px-4 py-2 border border-gray-300 space-x-2 whitespace-nowrap">
-                                        <a href="{{ route('admin.edit_authorinformationAdmin') }}" 
+                                        <a href="{{ route('admin.forauthor.edit_authorinformationAdmin') }}" 
                                             class="inline-flex items-center justify-center w-20 h-10 rounded bg-yellow-500 text-white font-semibold hover:bg-yellow-600">
                                             Edit
                                         </a>
-                                        <form action="{{ route('admin.delete_authorinformationAdmin', $author->id) }}" method="POST" class="inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" onclick="return confirm('delete this data?')" 
-                                                class="inline-flex items-center justify-center w-20 h-10 rounded bg-red-500 text-white font-semibold hover:bg-red-600">
-                                                Delete
-                                            </button>
-                                        </form>
-                                        <a href="#" 
-                                            class="inline-flex items-center justify-center w-20 h-10 rounded bg-blue-500 text-white font-semibold hover:bg-blue-600">
+                                        <a href="{{ route('admin.forauthor.detail_authorinformationAdmin') }}"
+                                            class="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600">
                                             Detail
                                         </a>
                                     </td>
@@ -115,10 +107,8 @@
                                         Author information is empty
                                     </td>
                                     <td class="px-4 py-2 border border-gray-300 space-x-2 whitespace-nowrap text-center">
-                                        <a href="{{ route('admin.edit_authorinformationAdmin') }}" 
-                                            class="inline-flex items-center justify-center w-20 h-10 rounded bg-yellow-500 text-white font-semibold hover:bg-yellow-600">Edit</a>
-                                        <button class="inline-flex items-center justify-center w-20 h-10 rounded bg-red-500 text-white font-semibold hover:bg-red-600">Delete</button>
-                                        <a href="#" class="inline-flex items-center justify-center w-20 h-10 rounded bg-blue-500 text-white font-semibold hover:bg-blue-600">Detail</a>
+                                        <a href="{{ route('admin.forauthor.edit_authorinformationAdmin') }}" 
+                                            class="inline-flex items-center justify-center w-20 h-10 rounded bg-blue-500 text-white font-semibold hover:bg-blue-600">Add</a>
                                     </td>
                                 </tr>
                             @endforelse
