@@ -34,20 +34,25 @@ Route::get('/keynote-speakers-2025', [SpeakerController::class, 'keynote']);
 Route::get('/tutorial-speakers-2025', [SpeakerController::class, 'tutorial']);
 Route::get('/speakers/{slug}', [SpeakerController::class, 'detailSpeaker'])->name('detail.speaker');
 Route::get('/admin/speakers', [SpeakerController::class, 'listSpeakers'])->name('admin.speakers');
-Route::get('/admin/speakers/add', [SpeakerController::class, 'addForm'])->name('add.form.speakers');
-Route::post('/admin/speakers/add', [SpeakerController::class, 'addSpeaker'])->name('add.speakers');
-Route::get('/admin/speakers/{slug}/edit', [SpeakerController::class, 'editForm'])->name('edit.form.speakers');
-Route::put('/admin/speakers/{slug}/edit', [SpeakerController::class, 'updateSpeaker'])->name('update.speakers');
-Route::delete('/admin/speakers/{slug}', [SpeakerController::class, 'deleteSpeaker'])->name('delete.speakers');
-Route::get('/admin/speakers/{slug}/detail', [SpeakerController::class, 'adminDetail'])->name('admin.speakers.detail');
+Route::get('/admin/speaker/add', [SpeakerController::class, 'addForm'])->name('add.form.speakers');
+Route::post('/admin/speaker/add', [SpeakerController::class, 'addSpeaker'])->name('add.speakers');
+Route::get('/admin/speaker/{slug}/edit', [SpeakerController::class, 'editForm'])->name('edit.speakers');
+Route::put('/admin/speaker/{slug}', [SpeakerController::class, 'updateSpeaker'])->name('update.speakers');
+Route::delete('/admin/speaker/{slug}', [SpeakerController::class, 'deleteSpeaker'])->name('delete.speakers');
+Route::get('/admin/speaker/{slug}/detail', [SpeakerController::class, 'adminDetail'])->name('admin.speakers.detail');
 
 // Route Committees
 Route::get('/steering-committees', [CommitteeController::class, 'steering']);
 Route::get('/technical-committees', [CommitteeController::class, 'technical']);
 Route::get('/organizing-committees', [CommitteeController::class, 'organizing']);
 Route::get('/admin/committees', [CommitteeController::class, 'listCommittees'])->name('admin.committees');
-Route::get('/admin/committees/add', [CommitteeController::class, 'addForm'])->name('add.form.committees');
-Route::post('/admin/committees/add', [CommitteeController::class, 'addCommittee'])->name('add.committees');
+Route::get('/admin/committee/add', [CommitteeController::class, 'addForm'])->name('add.form.committees');
+Route::post('/admin/committee/add', [CommitteeController::class, 'addCommittee'])->name('add.committees');
+Route::get('/admin/committee/{id}/edit', [CommitteeController::class, 'editForm'])->name('edit.committees');
+Route::put('/admin/committee/{id}', [CommitteeController::class, 'updateCommittee'])->name('update.committees');
+Route::delete('/admin/committee/{id}', [CommitteeController::class, 'deleteCommittee'])->name('delete.committees');
+Route::get('/admin/committee/{id}/detail', [CommitteeController::class, 'adminDetail'])->name('admin.committees.detail');
+
 
 //Route Home
 Route::get('/admin/home-contents', [HomeContentController::class, 'listHome'])->name('admin.list_home_contents_admin');

@@ -32,7 +32,7 @@ class CommitteeController extends Controller
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('university', 'like', '%' . $request->search . '%');
+                    ->orWhere('university', 'like', '%' . $request->search . '%');
             });
         }
 
@@ -63,5 +63,41 @@ class CommitteeController extends Controller
         Committee::create($validated);
 
         return redirect()->route('admin.committees')->with('success', 'Committee has been added successfully!');
+    }
+
+    public function editForm($id)
+    {
+        $committee = Committee::findOrFail($id);
+        return view('admin.committees.edit_committee', compact('committee'));
+    }
+
+    public function updateCommittee(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'role' => 'required|string|max:255',
+            'university' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'type' => 'required|in:steering,technical program,organizing',
+        ]);
+
+        $committee = Committee::findOrFail($id);
+        $committee->update($validated);
+
+        return redirect()->route('admin.committees')->with('success', 'Committee updated successfully!');
+    }
+
+    public function deleteCommittee($id)
+    {
+        $committee = Committee::findOrFail($id);
+        $committee->delete();
+
+        return redirect()->route('admin.committees')->with('success', 'Committee deleted successfully!');
+    }
+
+    public function adminDetail($id)
+    {
+        $committee = Committee::findOrFail($id);
+        return view('admin.committees.detail_committee', compact('committee'));
     }
 }

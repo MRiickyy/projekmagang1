@@ -72,15 +72,15 @@
                     <td class="px-4 py-2 border">{{ $committee->updated_at }}</td>
                     <td class="px-4 py-2 border">
                         <div class="flex justify-center gap-2">
-                            <a href="#"
+                            <a href="{{ route('edit.committees', $committee->id) }}"
                                 class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</a>
-                            <form action="#" method="POST" class="inline delete-item">
+                            <form action="{{ route('delete.committees', $committee->id) }}" method="POST" class="inline delete-item">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"
                                     class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
                             </form>
-                            <a href="#"
+                            <a href="{{ route('admin.committees.detail', $committee->id) }}"
                                 class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</a>
                         </div>
                     </td>
