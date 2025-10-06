@@ -50,7 +50,7 @@
 
     <!-- Action Buttons -->
     <div class="flex justify-start gap-3 mt-6">
-        <a href="{{ route('edit.form.speakers', $speaker->slug) }}"
+        <a href="{{ route('edit.speakers', $speaker->slug) }}"
             class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Edit</a>
 
         <form action="{{ route('delete.speakers', $speaker->slug) }}" method="POST" class="inline delete-item">

@@ -214,8 +214,6 @@ class SpeakerController extends Controller
 
         // Hapus semua deskripsi terkait
         $speaker->descriptions()->delete();
-
-        // Hapus speaker
         $speaker->delete();
 
         return redirect()->route('admin.speakers')->with('success', 'Speaker has been deleted successfully!');

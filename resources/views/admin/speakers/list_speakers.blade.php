@@ -73,7 +73,7 @@
                     <td class="px-4 py-2 border">{{ $speaker->updated_at }}</td>
                     <td class="px-4 py-2 border">
                         <div class="flex justify-center gap-2">
-                            <a href="{{ route('edit.form.speakers', $speaker->slug) }}"
+                            <a href="{{ route('edit.speakers', $speaker->slug) }}"
                                 class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</a>
                             <form action="{{ route('delete.speakers', $speaker->slug) }}" method="POST" class="inline delete-item">
                                 @csrf
