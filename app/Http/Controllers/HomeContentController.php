@@ -57,7 +57,7 @@ class HomeContentController extends Controller
         
         return redirect()
             ->route('admin.list_home_contents_admin')
-            ->with('success', 'Content berhasil ditambahkan!');
+            ->with('success', 'Content added successfully!');
     }
 
 
@@ -80,6 +80,10 @@ class HomeContentController extends Controller
     public function destroy(HomeContent $homeContent)
     {
         $homeContent->delete();
-        return redirect()->route('admin.home_contents.index')->with('success', 'Content deleted');
+
+        return redirect()
+            ->route('admin.list_home_contents_admin')
+            ->with('success', 'Content deleted successfully!');
     }
+
 }

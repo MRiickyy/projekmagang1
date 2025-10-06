@@ -60,11 +60,14 @@
                                 <div class="flex justify-center gap-2">
                                     <a href="#"
                                         class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</a>
-                                    <form action="#" method="POST" class="inline">
+                                    <form action="{{ route('admin.delete_contact_info', $contactInfo->id) }}"
+                                        method="POST" class="inline delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit"
-                                            class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
+                                        <button type="button"
+                                            class="delete-confirm px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">
+                                            Delete
+                                        </button>
                                     </form>
                                     <a href="#"
                                         class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</a>
@@ -104,11 +107,14 @@
                             <td class="px-4 py-2 border">{{ $message->updated_at }}</td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center gap-2">
-                                    <form action="#" method="POST" class="inline">
+                                    <form action="{{ route('admin.delete_contact_message', $message->id) }}"
+                                        method="POST" class="inline delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit"
-                                            class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
+                                        <button type="button"
+                                            class="delete-confirm px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">
+                                            Delete
+                                        </button>
                                     </form>
                                     <a href="#"
                                         class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</a>
@@ -128,11 +134,17 @@
         </div>
 
         <!-- Map Locations -->
+        <!-- Map Locations -->
         <div id="Locations" class="tabcontent hidden">
             <div class="bg-white shadow-md rounded-lg p-6">
                 <h2 class="text-lg font-semibold text-gray-800 mb-4">Map Location</h2>
+
+                {{-- Tombol tambah hanya muncul jika data map kosong --}}
+                @if($mapLocations->isEmpty())
                 <a href="{{ route('admin.add_contacts_Admin') }}"
                     class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mb-4 inline-block">Add</a>
+                @endif
+
                 <table class="w-full border-collapse">
                     <thead class="bg-gray-200 text-gray-700">
                         <tr>
@@ -145,38 +157,68 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($mapLocations as $map)
+                        @forelse($mapLocations as $map)
                         <tr class="hover:bg-gray-100 text-gray-800">
                             <td class="px-4 py-2 border">{{ $map->id }}</td>
                             <td class="px-4 py-2 border">{{ $map->title }}</td>
                             <td class="px-4 py-2 border max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                                 <a href="{{ $map->link }}" class="text-blue-600 hover:underline">{{ $map->link }}</a>
                             </td>
-
                             <td class="px-4 py-2 border">{{ $map->created_at }}</td>
                             <td class="px-4 py-2 border">{{ $map->updated_at }}</td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center gap-2">
                                     <a href="#"
                                         class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</a>
-                                    <form action="#" method="POST" class="inline">
+                                    <form action="{{ route('admin.delete_map_location', $map->id) }}" method="POST"
+                                        class="inline delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit"
-                                            class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
+                                        <button type="button"
+                                            class="delete-confirm px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">
+                                            Delete
+                                        </button>
                                     </form>
                                     <a href="#"
                                         class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</a>
                                 </div>
                             </td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="6" class="px-4 py-2 border text-center text-gray-500">
+                                There is no map location data yet.
+                            </td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
 
+
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+    document.querySelectorAll('.delete-confirm').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const form = this.closest('form');
+            Swal.fire({
+                title: 'Are you sure you want to delete?',
+                text: "This data will be permanently deleted!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) form.submit();
+            });
+        });
+    });
+    </script>
 </div>
 
 @endsection

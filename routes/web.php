@@ -58,6 +58,8 @@ Route::get('/admin/committee/{id}/detail', [CommitteeController::class, 'adminDe
 Route::get('/admin/home-contents', [HomeContentController::class, 'listHome'])->name('admin.list_home_contents_admin');
 Route::get('/admin/home-contents/add', [HomeContentController::class, 'addHome'])->name('admin.add_home_contents_admin');
 Route::post('/admin/home-contents/store', [HomeContentController::class, 'store'])->name('admin.store_home_contents_admin');
+Route::delete('/admin/home-contents/{homeContent}', [HomeContentController::class, 'destroy'])->name('admin.delete_home_contents_admin');
+
 
 //Route Contact
 // User mengirim pesan
@@ -66,6 +68,10 @@ Route::get('/contacts', [ContactInfoController::class, 'index'])->name('contact'
 Route::get('/admin/contacts', [ContactInfoController::class, 'listContact'])->name('admin.list_contacts_Admin');
 Route::get('/admin/contacts/add', [ContactInfoController::class, 'addContact'])->name('admin.add_contacts_Admin');
 Route::post('/admin/contacts/store', [ContactInfoController::class, 'store'])->name('admin.store_contacts_Admin');
+Route::delete('/admin/contact-infos/{id}', [ContactInfoController::class, 'destroyInfo'])->name('admin.delete_contact_info');
+Route::delete('/admin/contact-messages/{id}', [ContactInfoController::class, 'destroyMessage'])->name('admin.delete_contact_message');
+Route::delete('/admin/map-locations/{id}', [ContactInfoController::class, 'destroyMap'])->name('admin.delete_map_location');
+
 
 
 

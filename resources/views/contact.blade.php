@@ -78,9 +78,17 @@
         </h2>
 
         <div class="flex justify-center">
+            @if($map)
             <iframe class="w-full md:w-4/5 h-96 rounded-lg shadow-lg" src="{{ $map->link }}" allowfullscreen=""
-                loading="lazy"></iframe>
+                loading="lazy">
+            </iframe>
+            @else
+            <p class="text-gray-300 text-center py-10">
+                Map location has not been determined.
+            </p>
+            @endif
         </div>
+
     </div>
 </section>
 
