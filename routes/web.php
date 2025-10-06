@@ -61,10 +61,7 @@ Route::post('/admin/home-contents/store', [HomeContentController::class, 'store'
 Route::delete('/admin/home-contents/{homeContent}', [HomeContentController::class, 'destroy'])->name('admin.delete_home_contents_admin');
 Route::get('/admin/home-contents/{homeContent}/edit', [HomeContentController::class, 'edit'])->name('admin.edit_home_contents_admin');
 Route::put('/admin/home-contents/{homeContent}', [HomeContentController::class, 'update'])->name('admin.update_home_contents_admin');
-// Detail home content
 Route::get('/admin/home-contents/{homeContent}/detail', [HomeContentController::class, 'show'])->name('admin.detail_home_contents_admin');
-
-
 
 
 //Route Contact
@@ -77,6 +74,13 @@ Route::post('/admin/contacts/store', [ContactInfoController::class, 'store'])->n
 Route::delete('/admin/contact-infos/{id}', [ContactInfoController::class, 'destroyInfo'])->name('admin.delete_contact_info');
 Route::delete('/admin/contact-messages/{id}', [ContactInfoController::class, 'destroyMessage'])->name('admin.delete_contact_message');
 Route::delete('/admin/map-locations/{id}', [ContactInfoController::class, 'destroyMap'])->name('admin.delete_map_location');
+Route::get('/admin/contact-infos/{id}/edit', [ContactInfoController::class, 'editInfo'])->name('admin.edit_contacts_Admin');
+Route::put('/admin/contact-infos/{id}', [ContactInfoController::class, 'updateInfo'])->name('admin.update_contact_info');
+Route::get('/admin/map-locations/{id}/edit', [ContactInfoController::class, 'editMap'])->name('admin.edit_map_location');
+Route::put('/admin/map-locations/{id}', [ContactInfoController::class, 'updateMap'])->name('admin.update_map_location');
+Route::get('/admin/contact-infos/{id}/detail', [ContactInfoController::class, 'detailInfo'])->name('admin.detail_contact_info');
+Route::get('/admin/map-locations/{id}/detail', [ContactInfoController::class, 'detailMap'])->name('admin.detail_map_location');
+Route::get('/admin/contact-messages/{id}/detail', [ContactInfoController::class, 'detailMessage'])->name('admin.detail_contact_message');
 
 
 
