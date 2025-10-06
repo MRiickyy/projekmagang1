@@ -33,6 +33,10 @@ Route::get('/speakers/{slug}', [SpeakerController::class, 'detailSpeaker'])->nam
 Route::get('/admin/speakers', [SpeakerController::class, 'listSpeakers'])->name('admin.speakers');
 Route::get('/admin/speakers/add', [SpeakerController::class, 'addForm'])->name('add.form.speakers');
 Route::post('/admin/speakers/add', [SpeakerController::class, 'addSpeaker'])->name('add.speakers');
+Route::get('/admin/speakers/{slug}/edit', [SpeakerController::class, 'editForm'])->name('edit.form.speakers');
+Route::put('/admin/speakers/{slug}/edit', [SpeakerController::class, 'updateSpeaker'])->name('update.speakers');
+Route::delete('/admin/speakers/{slug}', [SpeakerController::class, 'deleteSpeaker'])->name('delete.speakers');
+Route::get('/admin/speakers/{slug}/detail', [SpeakerController::class, 'adminDetail'])->name('admin.speakers.detail');
 
 // Route Committees
 Route::get('/steering-committees', [CommitteeController::class, 'steering']);

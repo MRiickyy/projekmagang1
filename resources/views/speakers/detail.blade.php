@@ -30,11 +30,11 @@
         <span class="block h-1 w-32 mt-2 bg-gradient-to-r from-green-500 to-blue-500"></span>
     </h3>
 
-    @if($speaker->description->count())
+    @if($speaker->descriptions->count())
         <div class="space-y-4">
-            @foreach($speaker->description as $desc)
+            @foreach($speaker->descriptions as $desc)
                 <div>
-                    <h4 class="font-bold">{{ ucfirst($desc->type) }}</h4>
+                    <h4 class="font-bold">{{ ucfirst($desc->title) }}</h4>
                     <p class="text-gray-600 whitespace-pre-line">{{ $desc->content }}</p>
                 </div>
             @endforeach
