@@ -1,26 +1,14 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Edit dan Tambah Registrations</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        // Script untuk tab switching
-        function showSection(sectionId) {
-            document.querySelectorAll(".tab-section").forEach(sec => sec.classList.add("hidden"));
-            document.getElementById(sectionId).classList.remove("hidden");
+@extends('layouts.admin')
 
-            document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("border-b-4", "border-teal-400", "text-teal-400"));
-            document.getElementById(sectionId + "-btn").classList.add("border-b-4", "border-teal-400", "text-teal-400");
-        }
-        document.addEventListener("DOMContentLoaded", () => {
-            showSection("registrations"); // default tampilkan registrations
-        });
-    </script>
-</head>
-<body class="min-h-screen flex flex-col bg-gradient-to-r from-[#1E293B] via-[#334155] to-[#0F172A] text-slate-100">
+@section('title', 'Add Registration')
 
+<<<<<<< HEAD:resources/views/admin/registrationsAdmin.blade.php
+@section('content')
+<div class="flex-1 flex flex-col">
+    <main class="flex-1 px-6 py-10 flex justify-center">
+        <div class="w-full max-w-4xl bg-[#F2F6F9] rounded-lg shadow-xl p-6 text-slate-800" x-data="{ section: '' }">
+            <h2 class="text-lg font-semibold text-slate-900 mb-6">Registration Information</h2>
+=======
 <!-- Header -->
 <header class="bg-[#1a1f27]/95 backdrop-blur shadow-md">
     <div class="max-w-7xl mx-auto px-6 py-5">
@@ -31,29 +19,124 @@
         </h1>
     </div>
 </header>
+>>>>>>> b5bc48c9ac6e2f4b985e6953b495c4d7b449e4ad:resources/views/admin/forauthor/edit_registrationsAdmin.blade.php
 
-<!-- Tabs -->
-<nav class="max-w-7xl mx-auto px-6 mt-6">
-    <div class="flex space-x-6 text-lg font-semibold">
-        <button id="registrations-btn" onclick="showSection('registrations')" 
-                class="tab-button pb-2 transition">
-            Registrations
-        </button>
-        <button id="fee-btn" onclick="showSection('fee')" 
-                class="tab-button pb-2 transition">
-            Registration Fee
-        </button>
-        <button id="payment-btn" onclick="showSection('payment')" 
-                class="tab-button pb-2 transition">
-            Payment Method
-        </button>
-    </div>
-</nav>
+            <form>
+                <!-- Section -->
+                <div class="mb-4">
+                    <label class="block font-bold mb-2">Section</label>
+                    <select name="section" x-model="section" required class="w-full border rounded px-3 py-2">
+                        <option value="">-- Pilih Section --</option>
+                        <option value="registrations">Registrations</option>
+                        <option value="registration_fee">Registration Fee</option>
+                        <option value="payment_method">Payment Method</option>
+                    </select>
+                </div>
 
-<!-- Content -->
-<main class="flex-1 flex justify-center items-start px-4 py-8">
-    <div class="w-full max-w-3xl bg-[#F2F6F9] rounded-lg shadow-xl p-6 text-slate-800">
+                <!-- Registrations -->
+                <template x-if="section === 'registrations'">
+                    <div class="space-y-3 mb-4">
+                        <div>
+                            <label class="block font-bold mb-1">CTA Title</label>
+                            <input type="text" name="cta_title" placeholder="Registration Title" class="w-full border rounded px-3 py-2" required>
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-1">CTA Button</label>
+                            <input type="text" name="cta_button" placeholder="Registration Form" class="w-full border rounded px-3 py-2" required>
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-1">CTA Link</label>
+                            <input type="text" name="cta_link" placeholder="https://..." class="w-full border rounded px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-1">Notes</label>
+                            <textarea name="notes" rows="3" class="w-full border rounded px-3 py-2"></textarea>
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-1">Conference Fee Include</label>
+                            <input type="text" name="conference_fee_include" class="w-full border rounded px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-1">Registration Procedures</label>
+                            <input type="text" name="registrations_procedures" class="w-full border rounded px-3 py-2">
+                        </div>
+                    </div>
+                </template>
 
+<<<<<<< HEAD:resources/views/admin/registrationsAdmin.blade.php
+                <!-- Registration Fee -->
+                <template x-if="section === 'registration_fee'">
+                    <div class="space-y-3 mb-4">
+                        <div>
+                            <label class="block font-bold mb-1">Category Fee</label>
+                            <input type="text" name="category" class="w-full border rounded px-3 py-2">
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-bold mb-1">Physical Mode (USD)</label>
+                                <input type="text" name="usd_physical" class="w-full border rounded px-3 py-2">
+                            </div>
+                            <div>
+                                <label class="block font-bold mb-1">Physical Mode (IDR)</label>
+                                <input type="text" name="idr_physical" class="w-full border rounded px-3 py-2">
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-bold mb-1">Online Mode (USD)</label>
+                                <input type="text" name="usd_online" class="w-full border rounded px-3 py-2">
+                            </div>
+                            <div>
+                                <label class="block font-bold mb-1">Online Mode (IDR)</label>
+                                <input type="text" name="idr_online" class="w-full border rounded px-3 py-2">
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Payment Method -->
+                <template x-if="section === 'payment_method'">
+                    <div class="space-y-3 mb-4">
+                        <div>
+                            <label class="block font-bold mb-1">Method Name</label>
+                            <input type="text" name="method_name" class="w-full border rounded px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-1">Bank Name</label>
+                            <input type="text" name="bank_name" class="w-full border rounded px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-1">Account Name</label>
+                            <input type="text" name="account_name" class="w-full border rounded px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-1">Virtual Account</label>
+                            <input type="text" name="virtual_account" class="w-full border rounded px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-1">Paypal Email</label>
+                            <input type="email" name="paypal_email" class="w-full border rounded px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-1">Paypal Info</label>
+                            <textarea name="additional_info" rows="2" class="w-full border rounded px-3 py-2"></textarea>
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-1">Important Notes</label>
+                            <input type="text" name="important_notes" class="w-full border rounded px-3 py-2">
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Buttons -->
+                <div class="flex justify-end gap-3 pt-4">
+                    <a href="#" class="px-6 py-2 rounded bg-gray-600 text-white hover:bg-gray-700">Cancel</a>
+                    <button type="submit" class="px-6 py-2 rounded bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] font-semibold text-black">
+                        Save
+                    </button>
+                </div>
+            </form>
+=======
         <!-- Registrations Section -->
         <section id="registrations" class="tab-section hidden">
             <h2 class="text-base font-semibold text-slate-900 mb-6">Registration Form</h2>
@@ -205,9 +288,8 @@
             <button type="submit" class="px-7 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">
                 Save
             </button>
+>>>>>>> b5bc48c9ac6e2f4b985e6953b495c4d7b449e4ad:resources/views/admin/forauthor/edit_registrationsAdmin.blade.php
         </div>
-    </div>
-</main>
-
-</body>
-</html>
+    </main>
+</div>
+@endsection

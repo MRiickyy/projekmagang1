@@ -119,6 +119,14 @@ Route::get('/admin/contacts/tambah', function () {
 //Route Call Paper
 Route::get('/call-for-papers', [CallPaperController::class, 'index'])->name('call_papers');
 
+Route::get('/admin/callpaper', function () {
+    return view('/admin/callpaperAdmin'); 
+})->name('admin.callpaper');
+
+Route::get('/admin/callpaper/tambah', function () {
+    return view('/admin/tambah_callpaperAdmin'); 
+})->name('admin.callpaper.tambah');
+
 
 Route::get('/admin/login', function () {
     return view('loginAdmin');
@@ -138,3 +146,21 @@ Route::get('/admin/committee', function () {
 Route::get('/admin/committees/tambah', function () {
     return view('/admin/tambah_committeesAdmin');
 })->name('admin.committees.tambah');
+
+// Halaman tambah Description Speaker Admin
+Route::get('/admin/descriptionspeaker/tambah', function () {
+    return view('/admin/tambah_descriptionspeakerAdmin'); // file: resources/views/committees.blade.php
+})->name('admin.descriptionspeaker.tambah');
+
+Route::get('/admin/descriptionspeaker', function () {
+    return view('/admin/descriptionspeakerAdmin'); // file: resources/views/committees.blade.php
+})->name('admin.descriptionspeaker');
+
+// Halaman tambah Description Speaker Admin
+Route::get('/admin/timelines/tambah', function () {
+    return view('/admin/tambah_timelinesAdmin'); // file: resources/views/committees.blade.php
+})->name('admin.timelines.tambah');
+
+Route::get('/admin/timelines', function () {
+    return view('/admin/timelinesAdmin'); // file: resources/views/committees.blade.php
+})->name('admin.timelines');
