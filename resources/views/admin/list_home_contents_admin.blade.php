@@ -6,7 +6,7 @@
 <!-- Content -->
 <main class="flex-1 px-6 py-10">
     <div class="w-full bg-[#F2F6F9] rounded-lg shadow-xl p-6 text-slate-800">
-        <h2 class="text-lg font-semibold text-slate-900 mb-6">Daftar Home Contents</h2>
+        <h2 class="text-lg font-semibold text-slate-900 mb-6">List Home Contents</h2>
 
         <div class="flex justify-between mb-4">
             @if($homeContents->isEmpty())
@@ -47,8 +47,9 @@
                         <td class="px-4 py-2 border">{{ $homeContent-> updated_at }}</td>
                         <td class="px-4 py-2 border space-x-2">
                             <div class="flex justify-center gap-2">
-                                <a href="#"
+                                <a href="{{ route('admin.edit_home_contents_admin', $homeContent->id) }}"
                                     class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</a>
+
                                 <form action="{{ route('admin.delete_home_contents_admin', $homeContent->id) }}"
                                     method="POST" class="inline">
                                     @csrf
@@ -60,9 +61,8 @@
 
                                 </form>
 
-                                <a href="#"
+                                <a href="{{ route('admin.detail_home_contents_admin', $homeContent->id) }}"
                                     class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</a>
-                            </div>
                         </td>
                     </tr>
 
@@ -83,14 +83,14 @@ document.querySelectorAll('form[method="POST"]').forEach(form => {
         e.preventDefault();
 
         Swal.fire({
-            title: 'Yakin ingin menghapus data ini?',
-            text: "Data yang dihapus tidak bisa dikembalikan!",
+            title: 'Are you sure you want to delete?',
+            text: "This data will be permanently deleted!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Ya, hapus!',
-            cancelButtonText: 'Batal'
+            confirmButtonText: 'Yes, delete!',
+            cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
                 form.submit();
