@@ -68,26 +68,29 @@ Route::post('/admin/contacts/store', [ContactInfoController::class, 'store'])->n
 Route::get('/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
 Route::get('/registration', [RegistrationController::class, 'index'])->name('registration.index');
 // admin: displays the author information table
-Route::get('/admin/mainAuthorInformation', [AuthorInformationController::class, 'adminIndex'])->name('admin.authorinformationAdmin');
+Route::get('/admin/mainAuthorInformation', [AuthorInformationController::class, 'adminIndex'])->name('admin.forauthor.authorinformationAdmin');
 // admin: form edit + save
-Route::get('/admin/edit-authorInformation', [AuthorInformationController::class, 'adminAuthorEdit'])->name('admin.edit_authorinformationAdmin');
-Route::post('/admin/edit-authorInformation', [AuthorInformationController::class, 'update'])->name('admin.update_authorinformation');
-// admin: delete
-Route::delete('/admin/delete-authorinformation/{id}', [AuthorInformationController::class, 'delete'])->name('admin.delete_authorinformationAdmin');
+Route::get('/admin/edit-authorInformation', [AuthorInformationController::class, 'adminAuthorEdit'])->name('admin.forauthor.edit_authorinformationAdmin');
+Route::post('/admin/edit-authorInformation', [AuthorInformationController::class, 'update'])->name('admin.forauthor.update_authorinformation');
+// admin: detail author information
+Route::get('/admin/detail-authorInformation', [AuthorInformationController::class, 'adminAuthorDetail'])->name('admin.forauthor.detail_authorinformationAdmin');
+
+
+// admin: displays the registrations
+Route::get('/admin/mainregistrations', function () {return view('/admin/forauthor/registrationsAdmin'); })->name('admin.forauthor.registrationsAdmin');
 // Halaman Registrations Admin
-Route::get('/admin/registrations', function () {
-    return view('/admin/registrationsAdmin'); 
-})->name('admin.registrations');
+Route::get('/admin/edit-registrations', function () {return view('/admin/forauthor/edit_registrationsAdmin'); })->name('admin.forauthor.edit_registrationsAdmin');
 
 
 
-
-
-// Halaman Tambah Registrations Admin
-Route::get('/admin/registrations/tambah', function () {
-    return view('/admin/tambah_registrationsAdmin'); 
-})->name('admin.registrationsAdmin.tambah');
-
+// Route untuk Contacts Admin
+Route::get('/admin/contacts', function () {
+    return view('/admin/contacts_Admin'); // ini file yang kamu buat
+})->name('admin.contacts');
+// Route untuk tambah Contacts_Admin
+Route::get('/admin/contacts/tambah', function () {
+    return view('/admin/tambah_contacts_Admin'); // ini file yang kamu buat
+})->name('admin.contacts.tambah');
 
 
 

@@ -25,9 +25,8 @@
 <header class="bg-[#1a1f27]/95 backdrop-blur shadow-md">
     <div class="max-w-7xl mx-auto px-6 py-5">
         <h1 class="text-2xl font-bold tracking-normal">
-            Edit dan 
             <span class="bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent font-bold">
-                Tambah Registrations
+                Registrations Edit
             </span>
         </h1>
     </div>
@@ -57,7 +56,7 @@
 
         <!-- Registrations Section -->
         <section id="registrations" class="tab-section hidden">
-            <h2 class="text-base font-semibold text-slate-900 mb-6">Form Registrasi</h2>
+            <h2 class="text-base font-semibold text-slate-900 mb-6">Registration Form</h2>
             <form action="#" method="POST" class="space-y-5">
                 @csrf
                 <div>
@@ -201,10 +200,10 @@
         <!-- Buttons -->
         <div class="flex justify-end gap-3 pt-6">
             <button type="reset" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
-                Batal
+                Cancel
             </button>
-            <button type="submit" class="px-6 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">
-                Simpan
+            <button type="submit" class="px-7 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">
+                Save
             </button>
         </div>
     </div>
