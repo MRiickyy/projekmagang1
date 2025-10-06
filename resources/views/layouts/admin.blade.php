@@ -14,14 +14,14 @@
 
 
     <style>
-        /* Animasi transisi */
-        .sidebar {
-            transition: width 0.5s ease, transform 0.5s ease;
-        }
+    /* Animasi transisi */
+    .sidebar {
+        transition: width 0.5s ease, transform 0.5s ease;
+    }
 
-        .sidebar-closed {
-            transform: translateX(-100%);
-        }
+    .sidebar-closed {
+        transform: translateX(-100%);
+    }
     </style>
 
     <!-- Script untuk tab Messages, Infos, Locations -->
@@ -63,8 +63,9 @@
                 <a href="{{ route('admin.list_home_contents_admin') }}"
                     class="block px-3 py-2 rounded {{ request()->routeIs('admin.list_home_contents_admin') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Home
                     Contents</a>
-                <a href="{{ route('admin.callpaper') }}"
-                    class="block px-3 py-2 rounded {{ request()->routeIs('admin.callpaper') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Call For Paper</a>
+                <a href="#"
+                    class="flex items-center justify-between w-full px-3 py-2 rounded hover:bg-[#334155] focus:outline-none">Call
+                    For Paper</a>
                 <a href="{{ route('admin.speakers') }}"
                     class="block px-3 py-2 rounded {{ request()->routeIs('admin.speakers') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Speakers</a>
                 <a href="{{ route('admin.committees') }}"
@@ -129,56 +130,56 @@
 
     <!-- Sidebar Toggle Script -->
     <script>
-        const toggleBtn = document.getElementById("toggleSidebar");
-        const sidebar = document.getElementById("sidebar");
-        const mainContent = document.getElementById("mainContent");
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+    const mainContent = document.getElementById("mainContent");
 
-        let sidebarOpen = true;
+    let sidebarOpen = true;
 
-        toggleBtn.addEventListener("click", () => {
-            sidebarOpen = !sidebarOpen;
+    toggleBtn.addEventListener("click", () => {
+        sidebarOpen = !sidebarOpen;
 
-            if (!sidebarOpen) {
-                sidebar.classList.add("sidebar-closed");
-                mainContent.classList.remove("ml-64");
-                mainContent.classList.add("ml-0");
-            } else {
-                sidebar.classList.remove("sidebar-closed");
-                mainContent.classList.remove("ml-0");
-                mainContent.classList.add("ml-64");
-            }
-        });
+        if (!sidebarOpen) {
+            sidebar.classList.add("sidebar-closed");
+            mainContent.classList.remove("ml-64");
+            mainContent.classList.add("ml-0");
+        } else {
+            sidebar.classList.remove("sidebar-closed");
+            mainContent.classList.remove("ml-0");
+            mainContent.classList.add("ml-64");
+        }
+    });
     </script>
 
     <!-- Delete Confirmation -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const deleteForms = document.querySelectorAll('.delete-item');
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteForms = document.querySelectorAll('.delete-item');
 
-            if (deleteForms.length > 0) {
-                deleteForms.forEach(form => {
-                    form.addEventListener('submit', function(e) {
-                        e.preventDefault();
+        if (deleteForms.length > 0) {
+            deleteForms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
 
-                        Swal.fire({
-                            title: 'Are you sure?',
-                            text: "This action cannot be undone!",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Yes, delete it!',
-                            cancelButtonText: 'No, cancel'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                form.submit();
-                            }
-                        });
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "This action cannot be undone!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'No, cancel'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
                     });
                 });
-            }
-        });
+            });
+        }
+    });
     </script>
 </body>
 
