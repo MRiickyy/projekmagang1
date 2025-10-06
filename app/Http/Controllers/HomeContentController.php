@@ -61,21 +61,32 @@ class HomeContentController extends Controller
     }
 
 
-    public function edit(HomeContent $homeContent)
+    public function edit($id)
     {
-        return view('admin.home_contents.edit', compact('homeContent'));
+        $homeContent = HomeContent::findOrFail($id);
+        return view('admin.edit_home_contents_admin', compact('homeContent'));
     }
 
-    public function update(Request $request, HomeContent $homeContent)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'content' => 'required|string',
         ]);
 
-        $homeContent->update(['content' => $request->content]);
+        $homeContent = HomeContent::findOrFail($id);
+        $homeContent->content = $request->content;
+        $homeContent->save();
 
-        return redirect()->route('admin.home_contents.index')->with('success', 'Content updated');
+        return redirect()->route('admin.list_home_contents_admin')->with('success', 'Data updated successfully!');
     }
+
+    public function show($id)
+    {
+        $homeContent = HomeContent::findOrFail($id);
+        return view('admin.edit_home_contents_admin', compact('homeContent'))->with('isDetail', true);
+    }
+
+
 
     public function destroy(HomeContent $homeContent)
     {

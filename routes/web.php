@@ -50,6 +50,12 @@ Route::get('/admin/home-contents', [HomeContentController::class, 'listHome'])->
 Route::get('/admin/home-contents/add', [HomeContentController::class, 'addHome'])->name('admin.add_home_contents_admin');
 Route::post('/admin/home-contents/store', [HomeContentController::class, 'store'])->name('admin.store_home_contents_admin');
 Route::delete('/admin/home-contents/{homeContent}', [HomeContentController::class, 'destroy'])->name('admin.delete_home_contents_admin');
+Route::get('/admin/home-contents/{homeContent}/edit', [HomeContentController::class, 'edit'])->name('admin.edit_home_contents_admin');
+Route::put('/admin/home-contents/{homeContent}', [HomeContentController::class, 'update'])->name('admin.update_home_contents_admin');
+// Detail home content
+Route::get('/admin/home-contents/{homeContent}/detail', [HomeContentController::class, 'show'])->name('admin.detail_home_contents_admin');
+
+
 
 
 //Route Contact
