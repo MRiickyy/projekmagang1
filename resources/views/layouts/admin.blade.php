@@ -45,6 +45,7 @@
         document.getElementById("defaultOpen").click();
     }
     </script>
+
 </head>
 
 <body class="min-h-screen flex bg-gradient-to-r from-[#1E293B] via-[#334155] to-[#0F172A] text-slate-100">
