@@ -58,7 +58,7 @@
                             <td class="px-4 py-2 border">{{ $contactInfo->updated_at }}</td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center gap-2">
-                                    <a href="#"
+                                    <a href="{{ route('admin.edit_contacts_Admin', $contactInfo->id) }}"
                                         class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</a>
                                     <form action="{{ route('admin.delete_contact_info', $contactInfo->id) }}"
                                         method="POST" class="inline delete-form">
@@ -69,8 +69,9 @@
                                             Delete
                                         </button>
                                     </form>
-                                    <a href="#"
+                                    <a href="{{ route('admin.detail_contact_info', $contactInfo->id) }}"
                                         class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</a>
+
                                 </div>
                             </td>
                         </tr>
@@ -116,8 +117,9 @@
                                             Delete
                                         </button>
                                     </form>
-                                    <a href="#"
+                                    <a href="{{ route('admin.detail_contact_message', $message->id) }}"
                                         class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</a>
+
                                 </div>
                             </td>
                         </tr>
@@ -134,7 +136,7 @@
         </div>
 
         <!-- Map Locations -->
-        <!-- Map Locations -->
+
         <div id="Locations" class="tabcontent hidden">
             <div class="bg-white shadow-md rounded-lg p-6">
                 <h2 class="text-lg font-semibold text-gray-800 mb-4">Map Location</h2>
@@ -168,7 +170,7 @@
                             <td class="px-4 py-2 border">{{ $map->updated_at }}</td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center gap-2">
-                                    <a href="#"
+                                    <a href="{{ route('admin.edit_map_location', $map->id) }}"
                                         class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</a>
                                     <form action="{{ route('admin.delete_map_location', $map->id) }}" method="POST"
                                         class="inline delete-form">
@@ -179,7 +181,7 @@
                                             Delete
                                         </button>
                                     </form>
-                                    <a href="#"
+                                    <a href="{{ route('admin.detail_map_location', $map->id) }}"
                                         class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</a>
                                 </div>
                             </td>
