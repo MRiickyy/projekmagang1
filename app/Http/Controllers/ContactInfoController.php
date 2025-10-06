@@ -29,7 +29,7 @@ class ContactInfoController extends Controller
     }
 
     // Halaman admin add contact
-    public function addHome()
+    public function addContact()
     {
         return view('admin.add_contacts_Admin');
     }
@@ -58,8 +58,27 @@ class ContactInfoController extends Controller
         }
 
         return redirect()->route('admin.list_contacts_Admin')
-                        ->with('success', 'Contact berhasil ditambahkan!');
+                        ->with('success', 'Contact Info added successfully!');
     }
+
+    public function destroyInfo($id)
+    {
+        ContactInfo::findOrFail($id)->delete();
+        return back()->with('success', 'Contact Info deleted successfully!');
+    }
+
+    public function destroyMessage($id)
+    {
+        ContactMessage::findOrFail($id)->delete();
+        return back()->with('success', 'Contact Message deleted successfully!');
+    }
+
+    public function destroyMap($id)
+    {
+        MapLocation::findOrFail($id)->delete();
+        return back()->with('success', 'Map Location deleted successfully!');
+    }
+
 
 
 

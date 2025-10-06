@@ -110,6 +110,8 @@
     });
     </script>
 
+
+    @if($homeContents->isNotEmpty())
     <!-- HERO -->
     <header class="min-h-screen flex items-center bg-gradient-to-r from-[#1E293B] via-[#334155] to-[#0F172A]">
 
@@ -354,6 +356,14 @@
             </div>
         </div>
     </section>
+
+    @else
+    <section class="min-h-screen flex items-center justify-center">
+        <p class="text-gray-500 text-lg text-center font-semibold">
+            Belum ada konten ditambahkan oleh admin.
+        </p>
+    </section>
+    @endif
 
     <!-- Footer (3 columns) -->
     <footer class="mt-10 bg-gradient-to-br from-[#0f172a] to-[#1f2937]">

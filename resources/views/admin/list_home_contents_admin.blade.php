@@ -8,12 +8,15 @@
     <div class="w-full bg-[#F2F6F9] rounded-lg shadow-xl p-6 text-slate-800">
         <h2 class="text-lg font-semibold text-slate-900 mb-6">Daftar Home Contents</h2>
 
-        <!-- Tombol Tambah & Cetak -->
         <div class="flex justify-between mb-4">
+            @if($homeContents->isEmpty())
             <a href="{{ route('admin.add_home_contents_admin') }}"
-                class="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600">Add</a>
-
+                class="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600">
+                Add
+            </a>
+            @endif
         </div>
+
 
         @if(session('success'))
         <div class="mb-4 p-3 bg-green-100 text-green-700 rounded">
@@ -46,12 +49,17 @@
                             <div class="flex justify-center gap-2">
                                 <a href="#"
                                     class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</a>
-                                <form action="#" method="POST" class="inline">
+                                <form action="{{ route('admin.delete_home_contents_admin', $homeContent->id) }}"
+                                    method="POST" class="inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                        class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
+                                        class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">
+                                        Delete
+                                    </button>
+
                                 </form>
+
                                 <a href="#"
                                     class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</a>
                             </div>
@@ -66,4 +74,29 @@
 
     </div>
 </main>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+document.querySelectorAll('form[method="POST"]').forEach(form => {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: 'Yakin ingin menghapus data ini?',
+            text: "Data yang dihapus tidak bisa dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+});
+</script>
 @endsection
