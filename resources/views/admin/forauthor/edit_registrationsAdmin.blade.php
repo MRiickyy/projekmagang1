@@ -2,24 +2,11 @@
 
 @section('title', 'Add Registration')
 
-<<<<<<< HEAD:resources/views/admin/registrationsAdmin.blade.php
 @section('content')
 <div class="flex-1 flex flex-col">
     <main class="flex-1 px-6 py-10 flex justify-center">
         <div class="w-full max-w-4xl bg-[#F2F6F9] rounded-lg shadow-xl p-6 text-slate-800" x-data="{ section: '' }">
             <h2 class="text-lg font-semibold text-slate-900 mb-6">Registration Information</h2>
-=======
-<!-- Header -->
-<header class="bg-[#1a1f27]/95 backdrop-blur shadow-md">
-    <div class="max-w-7xl mx-auto px-6 py-5">
-        <h1 class="text-2xl font-bold tracking-normal">
-            <span class="bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent font-bold">
-                Registrations Edit
-            </span>
-        </h1>
-    </div>
-</header>
->>>>>>> b5bc48c9ac6e2f4b985e6953b495c4d7b449e4ad:resources/views/admin/forauthor/edit_registrationsAdmin.blade.php
 
             <form>
                 <!-- Section -->
