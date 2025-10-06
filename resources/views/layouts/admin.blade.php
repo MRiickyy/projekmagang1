@@ -60,8 +60,10 @@
             <nav class="flex-1 px-4 py-6 space-y-3 text-sm">
                 <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Dashboard</a>
                 <a href="{{ route('admin.list_home_contents_admin') }}"
-                    class="block px-3 py-2 rounded {{ request()->routeIs('admin.list_home_contents_admin') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Home
-                    Contents</a>
+                    class="block px-3 py-2 rounded {{ request()->routeIs('admin.list_home_contents_admin') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Home</a>
+                <a href="#"
+                    class="flex items-center justify-between w-full px-3 py-2 rounded hover:bg-[#334155] focus:outline-none">Call
+                    For Paper</a>
                 <a href="{{ route('admin.speakers') }}"
                     class="block px-3 py-2 rounded {{ request()->routeIs('admin.speakers') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Speakers</a>
                 <a href="{{ route('admin.committees') }}"
@@ -77,9 +79,16 @@
                     </svg>
                 </button>
                 <div x-show="openAuthors" x-collapse class="ml-4 space-y-2 mt-2">
-                    <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Author Informations</a>
+                    <a href="{{ route('admin.forauthor.authorinformationAdmin') }}"
+                        class="block px-3 py-2 rounded 
+        {{ request()->routeIs('admin.forauthor.authorinformationAdmin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
+                        Author Informations
+                    </a>
                     <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Registration</a>
-                    <a href="#" class="block px-3 py-2 rounded text-[#00e676] font-semibold">Contacts</a>
+                    <a href="{{ route('admin.list_contacts_Admin') }}" class="block px-3 py-2 rounded 
+        {{ request()->routeIs('admin.list_contacts_Admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
+                        Contacts
+                    </a>
                 </div>
 
                 <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Events</a>

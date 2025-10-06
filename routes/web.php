@@ -55,7 +55,7 @@ Route::post('/admin/home-contents/store', [HomeContentController::class, 'store'
 Route::post('/contacts', [ContactMessageController::class, 'store'])->name('contact.send');
 Route::get('/contacts', [ContactInfoController::class, 'index'])->name('contact'); 
 Route::get('/admin/contacts', [ContactInfoController::class, 'listContact'])->name('admin.list_contacts_Admin');
-Route::get('/admin/contacts/add', [ContactInfoController::class, 'addHome'])->name('admin.add_contacts_Admin');
+Route::get('/admin/contacts/add', [ContactInfoController::class, 'addContact'])->name('admin.add_contacts_Admin');
 Route::post('/admin/contacts/store', [ContactInfoController::class, 'store'])->name('admin.store_contacts_Admin');
 
 
@@ -84,9 +84,9 @@ Route::get('/admin/edit-registrations', function () {return view('/admin/forauth
 
 
 // Route untuk Contacts Admin
-Route::get('/admin/contacts', function () {
-    return view('/admin/contacts_Admin'); // ini file yang kamu buat
-})->name('admin.contacts');
+// Route::get('/admin/contacts', function () {
+//     return view('/admin/contacts_Admin'); 
+// })->name('admin.contacts');
 // Route untuk tambah Contacts_Admin
 Route::get('/admin/contacts/tambah', function () {
     return view('/admin/tambah_contacts_Admin'); // ini file yang kamu buat

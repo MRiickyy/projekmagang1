@@ -29,7 +29,7 @@ class ContactInfoController extends Controller
     }
 
     // Halaman admin add contact
-    public function addHome()
+    public function addContact()
     {
         return view('admin.add_contacts_Admin');
     }
