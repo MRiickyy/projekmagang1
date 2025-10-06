@@ -62,6 +62,8 @@
                 <a href="{{ route('admin.list_home_contents_admin') }}"
                     class="block px-3 py-2 rounded {{ request()->routeIs('admin.list_home_contents_admin') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Home
                     Contents</a>
+                <a href="{{ route('admin.callpaper') }}"
+                    class="block px-3 py-2 rounded {{ request()->routeIs('admin.callpaper') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Call For Paper</a>
                 <a href="{{ route('admin.speakers') }}"
                     class="block px-3 py-2 rounded {{ request()->routeIs('admin.speakers') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Speakers</a>
                 <a href="{{ route('admin.committees') }}"
