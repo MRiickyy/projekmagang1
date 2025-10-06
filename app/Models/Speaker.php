@@ -19,7 +19,7 @@ class Speaker extends Model
     ];
 
     // Relasi ke deskripsi
-    public function description()
+    public function descriptions()
     {
         return $this->hasMany(DescriptionSpeaker::class, 'speaker_id');
     }
