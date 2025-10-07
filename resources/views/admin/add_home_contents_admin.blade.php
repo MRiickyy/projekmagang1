@@ -50,7 +50,7 @@
 
             <div class="flex justify-end gap-3 pt-4">
                 <a href="{{ route('admin.list_home_contents_admin') }}"
-                    class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                    class="btn-cancel px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
                     Cancel
                 </a>
                 <button type="submit"

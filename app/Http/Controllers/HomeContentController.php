@@ -31,12 +31,14 @@ class HomeContentController extends Controller
         return view('home', compact('homeContents', 'timelines'));
     }
 
-    // Bagian Admin tetap sama
+    
     public function listHome()
     {
         $homeContents = HomeContent::all();
-        return view('admin.list_home_contents_admin', compact('homeContents'));
+        $timelines = Timeline::orderBy('round_number')->orderBy('id')->get()->groupBy('round_number');
+        return view('admin.list_home_contents_admin', compact('homeContents', 'timelines'));
     }
+
 
     
     public function addHome()
@@ -95,6 +97,69 @@ class HomeContentController extends Controller
         return redirect()
             ->route('admin.list_home_contents_admin')
             ->with('success', 'Content deleted successfully!');
+    }
+
+    // Menampilkan form tambah timeline
+    public function addTimelineHome()
+    {
+        return view('admin.add_timeline_home_admin');
+    }
+
+    // Menyimpan timeline baru
+    public function storeTimelineHome(Request $request)
+    {
+        $request->validate([
+            'round_number' => 'required|integer|min:1',
+            'title' => 'required|string',
+            'date' => 'required|date',
+        ]);
+
+        Timeline::create([
+            'round_number' => $request->round_number,
+            'title' => $request->title,
+            'date' => $request->date,
+        ]);
+
+        return redirect()->route('admin.list_home_contents_admin')
+                        ->with('success', 'Timeline added successfully!');
+    }
+
+
+    public function editTimeline($id)
+    {
+        $timeline = Timeline::findOrFail($id);
+        return view('admin.edit_timeline_home_admin', compact('timeline'));
+    }
+
+    public function showTimeline($id)
+    {
+        $timeline = Timeline::findOrFail($id);
+        return view('admin.edit_timeline_home_admin', compact('timeline'))->with('isDetail', true);
+    }
+
+    public function updateTimeline(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string',
+            'date' => 'required|date',
+        ]);
+
+        $timeline = Timeline::findOrFail($id);
+        $timeline->title = $request->title;
+        $timeline->date = $request->date;
+        $timeline->save();
+
+        return redirect()->route('admin.list_home_contents_admin')
+                        ->with('success', 'Timeline updated successfully!');
+    }
+
+    public function destroyTimeline(Timeline $timeline)
+    {
+        $timeline->delete();
+
+        return redirect()
+            ->route('admin.list_home_contents_admin')
+            ->with('success', 'Timeline deleted successfully!');
     }
 
 }

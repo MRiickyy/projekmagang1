@@ -62,6 +62,14 @@ Route::delete('/admin/home-contents/{homeContent}', [HomeContentController::clas
 Route::get('/admin/home-contents/{homeContent}/edit', [HomeContentController::class, 'edit'])->name('admin.edit_home_contents_admin');
 Route::put('/admin/home-contents/{homeContent}', [HomeContentController::class, 'update'])->name('admin.update_home_contents_admin');
 Route::get('/admin/home-contents/{homeContent}/detail', [HomeContentController::class, 'show'])->name('admin.detail_home_contents_admin');
+Route::get('/admin/home-contents/timelines/add', [HomeContentController::class, 'addTimelineHome'])->name('admin.add_timeline_home_admin');
+Route::post('/admin/home-contents/timelines/store', [HomeContentController::class, 'storeTimelineHome'])->name('admin.store_timeline_home_admin');
+Route::get('/admin/home-contents/timelines/{timeline}/edit', [HomeContentController::class, 'editTimeline'])->name('admin.edit_timeline_home_admin');
+Route::get('/admin/home-contents/timelines/{timeline}/detail', [HomeContentController::class, 'showTimeline']) ->name('admin.detail_timeline_home_admin');
+Route::put('/admin/home-contents/timelines/{timeline}', [HomeContentController::class, 'updateTimeline'])->name('admin.update_timeline_home_admin');
+Route::delete('/admin/home-contents/timelines/{timeline}', [HomeContentController::class, 'destroyTimeline'])->name('admin.delete_timeline_home_admin');
+
+
 
 
 //Route Contact

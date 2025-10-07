@@ -29,13 +29,13 @@
                 @if(isset($isDetail) && $isDetail)
                 <!-- Mode DETAIL -->
                 <a href="{{ route('admin.list_home_contents_admin') }}"
-                    class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                    class="btn-back px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
                     Back
                 </a>
                 @else
                 <!-- Mode EDIT -->
                 <a href="{{ route('admin.list_home_contents_admin') }}"
-                    class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                    class="btn-cancel px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
                     Cancel
                 </a>
                 <button type="submit"
