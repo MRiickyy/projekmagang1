@@ -86,7 +86,9 @@
         {{ request()->routeIs('admin.forauthor.authorinformationAdmin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
                         Author Informations
                     </a>
-                    <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Registration</a>
+                    <a href="{{ route('admin.forauthor.registrationsAdmin') }}"
+                        class="block px-3 py-2 rounded 
+        {{ request()->routeIs('admin.forauthor.registrationsAdmin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">Registration</a>
                     <a href="{{ route('admin.list_contacts_Admin') }}" class="block px-3 py-2 rounded 
         {{ request()->routeIs('admin.list_contacts_Admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
                         Contacts
