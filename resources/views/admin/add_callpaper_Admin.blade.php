@@ -1,23 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Call for Papers</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="min-h-screen flex flex-col bg-gradient-to-r from-[#1E293B] via-[#334155] to-[#0F172A] text-slate-100">
+@extends('layouts.admin')
 
-<!-- Header -->
-<header class="bg-[#1a1f27]/95 backdrop-blur shadow-md">
-    <div class="max-w-7xl mx-auto px-6 py-5">
-        <h1 class="text-2xl font-bold tracking-normal">
-            <span class="bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent font-bold">
-                Call for Papers
-            </span>
-        </h1>
-    </div>
-</header>
+@section('title', 'Add Call For Papers')
+
+@section('content')
 
 <!-- Main Content -->
 <main class="flex-1 flex justify-center items-start px-4 py-10">
@@ -26,12 +11,20 @@
         <h2 class="text-base font-semibold text-slate-900 mb-6">Call for Papers</h2>
 
         <!-- Form -->
-        <form action="#" method="POST" class="space-y-5">
+        <form action="{{ route('admin.store_callpaper_Admin') }}" method="POST" class="space-y-5">
+            @csrf
             <!-- Section -->
             <div>
                 <label class="block text-sm font-bold text-slate-900 mb-1" for="section">Section</label>
-                <input type="text" id="section" name="section" placeholder="Enter section name"
+                <select id="section" name="section"
                     class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none">
+                    <option value="" disabled selected>Choose Section</option>
+                    <option value="call_for_papers">call_for_papers</option>
+                    <option value="submission_guidelines">submission_guidelines
+                    </option>
+                    <option value="important_dates">important_dates</option>
+                    <option value="join_section">join_section</option>
+                </select>
             </div>
 
             <!-- Title -->
@@ -44,16 +37,16 @@
             <!-- Content -->
             <div>
                 <label class="block text-sm font-bold text-slate-900 mb-1" for="content">Content</label>
-                <textarea id="content" name="content" rows="5" placeholder="Enter content here..."
+                <textarea id="content" name="content" rows="5" placeholder='Enter content here...'
                     class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"></textarea>
             </div>
 
             <!-- Action Buttons -->
             <div class="flex justify-end gap-3 pt-4">
-                <button type="button" onclick="window.history.back()"
+                <a href="{{ route('admin.list_callpaper_Admin') }}"
                     class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
                     Cancel
-                </button>
+                </a>
                 <button type="submit"
                     class="px-7 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">
                     Save
@@ -62,5 +55,20 @@
         </form>
     </div>
 </main>
-</body>
-</html>
+
+<script>
+const sectionSelect = document.getElementById('section');
+const contentTextarea = document.getElementById('content');
+
+sectionSelect.addEventListener('change', function() {
+    if (this.value === 'call_for_papers') {
+        contentTextarea.placeholder =
+            'e.g : ["Big Data Analytics","Statistical Methods","Text Mining","Recommender Systems","Business Intelligence","Computational Statistics"]';
+    } else if (this.value === 'important_dates') {
+        contentTextarea.placeholder = 'e.g :  January 15, 2025';
+    } else {
+        contentTextarea.placeholder = 'Enter content here...';
+    }
+});
+</script>
+@endsection

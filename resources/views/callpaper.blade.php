@@ -51,7 +51,11 @@
         @foreach ($callPapers->where('section', 'important_dates') as $date)
         <div class="bg-[#F2F6F9] border border-slate-300 rounded-xl px-6 py-3 text-center shadow-sm">
             <p class="font-semibold text-slate-800">{{ $date->title }}</p>
-            <p class="italic text-slate-600">{{ $date->content }}</p>
+            <ul class="italic text-slate-600 list-disc list-inside">
+                @foreach(explode("\n", $date->content) as $line)
+                <li>{{ $line }}</li>
+                @endforeach
+            </ul>
         </div>
         @endforeach
     </div>
