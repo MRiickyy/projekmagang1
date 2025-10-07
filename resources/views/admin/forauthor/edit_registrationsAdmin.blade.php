@@ -47,10 +47,18 @@
                             <label class="block font-bold mb-1">Registration Procedures</label>
                             <input type="text" name="registrations_procedures" class="w-full border rounded px-3 py-2">
                         </div>
+                        <!-- Buttons -->
+                        <div class="flex justify-end gap-3 pt-6">
+                            <button type="reset" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                                Cancel
+                            </button>
+                            <button type="submit" class="px-7 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">
+                                Save
+                            </button>
+                        </div>
                     </div>
                 </template>
 
-<<<<<<< HEAD:resources/views/admin/registrationsAdmin.blade.php
                 <!-- Registration Fee -->
                 <template x-if="section === 'registration_fee'">
                     <div class="space-y-3 mb-4">
@@ -77,6 +85,15 @@
                                 <label class="block font-bold mb-1">Online Mode (IDR)</label>
                                 <input type="text" name="idr_online" class="w-full border rounded px-3 py-2">
                             </div>
+                        </div>
+                        <!-- Buttons -->
+                        <div class="flex justify-end gap-3 pt-6">
+                            <button type="reset" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                                Cancel
+                            </button>
+                            <button type="submit" class="px-7 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">
+                                Save
+                            </button>
                         </div>
                     </div>
                 </template>
@@ -112,171 +129,18 @@
                             <label class="block font-bold mb-1">Important Notes</label>
                             <input type="text" name="important_notes" class="w-full border rounded px-3 py-2">
                         </div>
+                        <!-- Buttons -->
+                        <div class="flex justify-end gap-3 pt-6">
+                            <button type="reset" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                                Cancel
+                            </button>
+                            <button type="submit" class="px-7 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">
+                                Save
+                            </button>
+                        </div>
                     </div>
                 </template>
-
-                <!-- Buttons -->
-                <div class="flex justify-end gap-3 pt-4">
-                    <a href="#" class="px-6 py-2 rounded bg-gray-600 text-white hover:bg-gray-700">Cancel</a>
-                    <button type="submit" class="px-6 py-2 rounded bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] font-semibold text-black">
-                        Save
-                    </button>
-                </div>
             </form>
-=======
-        <!-- Registrations Section -->
-        <section id="registrations" class="tab-section hidden">
-            <h2 class="text-base font-semibold text-slate-900 mb-6">Registration Form</h2>
-            <form action="#" method="POST" class="space-y-5">
-                @csrf
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">CTA Title</label>
-                    <input type="text" name="cta_title" placeholder="Registration Title"
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">CTA Button</label>
-                    <input type="text" name="cta_button" placeholder="Registration Form"
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">CTA Link</label>
-                    <input type="text" name="cta_link" placeholder="https://..."
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">Notes</label>
-                    <textarea name="notes" rows="3"
-                              class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"></textarea>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">Conference Fee Include</label>
-                    <input type="text" name="conference_fee_include"
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">Bank Name</label>
-                    <input type="text" name="bank_name"
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">Account Name</label>
-                    <input type="text" name="account_name"
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">Virtual Account</label>
-                    <input type="text" name="virtual_account"
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">PayPal Email</label>
-                    <input type="text" name="paypal_email"
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">PayPal Info</label>
-                    <input type="text" name="paypal_info"
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">Registration Procedures</label>
-                    <input type="text" name="registrations_procedures"
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-            </form>
-        </section>
-
-        <!-- Registration Fee Section -->
-        <section id="fee" class="tab-section hidden">
-            <h2 class="text-base font-semibold text-slate-900 mb-6">Registration Fee</h2>
-            <form action="#" method="POST" class="space-y-5">
-                @csrf
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">Category Fee</label>
-                    <input type="text" name="category" 
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-bold text-slate-900 mb-1">Physical Mode (USD)</label>
-                        <input type="text" name="usd_physical"
-                               class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-slate-900 mb-1">Physical Mode (IDR)</label>
-                        <input type="text" name="idr_physical"
-                               class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                    </div>
-                </div>
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-bold text-slate-900 mb-1">Online Mode (USD)</label>
-                        <input type="text" name="usd_online"
-                               class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-slate-900 mb-1">Online Mode (IDR)</label>
-                        <input type="text" name="idr_online"
-                               class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                    </div>
-                </div>
-            </form>
-        </section>
-
-        <!-- Payment Method Section -->
-        <section id="payment" class="tab-section hidden">
-            <h2 class="text-base font-semibold text-slate-900 mb-6">Payment Method</h2>
-            <form action="#" method="POST" class="space-y-5">
-                @csrf
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">Method Name</label>
-                    <input type="text" name="method_name"
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">Bank Name</label>
-                    <input type="text" name="bank_name"
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">Account Name</label>
-                    <input type="text" name="account_name"
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">Virtual Account</label>
-                    <input type="text" name="virtual_account"
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">Paypal Email</label>
-                    <input type="email" name="paypal_email"
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">Paypal Info</label>
-                    <textarea name="additional_info" rows="2"
-                              class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"></textarea>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1">Important Notes</label>
-                    <input type="text" name="important_notes"
-                           class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"/>
-                </div>
-            </form>
-        </section>
-
-        <!-- Buttons -->
-        <div class="flex justify-end gap-3 pt-6">
-            <button type="reset" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
-                Cancel
-            </button>
-            <button type="submit" class="px-7 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">
-                Save
-            </button>
->>>>>>> b5bc48c9ac6e2f4b985e6953b495c4d7b449e4ad:resources/views/admin/forauthor/edit_registrationsAdmin.blade.php
-        </div>
     </main>
 </div>
 @endsection
