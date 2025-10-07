@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class CallPaper extends Model
 {
-    protected $fillable = ['section', 'content'];
+    protected $fillable = ['section', 'title', 'content'];
 }

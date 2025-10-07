@@ -83,7 +83,15 @@ Route::get('/admin/map-locations/{id}/detail', [ContactInfoController::class, 'd
 Route::get('/admin/contact-messages/{id}/detail', [ContactInfoController::class, 'detailMessage'])->name('admin.detail_contact_message');
 
 
-
+//Route Call Paper
+Route::get('/call-for-papers', [CallPaperController::class, 'index'])->name('call_papers');
+Route::get('/admin/callpaper', [CallPaperController::class, 'listCallPaper'])->name('admin.list_callpaper_Admin');
+Route::get('/admin/callpapers/add', [CallPaperController::class, 'addCallPaper'])->name('admin.add_callpaper_Admin');
+Route::post('/admin/callpapers/store', [CallPaperController::class, 'store'])->name('admin.store_callpaper_Admin');
+Route::get('/admin/callpapers/{callPaper}/edit', [CallPaperController::class, 'edit'])->name('admin.edit_callpaper_Admin');
+Route::put('/admin/callpapers/{callPaper}', [CallPaperController::class, 'update'])->name('admin.update_callpaper_Admin');
+Route::delete('/admin/callpapers/{callPaper}', [CallPaperController::class, 'destroy'])->name('admin.delete_callpaper_Admin');
+Route::get('/admin/callpapers/{callPaper}', [CallPaperController::class, 'show'])->name('admin.show_callpaper_Admin');
 
 
 
@@ -118,18 +126,6 @@ Route::get('/admin/contacts/tambah', function () {
 })->name('admin.contacts.tambah');
 
 
-
-
-//Route Call Paper
-Route::get('/call-for-papers', [CallPaperController::class, 'index'])->name('call_papers');
-
-Route::get('/admin/callpaper', function () {
-    return view('/admin/callpaperAdmin'); 
-})->name('admin.callpaper');
-
-Route::get('/admin/callpaper/tambah', function () {
-    return view('/admin/tambah_callpaperAdmin'); 
-})->name('admin.callpaper.tambah');
 
 
 Route::get('/admin/login', function () {

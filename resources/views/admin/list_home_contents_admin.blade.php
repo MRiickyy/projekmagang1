@@ -63,6 +63,7 @@
 
                                 <a href="{{ route('admin.detail_home_contents_admin', $homeContent->id) }}"
                                     class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</a>
+                            </div>
                         </td>
                     </tr>
 

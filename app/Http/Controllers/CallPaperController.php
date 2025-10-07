@@ -7,67 +7,75 @@ use Illuminate\Http\Request;
 
 class CallPaperController extends Controller
 {
-    // --- FRONTEND ---
+    
     public function index()
     {
         $callPapers = CallPaper::all();
         return view('callpaper', compact('callPapers'));
     }
 
-    // --- ADMIN ---
-    public function adminIndex()
+    
+    public function listCallPaper()
     {
         $callPapers = CallPaper::orderBy('section')->orderBy('id')->get();
-        return view('admin.call_papers', compact('callPapers'));
+        return view('admin.list_callpaper_Admin', compact('callPapers'));
     }
 
-    public function create()
+    public function addCallPaper()
     {
-        return view('admin.call_papers.create');
+        return view('admin.add_callpaper_Admin');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'section' => 'required|string',
-            'title' => 'nullable|string',
-            'content' => 'required|string'
+            'section' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
+            'content' => 'required|string',
         ]);
 
         CallPaper::create([
             'section' => $request->section,
             'title' => $request->title,
-            'content' => $request->content
+            'content' => $request->content,
         ]);
 
-        return redirect()->route('admin.call_papers')->with('success', 'Data berhasil ditambahkan.');
+        return redirect()->route('admin.list_callpaper_Admin')->with('success', 'Data added successfully!');
     }
 
     public function edit(CallPaper $callPaper)
     {
-        return view('admin.call_papers.edit', compact('callPaper'));
+        return view('admin.edit_callpaper_Admin', compact('callPaper'))->with('isDetail', false);
     }
+
 
     public function update(Request $request, CallPaper $callPaper)
     {
         $request->validate([
-            'section' => 'required|string',
-            'title' => 'nullable|string',
-            'content' => 'required|string'
+            'section' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
+            'content' => 'required|string',
         ]);
 
         $callPaper->update([
             'section' => $request->section,
             'title' => $request->title,
-            'content' => $request->content
+            'content' => $request->content,
         ]);
 
-        return redirect()->route('admin.call_papers')->with('success', 'Data berhasil diperbarui.');
+        return redirect()->route('admin.list_callpaper_Admin')->with('success', 'Data updated successfully!');
     }
 
     public function destroy(CallPaper $callPaper)
     {
         $callPaper->delete();
-        return redirect()->route('admin.call_papers')->with('success', 'Data berhasil dihapus.');
+        return redirect()->route('admin.list_callpaper_Admin')->with('success', 'Data deleted successfully!');
     }
+
+    public function show(CallPaper $callPaper)
+    {
+        // kirim flag 'isDetail' ke view untuk membedakan mode
+        return view('admin.edit_callpaper_Admin', compact('callPaper'))->with('isDetail', true);
+    }
+
 }
