@@ -90,34 +90,51 @@
         <div class="mt-6 space-y-4 text-black leading-relaxed">
             <h1 class="text-3xl font-bold mb-6 text-center text-[#1a1f27]/95">Payment Methods</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                @foreach($paymentMethods as $method)
+                <!-- Gabungan semua Virtual Account -->
+                @php
+                    $virtualAccounts = $paymentMethods->where('method_name', 'Virtual Account');
+                    $paypal = $paymentMethods->where('method_name', 'PayPal');
+                @endphp
+
+                @if($virtualAccounts->count() > 0)
+                    <div class="p-6 bg-gray-100 rounded-xl shadow-lg">
+                        <h3 class="text-xl text-center font-bold mb-4">Virtual Account</h3>
+
+                        <!-- Tampilkan info VA -->
+                        @foreach($virtualAccounts as $index => $va)
+                            <div class="mb-4 pb-3 @if($index < $virtualAccounts->count() - 1) border-b border-gray-300 @endif">
+                                <p><span class="font-bold">Bank Name:</span> {{ $va->bank_name }}</p>
+                                <p><span class="font-bold">Account Name:</span> {{ $va->account_name }}</p>
+                                <p><span class="font-bold">Virtual Account Number:</span> {{ $va->virtual_account_number }}</p>
+                            </div>
+                        @endforeach
+
+                        <!-- Gabungkan semua important_notes di bawah semua VA -->
+                        @php
+                            $allImportantNotes = $virtualAccounts->pluck('important_notes')->filter();
+                        @endphp
+
+                        @if($allImportantNotes->count() > 0)
+                            @foreach($allImportantNotes as $note)
+                                <p class="text-red-600 font-semibold mt-2">{{ $note }}</p>
+                            @endforeach
+                        @endif
+                    </div>
+                @endif
+
+                <!-- PayPal -->
+                @foreach($paypal as $method)
                     <div class="p-6 bg-gray-100 rounded-xl shadow-lg">
                         <h3 class="text-xl text-center font-bold mb-4">{{ $method->method_name }}</h3>
 
-                        @if($method->method_name === 'Virtual Account')
-                            <ul class="list-disc pl-5 text-gray-700 space-y-1">
-                                <p class="font-bold">Bank Name:</p>
-                                {{ $method->bank_name }}
-                                <p class="font-bold">Account Name:</p>
-                                {{ $method->account_name }}
-                                <p class="font-bold">Virtual Account Number:</p>
-                                {{ $method->virtual_account_number }}
-                            </ul>
-                            @if($method->important_notes)
-                                <p class="mt-3 text-red-600 font-semibold">
-                                    {{ $method->important_notes }}
-                                </p>
-                            @endif
-                        @elseif($method->method_name === 'PayPal')
-                            <p class="font-bold">PayPal Email Address:</p>
-                            {!! $method->paypal_email !!}
+                        <p class="font-bold">PayPal Email Address:</p>
+                        {!! $method->paypal_email !!}
 
-                            @if($method->additional_info)
-                                <p class="mt-2 font-bold">Additional Information:</p>
-                                <p class="text-gray-700 space-y-1 leading-relaxed">
-                                    {!! $method->additional_info !!}
-                                </p>
-                            @endif
+                        @if($method->additional_info)
+                            <p class="mt-2 font-bold">Additional Information:</p>
+                            <p class="text-gray-700 space-y-1 leading-relaxed">
+                                {!! $method->additional_info !!}
+                            </p>
                         @endif
                     </div>
                 @endforeach

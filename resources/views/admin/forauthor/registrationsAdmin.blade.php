@@ -24,6 +24,7 @@
             class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mb-4 inline-block">
             Add
         </a>
+
         <!-- Tab: Registrations -->
         <div id="Registrations" class="tabcontent hidden">
             <div class="bg-white shadow-md rounded-lg p-6">
@@ -122,42 +123,81 @@
                 @if($paymentMethods->isEmpty())
                     <p class="text-gray-500 text-sm">No payment methods found.</p>
                 @else
-                    <table class="w-full border-collapse text-sm">
-                        <thead class="bg-gray-200 text-gray-700">
-                            <tr>
-                                <th class="px-4 py-2 border">ID</th>
-                                <th class="px-4 py-2 border">Method</th>
-                                <th class="px-4 py-2 border">Bank Name</th>
-                                <th class="px-4 py-2 border">Account Name</th>
-                                <th class="px-4 py-2 border">Virtual Account Number</th>
-                                <th class="px-4 py-2 border">PayPal Email</th>
-                                <th class="px-4 py-2 border">Additional Info</th>
-                                <th class="px-4 py-2 border">Important Notes</th>
-                                <th class="px-4 py-2 border">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($paymentMethods as $pay)
-                            <tr class="hover:bg-gray-100 text-gray-800">
-                                <td class="px-4 py-2 border">{{ $pay->id }}</td>
-                                <td class="px-4 py-2 border">{{ $pay->method_name }}</td>
-                                <td class="px-4 py-2 border">{{ $pay->bank_name }}</td>
-                                <td class="px-4 py-2 border">{{ $pay->account_name }}</td>
-                                <td class="px-4 py-2 border">{{ $pay->virtual_account_number }}</td>
-                                <td class="px-4 py-2 border">{!! $pay->paypal_email !!}</td>
-                                <td class="px-4 py-2 border">{!! $pay->additional_info !!}</td>
-                                <td class="px-4 py-2 border">{{ $pay->important_notes }}</td>
-                                <td class="px-4 py-2 border">
-                                    <div class="flex justify-center gap-2">
-                                        <button class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</button>
-                                        <button class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
-                                        <button class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <!-- Dropdown Filter -->
+                    <div class="mb-4">
+                        <label for="methodFilter" class="block text-sm font-medium text-black mb-2">Filter by Method:</label>
+                        <select
+                            id="methodFilter"
+                            class="w-60 rounded-lg border border-gray-300 bg-white px-3 py-2 text-center text-sm text-gray-800 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="" selected disabled hidden>Select Method</option>
+                            <option value="virtual">Virtual Account</option>
+                            <option value="paypal">PayPal</option>
+                        </select>
+                    </div>
+
+                    <!-- Table: Virtual Account -->
+                    <div id="virtualTable">
+                        <table class="w-full border-collapse text-sm">
+                            <thead class="bg-gray-200 text-gray-700">
+                                <tr>
+                                    <th class="px-4 py-2 border">No</th>
+                                    <th class="px-4 py-2 border">Bank Name</th>
+                                    <th class="px-4 py-2 border">Account Name</th>
+                                    <th class="px-4 py-2 border">Virtual Account Number</th>
+                                    <th class="px-4 py-2 border">Important Notes</th>
+                                    <th class="px-4 py-2 border">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($paymentMethods->where('method_name', '!=', 'PayPal') as $pay)
+                                <tr class="hover:bg-gray-100 text-gray-800">
+                                    <td class="px-4 py-2 border text-center">{{ $loop->iteration }}</td>
+                                    <td class="px-4 py-2 border">{{ $pay->bank_name }}</td>
+                                    <td class="px-4 py-2 border">{{ $pay->account_name }}</td>
+                                    <td class="px-4 py-2 border">{{ $pay->virtual_account_number }}</td>
+                                    <td class="px-4 py-2 border">{{ $pay->important_notes }}</td>
+                                    <td class="px-4 py-2 border">
+                                        <div class="flex justify-center gap-2">
+                                            <button class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</button>
+                                            <button class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
+                                            <button class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Table: PayPal -->
+                    <div id="paypalTable" class="hidden">
+                        <table class="w-full border-collapse text-sm">
+                            <thead class="bg-gray-200 text-gray-700">
+                                <tr>
+                                    <th class="px-4 py-2 border">No</th>
+                                    <th class="px-4 py-2 border">PayPal Email</th>
+                                    <th class="px-4 py-2 border">Additional Information</th>
+                                    <th class="px-4 py-2 border">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($paymentMethods->where('method_name', 'PayPal') as $pay)
+                                <tr class="hover:bg-gray-100 text-gray-800">
+                                    <td class="px-4 py-2 border text-center">{{ $loop->iteration }}</td>
+                                    <td class="px-4 py-2 border">{!! $pay->paypal_email !!}</td>
+                                    <td class="px-4 py-2 border">{!! $pay->additional_info !!}</td>
+                                    <td class="px-4 py-2 border">
+                                        <div class="flex justify-center gap-2">
+                                            <button class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</button>
+                                            <button class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
+                                            <button class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 @endif
             </div>
         </div>
@@ -176,5 +216,20 @@
         evt.currentTarget.classList.add("text-white", "border-teal-400");
     }
     document.getElementById("defaultOpen").click();
+
+    // JS Filter Payment Method
+    const filterSelect = document.getElementById('methodFilter');
+    const virtualTable = document.getElementById('virtualTable');
+    const paypalTable = document.getElementById('paypalTable');
+
+    filterSelect.addEventListener('change', () => {
+        if (filterSelect.value === 'paypal') {
+            virtualTable.classList.add('hidden');
+            paypalTable.classList.remove('hidden');
+        } else {
+            paypalTable.classList.add('hidden');
+            virtualTable.classList.remove('hidden');
+        }
+    });
 </script>
 @endsection
