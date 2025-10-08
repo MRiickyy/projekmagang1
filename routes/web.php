@@ -118,8 +118,8 @@ Route::get('/admin/detail-authorInformation', [AuthorInformationController::clas
 
 
 // admin: displays the registrations
-Route::get('/admin/mainregistrations', function () {return view('/admin/forauthor/registrationsAdmin'); })->name('admin.forauthor.registrationsAdmin');
-// Halaman Registrations Admin
+Route::get('/admin/mainregistrations', [RegistrationController::class, 'adminIndex'])->name('admin.forauthor.registrationsAdmin');
+// admin: edit registrations
 Route::get('/admin/edit-registrations', function () {return view('/admin/forauthor/edit_registrationsAdmin'); })->name('admin.forauthor.edit_registrationsAdmin');
 
 
