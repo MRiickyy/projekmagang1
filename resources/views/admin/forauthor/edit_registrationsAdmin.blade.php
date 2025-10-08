@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Add Registration')
+@section('title', 'Edit Registration')
 
 @section('content')
 <div class="flex-1 flex flex-col">
