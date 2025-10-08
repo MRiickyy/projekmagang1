@@ -26,9 +26,6 @@ Route::get('/newacc', function () {
 });
 
 
-
-
-
 // Route Speaker
 Route::get('/keynote-speakers-2025', [SpeakerController::class, 'keynote']);
 Route::get('/tutorial-speakers-2025', [SpeakerController::class, 'tutorial']);
@@ -101,26 +98,23 @@ Route::put('/admin/callpapers/{callPaper}', [CallPaperController::class, 'update
 Route::delete('/admin/callpapers/{callPaper}', [CallPaperController::class, 'destroy'])->name('admin.delete_callpaper_Admin');
 Route::get('/admin/callpapers/{callPaper}', [CallPaperController::class, 'show'])->name('admin.show_callpaper_Admin');
 
-
-
-
 //====ROUTE USER & ADMIN FOR AUTHOR====\\
+// author information
 // user
 Route::get('/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
-Route::get('/registration', [RegistrationController::class, 'index'])->name('registration.index');
-// admin: displays the author information table
+// admin
 Route::get('/admin/mainAuthorInformation', [AuthorInformationController::class, 'adminIndex'])->name('admin.forauthor.authorinformationAdmin');
-// admin: form edit + save
 Route::get('/admin/edit-authorInformation', [AuthorInformationController::class, 'adminAuthorEdit'])->name('admin.forauthor.edit_authorinformationAdmin');
 Route::post('/admin/edit-authorInformation', [AuthorInformationController::class, 'update'])->name('admin.forauthor.update_authorinformation');
-// admin: detail author information
 Route::get('/admin/detail-authorInformation', [AuthorInformationController::class, 'adminAuthorDetail'])->name('admin.forauthor.detail_authorinformationAdmin');
 
-
-// admin: displays the registrations
+// registrations
+//user
+Route::get('/registration', [RegistrationController::class, 'index'])->name('registration.index');
+// admin
 Route::get('/admin/mainregistrations', [RegistrationController::class, 'adminIndex'])->name('admin.forauthor.registrationsAdmin');
-// admin: edit registrations
-Route::get('/admin/edit-registrations', function () {return view('/admin/forauthor/edit_registrationsAdmin'); })->name('admin.forauthor.edit_registrationsAdmin');
+Route::get('/admin/add-registrations', [RegistrationController::class, 'adminRegisAdd'])->name('admin.forauthor.add_registrationsAdmin');
+Route::post('/admin/add-registrations', [RegistrationController::class, 'store'])->name('admin.forauthor.store_registrationsAdmin');
 
 
 

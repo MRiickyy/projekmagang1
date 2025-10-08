@@ -1,14 +1,24 @@
 @extends('layouts.admin')
 
-@section('title', 'Edit Registration')
+@section('title', 'Add Registration')
 
 @section('content')
 <div class="flex-1 flex flex-col">
     <main class="flex-1 px-6 py-10 flex justify-center">
         <div class="w-full max-w-4xl bg-[#F2F6F9] rounded-lg shadow-xl p-6 text-slate-800" x-data="{ section: '' }">
+            
             <h2 class="text-lg font-semibold text-slate-900 mb-6">Registration Information</h2>
 
-            <form>
+            @if(session('success'))
+                <div class="mb-4 p-3 rounded bg-green-100 text-green-800 border border-green-300">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            {{-- Form utama --}}
+            <form action="{{ route('admin.forauthor.store_registrationsAdmin') }}" method="POST">
+                @csrf
+
                 <!-- Section -->
                 <div class="mb-4">
                     <label class="block font-bold mb-2">Section</label>
@@ -47,11 +57,12 @@
                             <label class="block font-bold mb-1">Registration Procedures</label>
                             <input type="text" name="registrations_procedures" class="w-full border rounded px-3 py-2">
                         </div>
+                        
                         <!-- Buttons -->
                         <div class="flex justify-end gap-3 pt-6">
-                            <button type="reset" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                            <a href="{{ route('admin.forauthor.registrationsAdmin') }}" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
                                 Cancel
-                            </button>
+                            </a>
                             <button type="submit" class="px-7 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">
                                 Save
                             </button>
@@ -86,11 +97,12 @@
                                 <input type="text" name="idr_online" class="w-full border rounded px-3 py-2">
                             </div>
                         </div>
+
                         <!-- Buttons -->
                         <div class="flex justify-end gap-3 pt-6">
-                            <button type="reset" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                            <a href="{{ route('admin.forauthor.registrationsAdmin') }}" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
                                 Cancel
-                            </button>
+                            </a>
                             <button type="submit" class="px-7 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">
                                 Save
                             </button>
@@ -100,40 +112,57 @@
 
                 <!-- Payment Method -->
                 <template x-if="section === 'payment_method'">
-                    <div class="space-y-3 mb-4">
+                    <div class="space-y-3 mb-4" x-data="{ method: '' }">
                         <div>
                             <label class="block font-bold mb-1">Method Name</label>
-                            <input type="text" name="method_name" class="w-full border rounded px-3 py-2">
+                            <select name="method_name" x-model="method" required class="w-full border rounded px-3 py-2">
+                                <option value="">-- Pilih Method --</option>
+                                <option value="Virtual Account">Virtual Account</option>
+                                <option value="PayPal">PayPal</option>
+                            </select>
                         </div>
-                        <div>
-                            <label class="block font-bold mb-1">Bank Name</label>
-                            <input type="text" name="bank_name" class="w-full border rounded px-3 py-2">
-                        </div>
-                        <div>
-                            <label class="block font-bold mb-1">Account Name</label>
-                            <input type="text" name="account_name" class="w-full border rounded px-3 py-2">
-                        </div>
-                        <div>
-                            <label class="block font-bold mb-1">Virtual Account</label>
-                            <input type="text" name="virtual_account" class="w-full border rounded px-3 py-2">
-                        </div>
-                        <div>
-                            <label class="block font-bold mb-1">Paypal Email</label>
-                            <input type="email" name="paypal_email" class="w-full border rounded px-3 py-2">
-                        </div>
-                        <div>
-                            <label class="block font-bold mb-1">Paypal Info</label>
-                            <textarea name="additional_info" rows="2" class="w-full border rounded px-3 py-2"></textarea>
-                        </div>
-                        <div>
-                            <label class="block font-bold mb-1">Important Notes</label>
-                            <input type="text" name="important_notes" class="w-full border rounded px-3 py-2">
-                        </div>
-                        <!-- Buttons -->
+
+                        <!-- Virtual Account -->
+                        <template x-if="method === 'Virtual Account'">
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block font-bold mb-1">Bank Name</label>
+                                    <input type="text" name="bank_name" class="w-full border rounded px-3 py-2">
+                                </div>
+                                <div>
+                                    <label class="block font-bold mb-1">Account Name</label>
+                                    <input type="text" name="account_name" class="w-full border rounded px-3 py-2">
+                                </div>
+                                <div>
+                                    <label class="block font-bold mb-1">Virtual Account Number</label>
+                                    <input type="text" name="virtual_account_number" class="w-full border rounded px-3 py-2">
+                                </div>
+                                <div>
+                                    <label class="block font-bold mb-1">Important Notes</label>
+                                    <textarea name="important_notes" rows="2" class="w-full border rounded px-3 py-2"></textarea>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- PayPal -->
+                        <template x-if="method === 'PayPal'">
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block font-bold mb-1">PayPal Email</label>
+                                    <input type="email" name="paypal_email" class="w-full border rounded px-3 py-2">
+                                </div>
+                                <div>
+                                    <label class="block font-bold mb-1">Additional Info</label>
+                                    <textarea name="additional_info" rows="2" class="w-full border rounded px-3 py-2"></textarea>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Tombol -->
                         <div class="flex justify-end gap-3 pt-6">
-                            <button type="reset" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                            <a href="{{ route('admin.forauthor.registrationsAdmin') }}" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
                                 Cancel
-                            </button>
+                            </a>
                             <button type="submit" class="px-7 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">
                                 Save
                             </button>
@@ -141,6 +170,7 @@
                     </div>
                 </template>
             </form>
+        </div>
     </main>
 </div>
 @endsection

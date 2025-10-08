@@ -20,11 +20,10 @@
 
     <!-- Content Tabs -->
     <main class="flex-1 px-6 pt-4 pb-10">
-
-        <!-- Tombol Add -->
-        <button
-            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mb-4 inline-block">Add</button>
-
+        <a href="{{ route('admin.forauthor.add_registrationsAdmin') }}"
+            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mb-4 inline-block">
+            Add
+        </a>
         <!-- Tab: Registrations -->
         <div id="Registrations" class="tabcontent hidden">
             <div class="bg-white shadow-md rounded-lg p-6">
@@ -130,7 +129,7 @@
                                 <th class="px-4 py-2 border">Method</th>
                                 <th class="px-4 py-2 border">Bank Name</th>
                                 <th class="px-4 py-2 border">Account Name</th>
-                                <th class="px-4 py-2 border">Virtual Account</th>
+                                <th class="px-4 py-2 border">Virtual Account Number</th>
                                 <th class="px-4 py-2 border">PayPal Email</th>
                                 <th class="px-4 py-2 border">Additional Info</th>
                                 <th class="px-4 py-2 border">Important Notes</th>
@@ -144,9 +143,9 @@
                                 <td class="px-4 py-2 border">{{ $pay->method_name }}</td>
                                 <td class="px-4 py-2 border">{{ $pay->bank_name }}</td>
                                 <td class="px-4 py-2 border">{{ $pay->account_name }}</td>
-                                <td class="px-4 py-2 border">{{ $pay->virtual_account }}</td>
-                                <td class="px-4 py-2 border">{{ $pay->paypal_email }}</td>
-                                <td class="px-4 py-2 border">{{ $pay->additional_info }}</td>
+                                <td class="px-4 py-2 border">{{ $pay->virtual_account_number }}</td>
+                                <td class="px-4 py-2 border">{!! $pay->paypal_email !!}</td>
+                                <td class="px-4 py-2 border">{!! $pay->additional_info !!}</td>
                                 <td class="px-4 py-2 border">{{ $pay->important_notes }}</td>
                                 <td class="px-4 py-2 border">
                                     <div class="flex justify-center gap-2">

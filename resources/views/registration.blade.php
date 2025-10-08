@@ -96,9 +96,12 @@
 
                         @if($method->method_name === 'Virtual Account')
                             <ul class="list-disc pl-5 text-gray-700 space-y-1">
-                                <li><strong>Bank Name:</strong> {{ $method->bank_name }}</li>
-                                <li><strong>Account Name:</strong> {{ $method->account_name }}</li>
-                                <li><strong>Virtual Account Number:</strong> {{ $method->virtual_account_number }}</li>
+                                <p class="font-bold">Bank Name:</p>
+                                {{ $method->bank_name }}
+                                <p class="font-bold">Account Name:</p>
+                                {{ $method->account_name }}
+                                <p class="font-bold">Virtual Account Number:</p>
+                                {{ $method->virtual_account_number }}
                             </ul>
                             @if($method->important_notes)
                                 <p class="mt-3 text-red-600 font-semibold">
@@ -106,12 +109,13 @@
                                 </p>
                             @endif
                         @elseif($method->method_name === 'PayPal')
-                            <li><strong>PayPal Email Address:</strong> {{ $method->paypal_email }}</li>
+                            <p class="font-bold">PayPal Email Address:</p>
+                            {!! $method->paypal_email !!}
 
                             @if($method->additional_info)
                                 <p class="mt-2 font-bold">Additional Information:</p>
                                 <p class="text-gray-700 space-y-1 leading-relaxed">
-                                    {{ $method->additional_info }}
+                                    {!! $method->additional_info !!}
                                 </p>
                             @endif
                         @endif
