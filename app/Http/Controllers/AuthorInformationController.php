@@ -18,17 +18,16 @@ class AuthorInformationController extends Controller
     // admin: displays the author information table
     public function adminIndex()
     {
-        $authorInfos = AuthorInformation::all(); // ambil semua data
+        $authorInfos = AuthorInformation::all();
         return view('admin.forauthor.authorinformationAdmin', compact('authorInfos'));
     }
 
-    // Untuk admin: halaman detail
+    // admin: detail
     public function adminAuthorDetail()
     {
         $authorInfo = AuthorInformation::first();
         return view('admin.forauthor.detail_authorinformationAdmin', compact('authorInfo'));
     }
-
 
     // admin: form edit
     public function adminAuthorEdit()
@@ -57,6 +56,6 @@ class AuthorInformationController extends Controller
             $validated
         );
 
-        return redirect()->route('admin.forauthor.authorinformationAdmin')->with('success', 'Author Information saved successfully!');
+        return redirect()->route('admin.forauthor.authorinformationAdmin')->with('success', 'Data saved successfully!');
     }
 }
