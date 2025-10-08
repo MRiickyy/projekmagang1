@@ -16,33 +16,48 @@ class RegistrationController extends Controller
         $fees = RegistrationFee::all();
 
         $paymentMethods = PaymentMethod::all();
-        $groupedMethods = $paymentMethods->groupBy('method_name')->map(function ($group) {
-            $item = $group->first();
 
-            if ($group->count() > 1 && $item->method_name === 'PayPal') {
-                $emails = $group->pluck('paypal_email')->filter()->unique()->values();
-                $infos  = $group->pluck('additional_info')->filter()->unique()->values();
-                // list paypal email
-                $emailList = '<ul class="list-disc pl-5 space-y-1">';
-                foreach ($emails as $email) {
-                    $emailList .= '<li>' . e($email) . '</li>';
+        // Grouping hanya untuk tampilan user
+        $paypalGroup = $paymentMethods->where('method_name', 'PayPal');
+        $otherMethods = $paymentMethods->where('method_name', '!=', 'PayPal');
+
+        if ($paypalGroup->count() > 0) {
+            $emails = $paypalGroup->pluck('paypal_email')->filter()->unique()->values();
+            $infos  = $paypalGroup->pluck('additional_info')->filter()->unique()->values();
+
+            // list paypal email
+            $emailList = '<ul class="list-disc pl-5 space-y-1">';
+            foreach ($emails as $email) {
+                $emailList .= '<li>' . e($email) . '</li>';
+            }
+            $emailList .= '</ul>';
+
+            // list additional information
+            $infoList = '';
+            if ($infos->isNotEmpty()) {
+                $infoList = '<ul class="list-disc pl-5 space-y-1">';
+                foreach ($infos as $info) {
+                    $infoList .= '<li>' . e($info) . '</li>';
                 }
-                $emailList .= '</ul>';
-                // list additional information
-                $infoList = '';
-                if ($infos->isNotEmpty()) {
-                    $infoList = '<ul class="list-disc pl-5 space-y-1">';
-                    foreach ($infos as $info) {
-                        $infoList .= '<li>' . e($info) . '</li>';
-                    }
-                    $infoList .= '</ul>';
-                }
-                $item->paypal_email = $emailList;
-                $item->additional_info = $infoList;
+                $infoList .= '</ul>';
             }
 
-            return $item;
-        });
+            // buat satu objek gabungan untuk PayPal
+            $paypalItem = new \stdClass();
+            $paypalItem->id = null;
+            $paypalItem->method_name = 'PayPal';
+            $paypalItem->bank_name = null;
+            $paypalItem->account_name = null;
+            $paypalItem->virtual_account_number = null;
+            $paypalItem->important_notes = null;
+            $paypalItem->paypal_email = $emailList;
+            $paypalItem->additional_info = $infoList;
+
+            // gabungkan PayPal dan metode lainnya
+            $groupedMethods = $otherMethods->values()->push($paypalItem);
+        } else {
+            $groupedMethods = $paymentMethods;
+        }
 
         return view('registration', [
             'registration' => $registration,
@@ -59,37 +74,11 @@ class RegistrationController extends Controller
         $fees = RegistrationFee::all();
         $paymentMethods = PaymentMethod::all();
 
-        $groupedMethods = $paymentMethods->groupBy('method_name')->map(function ($group) {
-            $item = $group->first();
-
-            if ($group->count() > 1 && $item->method_name === 'PayPal') {
-                $emails = $group->pluck('paypal_email')->filter()->unique()->values();
-                $infos  = $group->pluck('additional_info')->filter()->unique()->values();
-                // list paypal email
-                $emailList = '<ul class="list-disc pl-5 space-y-1">';
-                foreach ($emails as $email) {
-                    $emailList .= '<li>' . e($email) . '</li>';
-                }
-                $emailList .= '</ul>';
-                // list additional information
-                $infoList = '';
-                if ($infos->isNotEmpty()) {
-                    $infoList = '<ul class="list-disc pl-5 space-y-1">';
-                    foreach ($infos as $info) {
-                        $infoList .= '<li>' . e($info) . '</li>';
-                    }
-                    $infoList .= '</ul>';
-                }
-                $item->paypal_email = $emailList;
-                $item->additional_info = $infoList;
-            }
-            return $item;
-        });
-
+        // Admin: tampilkan semua data tanpa penggabungan
         return view('admin.forauthor.registrationsAdmin', [
             'registrations' => $registrations,
             'fees' => $fees,
-            'paymentMethods' => $groupedMethods,
+            'paymentMethods' => $paymentMethods,
         ]);
     }
 
