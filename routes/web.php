@@ -115,9 +115,9 @@ Route::delete('/admin/delete-authorInformation/{authorInfo}', [AuthorInformation
 //user
 Route::get('/registration', [RegistrationController::class, 'index'])->name('registration.index');
 // admin
-Route::get('/admin/mainregistrations', [RegistrationController::class, 'adminIndex'])->name('admin.forauthor.registrationsAdmin');
-Route::get('/admin/add-registrations', [RegistrationController::class, 'adminRegisAdd'])->name('admin.forauthor.add_registrationsAdmin');
-Route::post('/admin/add-registrations', [RegistrationController::class, 'store'])->name('admin.forauthor.store_registrationsAdmin');
+Route::get('/admin/mainregistrations', [RegistrationController::class, 'adminIndex'])->name('admin.forauthor.list_registrations_admin');
+Route::get('/admin/add-registrations', [RegistrationController::class, 'adminRegisAdd'])->name('admin.forauthor.add_registrations_admin');
+Route::post('/admin/add-registrations', [RegistrationController::class, 'store'])->name('admin.forauthor.store_registrations_admin');
 
 
 

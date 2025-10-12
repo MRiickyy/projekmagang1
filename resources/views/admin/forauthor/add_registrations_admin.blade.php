@@ -16,7 +16,7 @@
             @endif
 
             {{-- Form utama --}}
-            <form action="{{ route('admin.forauthor.store_registrationsAdmin') }}" method="POST">
+            <form action="{{ route('admin.forauthor.store_registrations_admin') }}" method="POST">
                 @csrf
 
                 <!-- Section -->
@@ -60,7 +60,7 @@
                         
                         <!-- Buttons -->
                         <div class="flex justify-end gap-3 pt-6">
-                            <a href="{{ route('admin.forauthor.registrationsAdmin') }}" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                            <a href="{{ route('admin.forauthor.list_registrations_admin') }}" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
                                 Cancel
                             </a>
                             <button type="submit" class="px-7 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">
@@ -100,7 +100,7 @@
 
                         <!-- Buttons -->
                         <div class="flex justify-end gap-3 pt-6">
-                            <a href="{{ route('admin.forauthor.registrationsAdmin') }}" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                            <a href="{{ route('admin.forauthor.list_registrations_admin') }}" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
                                 Cancel
                             </a>
                             <button type="submit" class="px-7 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">
@@ -160,7 +160,7 @@
 
                         <!-- Tombol -->
                         <div class="flex justify-end gap-3 pt-6">
-                            <a href="{{ route('admin.forauthor.registrationsAdmin') }}" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                            <a href="{{ route('admin.forauthor.list_registrations_admin') }}" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
                                 Cancel
                             </a>
                             <button type="submit" class="px-7 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">

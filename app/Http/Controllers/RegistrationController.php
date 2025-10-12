@@ -75,7 +75,7 @@ class RegistrationController extends Controller
         $paymentMethods = PaymentMethod::all();
 
         // Admin: tampilkan semua data tanpa penggabungan
-        return view('admin.forauthor.registrationsAdmin', [
+        return view('admin.forauthor.list_registrations_admin', [
             'registrations' => $registrations,
             'fees' => $fees,
             'paymentMethods' => $paymentMethods,
@@ -85,7 +85,7 @@ class RegistrationController extends Controller
     // admin: add
     public function adminRegisAdd()
     {
-        return view('admin.forauthor.add_registrationsAdmin');
+        return view('admin.forauthor.add_registrations_admin');
     }
 
     // admin: store
@@ -124,6 +124,6 @@ class RegistrationController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.forauthor.registrationsAdmin')->with('success', 'Data saved successfully!');
+        return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Data saved successfully!');
     }
 }
