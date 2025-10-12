@@ -10,17 +10,8 @@ return new class extends Migration
     {
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
-            $table->string('cta_title')->nullable(); // "Please Register Here"
-            $table->string('cta_button')->nullable(); // "Registration Form"
-            $table->string('cta_link')->nullable();
-
-            // Notes & fee includes
-            $table->text('notes')->nullable();
-            $table->text('conference_fee_include')->nullable();
-
-            // Registration Procedures
-            $table->text('registration_procedures')->nullable();
-
+            $table->string('section');
+            $table->text('content')->nullable();
             $table->timestamps();
         });
 

@@ -7,237 +7,187 @@
 
     <!-- Tabs Navigation -->
     <div class="px-6 py-3 flex gap-4 text-sm font-semibold border-b border-slate-700">
-        <button id="defaultOpen"
-            class="tablink px-4 py-2 rounded-t-md border-b-2 border-transparent text-slate-300 hover:text-white hover:border-teal-400 transition-all"
-            onclick="openTab(event, 'Registrations')">Registrations</button>
-        <button
-            class="tablink px-4 py-2 rounded-t-md border-b-2 border-transparent text-slate-300 hover:text-white hover:border-teal-400 transition-all"
-            onclick="openTab(event, 'Fees')">Registration Fee</button>
-        <button
-            class="tablink px-4 py-2 rounded-t-md border-b-2 border-transparent text-slate-300 hover:text-white hover:border-teal-400 transition-all"
-            onclick="openTab(event, 'Payments')">Payment Method</button>
+        <button id="defaultOpen" class="tablink px-4 py-2 rounded-t-md border-b-2 border-transparent text-slate-300 hover:text-white hover:border-teal-400"
+            onclick="openTab(event, 'registration')">
+            Registration
+        </button>
+        <button class="tablink px-4 py-2 rounded-t-md border-b-2 border-transparent text-slate-300 hover:text-white hover:border-teal-400"
+            onclick="openTab(event, 'registration_fee')">
+            Registration Fee
+        </button>
+        <button class="tablink px-4 py-2 rounded-t-md border-b-2 border-transparent text-slate-300 hover:text-white hover:border-teal-400"
+            onclick="openTab(event, 'payment_method')">
+            Payment Method
+        </button>
     </div>
 
-    <!-- Content Tabs -->
-    <main class="flex-1 px-6 pt-4 pb-10">
+    <!-- ===== TAB: REGISTRATION ===== -->
+    <section id="registration" class="tabcontent px-6 py-6 hidden">
+        <div class="bg-[#F2F6F9] shadow-md rounded-lg p-6 overflow-x-auto">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">Registration List</h2>
 
-        <!-- Tab: Registrations -->
-        <div id="Registrations" class="tabcontent hidden">
-            <div class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-lg font-semibold text-gray-800 mb-4">Registrations List</h2>
-                <a href="{{ route('admin.forauthor.add_registrations_admin') }}"
-                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mb-4 inline-block">
-                    Add
-                </a>
+            <a href="{{ route('admin.forauthor.add_registrations_admin') }}"
+                class="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 mb-4 inline-block">
+                Add
+            </a>
 
-                @if($registrations->isEmpty())
-                    <p class="text-gray-500 text-sm">No registration data found.</p>
-                @else
-                    <table class="w-full border-collapse text-sm">
-                        <thead class="bg-gray-200 text-gray-700">
-                            <tr>
-                                <th class="px-4 py-2 border">ID</th>
-                                <th class="px-4 py-2 border">CTA Title</th>
-                                <th class="px-4 py-2 border">CTA Button</th>
-                                <th class="px-4 py-2 border">CTA Link</th>
-                                <th class="px-4 py-2 border">Notes</th>
-                                <th class="px-4 py-2 border">Conference Fee</th>
-                                <th class="px-4 py-2 border">Registration Procedures</th>
-                                <th class="px-4 py-2 border">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($registrations as $item)
-                            <tr class="hover:bg-gray-100 text-gray-800">
-                                <td class="px-4 py-2 border">{{ $item->id }}</td>
-                                <td class="px-4 py-2 border">{{ $item->cta_title }}</td>
-                                <td class="px-4 py-2 border">{{ $item->cta_button }}</td>
-                                <td class="px-4 py-2 border">{{ $item->cta_link }}</td>
-                                <td class="px-4 py-2 border">{{ $item->notes }}</td>
-                                <td class="px-4 py-2 border">{{ $item->conference_fee_include }}</td>
-                                <td class="px-4 py-2 border">{{ $item->registration_procedures }}</td>
-                                <td class="px-4 py-2 border">
-                                    <div class="flex justify-center gap-2">
-                                        <button class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</button>
-                                        <button class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
-                                        <button class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                @endif
-            </div>
+            <table class="w-full border border-gray-300 rounded-lg overflow-hidden">
+                <thead class="bg-gray-200 text-slate-900">
+                    <tr>
+                        <th class="px-4 py-2 border">ID</th>
+                        <th class="px-4 py-2 border">Section</th>
+                        <th class="px-4 py-2 border">Content</th>
+                        <th class="px-4 py-2 border">Created At</th>
+                        <th class="px-4 py-2 border">Updated At</th>
+                        <th class="px-4 py-2 border">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody class="bg-white text-slate-800">
+                    @forelse ($registrations as $registration)
+                    <tr class="hover:bg-gray-100">
+                        <td class="px-4 py-2 border">{{ $registration->id }}</td>
+                        <td class="px-4 py-2 border">{{ $registration->section }}</td>
+                        <td class="px-4 py-2 border">{{ $registration->content }}</td>
+                        <td class="px-4 py-2 border">{{ $registration->created_at }}</td>
+                        <td class="px-4 py-2 border">{{ $registration->updated_at }}</td>
+
+                        <td class="px-4 py-2 border">
+                            <div class="flex justify-center gap-2">
+                                <a href="{{ route('admin.forauthor.edit_registrations_admin', $registration->id) }}"
+                                    class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">
+                                    Edit
+                                </a>
+
+                                <form action="{{ route('admin.forauthor.delete_registrations_admin', $registration->id) }}"
+                                    method="POST" class="inline delete-form">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">
+                                        Delete
+                                    </button>
+                                </form>
+
+                                <a href="{{ route('admin.forauthor.detail_registrations_admin', $registration->id) }}"
+                                    class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">
+                                    Detail
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="6" class="text-center py-4 text-gray-500">No data available.</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
+    </section>
 
-        <!-- Tab: Registration Fee -->
-        <div id="Fees" class="tabcontent hidden">
-            <div class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-lg font-semibold text-gray-800 mb-4">Registration Fee List</h2>
-                <a href="{{ route('admin.forauthor.add_registrations_admin') }}"
-                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mb-4 inline-block">
-                    Add
-                </a>
+    <!-- ===== TAB: REGISTRATION FEE ===== -->
+    <section id="registration_fee" class="tabcontent px-6 py-6 hidden">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">Registration Fee</h2>
 
-                @if($fees->isEmpty())
-                    <p class="text-gray-500 text-sm">No fee data found.</p>
-                @else
-                    <table class="w-full border-collapse text-sm">
-                        <thead class="bg-gray-200 text-gray-700">
-                            <tr>
-                                <th class="px-4 py-2 border">ID</th>
-                                <th class="px-4 py-2 border">Category</th>
-                                <th class="px-4 py-2 border">USD Physical</th>
-                                <th class="px-4 py-2 border">IDR Physical</th>
-                                <th class="px-4 py-2 border">USD Online</th>
-                                <th class="px-4 py-2 border">IDR Online</th>
-                                <th class="px-4 py-2 border">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($fees as $fee)
-                            <tr class="hover:bg-gray-100 text-gray-800">
-                                <td class="px-4 py-2 border">{{ $fee->id }}</td>
-                                <td class="px-4 py-2 border">{{ $fee->category }}</td>
-                                <td class="px-4 py-2 border">{{ $fee->usd_physical }}</td>
-                                <td class="px-4 py-2 border">{{ $fee->idr_physical }}</td>
-                                <td class="px-4 py-2 border">{{ $fee->usd_online }}</td>
-                                <td class="px-4 py-2 border">{{ $fee->idr_online }}</td>
-                                <td class="px-4 py-2 border">
-                                    <div class="flex justify-center gap-2">
-                                        <button class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</button>
-                                        <button class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
-                                        <button class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                @endif
-            </div>
-        </div>
+        <a href="#" class="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 mb-4 inline-block">Add</a>
 
-        <!-- Tab: Payment Method -->
-        <div id="Payments" class="tabcontent hidden">
-            <div class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-lg font-semibold text-gray-800 mb-4">Payment Method List</h2>
-                <a href="{{ route('admin.forauthor.add_registrations_admin') }}"
-                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mb-4 inline-block">
-                    Add
-                </a>
+        <table class="w-full border border-gray-300 rounded-lg overflow-hidden">
+            <thead class="bg-gray-200 text-slate-900">
+                <tr>
+                    <th class="px-4 py-2 border">Category</th>
+                    <th class="px-4 py-2 border">USD (Physical)</th>
+                    <th class="px-4 py-2 border">IDR (Physical)</th>
+                    <th class="px-4 py-2 border">USD (Online)</th>
+                    <th class="px-4 py-2 border">IDR (Online)</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white text-slate-800">
+                @foreach ($fees as $fee)
+                <tr class="hover:bg-gray-100">
+                    <td class="px-4 py-2 border">{{ $fee->category }}</td>
+                    <td class="px-4 py-2 border">{{ $fee->usd_physical }}</td>
+                    <td class="px-4 py-2 border">{{ $fee->idr_physical }}</td>
+                    <td class="px-4 py-2 border">{{ $fee->usd_online }}</td>
+                    <td class="px-4 py-2 border">{{ $fee->idr_online }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </section>
 
-                @if($paymentMethods->isEmpty())
-                    <p class="text-gray-500 text-sm">No payment methods found.</p>
-                @else
-                    <!-- Dropdown Filter -->
-                    <div class="mb-4">
-                        <label for="methodFilter" class="block text-sm font-medium text-black mb-2">Filter by Method:</label>
-                        <select
-                            id="methodFilter"
-                            class="w-60 rounded-lg border border-gray-300 bg-white px-3 py-2 text-center text-sm text-gray-800 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
-                            <option value="" selected disabled hidden>Select Method</option>
-                            <option value="virtual">Virtual Account</option>
-                            <option value="paypal">PayPal</option>
-                        </select>
-                    </div>
+    <!-- ===== TAB: PAYMENT METHOD ===== -->
+    <section id="payment_method" class="tabcontent px-6 py-6 hidden">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">Payment Method</h2>
 
-                    <!-- Table: Virtual Account -->
-                    <div id="virtualTable">
-                        <table class="w-full border-collapse text-sm">
-                            <thead class="bg-gray-200 text-gray-700">
-                                <tr>
-                                    <th class="px-4 py-2 border">No</th>
-                                    <th class="px-4 py-2 border">Bank Name</th>
-                                    <th class="px-4 py-2 border">Account Name</th>
-                                    <th class="px-4 py-2 border">Virtual Account Number</th>
-                                    <th class="px-4 py-2 border">Important Notes</th>
-                                    <th class="px-4 py-2 border">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($paymentMethods->where('method_name', '!=', 'PayPal') as $pay)
-                                <tr class="hover:bg-gray-100 text-gray-800">
-                                    <td class="px-4 py-2 border text-center">{{ $loop->iteration }}</td>
-                                    <td class="px-4 py-2 border">{{ $pay->bank_name }}</td>
-                                    <td class="px-4 py-2 border">{{ $pay->account_name }}</td>
-                                    <td class="px-4 py-2 border">{{ $pay->virtual_account_number }}</td>
-                                    <td class="px-4 py-2 border">{{ $pay->important_notes }}</td>
-                                    <td class="px-4 py-2 border">
-                                        <div class="flex justify-center gap-2">
-                                            <button class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</button>
-                                            <button class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
-                                            <button class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+        <a href="#" class="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 mb-4 inline-block">Add</a>
 
-                    <!-- Table: PayPal -->
-                    <div id="paypalTable" class="hidden">
-                        <table class="w-full border-collapse text-sm">
-                            <thead class="bg-gray-200 text-gray-700">
-                                <tr>
-                                    <th class="px-4 py-2 border">No</th>
-                                    <th class="px-4 py-2 border">PayPal Email</th>
-                                    <th class="px-4 py-2 border">Additional Information</th>
-                                    <th class="px-4 py-2 border">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($paymentMethods->where('method_name', 'PayPal') as $pay)
-                                <tr class="hover:bg-gray-100 text-gray-800">
-                                    <td class="px-4 py-2 border text-center">{{ $loop->iteration }}</td>
-                                    <td class="px-4 py-2 border">{!! $pay->paypal_email !!}</td>
-                                    <td class="px-4 py-2 border">{!! $pay->additional_info !!}</td>
-                                    <td class="px-4 py-2 border">
-                                        <div class="flex justify-center gap-2">
-                                            <button class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</button>
-                                            <button class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
-                                            <button class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                @endif
-            </div>
-        </div>
-
-    </main>
+        <table class="w-full border border-gray-300 rounded-lg overflow-hidden">
+            <thead class="bg-gray-200 text-slate-900">
+                <tr>
+                    <th class="px-4 py-2 border">Method Name</th>
+                    <th class="px-4 py-2 border">Bank Name</th>
+                    <th class="px-4 py-2 border">Account Name</th>
+                    <th class="px-4 py-2 border">Virtual Account</th>
+                    <th class="px-4 py-2 border">Important Notes</th>
+                    <th class="px-4 py-2 border">PayPal Email</th>
+                    <th class="px-4 py-2 border">Additional Info</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white text-slate-800">
+                @foreach ($paymentMethods as $method)
+                <tr class="hover:bg-gray-100">
+                    <td class="px-4 py-2 border">{{ $method->method_name }}</td>
+                    <td class="px-4 py-2 border">{{ $method->bank_name }}</td>
+                    <td class="px-4 py-2 border">{{ $method->account_name }}</td>
+                    <td class="px-4 py-2 border">{{ $method->virtual_account_number }}</td>
+                    <td class="px-4 py-2 border">{{ $method->important_notes }}</td>
+                    <td class="px-4 py-2 border">{!! $method->paypal_email !!}</td>
+                    <td class="px-4 py-2 border">{!! $method->additional_info !!}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </section>
 </div>
 
-<!-- JS Tab Script -->
 <script>
     function openTab(evt, tabName) {
-        const tabcontent = document.getElementsByClassName("tabcontent");
-        for (let i = 0; i < tabcontent.length; i++) tabcontent[i].style.display = "none";
-        const tablinks = document.getElementsByClassName("tablink");
-        for (let i = 0; i < tablinks.length; i++) tablinks[i].classList.remove("text-white", "border-teal-400");
-        document.getElementById(tabName).style.display = "block";
+        const tabcontents = document.querySelectorAll(".tabcontent");
+        tabcontents.forEach(tab => tab.classList.add("hidden"));
+
+        const tablinks = document.querySelectorAll(".tablink");
+        tablinks.forEach(btn => btn.classList.remove("text-white", "border-teal-400"));
+
+        document.getElementById(tabName).classList.remove("hidden");
         evt.currentTarget.classList.add("text-white", "border-teal-400");
+        localStorage.setItem("activeTab", tabName);
     }
-    document.getElementById("defaultOpen").click();
 
-    // JS Filter Payment Method
-    const filterSelect = document.getElementById('methodFilter');
-    const virtualTable = document.getElementById('virtualTable');
-    const paypalTable = document.getElementById('paypalTable');
+    // Simpan tab aktif di localStorage
+    document.addEventListener("DOMContentLoaded", () => {
+        const activeTab = localStorage.getItem("activeTab") || "registration";
+        document.getElementById(activeTab).classList.remove("hidden");
+        document.querySelector(`[onclick="openTab(event, '${activeTab}')"]`).classList.add("text-white", "border-teal-400");
+    });
 
-    filterSelect.addEventListener('change', () => {
-        if (filterSelect.value === 'paypal') {
-            virtualTable.classList.add('hidden');
-            paypalTable.classList.remove('hidden');
-        } else {
-            paypalTable.classList.add('hidden');
-            virtualTable.classList.remove('hidden');
-        }
+    // Konfirmasi delete
+    document.querySelectorAll('.delete-form').forEach(form => {
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This data will be permanently deleted!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete!',
+                cancelButtonText: 'Cancel'
+            }).then(result => {
+                if (result.isConfirmed) form.submit();
+            });
+        });
     });
 </script>
 @endsection

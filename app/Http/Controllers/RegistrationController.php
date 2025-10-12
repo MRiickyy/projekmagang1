@@ -9,15 +9,15 @@ use App\Models\PaymentMethod;
 
 class RegistrationController extends Controller
 {
-    //====USER====\\
+    //==== USER ====\\
     public function index()
     {
-        $registration = RegistrationModel::first();
+        // Ambil semua section registration dan ubah ke bentuk keyBy('section')
+        $registration = RegistrationModel::all()->keyBy('section');
         $fees = RegistrationFee::all();
-
         $paymentMethods = PaymentMethod::all();
 
-        // Grouping hanya untuk tampilan user
+        // Grouping untuk tampilan user (khusus PayPal)
         $paypalGroup = $paymentMethods->where('method_name', 'PayPal');
         $otherMethods = $paymentMethods->where('method_name', '!=', 'PayPal');
 
@@ -25,7 +25,7 @@ class RegistrationController extends Controller
             $emails = $paypalGroup->pluck('paypal_email')->filter()->unique()->values();
             $infos  = $paypalGroup->pluck('additional_info')->filter()->unique()->values();
 
-            // list paypal email
+            // list PayPal email
             $emailList = '<ul class="list-disc pl-5 space-y-1">';
             foreach ($emails as $email) {
                 $emailList .= '<li>' . e($email) . '</li>';
@@ -42,7 +42,7 @@ class RegistrationController extends Controller
                 $infoList .= '</ul>';
             }
 
-            // buat satu objek gabungan untuk PayPal
+            // Buat satu objek gabungan untuk PayPal
             $paypalItem = new \stdClass();
             $paypalItem->id = null;
             $paypalItem->method_name = 'PayPal';
@@ -53,7 +53,7 @@ class RegistrationController extends Controller
             $paypalItem->paypal_email = $emailList;
             $paypalItem->additional_info = $infoList;
 
-            // gabungkan PayPal dan metode lainnya
+            // Gabungkan PayPal dengan metode lainnya
             $groupedMethods = $otherMethods->values()->push($paypalItem);
         } else {
             $groupedMethods = $paymentMethods;
@@ -66,15 +66,13 @@ class RegistrationController extends Controller
         ]);
     }
 
-    //====ADMIN====\\
-    // admin: displays the registration
+    //==== ADMIN ====\\
     public function adminIndex()
     {
         $registrations = RegistrationModel::all();
         $fees = RegistrationFee::all();
         $paymentMethods = PaymentMethod::all();
 
-        // Admin: tampilkan semua data tanpa penggabungan
         return view('admin.forauthor.list_registrations_admin', [
             'registrations' => $registrations,
             'fees' => $fees,
@@ -82,48 +80,51 @@ class RegistrationController extends Controller
         ]);
     }
 
-    // admin: add
     public function adminRegisAdd()
     {
         return view('admin.forauthor.add_registrations_admin');
     }
 
-    // admin: store
     public function store(Request $request)
     {
-        $section = $request->input('section');
+        $request->validate([
+            'section' => 'required|string',
+            'content' => 'required|string',
+        ]);
 
-        if ($section === 'registrations') {
-            RegistrationModel::create([
-                'cta_title' => $request->cta_title,
-                'cta_button' => $request->cta_button,
-                'cta_link' => $request->cta_link,
-                'notes' => $request->notes,
-                'conference_fee_include' => $request->conference_fee_include,
-                'registrations_procedures' => $request->registrations_procedures,
-            ]);
-        } 
-        elseif ($section === 'registration_fee') {
-            RegistrationFee::create([
-                'category' => $request->category,
-                'usd_physical' => $request->usd_physical,
-                'idr_physical' => $request->idr_physical,
-                'usd_online' => $request->usd_online,
-                'idr_online' => $request->idr_online,
-            ]);
-        } 
-        elseif ($section === 'payment_method') {
-            PaymentMethod::create([
-                'method_name' => $request->method_name,
-                'bank_name' => $request->bank_name,
-                'account_name' => $request->account_name,
-                'virtual_account_number' => $request->virtual_account_number,
-                'important_notes' => $request->important_notes,
-                'paypal_email' => $request->paypal_email,
-                'additional_info' => $request->additional_info,
-            ]);
-        }
+        RegistrationModel::create($request->only('section', 'content'));
 
         return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Data saved successfully!');
+    }
+
+
+    public function edit($id)
+    {
+        $registration = RegistrationModel::findOrFail($id);
+        return view('admin.forauthor.edit_registrations_admin', compact('registration'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'content' => 'required|string',
+        ]);
+
+        $registration = RegistrationModel::findOrFail($id);
+        $registration->update($request->only('content'));
+
+        return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Content updated successfully!');
+    }
+
+    public function show($id)
+    {
+        $registration = RegistrationModel::findOrFail($id);
+        return view('admin.forauthor.detail_registrations_admin', compact('registration'))->with('isDetail', true);
+    }
+
+    public function destroy(RegistrationModel $registration)
+    {
+        $registration->delete();
+        return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Content deleted successfully!');
     }
 }
