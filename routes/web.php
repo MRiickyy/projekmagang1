@@ -103,18 +103,21 @@ Route::get('/admin/callpapers/{callPaper}', [CallPaperController::class, 'show']
 // user
 Route::get('/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
 // admin
-Route::get('/admin/mainAuthorInformation', [AuthorInformationController::class, 'adminIndex'])->name('admin.forauthor.authorinformationAdmin');
-Route::get('/admin/edit-authorInformation', [AuthorInformationController::class, 'adminAuthorEdit'])->name('admin.forauthor.edit_authorinformationAdmin');
-Route::post('/admin/edit-authorInformation', [AuthorInformationController::class, 'update'])->name('admin.forauthor.update_authorinformation');
-Route::get('/admin/detail-authorInformation', [AuthorInformationController::class, 'adminAuthorDetail'])->name('admin.forauthor.detail_authorinformationAdmin');
+Route::get('/admin/mainAuthorInformation', [AuthorInformationController::class, 'listAuthor'])->name('admin.forauthor.list_authorinformation_admin');
+Route::get('/admin/add-authorInformation', [AuthorInformationController::class, 'addAuthor'])->name('admin.forauthor.add_authorinformation_admin');
+Route::post('/admin/add-authorInformation', [AuthorInformationController::class, 'store'])->name('admin.forauthor.store_authorinformation_admin');
+Route::get('/admin/edit-authorInformation/{id}', [AuthorInformationController::class, 'edit'])->name('admin.forauthor.edit_authorinformation_admin');
+Route::post('/admin/edit-authorInformation/{id}', [AuthorInformationController::class, 'update'])->name('admin.forauthor.update_authorinformation_admin');
+Route::get('/admin/detail-authorInformation/{id}', [AuthorInformationController::class, 'show'])->name('admin.forauthor.detail_authorinformation_admin');
+Route::delete('/admin/delete-authorInformation/{authorInfo}', [AuthorInformationController::class, 'destroy'])->name('admin.forauthor.delete_authorinformation_admin');
 
 // registrations
 //user
 Route::get('/registration', [RegistrationController::class, 'index'])->name('registration.index');
 // admin
-Route::get('/admin/mainregistrations', [RegistrationController::class, 'adminIndex'])->name('admin.forauthor.registrationsAdmin');
-Route::get('/admin/add-registrations', [RegistrationController::class, 'adminRegisAdd'])->name('admin.forauthor.add_registrationsAdmin');
-Route::post('/admin/add-registrations', [RegistrationController::class, 'store'])->name('admin.forauthor.store_registrationsAdmin');
+Route::get('/admin/mainregistrations', [RegistrationController::class, 'adminIndex'])->name('admin.forauthor.list_registrations_admin');
+Route::get('/admin/add-registrations', [RegistrationController::class, 'adminRegisAdd'])->name('admin.forauthor.add_registrations_admin');
+Route::post('/admin/add-registrations', [RegistrationController::class, 'store'])->name('admin.forauthor.store_registrations_admin');
 
 
 

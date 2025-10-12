@@ -81,14 +81,14 @@
                     </svg>
                 </button>
                 <div x-show="openAuthors" x-collapse class="ml-4 space-y-2 mt-2">
-                    <a href="{{ route('admin.forauthor.authorinformationAdmin') }}"
+                    <a href="{{ route('admin.forauthor.list_authorinformation_admin') }}"
                         class="block px-3 py-2 rounded 
         {{ request()->routeIs('admin.forauthor.authorinformationAdmin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
                         Author Informations
                     </a>
-                    <a href="{{ route('admin.forauthor.registrationsAdmin') }}" 
+                    <a href="{{ route('admin.forauthor.list_registrations_admin') }}" 
                         class="block px-3 py-2 rounded 
-        {{ request()->routeIs('admin.forauthor.registrationsAdmin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
+        {{ request()->routeIs('admin.forauthor.list_registrations_admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
                         Registration
                     </a>
                     <a href="{{ route('admin.list_contacts_Admin') }}" class="block px-3 py-2 rounded 

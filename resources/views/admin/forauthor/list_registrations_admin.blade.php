@@ -20,15 +20,15 @@
 
     <!-- Content Tabs -->
     <main class="flex-1 px-6 pt-4 pb-10">
-        <a href="{{ route('admin.forauthor.add_registrationsAdmin') }}"
-            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mb-4 inline-block">
-            Add
-        </a>
 
         <!-- Tab: Registrations -->
         <div id="Registrations" class="tabcontent hidden">
             <div class="bg-white shadow-md rounded-lg p-6">
                 <h2 class="text-lg font-semibold text-gray-800 mb-4">Registrations List</h2>
+                <a href="{{ route('admin.forauthor.add_registrations_admin') }}"
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mb-4 inline-block">
+                    Add
+                </a>
 
                 @if($registrations->isEmpty())
                     <p class="text-gray-500 text-sm">No registration data found.</p>
@@ -75,6 +75,10 @@
         <div id="Fees" class="tabcontent hidden">
             <div class="bg-white shadow-md rounded-lg p-6">
                 <h2 class="text-lg font-semibold text-gray-800 mb-4">Registration Fee List</h2>
+                <a href="{{ route('admin.forauthor.add_registrations_admin') }}"
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mb-4 inline-block">
+                    Add
+                </a>
 
                 @if($fees->isEmpty())
                     <p class="text-gray-500 text-sm">No fee data found.</p>
@@ -119,6 +123,10 @@
         <div id="Payments" class="tabcontent hidden">
             <div class="bg-white shadow-md rounded-lg p-6">
                 <h2 class="text-lg font-semibold text-gray-800 mb-4">Payment Method List</h2>
+                <a href="{{ route('admin.forauthor.add_registrations_admin') }}"
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mb-4 inline-block">
+                    Add
+                </a>
 
                 @if($paymentMethods->isEmpty())
                     <p class="text-gray-500 text-sm">No payment methods found.</p>
