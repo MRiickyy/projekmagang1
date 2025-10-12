@@ -1,4 +1,3 @@
-```blade
 @extends('layouts.app')
 
 @section('title', 'Registration - ICOICT 2025')
@@ -18,11 +17,11 @@
         <!-- CTA Box -->
         <div class="mt-10 bg-[#1a1f27] rounded-xl p-8 shadow-xl space-y-6 text-center text-white">
             <p class="mb-2 text-white text-lg md:text-xl">
-                {{ $registration->cta_title ?? 'Please Register Here' }}
+                {{ $registration['cta']->cta_title ?? 'Please Register Here' }}
             </p>
-            <a href="{{ $registration->cta_link ?? '#' }}"
+            <a href="{{ $registration['cta']->cta_link ?? '#' }}"
                 class="inline-flex items-center justify-center rounded-full bg-[#25d366] hover:bg-[#1fb857] transition px-6 py-2 md:px-8 md:py-3 font-semibold shadow">
-                {{ $registration->cta_button ?? 'Registration Form' }}
+                {{ $registration['cta']->cta_button ?? 'Registration Form' }}
             </a>
         </div>
 
@@ -63,8 +62,8 @@
         <div class="mt-6 bg-gray-100 rounded-xl p-6 shadow-lg">
             <h2 class="text-lg font-semibold mb-3">Notes:</h2>
             <ul class="list-disc list-inside space-y-1">
-                @if($registration->notes)
-                    @foreach(explode("\n", $registration->notes) as $note)
+                @if(isset($registration['notes']) && $registration['notes']->content)
+                    @foreach(explode("\n", $registration['notes']->content) as $note)
                         <li>{{ $note }}</li>
                     @endforeach
                 @else
@@ -74,10 +73,10 @@
                 @endif
             </ul>
 
-            <h2 class="text-lg font-semibold mt-4 mb-2">The conference fee include:</h2>
+            <h2 class="text-lg font-semibold mt-4 mb-2">The conference fee includes:</h2>
             <ul class="list-disc list-inside">
-                @if($registration->conference_fee_include)
-                    @foreach(explode("\n", $registration->conference_fee_include) as $item)
+                @if(isset($registration['conference_fee_include']) && $registration['conference_fee_include']->content)
+                    @foreach(explode("\n", $registration['conference_fee_include']->content) as $item)
                         <li>{{ $item }}</li>
                     @endforeach
                 @else
@@ -141,13 +140,12 @@
             </div>
         </div>
 
-
         <!-- Registration Procedures -->
         <div class="bg-gray-100 rounded-xl p-6 shadow-lg mt-6">
             <h2 class="text-xl font-bold mb-3 text-[#1a1f27]/95">Registration Procedures</h2>
             <ol class="list-decimal list-inside text-black leading-relaxed">
-                @if($registration->registration_procedures)
-                    @foreach(explode("\n", $registration->registration_procedures) as $procedure)
+                @if(isset($registration['registration_procedures']) && $registration['registration_procedures']->content)
+                    @foreach(explode("\n", $registration['registration_procedures']->content) as $procedure)
                         <li>{!! $procedure !!}</li>
                     @endforeach
                 @else
@@ -162,4 +160,3 @@
     </div>
 </main>
 @endsection
-```

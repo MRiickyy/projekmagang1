@@ -118,6 +118,10 @@ Route::get('/registration', [RegistrationController::class, 'index'])->name('reg
 Route::get('/admin/mainregistrations', [RegistrationController::class, 'adminIndex'])->name('admin.forauthor.list_registrations_admin');
 Route::get('/admin/add-registrations', [RegistrationController::class, 'adminRegisAdd'])->name('admin.forauthor.add_registrations_admin');
 Route::post('/admin/add-registrations', [RegistrationController::class, 'store'])->name('admin.forauthor.store_registrations_admin');
+Route::get('/admin/edit-registrations/{id}', [RegistrationController::class, 'edit'])->name('admin.forauthor.edit_registrations_admin');
+Route::post('/admin/edit-registrations/{id}', [RegistrationController::class, 'update'])->name('admin.forauthor.update_registrations_admin');
+Route::get('/admin/detail-registrations/{id}', [RegistrationController::class, 'show'])->name('admin.forauthor.detail_registrations_admin');
+Route::delete('/admin/delete-registrations/{registration}', [RegistrationController::class, 'destroy'])->name('admin.forauthor.delete_registrations_admin');
 
 
 
