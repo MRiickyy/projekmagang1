@@ -178,7 +178,7 @@
                         <th class="px-4 py-2 border">Method Name</th>
                         <th class="px-4 py-2 border">Bank Name</th>
                         <th class="px-4 py-2 border">Account Name</th>
-                        <th class="px-4 py-2 border">Virtual Account</th>
+                        <th class="px-4 py-2 border">Virtual Account Number</th>
                         <th class="px-4 py-2 border">Important Notes</th>
                         <th class="px-4 py-2 border">Action</th>
                     </tr>
@@ -201,9 +201,25 @@
                             <td class="px-4 py-2 border paypal-col hidden">{!! $method->additional_info !!}</td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center gap-2">
-                                    <button class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">Edit</button>
-                                    <button class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
-                                    <button class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">Detail</button>
+                                    <a href="{{ route('admin.forauthor.edit_paymentmethod_admin', $method->id) }}"
+                                        class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">
+                                        Edit
+                                    </a>
+
+                                    <form action="{{ route('admin.forauthor.delete_paymentmethod_admin', $method->id) }}"
+                                        method="POST" class="inline delete-form">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">
+                                            Delete
+                                        </button>
+                                    </form>
+
+                                    <a href="{{ route('admin.forauthor.detail_paymentmethod_admin', $method->id) }}"
+                                        class="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600">
+                                        Detail
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -242,7 +258,7 @@
                         <th class="px-4 py-2 border">Method Name</th>
                         <th class="px-4 py-2 border">Bank Name</th>
                         <th class="px-4 py-2 border">Account Name</th>
-                        <th class="px-4 py-2 border">Virtual Account</th>
+                        <th class="px-4 py-2 border">Virtual Account Number</th>
                         <th class="px-4 py-2 border">Important Notes</th>
                         <th class="px-4 py-2 border">Action</th>
                     </tr>

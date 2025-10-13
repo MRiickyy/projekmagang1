@@ -132,6 +132,10 @@ Route::get('/admin/detail-registrations-fee/{id}', [RegistrationController::clas
 
 Route::get('/admin/add-paymentmethod', [RegistrationController::class, 'adminPaymentMethodAdd'])->name('admin.forauthor.add_paymentmethod_admin');
 Route::post('/admin/add-paymentmethod', [RegistrationController::class, 'adminPaymentMethodStore'])->name('admin.forauthor.store_paymentmethod_admin');
+Route::get('/admin/edit-payment-method/{id}', [RegistrationController::class, 'adminPaymentMethodEdit'])->name('admin.forauthor.edit_paymentmethod_admin');
+Route::post('/admin/edit-payment-method/{id}', [RegistrationController::class, 'adminPaymentMethodUpdate'])->name('admin.forauthor.update_paymentmethod_admin');
+Route::delete('/admin/delete-payment-method/{paymentMethod}', [RegistrationController::class, 'adminPaymentMethodDestroy'])->name('admin.forauthor.delete_paymentmethod_admin');
+Route::get('/admin/detail-payment-method/{id}', [RegistrationController::class, 'adminPaymentMethodShow'])->name('admin.forauthor.detail_paymentmethod_admin');
 
 
 // Route untuk Contacts Admin

@@ -187,4 +187,57 @@ class RegistrationController extends Controller
 
         return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Payment Method added successfully!');
     }
+
+    public function adminPaymentMethodEdit($id)
+    {
+        $paymentMethod = PaymentMethod::findOrFail($id);
+        return view('admin.forauthor.edit_paymentmethod_admin', compact('paymentMethod'));
+    }
+
+    public function adminPaymentMethodUpdate(Request $request, $id)
+    {
+        $paymentMethod = PaymentMethod::findOrFail($id);
+
+        $request->validate([
+            'method_name' => 'required|string|in:Virtual Account,PayPal',
+        ]);
+
+        if ($request->method_name === 'Virtual Account') {
+            $request->validate([
+                'bank_name' => 'nullable|string|max:255',
+                'account_name' => 'nullable|string|max:255',
+                'virtual_account_number' => 'nullable|string|max:50',
+                'important_notes' => 'nullable|string',
+            ]);
+        } elseif ($request->method_name === 'PayPal') {
+            $request->validate([
+                'paypal_email' => 'nullable|email|max:255',
+                'additional_info' => 'nullable|string',
+            ]);
+        }
+
+        $paymentMethod->update($request->only([
+            'method_name',
+            'bank_name',
+            'account_name',
+            'virtual_account_number',
+            'important_notes',
+            'paypal_email',
+            'additional_info',
+        ]));
+
+        return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Payment Method updated successfully!');
+    }
+
+    public function adminPaymentMethodDestroy(PaymentMethod $paymentMethod)
+    {
+        $paymentMethod->delete();
+        return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Registration Fee deleted successfully!');
+    }
+
+    public function adminPaymentMethodShow($id)
+    {
+        $paymentMethod = PaymentMethod::findOrFail($id);
+        return view('admin.forauthor.detail_paymentmethod_admin', compact('paymentMethod'))->with('isDetail', true);
+    }
 }
