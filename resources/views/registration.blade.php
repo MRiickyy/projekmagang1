@@ -122,21 +122,34 @@
                 @endif
 
                 <!-- PayPal -->
-                @foreach($paypal as $method)
+                @if($paypal->count() > 0)
                     <div class="p-6 bg-gray-100 rounded-xl shadow-lg">
-                        <h3 class="text-xl text-center font-bold mb-4">{{ $method->method_name }}</h3>
+                        <h3 class="text-xl text-center font-bold mb-4">PayPal</h3>
 
-                        <p class="font-bold">PayPal Email Address:</p>
-                        {!! $method->paypal_email !!}
+                        <p class="font-bold mb-2">PayPal Email Address:</p>
 
-                        @if($method->additional_info)
-                            <p class="mt-2 font-bold">Additional Information:</p>
-                            <p class="text-gray-700 space-y-1 leading-relaxed">
-                                {!! $method->additional_info !!}
-                            </p>
+                        <ul class="list-disc list-inside space-y-1 text-gray-800">
+                            @foreach($paypal as $method)
+                                <li>{{ $method->paypal_email }}</li>
+                            @endforeach
+                        </ul>
+
+                        @php
+                            $additionalInfo = $paypal->pluck('additional_info')->filter()->unique()->implode("\n");
+                            $infoItems = preg_split('/\r\n|\r|\n/', trim($additionalInfo));
+                            $infoItems = array_filter($infoItems, fn($item) => !empty(trim($item)));
+                        @endphp
+
+                        @if(!empty($infoItems))
+                            <p class="mt-4 font-bold">Additional Information:</p>
+                            <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-1">
+                                @foreach($infoItems as $info)
+                                    <li>{{ $info }}</li>
+                                @endforeach
+                            </ul>
                         @endif
                     </div>
-                @endforeach
+                @endif
             </div>
         </div>
 

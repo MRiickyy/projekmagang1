@@ -117,12 +117,21 @@ Route::get('/registration', [RegistrationController::class, 'index'])->name('reg
 // admin
 Route::get('/admin/mainregistrations', [RegistrationController::class, 'adminIndex'])->name('admin.forauthor.list_registrations_admin');
 Route::get('/admin/add-registrations', [RegistrationController::class, 'adminRegisAdd'])->name('admin.forauthor.add_registrations_admin');
-Route::post('/admin/add-registrations', [RegistrationController::class, 'store'])->name('admin.forauthor.store_registrations_admin');
-Route::get('/admin/edit-registrations/{id}', [RegistrationController::class, 'edit'])->name('admin.forauthor.edit_registrations_admin');
-Route::post('/admin/edit-registrations/{id}', [RegistrationController::class, 'update'])->name('admin.forauthor.update_registrations_admin');
-Route::get('/admin/detail-registrations/{id}', [RegistrationController::class, 'show'])->name('admin.forauthor.detail_registrations_admin');
-Route::delete('/admin/delete-registrations/{registration}', [RegistrationController::class, 'destroy'])->name('admin.forauthor.delete_registrations_admin');
+Route::post('/admin/add-registrations', [RegistrationController::class, 'adminRegisStore'])->name('admin.forauthor.store_registrations_admin');
+Route::get('/admin/edit-registrations/{id}', [RegistrationController::class, 'adminRegisEdit'])->name('admin.forauthor.edit_registrations_admin');
+Route::post('/admin/edit-registrations/{id}', [RegistrationController::class, 'adminRegisUpdate'])->name('admin.forauthor.update_registrations_admin');
+Route::get('/admin/detail-registrations/{id}', [RegistrationController::class, 'adminRegisShow'])->name('admin.forauthor.detail_registrations_admin');
+Route::delete('/admin/delete-registrations/{registration}', [RegistrationController::class, 'adminRegisDestroy'])->name('admin.forauthor.delete_registrations_admin');
 
+Route::get('/admin/add-registrations-fee', [RegistrationController::class, 'adminRegisFeeAdd'])->name('admin.forauthor.add_registrationsfee_admin');
+Route::post('/admin/add-registrations-fee', [RegistrationController::class, 'adminRegisFeeStore'])->name('admin.forauthor.store_registrationsfee_admin');
+Route::get('/admin/edit-registrations-fee/{id}', [RegistrationController::class, 'adminRegisFeeEdit'])->name('admin.forauthor.edit_registrationsfee_admin');
+Route::post('/admin/edit-registrations-fee/{id}', [RegistrationController::class, 'adminRegisFeeUpdate'])->name('admin.forauthor.update_registrationsfee_admin');
+Route::delete('/admin/delete-registrations-fee/{fee}', [RegistrationController::class, 'adminRegisFeeDestroy'])->name('admin.forauthor.delete_registrationsfee_admin');
+Route::get('/admin/detail-registrations-fee/{id}', [RegistrationController::class, 'adminRegisFeeShow'])->name('admin.forauthor.detail_registrationsfee_admin');
+
+Route::get('/admin/add-paymentmethod', [RegistrationController::class, 'adminPaymentMethodAdd'])->name('admin.forauthor.add_paymentmethod_admin');
+Route::post('/admin/add-paymentmethod', [RegistrationController::class, 'adminPaymentMethodStore'])->name('admin.forauthor.store_paymentmethod_admin');
 
 
 // Route untuk Contacts Admin

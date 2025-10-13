@@ -44,10 +44,10 @@
 
             <!-- Buttons -->
             <div class="flex justify-end gap-3 pt-4">
-                <a href="{{ route('admin.forauthor.list_authorinformation_admin') }}"
-                    class="btn-cancel px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                <button type="button" onclick="window.history.back()"
+                    class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
                     Cancel
-                </a>
+                </button>
                 <button type="submit"
                     class="px-6 py-2 rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md">
                     Save
