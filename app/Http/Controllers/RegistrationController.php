@@ -12,57 +12,14 @@ class RegistrationController extends Controller
     //==== USER ====\\
     public function index()
     {
-        // Ambil semua section registration dan ubah ke bentuk keyBy('section')
         $registration = RegistrationModel::all()->keyBy('section');
         $fees = RegistrationFee::all();
         $paymentMethods = PaymentMethod::all();
 
-        // Grouping untuk tampilan user (khusus PayPal)
-        $paypalGroup = $paymentMethods->where('method_name', 'PayPal');
-        $otherMethods = $paymentMethods->where('method_name', '!=', 'PayPal');
-
-        if ($paypalGroup->count() > 0) {
-            $emails = $paypalGroup->pluck('paypal_email')->filter()->unique()->values();
-            $infos  = $paypalGroup->pluck('additional_info')->filter()->unique()->values();
-
-            // list PayPal email
-            $emailList = '<ul class="list-disc pl-5 space-y-1">';
-            foreach ($emails as $email) {
-                $emailList .= '<li>' . e($email) . '</li>';
-            }
-            $emailList .= '</ul>';
-
-            // list additional information
-            $infoList = '';
-            if ($infos->isNotEmpty()) {
-                $infoList = '<ul class="list-disc pl-5 space-y-1">';
-                foreach ($infos as $info) {
-                    $infoList .= '<li>' . e($info) . '</li>';
-                }
-                $infoList .= '</ul>';
-            }
-
-            // Buat satu objek gabungan untuk PayPal
-            $paypalItem = new \stdClass();
-            $paypalItem->id = null;
-            $paypalItem->method_name = 'PayPal';
-            $paypalItem->bank_name = null;
-            $paypalItem->account_name = null;
-            $paypalItem->virtual_account_number = null;
-            $paypalItem->important_notes = null;
-            $paypalItem->paypal_email = $emailList;
-            $paypalItem->additional_info = $infoList;
-
-            // Gabungkan PayPal dengan metode lainnya
-            $groupedMethods = $otherMethods->values()->push($paypalItem);
-        } else {
-            $groupedMethods = $paymentMethods;
-        }
-
         return view('registration', [
             'registration' => $registration,
             'fees' => $fees,
-            'paymentMethods' => $groupedMethods,
+            'paymentMethods' => $paymentMethods,
         ]);
     }
 
@@ -85,7 +42,7 @@ class RegistrationController extends Controller
         return view('admin.forauthor.add_registrations_admin');
     }
 
-    public function store(Request $request)
+    public function adminRegisStore(Request $request)
     {
         $request->validate([
             'section' => 'required|string',
@@ -94,17 +51,17 @@ class RegistrationController extends Controller
 
         RegistrationModel::create($request->only('section', 'content'));
 
-        return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Data saved successfully!');
+        return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Data added successfully!');
     }
 
 
-    public function edit($id)
+    public function adminRegisEdit($id)
     {
         $registration = RegistrationModel::findOrFail($id);
         return view('admin.forauthor.edit_registrations_admin', compact('registration'));
     }
 
-    public function update(Request $request, $id)
+    public function adminRegisUpdate(Request $request, $id)
     {
         $request->validate([
             'content' => 'required|string',
@@ -116,15 +73,118 @@ class RegistrationController extends Controller
         return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Content updated successfully!');
     }
 
-    public function show($id)
+    public function adminRegisShow($id)
     {
         $registration = RegistrationModel::findOrFail($id);
         return view('admin.forauthor.detail_registrations_admin', compact('registration'))->with('isDetail', true);
     }
 
-    public function destroy(RegistrationModel $registration)
+    public function adminRegisDestroy(RegistrationModel $registration)
     {
         $registration->delete();
         return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Content deleted successfully!');
+    }
+
+    public function adminRegisFeeAdd()
+    {
+        return view('admin.forauthor.add_registrationsfee_admin');
+    }
+
+    public function adminRegisFeeStore(Request $request)
+    {
+        $request->validate([
+            'category' => 'required|string|max:255',
+            'usd_physical' => 'required|numeric',
+            'idr_physical' => 'required|numeric',
+            'usd_online' => 'required|numeric',
+            'idr_online' => 'required|numeric',
+        ]);
+
+        RegistrationFee::create([
+            'category' => $request->category,
+            'usd_physical' => $request->usd_physical,
+            'idr_physical' => $request->idr_physical,
+            'usd_online' => $request->usd_online,
+            'idr_online' => $request->idr_online,
+        ]);
+
+        return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Data added successfully!');
+    }
+
+    public function adminRegisFeeEdit($id)
+    {
+        $fee = RegistrationFee::findOrFail($id);
+        return view('admin.forauthor.edit_registrationsfee_admin', compact('fee'));
+    }
+
+    public function adminRegisFeeUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'category' => 'required|string|max:255',
+            'usd_physical' => 'required|numeric',
+            'idr_physical' => 'required|numeric',
+            'usd_online' => 'required|numeric',
+            'idr_online' => 'required|numeric',
+        ]);
+
+        $fee = RegistrationFee::findOrFail($id);
+        $fee->update([
+            'category' => $request->category,
+            'usd_physical' => $request->usd_physical,
+            'idr_physical' => $request->idr_physical,
+            'usd_online' => $request->usd_online,
+            'idr_online' => $request->idr_online,
+        ]);
+
+        return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Registration Fee updated successfully!');
+    }
+
+    public function adminRegisFeeDestroy(RegistrationFee $fee)
+    {
+        $fee->delete();
+        return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Registration Fee deleted successfully!');
+    }
+
+    public function adminRegisFeeShow($id)
+    {
+        $fee = RegistrationFee::findOrFail($id);
+        return view('admin.forauthor.detail_registrationsfee_admin', compact('fee'))->with('isDetail', true);
+    }
+
+    public function adminPaymentMethodAdd()
+    {
+        return view('admin.forauthor.add_paymentmethod_admin');
+    }
+
+    public function adminPaymentMethodStore(Request $request)
+    {
+        $request->validate([
+            'method_name' => 'required|string|in:Virtual Account,PayPal',
+        ]);
+        if ($request->method_name === 'Virtual Account') {
+            $request->validate([
+                'bank_name' => 'nullable|string|max:255',
+                'account_name' => 'nullable|string|max:255',
+                'virtual_account_number' => 'nullable|string|max:50',
+                'important_notes' => 'nullable|string',
+            ]);
+        } elseif ($request->method_name === 'PayPal') {
+            $request->validate([
+                'paypal_email' => 'nullable|email|max:255',
+                'additional_info' => 'nullable|string',
+            ]);
+        }
+
+        PaymentMethod::create($request->only([
+            'method_name',
+            'bank_name',
+            'account_name',
+            'virtual_account_number',
+            'important_notes',
+            'paypal_email',
+            'additional_info'
+        ]));
+
+        return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Payment Method added successfully!');
     }
 }
