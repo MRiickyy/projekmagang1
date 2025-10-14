@@ -5,15 +5,6 @@
 @section('content')
 <div class="w-full max-w-3xl bg-[#F2F6F9] mx-auto rounded-lg shadow-xl p-6 text-slate-800">
 
-    <!-- Title + Back Button -->
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-lg font-bold text-slate-900">Speaker Information</h2>
-        <a href="{{ route('admin.speakers') }}"
-            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-            Back to List
-        </a>
-    </div>
-
     <form action="{{ route('update.speakers', $speaker->slug) }}" method="POST" enctype="multipart/form-data" class="space-y-5">
         @csrf
         @method('PUT')
@@ -111,12 +102,11 @@
 
         <!-- Action Buttons -->
         <div class="flex justify-end gap-3 pt-6">
-            <button type="reset"
-                class="px-6 py-2 text-sm rounded-md bg-gray-600 text-white hover:bg-gray-700 transition">
+            <button type="button" onclick="window.history.back()" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
                 Cancel
             </button>
             <button type="submit"
-                class="px-6 py-2 text-sm rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md hover:opacity-90 transition">
+                class="px-7 py-2 text-sm rounded-md bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] text-black font-semibold shadow-md hover:opacity-90 transition">
                 Save
             </button>
         </div>
