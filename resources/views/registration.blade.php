@@ -17,11 +17,11 @@
         <!-- CTA Box -->
         <div class="mt-10 bg-[#1a1f27] rounded-xl p-8 shadow-xl space-y-6 text-center text-white">
             <p class="mb-2 text-white text-lg md:text-xl">
-                {{ $registration['cta']->cta_title ?? 'Please Register Here' }}
+                {{ $registration['cta_title']->content ?? 'Please Register Here' }}
             </p>
-            <a href="{{ $registration['cta']->cta_link ?? '#' }}"
-                class="inline-flex items-center justify-center rounded-full bg-[#25d366] hover:bg-[#1fb857] transition px-6 py-2 md:px-8 md:py-3 font-semibold shadow">
-                {{ $registration['cta']->cta_button ?? 'Registration Form' }}
+            <a href="{{ $registration['cta_link']->content ?? '#' }}"
+            class="inline-flex items-center justify-center rounded-full bg-[#25d366] hover:bg-[#1fb857] transition px-6 py-2 md:px-8 md:py-3 font-semibold shadow">
+                {{ $registration['cta_button']->content ?? 'Registration Form' }}
             </a>
         </div>
 
