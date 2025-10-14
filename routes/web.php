@@ -29,14 +29,16 @@ Route::get('/newacc', function () {
 
 //Route Login Admin
 Route::middleware(['web'])->group(function () {
+
+    Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.process');
+
     Route::get('/admin/logout', function () {
         session()->forget(['admin_logged_in', 'admin_username']);
         return redirect()->route('admin.login')->with('success', 'Logout berhasil.');
     })->name('admin.logout');
 });
-Route::get('/admin/login', function () {return view('admin.loginAdmin');})->name('admin.login');
-Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
-Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.process');
+
 
 
 
