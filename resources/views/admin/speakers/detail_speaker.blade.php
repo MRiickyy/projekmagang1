@@ -71,14 +71,10 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex justify-between pt-4">
-                <div class="flex gap-3">
-                </div>
-
-                <a href="{{ route('admin.speakers') }}"
-                    class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
-                    Back
-                </a>
+            <div class="flex justify-end pt-4">
+                    <button type="button" onclick="window.history.back()" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                        Back
+                    </button>
             </div>
 
         </div>
