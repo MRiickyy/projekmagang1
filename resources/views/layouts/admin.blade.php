@@ -139,7 +139,10 @@
                         <h1 class="text-xl font-bold">@yield('title')</h1>
                     </div>
                     <div class="space-x-6 text-sm">
-                        <span>Selamat datang, <strong>admin123</strong></span>
+                        @if(session('admin_logged_in'))
+                        <span>Selamat datang, <strong>{{ session('admin_username') }}</strong></span>
+                        @endif
+
                         <a href="/" class="hover:underline">Lihat website</a>
                         <a href="{{ route('admin.login') }}" class="hover:underline">Logout</a>
                     </div>

@@ -9,16 +9,18 @@ class Admin extends Authenticatable
 {
     use HasFactory;
 
-    // Nama tabel di database
+    
     protected $table = 'admins_login';
+    protected $fillable = ['username', 'password']; 
+    protected $hidden = ['password'];
 
-    // Kolom yang bisa diisi
+    
     protected $fillable = [
         'username',
         'password',
     ];
 
-    // Kolom yang disembunyikan saat diambil
+    
     protected $hidden = [
         'password',
     ];
