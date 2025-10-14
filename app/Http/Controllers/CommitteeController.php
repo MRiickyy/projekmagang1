@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class CommitteeController extends Controller
 {
+    // ==============================
+    // 🔹 FRONTEND PAGES
+    // ==============================
     public function steering()
     {
         $committees = Committee::where('type', 'steering')->get();
@@ -25,26 +28,72 @@ class CommitteeController extends Controller
         return view('committees.OrganizingCommittees', compact('committees'));
     }
 
-    public function listCommittees(Request $request)
+    // ==============================
+    // 🔹 ADMIN LIST PER TYPE
+    // ==============================
+    public function listSteering(Request $request)
     {
-        $query = Committee::query();
+        $query = Committee::where('type', 'steering');
 
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%')
-                    ->orWhere('university', 'like', '%' . $request->search . '%');
+                  ->orWhere('university', 'like', '%' . $request->search . '%');
             });
-        }
-
-        if ($request->filled('type')) {
-            $query->where('type', $request->type);
         }
 
         $committees = $query->orderBy('name', 'asc')->paginate(10);
 
-        return view('admin.committees.list_committees', compact('committees'));
+        return view('admin.committees.list_committees', [
+            'committees' => $committees,
+            'title' => 'Steering Committee',
+            'type' => 'steering'
+        ]);
     }
 
+    public function listTechnical(Request $request)
+    {
+        $query = Committee::where('type', 'technical program');
+
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('university', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $committees = $query->orderBy('name', 'asc')->paginate(10);
+
+        return view('admin.committees.list_committees', [
+            'committees' => $committees,
+            'title' => 'Technical Program Committee',
+            'type' => 'technical program'
+        ]);
+    }
+
+    public function listOrganizing(Request $request)
+    {
+        $query = Committee::where('type', 'organizing');
+
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('university', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $committees = $query->orderBy('name', 'asc')->paginate(10);
+
+        return view('admin.committees.list_committees', [
+            'committees' => $committees,
+            'title' => 'Organizing Committee',
+            'type' => 'organizing'
+        ]);
+    }
+
+    // ==============================
+    // 🔹 ADMIN CRUD
+    // ==============================
     public function addForm()
     {
         return view('admin.committees.add_committee');
@@ -62,7 +111,9 @@ class CommitteeController extends Controller
 
         Committee::create($validated);
 
-        return redirect()->route('admin.committees')->with('success', 'Committee has been added successfully!');
+        // redirect ke list sesuai type
+        return redirect()->route('admin.committees.' . str_replace(' ', '_', $validated['type']))
+            ->with('success', ucfirst($validated['type']) . ' committee added successfully!');
     }
 
     public function editForm($id)
@@ -74,25 +125,29 @@ class CommitteeController extends Controller
     public function updateCommittee(Request $request, $id)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'role' => 'required|string|max:255',
-            'university' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
-            'type' => 'required|in:steering,technical program,organizing',
+            'name'       => 'required|string|max:255',
+            'role'       => 'required|string|max:255',
+            'university' => 'nullable|string|max:255',
+            'country'    => 'nullable|string|max:255',
+            'type'       => 'required|in:steering,technical program,organizing',
         ]);
 
         $committee = Committee::findOrFail($id);
         $committee->update($validated);
 
-        return redirect()->route('admin.committees')->with('success', 'Committee updated successfully!');
+        return redirect()->route('admin.committees.' . str_replace(' ', '_', $validated['type']))
+            ->with('success', ucfirst($validated['type']) . ' committee updated successfully!');
     }
 
     public function deleteCommittee($id)
     {
         $committee = Committee::findOrFail($id);
+        $type = $committee->type;
+
         $committee->delete();
 
-        return redirect()->route('admin.committees')->with('success', 'Committee deleted successfully!');
+        return redirect()->route('admin.committees.' . str_replace(' ', '_', $type))
+            ->with('success', ucfirst($type) . ' committee deleted successfully!');
     }
 
     public function adminDetail($id)

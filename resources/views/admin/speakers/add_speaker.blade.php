@@ -43,14 +43,12 @@
         <!-- Speaker Type -->
         <div>
             <label class="block text-sm font-semibold text-slate-900 mb-2">Speaker Type</label>
-            <label class="flex items-center gap-2 text-sm">
-                <input type="radio" name="speaker_type" value="keynote" class="focus:ring-0">
-                Keynote Speaker
-            </label>
-            <label class="flex items-center gap-2 text-sm">
-                <input type="radio" name="speaker_type" value="tutorial" class="focus:ring-0">
-                Tutorial Speaker
-            </label>
+            <select name="speaker_type" id="methodSelect"
+                class="w-full text-sm border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none" required>
+                <option value="">-- Choose Speaker Type --</option>
+                <option value="tutorial" {{ old('speaker_type') == 'tutorial' ? 'selected' : '' }}>Tutorial Speaker</option>
+                <option value="keynote" {{ old('speaker_type') == 'keynote' ? 'selected' : '' }}>Keynote Speaker</option>
+            </select>
         </div>
 
         <!-- Biodata -->

@@ -8,10 +8,6 @@
     <!-- Title + Back Button -->
     <div class="flex justify-between items-center mb-6">
         <h2 class="text-lg font-bold text-slate-900">Edit Committee</h2>
-        <a href="{{ route('admin.committees') }}"
-           class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-            Back to List
-        </a>
     </div>
 
     <form action="{{ route('update.committees', $committee->id) }}" method="POST" enctype="multipart/form-data" class="space-y-5">

@@ -3,55 +3,88 @@
 @section('title', 'Committee Detail')
 
 @section('content')
-<div class="w-full max-w-3xl bg-[#F2F6F9] mx-auto rounded-lg shadow-xl p-6 text-slate-800">
 
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-lg font-bold text-slate-900">Committee Detail</h2>
-        <a href="{{ route('admin.committees') }}"
-           class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-            Back to List
-        </a>
+<!-- Content -->
+<main class="flex-1 flex justify-center items-start px-4 py-10">
+    <div class="w-full max-w-3xl bg-[#F2F6F9] rounded-lg shadow-xl p-6 text-slate-800">
+
+        <h2 class="text-base font-semibold text-slate-900 mb-6">Committee Detail Information</h2>
+
+        <div class="space-y-5">
+
+            <!-- Committee Image (optional) -->
+            @if(!empty($committee->image))
+            <div class="flex justify-center mb-4">
+                <img src="{{ asset('images/committees/' . $committee->image) }}"
+                    alt="{{ $committee->name }}"
+                    class="w-40 h-40 object-cover rounded-lg shadow-md">
+            </div>
+            @endif
+
+            <!-- Full Name -->
+            <div>
+                <label class="block text-sm font-bold text-slate-900 mb-1">Full Name</label>
+                <input type="text" value="{{ $committee->name }}"
+                    class="w-full border border-gray-400 bg-gray-200 rounded-md px-3 py-2 text-gray-700 cursor-not-allowed"
+                    readonly disabled />
+            </div>
+
+            <!-- Role -->
+            <div>
+                <label class="block text-sm font-bold text-slate-900 mb-1">Role</label>
+                <input type="text" value="{{ $committee->role }}"
+                    class="w-full border border-gray-400 bg-gray-200 rounded-md px-3 py-2 text-gray-700 cursor-not-allowed"
+                    readonly disabled />
+            </div>
+
+            <!-- University -->
+            @if($committee->university)
+            <div>
+                <label class="block text-sm font-bold text-slate-900 mb-1">University</label>
+                <input type="text" value="{{ $committee->university }}"
+                    class="w-full border border-gray-400 bg-gray-200 rounded-md px-3 py-2 text-gray-700 cursor-not-allowed"
+                    readonly disabled />
+            </div>
+            @endif
+
+            <!-- Country -->
+            @if($committee->country)
+            <div>
+                <label class="block text-sm font-bold text-slate-900 mb-1">Country</label>
+                <input type="text" value="{{ $committee->country }}"
+                    class="w-full border border-gray-400 bg-gray-200 rounded-md px-3 py-2 text-gray-700 cursor-not-allowed"
+                    readonly disabled />
+            </div>
+            @endif
+
+            <!-- Type -->
+            <div>
+                <label class="block text-sm font-bold text-slate-900 mb-1">Committee Type</label>
+                <input type="text" value="{{ ucfirst($committee->type) }}"
+                    class="w-full border border-gray-400 bg-gray-200 rounded-md px-3 py-2 text-gray-700 cursor-not-allowed"
+                    readonly disabled />
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex justify-end pt-4">
+
+                <!-- Back Button -->
+                @php
+                    $backRoute = match($committee->type) {
+                        'steering' => 'admin.committees.steering',
+                        'technical program' => 'admin.committees.technical_program',
+                        'organizing' => 'admin.committees.organizing'
+                    };
+                @endphp
+
+                <a href="{{ route($backRoute) }}"
+                    class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                    Back
+                </a>
+            </div>
+
+        </div>
     </div>
+</main>
 
-    <!-- Detail Content -->
-    <div class="space-y-4 text-sm">
-        <div>
-            <p class="font-semibold text-slate-900">Full Name</p>
-            <p class="bg-white border border-gray-200 rounded-md px-3 py-2">{{ $committee->name }}</p>
-        </div>
-
-        <div>
-            <p class="font-semibold text-slate-900">Role</p>
-            <p class="bg-white border border-gray-200 rounded-md px-3 py-2">{{ $committee->role }}</p>
-        </div>
-
-        <div>
-            <p class="font-semibold text-slate-900">University</p>
-            <p class="bg-white border border-gray-200 rounded-md px-3 py-2">{{ $committee->university }}</p>
-        </div>
-
-        <div>
-            <p class="font-semibold text-slate-900">Country</p>
-            <p class="bg-white border border-gray-200 rounded-md px-3 py-2">{{ $committee->country }}</p>
-        </div>
-
-        <div>
-            <p class="font-semibold text-slate-900">Committee Type</p>
-            <p class="bg-white border border-gray-200 rounded-md px-3 py-2 capitalize">{{ $committee->type }}</p>
-        </div>
-    </div>
-
-    <!-- Action Buttons -->
-    <div class="flex justify-start gap-3 mt-6">
-        <a href="{{ route('edit.committees', $committee->id) }}"
-            class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Edit</a>
-
-        <form action="{{ route('delete.committees', $committee->id) }}" method="POST" class="inline delete-item">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Delete</button>
-        </form>
-    </div>
-</div>
 @endsection

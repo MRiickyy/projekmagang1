@@ -44,6 +44,8 @@ Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.logi
 Route::get('/keynote-speakers-2025', [SpeakerController::class, 'keynote']);
 Route::get('/tutorial-speakers-2025', [SpeakerController::class, 'tutorial']);
 Route::get('/speakers/{slug}', [SpeakerController::class, 'detailSpeaker'])->name('detail.speaker');
+
+// Route Speaker Admin
 Route::get('/admin/speakers', [SpeakerController::class, 'listSpeakers'])->name('admin.speakers');
 Route::get('/admin/speakers/keynote', [SpeakerController::class, 'listKeynoteSpeakers'])->name('admin.speakers.keynote');
 Route::get('/admin/speakers/tutorial', [SpeakerController::class, 'listTutorialSpeakers'])->name('admin.speakers.tutorial');
@@ -58,7 +60,11 @@ Route::get('/admin/speaker/{slug}/detail', [SpeakerController::class, 'adminDeta
 Route::get('/steering-committees', [CommitteeController::class, 'steering']);
 Route::get('/technical-committees', [CommitteeController::class, 'technical']);
 Route::get('/organizing-committees', [CommitteeController::class, 'organizing']);
-Route::get('/admin/committees', [CommitteeController::class, 'listCommittees'])->name('admin.committees');
+
+// Route Committees Admin
+Route::get('/admin/committees/steering', [CommitteeController::class, 'listSteering'])->name('admin.committees.steering');
+Route::get('/admin/committees/technical', [CommitteeController::class, 'listTechnical'])->name('admin.committees.technical_program');
+Route::get('/admin/committees/organizing', [CommitteeController::class, 'listOrganizing'])->name('admin.committees.organizing');
 Route::get('/admin/committee/add', [CommitteeController::class, 'addForm'])->name('add.form.committees');
 Route::post('/admin/committee/add', [CommitteeController::class, 'addCommittee'])->name('add.committees');
 Route::get('/admin/committee/{id}/edit', [CommitteeController::class, 'editForm'])->name('edit.committees');
