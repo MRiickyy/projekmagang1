@@ -27,9 +27,10 @@
                 </thead>
 
                 <tbody class="bg-white text-slate-800">
+                    @php $no = 1; @endphp
                     @foreach ($authorInfos as $info)
                     <tr class="hover:bg-gray-100">
-                        <td class="px-4 py-2 border">{{ $info->id }}</td>
+                        <td class="px-4 py-2 border">{{ $no++ }}</td>
                         <td class="px-4 py-2 border">{{ $info->section }}</td>
                         <td class="px-4 py-2 border">{{ $info->content }}</td>
                         <td class="px-4 py-2 border">{{ $info->created_at }}</td>
