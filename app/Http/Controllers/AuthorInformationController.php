@@ -9,7 +9,7 @@ class AuthorInformationController extends Controller
 {
     public function index()
     {
-        $authorInfos = AuthorInformation::all()->keyBy('section');
+        $authorInfos = AuthorInformation::all()->groupBy('section');
         return view('author', compact('authorInfos'));
     }
 
