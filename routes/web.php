@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeContentController;
 use App\Http\Controllers\CallPaperController;
 use App\Http\Controllers\SpeakerController;
@@ -24,6 +25,19 @@ Route::get('/login', function () {
 Route::get('/newacc', function () {
     return view('newacc');
 });
+
+
+//Route Login Admin
+Route::middleware(['web'])->group(function () {
+    Route::get('/admin/logout', function () {
+        session()->forget(['admin_logged_in', 'admin_username']);
+        return redirect()->route('admin.login')->with('success', 'Logout berhasil.');
+    })->name('admin.logout');
+});
+Route::get('/admin/login', function () {return view('admin.loginAdmin');})->name('admin.login');
+Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.process');
+
 
 
 // Route Speaker
@@ -152,9 +166,6 @@ Route::get('/admin/contacts/tambah', function () {
 
 
 
-Route::get('/admin/login', function () {
-    return view('loginAdmin');
-})->name('admin.login');
 
 Route::get('/admin/speakerss', function () {
     return view('speakerAdmin'); // file: resources/views/keyspeakers.blade.php
