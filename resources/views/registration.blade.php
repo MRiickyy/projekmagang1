@@ -1,4 +1,3 @@
-```blade
 @extends('layouts.app')
 
 @section('title', 'Registration - ICOICT 2025')
@@ -18,11 +17,11 @@
         <!-- CTA Box -->
         <div class="mt-10 bg-[#1a1f27] rounded-xl p-8 shadow-xl space-y-6 text-center text-white">
             <p class="mb-2 text-white text-lg md:text-xl">
-                {{ $registration->cta_title ?? 'Please Register Here' }}
+                {{ $registration['cta_title']->content ?? 'Please Register Here' }}
             </p>
-            <a href="{{ $registration->cta_link ?? '#' }}"
-                class="inline-flex items-center justify-center rounded-full bg-[#25d366] hover:bg-[#1fb857] transition px-6 py-2 md:px-8 md:py-3 font-semibold shadow">
-                {{ $registration->cta_button ?? 'Registration Form' }}
+            <a href="{{ $registration['cta_link']->content ?? '#' }}"
+            class="inline-flex items-center justify-center rounded-full bg-[#25d366] hover:bg-[#1fb857] transition px-6 py-2 md:px-8 md:py-3 font-semibold shadow">
+                {{ $registration['cta_button']->content ?? 'Registration Form' }}
             </a>
         </div>
 
@@ -63,8 +62,8 @@
         <div class="mt-6 bg-gray-100 rounded-xl p-6 shadow-lg">
             <h2 class="text-lg font-semibold mb-3">Notes:</h2>
             <ul class="list-disc list-inside space-y-1">
-                @if($registration->notes)
-                    @foreach(explode("\n", $registration->notes) as $note)
+                @if(isset($registration['notes']) && $registration['notes']->content)
+                    @foreach(explode("\n", $registration['notes']->content) as $note)
                         <li>{{ $note }}</li>
                     @endforeach
                 @else
@@ -74,10 +73,10 @@
                 @endif
             </ul>
 
-            <h2 class="text-lg font-semibold mt-4 mb-2">The conference fee include:</h2>
+            <h2 class="text-lg font-semibold mt-4 mb-2">The conference fee includes:</h2>
             <ul class="list-disc list-inside">
-                @if($registration->conference_fee_include)
-                    @foreach(explode("\n", $registration->conference_fee_include) as $item)
+                @if(isset($registration['conference_fee_include']) && $registration['conference_fee_include']->content)
+                    @foreach(explode("\n", $registration['conference_fee_include']->content) as $item)
                         <li>{{ $item }}</li>
                     @endforeach
                 @else
@@ -90,43 +89,76 @@
         <div class="mt-6 space-y-4 text-black leading-relaxed">
             <h1 class="text-3xl font-bold mb-6 text-center text-[#1a1f27]/95">Payment Methods</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                @foreach($paymentMethods as $method)
+                <!-- Gabungan semua Virtual Account -->
+                @php
+                    $virtualAccounts = $paymentMethods->where('method_name', 'Virtual Account');
+                    $paypal = $paymentMethods->where('method_name', 'PayPal');
+                @endphp
+
+                @if($virtualAccounts->count() > 0)
                     <div class="p-6 bg-gray-100 rounded-xl shadow-lg">
-                        <h3 class="text-xl text-center font-bold mb-4">{{ $method->method_name }}</h3>
+                        <h3 class="text-xl text-center font-bold mb-4">Virtual Account</h3>
 
-                        @if($method->method_name === 'Virtual Account')
-                            <ul class="list-disc pl-5 text-gray-700 space-y-1">
-                                <li><strong>Bank Name:</strong> {{ $method->bank_name }}</li>
-                                <li><strong>Account Name:</strong> {{ $method->account_name }}</li>
-                                <li><strong>Virtual Account Number:</strong> {{ $method->virtual_account_number }}</li>
-                            </ul>
-                            @if($method->important_notes)
-                                <p class="mt-3 text-red-600 font-semibold">
-                                    {{ $method->important_notes }}
-                                </p>
-                            @endif
-                        @elseif($method->method_name === 'PayPal')
-                            <li><strong>PayPal Email Address:</strong> {{ $method->paypal_email }}</li>
+                        <!-- Tampilkan info VA -->
+                        @foreach($virtualAccounts as $index => $va)
+                            <div class="mb-4 pb-3 @if($index < $virtualAccounts->count() - 1) border-b border-gray-300 @endif">
+                                <p><span class="font-bold">Bank Name:</span> {{ $va->bank_name }}</p>
+                                <p><span class="font-bold">Account Name:</span> {{ $va->account_name }}</p>
+                                <p><span class="font-bold">Virtual Account Number:</span> {{ $va->virtual_account_number }}</p>
+                            </div>
+                        @endforeach
 
-                            @if($method->additional_info)
-                                <p class="mt-2 font-bold">Additional Information:</p>
-                                <p class="text-gray-700 space-y-1 leading-relaxed">
-                                    {{ $method->additional_info }}
-                                </p>
-                            @endif
+                        <!-- Gabungkan semua important_notes di bawah semua VA -->
+                        @php
+                            $allImportantNotes = $virtualAccounts->pluck('important_notes')->filter();
+                        @endphp
+
+                        @if($allImportantNotes->count() > 0)
+                            @foreach($allImportantNotes as $note)
+                                <p class="text-red-600 font-semibold mt-2">{{ $note }}</p>
+                            @endforeach
                         @endif
                     </div>
-                @endforeach
+                @endif
+
+                <!-- PayPal -->
+                @if($paypal->count() > 0)
+                    <div class="p-6 bg-gray-100 rounded-xl shadow-lg">
+                        <h3 class="text-xl text-center font-bold mb-4">PayPal</h3>
+
+                        <p class="font-bold mb-2">PayPal Email Address:</p>
+
+                        <ul class="list-disc list-inside space-y-1 text-gray-800">
+                            @foreach($paypal as $method)
+                                <li>{{ $method->paypal_email }}</li>
+                            @endforeach
+                        </ul>
+
+                        @php
+                            $additionalInfo = $paypal->pluck('additional_info')->filter()->unique()->implode("\n");
+                            $infoItems = preg_split('/\r\n|\r|\n/', trim($additionalInfo));
+                            $infoItems = array_filter($infoItems, fn($item) => !empty(trim($item)));
+                        @endphp
+
+                        @if(!empty($infoItems))
+                            <p class="mt-4 font-bold">Additional Information:</p>
+                            <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-1">
+                                @foreach($infoItems as $info)
+                                    <li>{{ $info }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+                @endif
             </div>
         </div>
-
 
         <!-- Registration Procedures -->
         <div class="bg-gray-100 rounded-xl p-6 shadow-lg mt-6">
             <h2 class="text-xl font-bold mb-3 text-[#1a1f27]/95">Registration Procedures</h2>
             <ol class="list-decimal list-inside text-black leading-relaxed">
-                @if($registration->registration_procedures)
-                    @foreach(explode("\n", $registration->registration_procedures) as $procedure)
+                @if(isset($registration['registration_procedures']) && $registration['registration_procedures']->content)
+                    @foreach(explode("\n", $registration['registration_procedures']->content) as $procedure)
                         <li>{!! $procedure !!}</li>
                     @endforeach
                 @else
@@ -141,4 +173,3 @@
     </div>
 </main>
 @endsection
-```

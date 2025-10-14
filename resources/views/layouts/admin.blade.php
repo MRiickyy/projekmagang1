@@ -66,8 +66,30 @@
                 <a href="{{ route('admin.list_callpaper_Admin') }}"
                     class="block px-3 py-2 rounded {{ request()->routeIs('admin.list_callpaper_Admin') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Call
                     For Paper</a>
-                <a href="{{ route('admin.speakers') }}"
-                    class="block px-3 py-2 rounded {{ request()->routeIs('admin.speakers') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Speakers</a>
+                <!-- Submenu Speakers -->
+                <div x-data="{ openSpeakers: false }">
+                    <button @click="openSpeakers = !openSpeakers"
+                        class="flex items-center justify-between w-full px-3 py-2 rounded hover:bg-[#334155] focus:outline-none">
+                        <span>Speakers</span>
+                        <svg :class="{'rotate-90': openSpeakers}" class="w-3 h-3 transition-transform" fill="none"
+                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+
+                    <div x-show="openSpeakers" x-collapse class="ml-4 space-y-2 mt-2">
+                        <a href="{{ route('admin.speakers.keynote') }}"
+                            class="block px-3 py-2 rounded 
+                            {{ request()->routeIs('admin.speakers.keynote') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
+                            Keynote Speakers
+                        </a>
+                        <a href="{{ route('admin.speakers.tutorial') }}"
+                            class="block px-3 py-2 rounded 
+                            {{ request()->routeIs('admin.speakers.tutorial') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
+                            Tutorial Speakers
+                        </a>
+                    </div>
+                </div>
                 <a href="{{ route('admin.committees') }}"
                     class="block px-3 py-2 rounded {{ request()->routeIs('admin.committees') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Committees</a>
 
@@ -81,16 +103,18 @@
                     </svg>
                 </button>
                 <div x-show="openAuthors" x-collapse class="ml-4 space-y-2 mt-2">
-                    <a href="{{ route('admin.forauthor.authorinformationAdmin') }}"
+                    <a href="{{ route('admin.forauthor.list_authorinformation_admin') }}"
                         class="block px-3 py-2 rounded 
-        {{ request()->routeIs('admin.forauthor.authorinformationAdmin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
+                        {{ request()->routeIs('admin.forauthor.list_authorinformation_admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
                         Author Informations
                     </a>
-                    <a href="{{ route('admin.forauthor.registrationsAdmin') }}"
+                    <a href="{{ route('admin.forauthor.list_registrations_admin') }}" 
                         class="block px-3 py-2 rounded 
-        {{ request()->routeIs('admin.forauthor.registrationsAdmin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">Registration</a>
+                        {{ request()->routeIs('admin.forauthor.list_registrations_admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
+                        Registration
+                    </a>
                     <a href="{{ route('admin.list_contacts_Admin') }}" class="block px-3 py-2 rounded 
-        {{ request()->routeIs('admin.list_contacts_Admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
+                        {{ request()->routeIs('admin.list_contacts_Admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
                         Contacts
                     </a>
                 </div>

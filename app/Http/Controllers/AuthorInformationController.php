@@ -7,56 +7,62 @@ use Illuminate\Http\Request;
 
 class AuthorInformationController extends Controller
 {
-    //====USER====\\
     public function index()
     {
-        $authorInfo = AuthorInformation::first();
-        return view('author', compact('authorInfo'));
+        $authorInfos = AuthorInformation::all()->groupBy('section');
+        return view('author', compact('authorInfos'));
     }
 
-    //===ADMIN====\\
-    // admin: displays the author information table
-    public function adminIndex()
+    public function listAuthor()
     {
-        $authorInfos = AuthorInformation::all(); // ambil semua data
-        return view('admin.forauthor.authorinformationAdmin', compact('authorInfos'));
+        $authorInfos = AuthorInformation::all();
+        return view('admin.forauthor.list_authorinformation_admin', compact('authorInfos'));
     }
 
-    // Untuk admin: halaman detail
-    public function adminAuthorDetail()
+    public function addAuthor()
     {
-        $authorInfo = AuthorInformation::first();
-        return view('admin.forauthor.detail_authorinformationAdmin', compact('authorInfo'));
+        return view('admin.forauthor.add_authorinformation_admin');
     }
 
-
-    // admin: form edit
-    public function adminAuthorEdit()
+    public function store(Request $request)
     {
-        $authorInfo = AuthorInformation::first();
-        return view('admin.forauthor.edit_authorinformationAdmin', compact('authorInfo'));
-    }
-
-    // admin: update
-    public function update(Request $request)
-    {
-        $validated = $request->validate([
-            'title' => 'nullable|string|max:255',
-            'cta_text' => 'nullable|string|max:255',
-            'cta_button' => 'nullable|string|max:255',
-            'cta_link' => 'nullable|string|max:255',
-            'intro_paragraph' => 'nullable|string',
-            'submission_link' => 'nullable|string',
-            'selection_process' => 'nullable|string',
-            'preparation_of_contributions' => 'nullable|string',
-            'non_presented_policy' => 'nullable|string',
+        $request->validate([
+            'section' => 'required|string',
+            'content' => 'required|string',
         ]);
 
-        AuthorInformation::updateOrCreate(
-            ['id' => 1],
-            $validated
-        );
+        AuthorInformation::create($request->only('section', 'content'));
 
-        return redirect()->route('admin.forauthor.authorinformationAdmin')->with('success', 'Author Information saved successfully!');
+        return redirect()->route('admin.forauthor.list_authorinformation_admin')->with('success', 'Content added successfully!');
+    }
+
+    public function edit($id)
+    {
+        $authorInfo = AuthorInformation::findOrFail($id);
+        return view('admin.forauthor.edit_authorinformation_admin', compact('authorInfo'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'content' => 'required|string',
+        ]);
+
+        $authorInfo = AuthorInformation::findOrFail($id);
+        $authorInfo->update($request->only('content'));
+
+        return redirect()->route('admin.forauthor.list_authorinformation_admin')->with('success', 'Content updated successfully!');
+    }
+
+    public function show($id)
+    {
+        $authorInfo = AuthorInformation::findOrFail($id);
+        return view('admin.forauthor.detail_authorinformation_admin', compact('authorInfo'))->with('isDetail', true);
+    }
+
+    public function destroy(AuthorInformation $authorInfo)
+    {
+        $authorInfo->delete();
+        return redirect()->route('admin.forauthor.list_authorinformation_admin')->with('success', 'Content deleted successfully!');
     }
 }
