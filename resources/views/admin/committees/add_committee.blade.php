@@ -40,20 +40,16 @@
         </div>
 
         <!-- Committee Type -->
+
         <div>
             <label class="block text-sm font-semibold text-slate-900 mb-2">Committee Type</label>
-            <label class="flex items-center gap-2 text-sm">
-                <input type="radio" name="type" value="steering" class="focus:ring-0">
-                Steering Committee
-            </label>
-            <label class="flex items-center gap-2 text-sm">
-                <input type="radio" name="type" value="technical program" class="focus:ring-0">
-                Technical Program Committee
-            </label>
-            <label class="flex items-center gap-2 text-sm">
-                <input type="radio" name="type" value="organizing" class="focus:ring-0">
-                Organizing Committee
-            </label>
+            <select name="type" id="methodSelect"
+                class="w-full text-sm border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none" required>
+                <option value="">-- Choose Committee Type --</option>
+                <option value="steering" {{ old('type') == 'steering' ? 'selected' : '' }}>Steering Committee</option>
+                <option value="technical program" {{ old('type') == 'technical program' ? 'selected' : '' }}>Technical Program Committee</option>
+                <option value="organizing" {{ old('type') == 'organizing' ? 'selected' : '' }}>Organizing Committee</option>
+            </select>
         </div>
 
         <!-- Action Buttons -->
