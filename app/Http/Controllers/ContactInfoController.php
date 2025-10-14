@@ -79,6 +79,78 @@ class ContactInfoController extends Controller
         return back()->with('success', 'Map Location deleted successfully!');
     }
 
+    // Edit Contact Info
+    public function editInfo($id)
+    {
+        $contactInfo = ContactInfo::findOrFail($id);
+        return view('admin.edit_contacts_Admin', [
+            'section' => 'create_contact_infos',
+            'data' => $contactInfo,
+            'isDetail' => false   // <-- mode edit
+        ]);
+    }
+
+    // Update Contact Info
+    public function updateInfo(Request $request, $id)
+    {
+        $contactInfo = ContactInfo::findOrFail($id);
+        $contactInfo->update($request->only(['type', 'title', 'value']));
+        return redirect()->route('admin.list_contacts_Admin')->with('success', 'Contact Info updated successfully!');
+    }
+
+    // Edit Map Location
+    public function editMap($id)
+    {
+        $map = MapLocation::findOrFail($id);
+        return view('admin.edit_contacts_Admin', [
+            'section' => 'create_map_locations_table',
+            'data' => $map,
+            'isDetail' => false   // <-- mode edit
+        ]);
+    }
+
+    // Update Map Location
+    public function updateMap(Request $request, $id)
+    {
+        $map = MapLocation::findOrFail($id);
+        $map->update($request->only(['title', 'link']));
+        return redirect()->route('admin.list_contacts_Admin')->with('success', 'Map Location updated successfully!');
+    }
+
+
+    // Detail Contact Info
+    public function detailInfo($id)
+    {
+        $contactInfo = ContactInfo::findOrFail($id);
+        return view('admin.edit_contacts_Admin', [
+            'section' => 'create_contact_infos',
+            'data' => $contactInfo,
+            'isDetail' => true   
+        ]);
+    }
+
+    // Detail Map Location
+    public function detailMap($id)
+    {
+        $map = MapLocation::findOrFail($id);
+        return view('admin.edit_contacts_Admin', [
+            'section' => 'create_map_locations_table',
+            'data' => $map,
+            'isDetail' => true   
+        ]);
+    }
+
+    // Detail Contact Message
+    public function detailMessage($id)
+    {
+        $message = ContactMessage::findOrFail($id);
+        return view('admin.edit_contacts_Admin', [
+            'section' => 'create_contact_messages',  // tandai ini Contact Message
+            'data' => $message,
+            'isDetail' => true   // selalu read-only
+        ]);
+    }
+
 
 
 

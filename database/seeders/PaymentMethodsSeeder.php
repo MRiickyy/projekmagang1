@@ -22,7 +22,7 @@ class PaymentMethodsSeeder extends Seeder
         PaymentMethod::create([
             'method_name' => 'PayPal',
             'paypal_email' => 'kangandrian@telkomuniversity.ac.id',
-            'additional_info' => "Transfer the full registration fee plus a 5% PayPal currency conversion fee.\nEnsure the fee is transferred under the registrant’s name, clearly stated on the payment slip.\nInclude your paper ID information on the payment slip."
+            'additional_info' => "Transfer the full registration fee plus a 5% PayPal currency conversion fee. Ensure the fee is transferred under the registrant’s name, clearly stated on the payment slip. Include your paper ID information on the payment slip."
         ]);
     }
 }
