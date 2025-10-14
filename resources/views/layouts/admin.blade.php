@@ -108,12 +108,13 @@
                         {{ request()->routeIs('admin.forauthor.list_authorinformation_admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
                         Author Informations
                     </a>
-                    <a href="{{ route('admin.forauthor.list_registrations_admin') }}" 
+                    <a href="{{ route('admin.forauthor.list_registrations_admin') }}"
                         class="block px-3 py-2 rounded 
                         {{ request()->routeIs('admin.forauthor.list_registrations_admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
                         Registration
                     </a>
-                    <a href="{{ route('admin.list_contacts_Admin') }}" class="block px-3 py-2 rounded 
+                    <a href="{{ route('admin.list_contacts_Admin') }}"
+                        class="block px-3 py-2 rounded 
                         {{ request()->routeIs('admin.list_contacts_Admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
                         Contacts
                     </a>
@@ -140,7 +141,7 @@
                     <div class="space-x-6 text-sm">
                         <span>Selamat datang, <strong>admin123</strong></span>
                         <a href="/" class="hover:underline">Lihat website</a>
-                        <a href="#" class="hover:underline">Logout</a>
+                        <a href="{{ route('admin.login') }}" class="hover:underline">Logout</a>
                     </div>
                 </div>
             </header>
