@@ -49,8 +49,8 @@ Route::get('/{event_year}/speakers/{slug}', [SpeakerController::class, 'detailSp
 
 // Route Speaker Admin
 Route::get('/admin/speakers', [SpeakerController::class, 'listSpeakers'])->name('admin.speakers');
-Route::get('/admin/speakers/keynote', [SpeakerController::class, 'listKeynoteSpeakers'])->name('admin.speakers.keynote');
-Route::get('/admin/speakers/tutorial', [SpeakerController::class, 'listTutorialSpeakers'])->name('admin.speakers.tutorial');
+Route::get('/admin/speaker/keynote', [SpeakerController::class, 'listKeynoteSpeakers'])->name('admin.speakers.keynote');
+Route::get('/admin/speaker/tutorial', [SpeakerController::class, 'listTutorialSpeakers'])->name('admin.speakers.tutorial');
 Route::get('/admin/speaker/add', [SpeakerController::class, 'addForm'])->name('add.form.speakers');
 Route::post('/admin/speaker/add', [SpeakerController::class, 'addSpeaker'])->name('add.speakers');
 Route::get('/admin/speaker/{slug}/edit', [SpeakerController::class, 'editForm'])->name('edit.speakers');
