@@ -10,4 +10,9 @@ class ContactMessage extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'email', 'message']; 
+    
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_year', 'year');
+    }
 }

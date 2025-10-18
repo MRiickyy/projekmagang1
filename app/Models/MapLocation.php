@@ -11,4 +11,9 @@ class MapLocation extends Model
 
     // Kolom yang boleh diisi mass-assignment
     protected $fillable = ['title', 'link'];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_year', 'year');
+    }
 }

@@ -96,7 +96,7 @@ Route::delete('/admin/home-contents/timelines/{timeline}', [HomeContentControlle
 //Route Contact
 // User mengirim pesan
 Route::post('/contacts', [ContactMessageController::class, 'store'])->name('contact.send');
-Route::get('/contacts', [ContactInfoController::class, 'index'])->name('contact'); 
+Route::get('/{event_year}/contacts', [ContactInfoController::class, 'index'])->name('contact'); 
 Route::get('/admin/contacts', [ContactInfoController::class, 'listContact'])->name('admin.list_contacts_Admin');
 Route::get('/admin/contacts/add', [ContactInfoController::class, 'addContact'])->name('admin.add_contacts_Admin');
 Route::post('/admin/contacts/store', [ContactInfoController::class, 'store'])->name('admin.store_contacts_Admin');
