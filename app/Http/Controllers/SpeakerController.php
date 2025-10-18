@@ -15,13 +15,19 @@ class SpeakerController extends Controller
 
     public function keynote()
     {
-        $speakers = Speaker::where('speaker_type', 'keynote')->get();
+        $speakers = Speaker::with('event')
+            ->where('speaker_type', 'keynote')
+            ->get();
+
         return view('speakers.keynote', compact('speakers'));
     }
 
     public function tutorial()
     {
-        $speakers = Speaker::where('speaker_type', 'tutorial')->get();
+        $speakers = Speaker::with('event')
+            ->where('speaker_type', 'tutorial')
+            ->get();
+
         return view('speakers.tutorial', compact('speakers'));
     }
 

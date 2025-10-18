@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             EventSeeder::class,
-            // SpeakerSeeder::class,
+            SpeakerSeeder::class,
+            CommitteeSeeder::class,
             // TimelineSeeder::class,
             // ContactInfoSeeder::class,
             // HomeContentSeeder::class,
