@@ -15,5 +15,11 @@ class Committee extends Model
         'university',
         'country',
         'type',
+        'event_year',
     ];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_year', 'year');
+    }
 }

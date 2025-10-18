@@ -12,19 +12,19 @@ class CommitteeController extends Controller
     // ==============================
     public function steering()
     {
-        $committees = Committee::where('type', 'steering')->get();
+        $committees = Committee::with('event')->where('type', 'steering')->get();
         return view('committees.SteeringCommittes', compact('committees'));
     }
 
     public function technical()
     {
-        $committees = Committee::where('type', 'technical program')->get();
+        $committees = Committee::with('event')->where('type', 'technical program')->get();
         return view('committees.TechnicalProgramCommittee', compact('committees'));
     }
 
     public function organizing()
     {
-        $committees = Committee::where('type', 'organizing')->get();
+        $committees = Committee::with('event')->where('type', 'organizing')->get();
         return view('committees.OrganizingCommittees', compact('committees'));
     }
 

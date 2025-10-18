@@ -19,4 +19,14 @@ class Event extends Model
     {
         return $this->hasMany(AuthorInformation::class, 'event_year');
     }
+
+    public function speakers()
+    {
+        return $this->hasMany(Speaker::class, 'event_year');
+    }
+
+    public function committees()
+    {
+        return $this->hasMany(Committee::class, 'event_year');
+    }
 }

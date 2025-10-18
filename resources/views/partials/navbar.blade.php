@@ -1,3 +1,6 @@
+@php
+    $eventYear = request()->route('event_year') ?? 2025; // default 2025 kalau gak ada param
+@endphp
 <!-- Topbar / Navbar -->
 <nav class="bg-[#1a1f27]/95 backdrop-blur supports-backdrop-blur sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
@@ -21,8 +24,8 @@
                 </button>
                 <div
                     class="dropdown-menu absolute left-0 mt-2 w-48 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
-                    <a href="/keynote-speakers-2025" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Keynote Speakers</a>
-                    <a href="/tutorial-speakers-2025" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Tutorial Speakers</a>
+                    <a href="{{ route('keynote.speakers', ['event_year' => $eventYear]) }}" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Keynote Speakers</a>
+                    <a href="{{ route('tutorial.speakers', ['event_year' => $eventYear]) }}" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Tutorial Speakers</a>
                 </div>
             </div>
 
@@ -36,9 +39,9 @@
                 </button>
                 <div
                     class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
-                    <a href="/steering-committees" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Steering Committees</a>
-                    <a href="/technical-committees" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Technical Program Committees</a>
-                    <a href="/organizing-committees" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Organizing Committees</a>
+                    <a href="{{ route('steering.committees', ['event_year' => $eventYear]) }}" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Steering Committees</a>
+                    <a href="{{ route('technical.committees', ['event_year' => $eventYear]) }}" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Technical Program Committees</a>
+                    <a href="{{ route('organizing.committees', ['event_year' => $eventYear]) }}" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Organizing Committees</a>
                 </div>
             </div>
 

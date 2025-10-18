@@ -43,9 +43,9 @@ Route::middleware(['web'])->group(function () {
 
 
 // Route Speaker
-Route::get('/keynote-speakers-2025', [SpeakerController::class, 'keynote']);
-Route::get('/tutorial-speakers-2025', [SpeakerController::class, 'tutorial']);
-Route::get('/speakers/{slug}', [SpeakerController::class, 'detailSpeaker'])->name('detail.speaker');
+Route::get('/{event_year}/keynote-speakers', [SpeakerController::class, 'keynote'])->name('keynote.speakers');
+Route::get('/{event_year}/tutorial-speakers', [SpeakerController::class, 'tutorial'])->name('tutorial.speakers');
+Route::get('/{event_year}/speakers/{slug}', [SpeakerController::class, 'detailSpeaker'])->name('detail.speaker');
 
 // Route Speaker Admin
 Route::get('/admin/speakers', [SpeakerController::class, 'listSpeakers'])->name('admin.speakers');
@@ -59,9 +59,9 @@ Route::delete('/admin/speaker/{slug}', [SpeakerController::class, 'deleteSpeaker
 Route::get('/admin/speaker/{slug}/detail', [SpeakerController::class, 'adminDetail'])->name('admin.speakers.detail');
 
 // Route Committees
-Route::get('/steering-committees', [CommitteeController::class, 'steering']);
-Route::get('/technical-committees', [CommitteeController::class, 'technical']);
-Route::get('/organizing-committees', [CommitteeController::class, 'organizing']);
+Route::get('/{event_year}/steering-committees', [CommitteeController::class, 'steering'])->name('steering.committees');
+Route::get('/{event_year}/technical-program-committees', [CommitteeController::class, 'technical'])->name('technical.committees');
+Route::get('/{event_year}/organizing-committees', [CommitteeController::class, 'organizing'])->name('organizing.committees');
 
 // Route Committees Admin
 Route::get('/admin/committees/steering', [CommitteeController::class, 'listSteering'])->name('admin.committees.steering');

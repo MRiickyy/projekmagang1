@@ -29,7 +29,8 @@
                     </div>
                 </div>
             </div>
-            <a href="{{ route('detail.speaker', $speaker->slug) }}"
+            <a href="{{ route('detail.speaker', ['event_year' => $speaker->event_year,
+                    'slug' => $speaker->slug]) }}"
                 class="self-end bg-[#0a2a43] hover:bg-[#103d60] text-white px-5 py-2 rounded-full text-sm flex items-center gap-2">
                 Read More
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"

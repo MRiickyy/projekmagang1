@@ -20,6 +20,8 @@ class SpeakerSeeder extends Seeder
             'university' => 'Multimedia University, Malaysia',
             'slug' => 'assoc-prof-ts-dr-afizan-azman',
             'biodata' => 'Short biodata about Afizan Azman...',
+            'speaker_type' => 'keynote',
+            'event_year' => 2025
         ]);
 
         // Insert Deskripsi Speaker
