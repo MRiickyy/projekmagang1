@@ -16,17 +16,18 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         $this->call([
-            SpeakerSeeder::class,
-            TimelineSeeder::class,
-            ContactInfoSeeder::class,
-            HomeContentSeeder::class,
-            MapLocationSeeder::class,
+            EventSeeder::class,
+            // SpeakerSeeder::class,
+            // TimelineSeeder::class,
+            // ContactInfoSeeder::class,
+            // HomeContentSeeder::class,
+            // MapLocationSeeder::class,
             AuthorInformationSeeder::class,
-            RegistrationSeeder::class,
-            RegistrationFeeSeeder::class,
-            PaymentMethodsSeeder::class,
-            CallPaperSeeder::class,
-            LoginAdminSeeder::class,
+            // RegistrationSeeder::class,
+            // RegistrationFeeSeeder::class,
+            // PaymentMethodsSeeder::class,
+            // CallPaperSeeder::class,
+            // LoginAdminSeeder::class,
             // tambahkan seeder lain di sini
         ]);
 
