@@ -12,9 +12,9 @@ class RegistrationController extends Controller
     //==== USER ====\\
     public function index()
     {
-        $registration = RegistrationModel::all()->keyBy('section');
-        $fees = RegistrationFee::all();
-        $paymentMethods = PaymentMethod::all();
+        $registration = RegistrationModel::with('event')->get()->keyBy('section');
+        $fees = RegistrationFee::with('event')->get();
+        $paymentMethods = PaymentMethod::with('event')->get();
 
         return view('registration', [
             'registration' => $registration,

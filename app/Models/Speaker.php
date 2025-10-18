@@ -16,6 +16,7 @@ class Speaker extends Model
         'image',
         'biodata',
         'speaker_type',
+        'event_year',
     ];
 
     // Relasi ke deskripsi
