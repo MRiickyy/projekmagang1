@@ -15,4 +15,9 @@ class HomeContent extends Model
         'section',
         'content',
     ];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_year', 'year');
+    }
 }

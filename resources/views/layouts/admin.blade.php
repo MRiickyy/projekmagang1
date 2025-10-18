@@ -14,43 +14,43 @@
 
 
     <style>
-    /* Animasi transisi */
-    .sidebar {
-        transition: width 0.5s ease, transform 0.5s ease;
-    }
+        /* Animasi transisi */
+        .sidebar {
+            transition: width 0.5s ease, transform 0.5s ease;
+        }
 
-    .sidebar-closed {
-        transform: translateX(-100%);
-    }
+        .sidebar-closed {
+            transform: translateX(-100%);
+        }
     </style>
 
     <!-- Script untuk tab Messages, Infos, Locations -->
     <script>
-    function openTab(evt, tabName) {
-        let tabcontent = document.getElementsByClassName("tabcontent");
-        for (let i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
+        function openTab(evt, tabName) {
+            let tabcontent = document.getElementsByClassName("tabcontent");
+            for (let i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            let tablinks = document.getElementsByClassName("tablink");
+            for (let i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("border-b-2", "border-teal-400", "text-teal-400");
+            }
+
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.classList.add("border-b-2", "border-teal-400", "text-teal-400");
         }
 
-        let tablinks = document.getElementsByClassName("tablink");
-        for (let i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove("border-b-2", "border-teal-400", "text-teal-400");
+        window.onload = function() {
+            document.getElementById("defaultOpen").click();
         }
-
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.classList.add("border-b-2", "border-teal-400", "text-teal-400");
-    }
-
-    window.onload = function() {
-        document.getElementById("defaultOpen").click();
-    }
     </script>
 
 </head>
 
 <body class="min-h-screen flex bg-gradient-to-r from-[#1E293B] via-[#334155] to-[#0F172A] text-slate-100">
 
-    <div x-data="{ openAuthors: false }" class="flex min-h-screen w-full">
+    <div x-data="{ openAuthors: false, openCommittees: false }" class="flex min-h-screen w-full">
 
         <!-- Sidebar -->
         <aside id="sidebar" class="sidebar w-64 bg-[#1a1f27]/95 shadow-md text-white flex flex-col fixed h-full z-20">
@@ -59,18 +59,61 @@
             </div>
 
             <nav class="flex-1 px-4 py-6 space-y-3 text-sm">
-                <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Dashboard</a>
                 <a href="{{ route('admin.list_home_contents_admin') }}"
                     class="block px-3 py-2 rounded {{ request()->routeIs('admin.list_home_contents_admin') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Home
                     Contents</a>
                 <a href="{{ route('admin.list_callpaper_Admin') }}"
                     class="block px-3 py-2 rounded {{ request()->routeIs('admin.list_callpaper_Admin') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Call
                     For Paper</a>
-                <a href="{{ route('admin.speakers') }}"
-                    class="block px-3 py-2 rounded {{ request()->routeIs('admin.speakers') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Speakers</a>
-                <a href="{{ route('admin.committees') }}"
-                    class="block px-3 py-2 rounded {{ request()->routeIs('admin.committees') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Committees</a>
+                <!-- Submenu Speakers -->
+                <div x-data="{ openSpeakers: false }">
+                    <button @click="openSpeakers = !openSpeakers"
+                        class="flex items-center justify-between w-full px-3 py-2 rounded hover:bg-[#334155] focus:outline-none">
+                        <span>Speakers</span>
+                        <svg :class="{'rotate-90': openSpeakers}" class="w-3 h-3 transition-transform" fill="none"
+                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
 
+                    <div x-show="openSpeakers" x-collapse class="ml-4 space-y-2 mt-2">
+                        <a href="{{ route('admin.speakers.keynote') }}"
+                            class="block px-3 py-2 rounded 
+                            {{ request()->routeIs('admin.speakers.keynote') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
+                            Keynote Speakers
+                        </a>
+                        <a href="{{ route('admin.speakers.tutorial') }}"
+                            class="block px-3 py-2 rounded 
+                            {{ request()->routeIs('admin.speakers.tutorial') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
+                            Tutorial Speakers
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Committees (with submenu) -->
+                <button @click="openCommittees = !openCommittees"
+                    class="flex items-center justify-between w-full px-3 py-2 rounded hover:bg-[#334155] focus:outline-none">
+                    <span>Committees</span>
+                    <svg :class="{'rotate-90': openCommittees}" class="w-3 h-3 transition-transform" fill="none"
+                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+                <div x-show="openCommittees" x-collapse class="ml-4 space-y-2 mt-2">
+                    <a href="{{ route('admin.committees.steering') }}"
+                        class="block px-3 py-2 rounded {{ request()->routeIs('admin.committees.steering') ? 'text-[#00e676] font-semibold' : 'hover:text-[#00e676]' }}">
+                        Steering Committee
+                    </a>
+                    <a href="{{ route('admin.committees.technical_program') }}"
+                        class="block px-3 py-2 rounded {{ request()->routeIs('admin.committees.technical') ? 'text-[#00e676] font-semibold' : 'hover:text-[#00e676]' }}">
+                        Technical Program Committee
+                    </a>
+                    <a href="{{ route('admin.committees.organizing') }}"
+                        class="block px-3 py-2 rounded {{ request()->routeIs('admin.committees.organizing') ? 'text-[#00e676] font-semibold' : 'hover:text-[#00e676]' }}">
+                        Organizing Committee
+                    </a>
+                </div>
+                
                 <!-- Submenu For Authors -->
                 <button @click="openAuthors = !openAuthors"
                     class="flex items-center justify-between w-full px-3 py-2 rounded hover:bg-[#334155] focus:outline-none">
@@ -83,16 +126,17 @@
                 <div x-show="openAuthors" x-collapse class="ml-4 space-y-2 mt-2">
                     <a href="{{ route('admin.forauthor.list_authorinformation_admin') }}"
                         class="block px-3 py-2 rounded 
-        {{ request()->routeIs('admin.forauthor.authorinformationAdmin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
+                        {{ request()->routeIs('admin.forauthor.list_authorinformation_admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
                         Author Informations
                     </a>
-                    <a href="{{ route('admin.forauthor.list_registrations_admin') }}" 
+                    <a href="{{ route('admin.forauthor.list_registrations_admin') }}"
                         class="block px-3 py-2 rounded 
-        {{ request()->routeIs('admin.forauthor.list_registrations_admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
+                        {{ request()->routeIs('admin.forauthor.list_registrations_admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
                         Registration
                     </a>
-                    <a href="{{ route('admin.list_contacts_Admin') }}" class="block px-3 py-2 rounded 
-        {{ request()->routeIs('admin.list_contacts_Admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
+                    <a href="{{ route('admin.list_contacts_Admin') }}"
+                        class="block px-3 py-2 rounded 
+                        {{ request()->routeIs('admin.list_contacts_Admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
                         Contacts
                     </a>
                 </div>
@@ -116,9 +160,12 @@
                         <h1 class="text-xl font-bold">@yield('title')</h1>
                     </div>
                     <div class="space-x-6 text-sm">
-                        <span>Selamat datang, <strong>admin123</strong></span>
+                        @if(session('admin_logged_in'))
+                        <span>Selamat datang, <strong>{{ session('admin_username') }}</strong></span>
+                        @endif
+
                         <a href="/" class="hover:underline">Lihat website</a>
-                        <a href="#" class="hover:underline">Logout</a>
+                        <a href="{{ route('admin.login') }}" class="hover:underline">Logout</a>
                     </div>
                 </div>
             </header>
@@ -134,56 +181,56 @@
 
     <!-- Sidebar Toggle Script -->
     <script>
-    const toggleBtn = document.getElementById("toggleSidebar");
-    const sidebar = document.getElementById("sidebar");
-    const mainContent = document.getElementById("mainContent");
+        const toggleBtn = document.getElementById("toggleSidebar");
+        const sidebar = document.getElementById("sidebar");
+        const mainContent = document.getElementById("mainContent");
 
-    let sidebarOpen = true;
+        let sidebarOpen = true;
 
-    toggleBtn.addEventListener("click", () => {
-        sidebarOpen = !sidebarOpen;
+        toggleBtn.addEventListener("click", () => {
+            sidebarOpen = !sidebarOpen;
 
-        if (!sidebarOpen) {
-            sidebar.classList.add("sidebar-closed");
-            mainContent.classList.remove("ml-64");
-            mainContent.classList.add("ml-0");
-        } else {
-            sidebar.classList.remove("sidebar-closed");
-            mainContent.classList.remove("ml-0");
-            mainContent.classList.add("ml-64");
-        }
-    });
+            if (!sidebarOpen) {
+                sidebar.classList.add("sidebar-closed");
+                mainContent.classList.remove("ml-64");
+                mainContent.classList.add("ml-0");
+            } else {
+                sidebar.classList.remove("sidebar-closed");
+                mainContent.classList.remove("ml-0");
+                mainContent.classList.add("ml-64");
+            }
+        });
     </script>
 
     <!-- Delete Confirmation -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const deleteForms = document.querySelectorAll('.delete-item');
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteForms = document.querySelectorAll('.delete-item');
 
-        if (deleteForms.length > 0) {
-            deleteForms.forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
+            if (deleteForms.length > 0) {
+                deleteForms.forEach(form => {
+                    form.addEventListener('submit', function(e) {
+                        e.preventDefault();
 
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "This action cannot be undone!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!',
-                        cancelButtonText: 'No, cancel'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            form.submit();
-                        }
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "This action cannot be undone!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, delete it!',
+                            cancelButtonText: 'No, cancel'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
                     });
                 });
-            });
-        }
-    });
+            }
+        });
     </script>
 </body>
 

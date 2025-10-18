@@ -11,7 +11,9 @@ return new class extends Migration
         Schema::create('author_informations', function (Blueprint $table) {
             $table->id();
             $table->string('section'); 
-            $table->text('content');  
+            $table->text('content');
+            $table->integer('event_year');
+            $table->foreign('event_year')->references('year')->on('events')->cascadeOnDelete();
             $table->timestamps();
         });
     }

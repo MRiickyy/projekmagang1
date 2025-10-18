@@ -15,14 +15,16 @@ class PaymentMethodsSeeder extends Seeder
             'bank_name' => 'Bank Negara Indonesia (PERSERO)',
             'account_name' => 'Telkom University – ICOICT 2025',
             'virtual_account_number' => '832106204020127',
-            'important_notes' => 'Please include your paper ID information on the payment slip.'
+            'important_notes' => 'Please include your paper ID information on the payment slip.',
+            'event_year' => 2025
         ]);
 
         // PayPal
         PaymentMethod::create([
             'method_name' => 'PayPal',
             'paypal_email' => 'kangandrian@telkomuniversity.ac.id',
-            'additional_info' => "Transfer the full registration fee plus a 5% PayPal currency conversion fee. Ensure the fee is transferred under the registrant’s name, clearly stated on the payment slip. Include your paper ID information on the payment slip."
+            'additional_info' => "Transfer the full registration fee plus a 5% PayPal currency conversion fee. Ensure the fee is transferred under the registrant’s name, clearly stated on the payment slip. Include your paper ID information on the payment slip.",
+            'event_year' => 2025
         ]);
     }
 }

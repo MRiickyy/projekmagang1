@@ -8,18 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('home_contents', function (Blueprint $table) {
+        Schema::create('admins_login', function (Blueprint $table) {
             $table->id();
-            $table->string('section'); 
-            $table->text('content');
-            $table->integer('event_year');
-            $table->foreign('event_year')->references('year')->on('events')->cascadeOnDelete();
+            $table->string('username')->unique();
+            $table->string('password');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('home_contents');
+        Schema::dropIfExists('admins_login');
     }
 };

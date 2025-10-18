@@ -16,11 +16,17 @@ class Speaker extends Model
         'image',
         'biodata',
         'speaker_type',
+        'event_year',
     ];
 
     // Relasi ke deskripsi
     public function descriptions()
     {
         return $this->hasMany(DescriptionSpeaker::class, 'speaker_id');
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_year', 'year');
     }
 }

@@ -11,4 +11,9 @@ class ContactInfo extends Model
 
     protected $fillable = ['section', 'type', 'title', 'value', 'link'];
 
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_year', 'year');
+    }
+
 }

@@ -19,5 +19,11 @@ class PaymentMethod extends Model
         'paypal_email',
         'additional_info',
         'important_notes',
+        'event_year',
     ];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_year', 'year');
+    }
 }

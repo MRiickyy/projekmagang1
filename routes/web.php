@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeContentController;
 use App\Http\Controllers\CallPaperController;
 use App\Http\Controllers\SpeakerController;
@@ -10,12 +11,12 @@ use App\Http\Controllers\ContactInfoController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\RegistrationController;
 
-Route::get('/', [HomeContentController::class, 'index']);
+Route::get('/ICOICT/{event_year}', [HomeContentController::class, 'index'])->name('home');
 
 
-Route::get('/call-for-papers', function () {
-    return view('callpaper');
-});
+// Route::get('/call-for-papers', function () {
+//     return view('callpaper');
+// });
 
 Route::get('/login', function () {
     return view('login');
@@ -26,11 +27,30 @@ Route::get('/newacc', function () {
 });
 
 
+//Route Login Admin
+Route::middleware(['web'])->group(function () {
+
+    Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.process');
+
+    Route::get('/admin/logout', function () {
+        session()->forget(['admin_logged_in', 'admin_username']);
+        return redirect()->route('admin.login')->with('success', 'Logout berhasil.');
+    })->name('admin.logout');
+});
+
+
+
+
 // Route Speaker
-Route::get('/keynote-speakers-2025', [SpeakerController::class, 'keynote']);
-Route::get('/tutorial-speakers-2025', [SpeakerController::class, 'tutorial']);
-Route::get('/speakers/{slug}', [SpeakerController::class, 'detailSpeaker'])->name('detail.speaker');
+Route::get('/{event_year}/keynote-speakers', [SpeakerController::class, 'keynote'])->name('keynote.speakers');
+Route::get('/{event_year}/tutorial-speakers', [SpeakerController::class, 'tutorial'])->name('tutorial.speakers');
+Route::get('/{event_year}/speakers/{slug}', [SpeakerController::class, 'detailSpeaker'])->name('detail.speaker');
+
+// Route Speaker Admin
 Route::get('/admin/speakers', [SpeakerController::class, 'listSpeakers'])->name('admin.speakers');
+Route::get('/admin/speakers/keynote', [SpeakerController::class, 'listKeynoteSpeakers'])->name('admin.speakers.keynote');
+Route::get('/admin/speakers/tutorial', [SpeakerController::class, 'listTutorialSpeakers'])->name('admin.speakers.tutorial');
 Route::get('/admin/speaker/add', [SpeakerController::class, 'addForm'])->name('add.form.speakers');
 Route::post('/admin/speaker/add', [SpeakerController::class, 'addSpeaker'])->name('add.speakers');
 Route::get('/admin/speaker/{slug}/edit', [SpeakerController::class, 'editForm'])->name('edit.speakers');
@@ -39,10 +59,14 @@ Route::delete('/admin/speaker/{slug}', [SpeakerController::class, 'deleteSpeaker
 Route::get('/admin/speaker/{slug}/detail', [SpeakerController::class, 'adminDetail'])->name('admin.speakers.detail');
 
 // Route Committees
-Route::get('/steering-committees', [CommitteeController::class, 'steering']);
-Route::get('/technical-committees', [CommitteeController::class, 'technical']);
-Route::get('/organizing-committees', [CommitteeController::class, 'organizing']);
-Route::get('/admin/committees', [CommitteeController::class, 'listCommittees'])->name('admin.committees');
+Route::get('/{event_year}/steering-committees', [CommitteeController::class, 'steering'])->name('steering.committees');
+Route::get('/{event_year}/technical-program-committees', [CommitteeController::class, 'technical'])->name('technical.committees');
+Route::get('/{event_year}/organizing-committees', [CommitteeController::class, 'organizing'])->name('organizing.committees');
+
+// Route Committees Admin
+Route::get('/admin/committees/steering', [CommitteeController::class, 'listSteering'])->name('admin.committees.steering');
+Route::get('/admin/committees/technical', [CommitteeController::class, 'listTechnical'])->name('admin.committees.technical_program');
+Route::get('/admin/committees/organizing', [CommitteeController::class, 'listOrganizing'])->name('admin.committees.organizing');
 Route::get('/admin/committee/add', [CommitteeController::class, 'addForm'])->name('add.form.committees');
 Route::post('/admin/committee/add', [CommitteeController::class, 'addCommittee'])->name('add.committees');
 Route::get('/admin/committee/{id}/edit', [CommitteeController::class, 'editForm'])->name('edit.committees');
@@ -72,7 +96,7 @@ Route::delete('/admin/home-contents/timelines/{timeline}', [HomeContentControlle
 //Route Contact
 // User mengirim pesan
 Route::post('/contacts', [ContactMessageController::class, 'store'])->name('contact.send');
-Route::get('/contacts', [ContactInfoController::class, 'index'])->name('contact'); 
+Route::get('/{event_year}/contacts', [ContactInfoController::class, 'index'])->name('contact'); 
 Route::get('/admin/contacts', [ContactInfoController::class, 'listContact'])->name('admin.list_contacts_Admin');
 Route::get('/admin/contacts/add', [ContactInfoController::class, 'addContact'])->name('admin.add_contacts_Admin');
 Route::post('/admin/contacts/store', [ContactInfoController::class, 'store'])->name('admin.store_contacts_Admin');
@@ -89,7 +113,7 @@ Route::get('/admin/contact-messages/{id}/detail', [ContactInfoController::class,
 
 
 //Route Call Paper
-Route::get('/call-for-papers', [CallPaperController::class, 'index'])->name('call_papers');
+Route::get('/{event_year}/call-for-papers', [CallPaperController::class, 'index'])->name('call_papers');
 Route::get('/admin/callpaper', [CallPaperController::class, 'listCallPaper'])->name('admin.list_callpaper_Admin');
 Route::get('/admin/callpapers/add', [CallPaperController::class, 'addCallPaper'])->name('admin.add_callpaper_Admin');
 Route::post('/admin/callpapers/store', [CallPaperController::class, 'store'])->name('admin.store_callpaper_Admin');
@@ -101,7 +125,7 @@ Route::get('/admin/callpapers/{callPaper}', [CallPaperController::class, 'show']
 //====ROUTE USER & ADMIN FOR AUTHOR====\\
 // author information
 // user
-Route::get('/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
+Route::get('/{event_year}/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
 // admin
 Route::get('/admin/mainAuthorInformation', [AuthorInformationController::class, 'listAuthor'])->name('admin.forauthor.list_authorinformation_admin');
 Route::get('/admin/add-authorInformation', [AuthorInformationController::class, 'addAuthor'])->name('admin.forauthor.add_authorinformation_admin');
@@ -113,7 +137,7 @@ Route::delete('/admin/delete-authorInformation/{authorInfo}', [AuthorInformation
 
 // registrations
 //user
-Route::get('/registration', [RegistrationController::class, 'index'])->name('registration.index');
+Route::get('/{event_year}/registration', [RegistrationController::class, 'index'])->name('registration.index');
 // admin
 Route::get('/admin/mainregistrations', [RegistrationController::class, 'adminIndex'])->name('admin.forauthor.list_registrations_admin');
 Route::get('/admin/add-registrations', [RegistrationController::class, 'adminRegisAdd'])->name('admin.forauthor.add_registrations_admin');
@@ -150,9 +174,6 @@ Route::get('/admin/contacts/tambah', function () {
 
 
 
-Route::get('/admin/login', function () {
-    return view('loginAdmin');
-})->name('admin.login');
 
 Route::get('/admin/speakerss', function () {
     return view('speakerAdmin'); // file: resources/views/keyspeakers.blade.php

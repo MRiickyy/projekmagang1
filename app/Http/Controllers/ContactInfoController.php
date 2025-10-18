@@ -12,8 +12,8 @@ class ContactInfoController extends Controller
     // Halaman user contact
     public function index()
     {
-        $contactInfos = ContactInfo::all();
-        $map = MapLocation::latest()->first();
+        $contactInfos = ContactInfo::with('event')->get();
+        $map = MapLocation::with('event')->latest()->first();
 
         return view('contact', compact('contactInfos', 'map'));
     }

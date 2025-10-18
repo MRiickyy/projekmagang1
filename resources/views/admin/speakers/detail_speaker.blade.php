@@ -1,63 +1,83 @@
 @extends('layouts.admin')
 
-@section('title', 'Speaker Detail')
+@section('title', 'Detail Speaker Information')
 
 @section('content')
-<div class="max-w-4xl mx-auto bg-[#F2F6F9] rounded-lg shadow-xl p-6 mt-8 text-slate-800">
 
-    <!-- Title + Back Button -->
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-lg font-bold text-slate-900">Speaker Detail</h2>
-        <a href="{{ route('admin.speakers') }}"
-            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-            Back to List
-        </a>
-    </div>
+<!-- Content -->
+<main class="flex-1 flex justify-center items-start px-4 py-10">
+    <div class="w-full max-w-3xl bg-[#F2F6F9] rounded-lg shadow-xl p-6 text-slate-800">
 
-    <!-- Image dan Info Speaker -->
-    <div class="flex flex-col md:flex-row items-center md:items-start gap-6 mb-6">
-        <img src="{{ asset('images/speakers/' . $speaker->image) }}"
-            alt="{{ $speaker->name }}"
-            class="w-40 h-40 object-cover rounded-lg shadow-md">
-        <div class="flex-1">
-            <h1 class="text-xl font-bold text-slate-900">{{ $speaker->name }}</h1>
+        <h2 class="text-base font-semibold text-slate-900 mb-6">Detail Speaker Information</h2>
+
+        <div class="space-y-5">
+
+            <!-- Speaker Image -->
+            <div class="flex justify-center mb-4">
+                <img src="{{ asset('images/speakers/' . $speaker->image) }}"
+                    alt="{{ $speaker->name }}"
+                    class="w-40 h-40 object-cover rounded-lg shadow-md">
+            </div>
+
+            <!-- Name -->
+            <div>
+                <label class="block text-sm font-bold text-slate-900 mb-1" for="name">Name</label>
+                <input type="text" id="name" value="{{ $speaker->name }}"
+                    class="w-full border border-gray-400 bg-gray-200 rounded-md px-3 py-2 text-gray-700 cursor-not-allowed"
+                    readonly disabled />
+            </div>
+
+            <!-- University -->
             @if($speaker->university)
-            <p class="text-sm text-gray-600 mt-1">University: {{ $speaker->university }}</p>
+            <div>
+                <label class="block text-sm font-bold text-slate-900 mb-1" for="university">University</label>
+                <input type="text" id="university" value="{{ $speaker->university }}"
+                    class="w-full border border-gray-400 bg-gray-200 rounded-md px-3 py-2 text-gray-700 cursor-not-allowed"
+                    readonly disabled />
+            </div>
             @endif
-            <p class="text-sm text-gray-600 mt-1">Type: {{ ucfirst($speaker->speaker_type) }} Speaker</p>
+
+            <!-- Type -->
+            <div>
+                <label class="block text-sm font-bold text-slate-900 mb-1" for="speaker_type">Type</label>
+                <input type="text" id="speaker_type" value="{{ ucfirst($speaker->speaker_type) }} Speaker"
+                    class="w-full border border-gray-400 bg-gray-200 rounded-md px-3 py-2 text-gray-700 cursor-not-allowed"
+                    readonly disabled />
+            </div>
+
+            <!-- Biodata -->
             @if($speaker->biodata)
-            <p class="mt-3 text-gray-800">{{ $speaker->biodata }}</p>
+            <div>
+                <label class="block text-sm font-bold text-slate-900 mb-1" for="biodata">Biodata</label>
+                <textarea id="biodata" rows="5" readonly disabled
+                    class="w-full border border-gray-400 bg-gray-200 rounded-md px-3 py-2 text-gray-700 cursor-not-allowed">{{ $speaker->biodata }}</textarea>
+            </div>
             @endif
+
+            <!-- Descriptions -->
+            <div>
+                <label class="block text-sm font-bold text-slate-900 mb-1">Descriptions</label>
+                @if($speaker->descriptions->count() > 0)
+                    @foreach($speaker->descriptions as $desc)
+                        <div class="mb-3">
+                            <p class="font-semibold text-gray-800">{{ $desc->title }}</p>
+                            <textarea rows="3" readonly disabled
+                                class="w-full border border-gray-400 bg-gray-200 rounded-md px-3 py-2 text-gray-700 cursor-not-allowed">{{ $desc->content }}</textarea>
+                        </div>
+                    @endforeach
+                @else
+                    <p class="text-gray-500 italic">No descriptions available.</p>
+                @endif
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex justify-end pt-4">
+                    <button type="button" onclick="window.history.back()" class="px-6 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700">
+                        Back
+                    </button>
+            </div>
+
         </div>
     </div>
-
-    <!-- Descriptions -->
-    <div class="space-y-4">
-        <h2 class="text-lg font-semibold mb-2">Descriptions</h2>
-        @if($speaker->descriptions->count() > 0)
-        @foreach($speaker->descriptions as $desc)
-        <div>
-            <h3 class="font-semibold text-gray-800">{{ $desc->title }}</h3>
-            <p class="w-full border border-gray-300 bg-white rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
-                {{ $desc->content }}
-            </p>
-        </div>
-        @endforeach
-        @else
-        <p class="text-gray-500">No descriptions available.</p>
-        @endif
-    </div>
-
-    <!-- Action Buttons -->
-    <div class="flex justify-start gap-3 mt-6">
-        <a href="{{ route('edit.speakers', $speaker->slug) }}"
-            class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Edit</a>
-
-        <form action="{{ route('delete.speakers', $speaker->slug) }}" method="POST" class="inline delete-item">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Delete</button>
-        </form>
-    </div>
-</div>
+</main>
 @endsection
