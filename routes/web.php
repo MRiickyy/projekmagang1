@@ -11,12 +11,12 @@ use App\Http\Controllers\ContactInfoController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\RegistrationController;
 
-Route::get('/', [HomeContentController::class, 'index']);
+Route::get('/ICOICT/{event_year}', [HomeContentController::class, 'index'])->name('home');
 
 
-Route::get('/call-for-papers', function () {
-    return view('callpaper');
-});
+// Route::get('/call-for-papers', function () {
+//     return view('callpaper');
+// });
 
 Route::get('/login', function () {
     return view('login');
@@ -113,7 +113,7 @@ Route::get('/admin/contact-messages/{id}/detail', [ContactInfoController::class,
 
 
 //Route Call Paper
-Route::get('/call-for-papers', [CallPaperController::class, 'index'])->name('call_papers');
+Route::get('/{event_year}/call-for-papers', [CallPaperController::class, 'index'])->name('call_papers');
 Route::get('/admin/callpaper', [CallPaperController::class, 'listCallPaper'])->name('admin.list_callpaper_Admin');
 Route::get('/admin/callpapers/add', [CallPaperController::class, 'addCallPaper'])->name('admin.add_callpaper_Admin');
 Route::post('/admin/callpapers/store', [CallPaperController::class, 'store'])->name('admin.store_callpaper_Admin');

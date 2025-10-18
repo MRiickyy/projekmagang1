@@ -10,7 +10,7 @@ class CallPaperController extends Controller
     
     public function index()
     {
-        $callPapers = CallPaper::all();
+        $callPapers = CallPaper::with('event')->get();
         return view('callpaper', compact('callPapers'));
     }
 
