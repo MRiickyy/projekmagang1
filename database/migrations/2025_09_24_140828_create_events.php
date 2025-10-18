@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('timelines', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('round_number');
-            $table->date('date');
-            $table->string('title');
-            $table->integer('event_year');
-            $table->foreign('event_year')->references('year')->on('events')->cascadeOnDelete();
+            $table->string('event');
+            $table->integer('year')->unique();
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('timelines');
+        Schema::dropIfExists('events');
     }
 };

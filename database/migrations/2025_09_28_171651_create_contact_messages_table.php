@@ -14,6 +14,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->text('message');
+            $table->integer('event_year');
+            $table->foreign('event_year')->references('year')->on('events')->cascadeOnDelete();
             $table->timestamps();
         });
     }

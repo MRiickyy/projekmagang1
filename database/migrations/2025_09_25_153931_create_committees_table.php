@@ -15,6 +15,8 @@ return new class extends Migration
             $table->string('university')->nullable();
             $table->string('country')->nullable();
             $table->enum('type', ['steering', 'technical program', 'organizing'])->nullable();
+            $table->integer('event_year');
+            $table->foreign('event_year')->references('year')->on('events')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -24,4 +26,3 @@ return new class extends Migration
         Schema::dropIfExists('committees');
     }
 };
-

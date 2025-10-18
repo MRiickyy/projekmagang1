@@ -125,7 +125,7 @@ Route::get('/admin/callpapers/{callPaper}', [CallPaperController::class, 'show']
 //====ROUTE USER & ADMIN FOR AUTHOR====\\
 // author information
 // user
-Route::get('/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
+Route::get('/{event_year}/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
 // admin
 Route::get('/admin/mainAuthorInformation', [AuthorInformationController::class, 'listAuthor'])->name('admin.forauthor.list_authorinformation_admin');
 Route::get('/admin/add-authorInformation', [AuthorInformationController::class, 'addAuthor'])->name('admin.forauthor.add_authorinformation_admin');

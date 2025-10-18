@@ -12,7 +12,9 @@ return new class extends Migration
             $table->id();
             $table->string('type');   
             $table->string('title');  
-            $table->string('value');  
+            $table->string('value');
+            $table->integer('event_year');
+            $table->foreign('event_year')->references('year')->on('events')->cascadeOnDelete();
             $table->timestamps();
         });
     }
