@@ -14,5 +14,11 @@ class RegistrationModel extends Model
     protected $fillable = [
         'section',
         'content',
+        'event_year',
     ];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_year', 'year');
+    }
 }

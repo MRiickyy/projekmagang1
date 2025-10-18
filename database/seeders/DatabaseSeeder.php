@@ -22,10 +22,10 @@ class DatabaseSeeder extends Seeder
             HomeContentSeeder::class,
             MapLocationSeeder::class,
             AuthorInformationSeeder::class,
-            // RegistrationSeeder::class,
-            // RegistrationFeeSeeder::class,
-            // PaymentMethodsSeeder::class,
-            CallPaperSeeder::class,
+            RegistrationSeeder::class,
+            RegistrationFeeSeeder::class,
+            PaymentMethodsSeeder::class,
+            // CallPaperSeeder::class,
             // LoginAdminSeeder::class,
             // tambahkan seeder lain di sini
         ]);
