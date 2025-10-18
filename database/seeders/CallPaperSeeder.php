@@ -11,7 +11,8 @@ class CallPaperSeeder extends Seeder
     {
         // --- Call for Papers ---
         CallPaper::updateOrCreate(
-            ['section' => 'call_for_papers', 'title' => 'Artificial Intelligence & Machine Learning'],
+            ['section' => 'call_for_papers', 'title' => 'Artificial Intelligence & Machine Learning', 'event_year' => 2025],
+            
             ['content' => json_encode([
                 'Learning Algorithms & Methods',
                 'Explainable AI',
@@ -19,11 +20,13 @@ class CallPaperSeeder extends Seeder
                 'Natural Language Processing',
                 'AI in Healthcare',
                 'AI in Education'
-            ])]
+            ])],
+           
         );
 
         CallPaper::updateOrCreate(
-            ['section' => 'call_for_papers', 'title' => 'Data Science and Its Implementation'],
+            ['section' => 'call_for_papers', 'title' => 'Data Science and Its Implementation','event_year' => 2025],
+            
             ['content' => json_encode([
                 'Big Data Analytics',
                 'Statistical Methods',
@@ -31,11 +34,12 @@ class CallPaperSeeder extends Seeder
                 'Recommender Systems',
                 'Business Intelligence',
                 'Computational Statistics'
-            ])]
+            ])],
+            
         );
 
         CallPaper::updateOrCreate(
-            ['section' => 'call_for_papers', 'title' => 'IoT System and Infrastructure'],
+            ['section' => 'call_for_papers', 'title' => 'IoT System and Infrastructure', 'event_year' => 2025],
             ['content' => json_encode([
                 'IoT Architectures',
                 'IoT Security',
@@ -46,11 +50,12 @@ class CallPaperSeeder extends Seeder
                 'Industry 4.0 IoT',
                 'Environmental IoT',
                 'Connected Systems',
-            ])]
+            ])],
+          
         );
 
         CallPaper::updateOrCreate(
-            ['section' => 'call_for_papers', 'title' => 'Information Technology Applications'],
+            ['section' => 'call_for_papers', 'title' => 'Information Technology Applications', 'event_year' => 2025],
             ['content' => json_encode([
                 'IT in Smart Cities; Cybersecurity',
                 'Software Development',
@@ -58,35 +63,41 @@ class CallPaperSeeder extends Seeder
                 'IT in e-Learning',
                 'IT Business Analytics',
                 'Emerging IT Tech',
-            ])]
+            ])],
+          
         );
 
         // --- Submission Guidelines ---
         CallPaper::updateOrCreate(
-            ['section' => 'submission_guidelines'],
-            ['content' => 'All papers must be original, a technical-type paper, not published or under consideration elsewhere, and conform to the specified IEEE format. Selected papers will undergo a rigorous peer-review process...']
+            ['section' => 'submission_guidelines','event_year' => 2025],
+            ['content' => 'All papers must be original, a technical-type paper, not published or under consideration elsewhere, and conform to the specified IEEE format. Selected papers will undergo a rigorous peer-review process...'],
+           
         );
 
         // --- Important Dates ---
         CallPaper::updateOrCreate(
-            ['section' => 'important_dates', 'title' => 'Paper Submission Deadline'],
-            ['content' => 'April 15, 2025']
+            ['section' => 'important_dates', 'title' => 'Paper Submission Deadline','event_year' => 2025],
+            ['content' => 'April 15, 2025'],
+           
         );
 
         CallPaper::updateOrCreate(
-            ['section' => 'important_dates', 'title' => 'Notification of Acceptance'],
-            ['content' => 'May 15, 2025']
+            ['section' => 'important_dates', 'title' => 'Notification of Acceptance','event_year' => 2025],
+            ['content' => 'May 15, 2025'],
+           
         );
 
         CallPaper::updateOrCreate(
-            ['section' => 'important_dates', 'title' => 'Camera-Ready Paper Deadline'],
-            ['content' => 'June 30, 2025']
+            ['section' => 'important_dates', 'title' => 'Camera-Ready Paper Deadline','event_year' => 2025],
+            ['content' => 'June 30, 2025'],
+           
         );
 
         // --- Join Section ---
         CallPaper::updateOrCreate(
-            ['section' => 'join_section'],
-            ['content' => 'Share your insights and contribute to advancing knowledge in AI, IoT, and Data Science Technologies.']
+            ['section' => 'join_section','event_year' => 2025],
+            ['content' => 'Share your insights and contribute to advancing knowledge in AI, IoT, and Data Science Technologies.'],
+           
         );
     }
 }

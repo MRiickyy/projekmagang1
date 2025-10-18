@@ -8,9 +8,7 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
+    
     public function run(): void
     {
         // User::factory(10)->create();
@@ -19,15 +17,15 @@ class DatabaseSeeder extends Seeder
             EventSeeder::class,
             SpeakerSeeder::class,
             CommitteeSeeder::class,
-            // TimelineSeeder::class,
+            TimelineSeeder::class,
             // ContactInfoSeeder::class,
-            // HomeContentSeeder::class,
+            HomeContentSeeder::class,
             // MapLocationSeeder::class,
             AuthorInformationSeeder::class,
             // RegistrationSeeder::class,
             // RegistrationFeeSeeder::class,
             // PaymentMethodsSeeder::class,
-            // CallPaperSeeder::class,
+            CallPaperSeeder::class,
             // LoginAdminSeeder::class,
             // tambahkan seeder lain di sini
         ]);
