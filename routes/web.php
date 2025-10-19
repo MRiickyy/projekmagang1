@@ -1,22 +1,23 @@
 <?php
 
+use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\HomeContentController;
-use App\Http\Controllers\CallPaperController;
 use App\Http\Controllers\SpeakerController;
+use App\Http\Controllers\CallPaperController;
 use App\Http\Controllers\CommitteeController;
-use App\Http\Controllers\AuthorInformationController;
 use App\Http\Controllers\ContactInfoController;
-use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\HomeContentController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\AuthorInformationController;
 
+
+Route::get('/', function () {
+    $event = Event::latest('year')->first(); // ambil event terbaru
+    return redirect("/ICOICT/{$event->year}");
+});
 Route::get('/ICOICT/{event_year}', [HomeContentController::class, 'index'])->name('home');
-
-
-// Route::get('/call-for-papers', function () {
-//     return view('callpaper');
-// });
 
 Route::get('/login', function () {
     return view('login');
@@ -49,8 +50,8 @@ Route::get('/{event_year}/speakers/{slug}', [SpeakerController::class, 'detailSp
 
 // Route Speaker Admin
 Route::get('/admin/speakers', [SpeakerController::class, 'listSpeakers'])->name('admin.speakers');
-Route::get('/admin/speakers/keynote', [SpeakerController::class, 'listKeynoteSpeakers'])->name('admin.speakers.keynote');
-Route::get('/admin/speakers/tutorial', [SpeakerController::class, 'listTutorialSpeakers'])->name('admin.speakers.tutorial');
+Route::get('/admin/speaker/keynote', [SpeakerController::class, 'listKeynoteSpeakers'])->name('admin.speakers.keynote');
+Route::get('/admin/speaker/tutorial', [SpeakerController::class, 'listTutorialSpeakers'])->name('admin.speakers.tutorial');
 Route::get('/admin/speaker/add', [SpeakerController::class, 'addForm'])->name('add.form.speakers');
 Route::post('/admin/speaker/add', [SpeakerController::class, 'addSpeaker'])->name('add.speakers');
 Route::get('/admin/speaker/{slug}/edit', [SpeakerController::class, 'editForm'])->name('edit.speakers');
@@ -89,9 +90,6 @@ Route::get('/admin/home-contents/timelines/{timeline}/edit', [HomeContentControl
 Route::get('/admin/home-contents/timelines/{timeline}/detail', [HomeContentController::class, 'showTimeline']) ->name('admin.detail_timeline_home_admin');
 Route::put('/admin/home-contents/timelines/{timeline}', [HomeContentController::class, 'updateTimeline'])->name('admin.update_timeline_home_admin');
 Route::delete('/admin/home-contents/timelines/{timeline}', [HomeContentController::class, 'destroyTimeline'])->name('admin.delete_timeline_home_admin');
-
-
-
 
 //Route Contact
 // User mengirim pesan
