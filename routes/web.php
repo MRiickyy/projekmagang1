@@ -175,6 +175,10 @@ Route::get('/admin/contacts/tambah', function () {
 
 
 
+Route::get('/admin/LupaPasswordAdmin', function () {
+    return view('admin.LupaPasswordAdmin');
+});
+
 Route::get('/admin/speakerss', function () {
     return view('speakerAdmin'); // file: resources/views/keyspeakers.blade.php
 })->name('admin.speakerss');
