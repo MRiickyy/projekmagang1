@@ -48,15 +48,6 @@ $eventYear = request()->route('event_year') ?? 2025; // default 2025 kalau gak a
                         class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Technical Program Committees</a>
                     <a href="{{ route('organizing.committees', ['event_year' => $eventYear]) }}"
                         class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Organizing Committees</a>
-
-                    <a href="/steering-committees" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Steering
-                        Committees</a>
-                    <a href="/technical-committees" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Technical
-                        Program
-                        Committees</a>
-                    <a href="/organizing-committees" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Organizing
-                        Committees</a>
-
                 </div>
             </div>
 
@@ -72,7 +63,7 @@ $eventYear = request()->route('event_year') ?? 2025; // default 2025 kalau gak a
                     class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
                     <a href="{{ route('author-information.index', ['event_year' => $eventYear]) }}" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Author Information</a>
                     <a href="{{ route('registration.index', ['event_year' => $eventYear]) }}" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Registration</a>
-                    <a href="/contacts" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Contacts</a>
+                    <a href="{{ route('contact', ['event_year' => $eventYear]) }}" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Contacts</a>
                 </div>
             </div>
 
