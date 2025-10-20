@@ -58,6 +58,57 @@
                 Dashboard Admin
             </div>
 
+            <div class="p-4">
+                <form action="{{ route('admin.setEvent') }}" method="POST">
+                    @csrf
+                    <label for="eventSelect" class="text-sm font-semibold text-white mb-2 block">Select Event Year</label>
+                    <div class="flex items-center space-x-2">
+                        <select name="year" id="eventSelect"
+                            class="bg-gray-800 text-white text-sm rounded px-2 py-1 w-full"
+                            onchange="this.form.submit()">
+                            @foreach(\App\Models\Event::orderByDesc('year')->get() as $event)
+                            <option value="{{ $event->year }}" {{ session('selected_event_year') == $event->year ? 'selected' : '' }}>
+                                {{ $event->event }} {{ $event->year }}
+                            </option>
+                            @endforeach
+                        </select>
+
+                        <!-- Tombol tambah tahun -->
+                        <button type="button"
+                            onclick="document.getElementById('addEventModal').classList.remove('hidden')"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-sm">
+                            +
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            {{-- Modal Tambah Event --}}
+            <div id="addEventModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                <div class="bg-white rounded-lg p-6 w-96">
+                    <h3 class="text-lg font-semibold mb-3">Add New Event Year</h3>
+                    <form action="{{ route('admin.addEvent') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="block text-sm mb-1">Event Name</label>
+                            <input type="text" name="event" class="border w-full rounded px-2 py-1 text-sm" placeholder="ICOICT" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="block text-sm mb-1">Year</label>
+                            <input type="number" name="year" class="border w-full rounded px-2 py-1 text-sm"
+                                placeholder="{{ date('Y') }}" required>
+                        </div>
+                        <div class="flex justify-end space-x-2">
+                            <button type="button" onclick="document.getElementById('addEventModal').classList.add('hidden')"
+                                class="px-3 py-1 bg-gray-300 rounded text-sm">Cancel</button>
+                            <button type="submit" class="px-3 py-1 bg-blue-600 text-white rounded text-sm">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
             <nav class="flex-1 px-4 py-6 space-y-3 text-sm">
                 <a href="{{ route('admin.list_home_contents_admin') }}"
                     class="block px-3 py-2 rounded {{ request()->routeIs('admin.list_home_contents_admin') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Home
@@ -89,7 +140,7 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <!-- Committees (with submenu) -->
                 <button @click="openCommittees = !openCommittees"
                     class="flex items-center justify-between w-full px-3 py-2 rounded hover:bg-[#334155] focus:outline-none">
@@ -113,7 +164,7 @@
                         Organizing Committee
                     </a>
                 </div>
-                
+
                 <!-- Submenu For Authors -->
                 <button @click="openAuthors = !openAuthors"
                     class="flex items-center justify-between w-full px-3 py-2 rounded hover:bg-[#334155] focus:outline-none">
