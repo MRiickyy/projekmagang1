@@ -43,7 +43,7 @@
         <table class="w-full border border-gray-300 rounded-lg overflow-hidden">
             <thead class="bg-gray-200 text-slate-900">
                 <tr>
-                    <th class="px-4 py-2 border">#</th>
+                    <th class="px-4 py-2 border">No</th>
                     <th class="px-4 py-2 border">Name</th>
                     <th class="px-4 py-2 border">University</th>
                     <th class="px-4 py-2 border">Type</th>
