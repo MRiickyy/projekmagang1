@@ -23,21 +23,21 @@ class EventController extends Controller
         return back()->with('success', 'Event year switched to ' . $event->year);
     }
 
-    // ➕ Tambah event baru
     public function addEvent(Request $request)
     {
         $request->validate([
             'event' => 'required|string|max:255',
             'year'  => 'required|integer|unique:events,year',
         ]);
-
+    
         Event::create([
             'event' => $request->event,
             'year'  => $request->year,
         ]);
-
+    
         session(['selected_event_year' => $request->year]);
-
+    
         return back()->with('success', 'Event year ' . $request->year . ' added and selected.');
     }
+    
 }

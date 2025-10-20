@@ -42,7 +42,7 @@ Route::middleware(['web'])->group(function () {
 });
 
 Route::post('/admin/set-event', [EventController::class, 'setEvent'])->name('admin.setEvent');
-Route::post('/admin/add-event', [EventController::class, 'create'])->name('admin.addEvent');
+Route::post('/admin/add-event', [EventController::class, 'addEvent'])->name('admin.addEvent');
 
 // Route Speaker
 Route::get('/{event_year}/keynote-speakers', [SpeakerController::class, 'keynote'])->name('keynote.speakers');
