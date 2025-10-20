@@ -11,7 +11,8 @@ class CallPaperController extends Controller
     
     public function index()
     {
-        $callPapers = CallPaper::with('event')->get();
+        $callPapers = CallPaper::with('event')->get()
+        ->where('event_year', session('selected_event_year', date('Y')));
         return view('callpaper', compact('callPapers'));
     }
 
