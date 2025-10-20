@@ -14,6 +14,7 @@ class HomeContent extends Model
     protected $fillable = [
         'section',
         'content',
+        'event_year',
     ];
 
     public function event()

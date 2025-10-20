@@ -9,7 +9,7 @@ class ContactInfo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['section', 'type', 'title', 'value', 'link'];
+    protected $fillable = ['section', 'type', 'title', 'value', 'link', 'event_year'];
 
     public function event()
     {

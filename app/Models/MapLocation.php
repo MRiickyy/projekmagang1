@@ -10,7 +10,7 @@ class MapLocation extends Model
     use HasFactory;
 
     // Kolom yang boleh diisi mass-assignment
-    protected $fillable = ['title', 'link'];
+    protected $fillable = ['title', 'link', 'event_year'];
 
     public function event()
     {

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HomeContent;
+use App\Models\Event;
 use App\Models\Timeline;
+use App\Models\HomeContent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 
@@ -11,11 +12,11 @@ class HomeContentController extends Controller
 {
     public function index()
     {
-        
+
         $homeContents = HomeContent::with('event')->get()->keyBy('section');
         $timelines = Timeline::with('event')->get()->groupBy('round_number');
 
-       
+
         $homeContents['icoict_links'] = $homeContents
             ->filter(fn($item, $key) => str_starts_with($key, 'icoict_link_'))
             ->mapWithKeys(function ($item, $key) {
@@ -31,16 +32,22 @@ class HomeContentController extends Controller
         return view('home', compact('homeContents', 'timelines'));
     }
 
-    
+
     public function listHome()
     {
-        $homeContents = HomeContent::all();
-        $timelines = Timeline::orderBy('round_number')->orderBy('id')->get()->groupBy('round_number');
+        $year = session('selected_event_year', date('Y'));
+        $event = Event::where('year', $year)->first();
+
+        $homeContents = HomeContent::where('event_year', $event->year)->get();
+        $timelines = Timeline::where('event_year', $event->year)
+            ->orderBy('round_number')->orderBy('id')
+            ->get()->groupBy('round_number');
+
         return view('admin.list_home_contents_admin', compact('homeContents', 'timelines'));
     }
 
 
-    
+
     public function addHome()
     {
         return view('admin.add_home_contents_admin');
@@ -48,15 +55,17 @@ class HomeContentController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $year = session('selected_event_year', date('Y'));
+
+        $validated = $request->validate([
             'section' => 'required|string',
             'content' => 'required|string',
         ]);
-        
 
-        HomeContent::create($request->only('section', 'content'));
+        $validated['event_year'] = $year;
 
-        
+        HomeContent::create($validated);
+
         return redirect()
             ->route('admin.list_home_contents_admin')
             ->with('success', 'Content added successfully!');
@@ -121,7 +130,7 @@ class HomeContentController extends Controller
         ]);
 
         return redirect()->route('admin.list_home_contents_admin')
-                        ->with('success', 'Timeline added successfully!');
+            ->with('success', 'Timeline added successfully!');
     }
 
 
@@ -150,7 +159,7 @@ class HomeContentController extends Controller
         $timeline->save();
 
         return redirect()->route('admin.list_home_contents_admin')
-                        ->with('success', 'Timeline updated successfully!');
+            ->with('success', 'Timeline updated successfully!');
     }
 
     public function destroyTimeline(Timeline $timeline)
@@ -161,5 +170,4 @@ class HomeContentController extends Controller
             ->route('admin.list_home_contents_admin')
             ->with('success', 'Timeline deleted successfully!');
     }
-
 }

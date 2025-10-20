@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Event;
 use App\Models\ContactInfo;
-use App\Models\ContactMessage;
 use App\Models\MapLocation;
+use Illuminate\Http\Request;
+use App\Models\ContactMessage;
 
 class ContactInfoController extends Controller
 {
@@ -21,9 +22,12 @@ class ContactInfoController extends Controller
     // Halaman admin list contacts
     public function listContact()
     {
-        $contactInfos = ContactInfo::all();
-        $mapLocations = MapLocation::all();
-        $contactMessages = ContactMessage::all();
+        $year = session('selected_event_year', date('Y'));
+        $event = Event::where('year', $year)->first();
+        
+        $contactInfos = ContactInfo::where('event_year', $event->year)->get();
+        $mapLocations = MapLocation::where('event_year', $event->year)->get();
+        $contactMessages = ContactMessage::where('event_year', $event->year)->get();
 
         return view('admin.list_contacts_Admin', compact('contactInfos', 'mapLocations', 'contactMessages'));
     }
@@ -36,6 +40,7 @@ class ContactInfoController extends Controller
 
     public function store(Request $request)
     {
+        $year = session('selected_event_year', date('Y'));
         $request->validate([
             'section' => 'required|string',
             'type'    => 'nullable|string',
@@ -49,11 +54,13 @@ class ContactInfoController extends Controller
                 'type'  => $request->type,
                 'title' => $request->title,
                 'value' => $request->value,
+                'event_year' => $year,
             ]);
         } elseif ($request->section === 'create_map_locations_table') {
             MapLocation::create([
                 'title' => $request->title,
                 'link'  => $request->link,
+                'event_year' => $year,
             ]);
         }
 

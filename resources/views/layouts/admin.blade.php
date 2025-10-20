@@ -134,10 +134,6 @@
                 </div>
             </div>
 
-
-
-
-
             <nav class="flex-1 px-4 py-6 space-y-3 text-sm">
                 <a href="{{ route('admin.list_home_contents_admin') }}"
                     class="block px-3 py-2 rounded {{ request()->routeIs('admin.list_home_contents_admin') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Home
