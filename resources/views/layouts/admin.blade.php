@@ -254,7 +254,7 @@
                         <span>Selamat datang, <strong>{{ session('admin_username') }}</strong></span>
                         @endif
 
-                        <a href="/" class="hover:underline">Lihat website</a>
+                        <a href="{{ url('/ICOICT/' . session('selected_event_year', date('Y'))) }}" class="hover:underline">Lihat website</a>
                         <a href="{{ route('admin.login') }}" class="hover:underline">Logout</a>
                     </div>
                 </div>

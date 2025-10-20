@@ -17,6 +17,7 @@ class SpeakerController extends Controller
     public function keynote()
     {
         $speakers = Speaker::with('event')
+            ->where('event_year', session('selected_event_year', date('Y')))
             ->where('speaker_type', 'keynote')
             ->get();
 
@@ -26,6 +27,7 @@ class SpeakerController extends Controller
     public function tutorial()
     {
         $speakers = Speaker::with('event')
+            ->where('event_year', session('selected_event_year', date('Y')))
             ->where('speaker_type', 'tutorial')
             ->get();
 
