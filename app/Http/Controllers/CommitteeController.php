@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Committee;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,10 @@ class CommitteeController extends Controller
     // ==============================
     public function listSteering(Request $request)
     {
-        $query = Committee::where('type', 'steering');
+        $year = session('selected_event_year', date('Y'));
+        $event = Event::where('year', $year)->first();
+
+        $query = Committee::where('event_year', $event->year)->where('type', 'steering');
 
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
@@ -53,7 +57,10 @@ class CommitteeController extends Controller
 
     public function listTechnical(Request $request)
     {
-        $query = Committee::where('type', 'technical program');
+        $year = session('selected_event_year', date('Y'));
+        $event = Event::where('year', $year)->first();
+
+        $query = Committee::where('event_year', $event->year)->where('type', 'technical program');
 
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
@@ -73,7 +80,10 @@ class CommitteeController extends Controller
 
     public function listOrganizing(Request $request)
     {
-        $query = Committee::where('type', 'organizing');
+        $year = session('selected_event_year', date('Y'));
+        $event = Event::where('year', $year)->first();
+
+        $query = Committee::where('event_year', $event->year)->where('type', 'organizing');
 
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
@@ -101,6 +111,8 @@ class CommitteeController extends Controller
 
     public function addCommittee(Request $request)
     {
+        $year = session('selected_event_year', date('Y'));
+
         $validated = $request->validate([
             'name'       => 'required|string|max:255',
             'role'       => 'required|string|max:255',
@@ -108,6 +120,8 @@ class CommitteeController extends Controller
             'country'    => 'nullable|string|max:255',
             'type'       => 'required|in:steering,technical program,organizing',
         ]);
+
+        $validated['event_year'] = $year;
 
         Committee::create($validated);
 

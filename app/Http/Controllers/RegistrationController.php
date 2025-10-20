@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use Illuminate\Http\Request;
-use App\Models\RegistrationModel;
-use App\Models\RegistrationFee;
 use App\Models\PaymentMethod;
+use App\Models\RegistrationFee;
+use App\Models\RegistrationModel;
 
 class RegistrationController extends Controller
 {
@@ -26,9 +27,12 @@ class RegistrationController extends Controller
     //==== ADMIN ====\\
     public function adminIndex()
     {
-        $registrations = RegistrationModel::all();
-        $fees = RegistrationFee::all();
-        $paymentMethods = PaymentMethod::all();
+        $year = session('selected_event_year', date('Y'));
+        $event = Event::where('year', $year)->first();
+        
+        $registrations = RegistrationModel::where('event_year', $event->year)->get();
+        $fees = RegistrationFee::where('event_year', $event->year)->get();
+        $paymentMethods = PaymentMethod::where('event_year', $event->year)->get();
 
         return view('admin.forauthor.list_registrations_admin', [
             'registrations' => $registrations,
@@ -44,12 +48,16 @@ class RegistrationController extends Controller
 
     public function adminRegisStore(Request $request)
     {
-        $request->validate([
+        $year = session('selected_event_year', date('Y'));
+
+        $validated = $request->validate([
             'section' => 'required|string',
             'content' => 'required|string',
         ]);
 
-        RegistrationModel::create($request->only('section', 'content'));
+        $validated['event_year'] = $year;
+        
+        RegistrationModel::create($validated);
 
         return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Data added successfully!');
     }
@@ -92,6 +100,8 @@ class RegistrationController extends Controller
 
     public function adminRegisFeeStore(Request $request)
     {
+        $year = session('selected_event_year', date('Y'));
+
         $request->validate([
             'category' => 'required|string|max:255',
             'usd_physical' => 'required|numeric',
@@ -106,6 +116,7 @@ class RegistrationController extends Controller
             'idr_physical' => $request->idr_physical,
             'usd_online' => $request->usd_online,
             'idr_online' => $request->idr_online,
+            'event_year' => $year,
         ]);
 
         return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Data added successfully!');
@@ -158,7 +169,9 @@ class RegistrationController extends Controller
 
     public function adminPaymentMethodStore(Request $request)
     {
-        $request->validate([
+        $year = session('selected_event_year', date('Y'));
+
+        $validated = $request->validate([
             'method_name' => 'required|string|in:Virtual Account,PayPal',
         ]);
         if ($request->method_name === 'Virtual Account') {
@@ -175,15 +188,9 @@ class RegistrationController extends Controller
             ]);
         }
 
-        PaymentMethod::create($request->only([
-            'method_name',
-            'bank_name',
-            'account_name',
-            'virtual_account_number',
-            'important_notes',
-            'paypal_email',
-            'additional_info'
-        ]));
+        $data = array_merge($validated, ['event_year' => $year]);
+
+        PaymentMethod::create($data);
 
         return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Payment Method added successfully!');
     }

@@ -23,6 +23,7 @@ class EventController extends Controller
         return back()->with('success', 'Event year switched to ' . $event->year);
     }
 
+    // Tambah event baru
     public function addEvent(Request $request)
     {
         $request->validate([

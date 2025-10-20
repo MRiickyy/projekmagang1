@@ -45,31 +45,6 @@ class SpeakerController extends Controller
     // ======== ADMIN AREA ==========
     // ==============================
 
-    public function listSpeakers(Request $request)
-    {
-        $query = Speaker::query();
-
-        // 🔍 Search by name or university
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('university', 'like', "%{$search}%");
-            });
-        }
-
-        // 🎯 Filter by speaker type (keynote/tutorial)
-        if ($request->filled('type')) {
-            $query->where('speaker_type', $request->type);
-        }
-
-        // 🔠 Sort ascending by name
-        $speakers = $query->orderBy('name', 'asc')->paginate(10);
-        $speakers->appends($request->all());
-
-        return view('admin.speakers.list_speakers', compact('speakers'));
-    }
-
     // ===== FORM TAMBAH SPEAKER =====
     public function addForm()
     {
@@ -92,8 +67,9 @@ class SpeakerController extends Controller
         ]);
 
         $slug = $validated['slug'] ?? Str::slug($validated['name']);
+        $year = session('selected_event_year', date('Y'));
 
-        // 🖼 Upload image
+        // Upload image
         $imagePath = null;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -110,6 +86,7 @@ class SpeakerController extends Controller
             'image'         => $imagePath,
             'speaker_type'  => $validated['speaker_type'],
             'biodata'       => $validated['biodata'] ?? null,
+            'event_year'    => $year,
         ]);
 
         // 📝 Simpan DescriptionSpeaker (jika ada)
