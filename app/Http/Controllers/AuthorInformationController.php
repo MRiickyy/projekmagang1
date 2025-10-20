@@ -10,7 +10,8 @@ class AuthorInformationController extends Controller
 {
     public function index()
     {
-        $authorInfos = AuthorInformation::with('event')->get()->groupBy('section');
+        $authorInfos = AuthorInformation::with('event')->get()->groupBy('section')
+        ->where('event_year', session('selected_event_year', date('Y')));
         return view('author', compact('authorInfos'));
     }
 

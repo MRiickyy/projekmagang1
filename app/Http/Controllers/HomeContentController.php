@@ -13,8 +13,10 @@ class HomeContentController extends Controller
     public function index()
     {
 
-        $homeContents = HomeContent::with('event')->get()->keyBy('section');
-        $timelines = Timeline::with('event')->get()->groupBy('round_number');
+        $homeContents = HomeContent::with('event')->get()->keyBy('section')
+        ->where('event_year', session('selected_event_year', date('Y')));
+        $timelines = Timeline::with('event')->get()->groupBy('round_number')
+        ->where('event_year', session('selected_event_year', date('Y')));
 
 
         $homeContents['icoict_links'] = $homeContents
