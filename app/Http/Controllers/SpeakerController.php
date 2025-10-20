@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Speaker;
-use App\Models\DescriptionSpeaker;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\DescriptionSpeaker;
 
 class SpeakerController extends Controller
 {
@@ -265,7 +266,10 @@ class SpeakerController extends Controller
 
     public function listKeynoteSpeakers(Request $request)
     {
-        $query = Speaker::where('speaker_type', 'keynote');
+        $year = session('selected_event_year', date('Y'));
+        $event = Event::where('year', $year)->first();
+
+        $query = Speaker::where('event_year', $event->year)->where('speaker_type', 'keynote');
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -287,7 +291,10 @@ class SpeakerController extends Controller
 
     public function listTutorialSpeakers(Request $request)
     {
-        $query = Speaker::where('speaker_type', 'tutorial');
+        $year = session('selected_event_year', date('Y'));
+        $event = Event::where('year', $year)->first();
+
+        $query = Speaker::where('event_year', $event->year)->where('speaker_type', 'tutorial');
 
         if ($request->filled('search')) {
             $search = $request->search;

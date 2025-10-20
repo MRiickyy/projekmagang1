@@ -3,6 +3,7 @@
 use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\SpeakerController;
 use App\Http\Controllers\CallPaperController;
 use App\Http\Controllers\CommitteeController;
@@ -40,8 +41,8 @@ Route::middleware(['web'])->group(function () {
     })->name('admin.logout');
 });
 
-
-
+Route::post('/admin/set-event', [EventController::class, 'setEvent'])->name('admin.setEvent');
+Route::post('/admin/add-event', [EventController::class, 'create'])->name('admin.addEvent');
 
 // Route Speaker
 Route::get('/{event_year}/keynote-speakers', [SpeakerController::class, 'keynote'])->name('keynote.speakers');
