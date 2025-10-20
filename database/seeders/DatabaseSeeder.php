@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             RegistrationSeeder::class,
             RegistrationFeeSeeder::class,
             PaymentMethodsSeeder::class,
-            // CallPaperSeeder::class,
+            CallPaperSeeder::class,
             // LoginAdminSeeder::class,
             // tambahkan seeder lain di sini
         ]);
