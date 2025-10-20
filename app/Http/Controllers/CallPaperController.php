@@ -47,7 +47,7 @@ class CallPaperController extends Controller
             'event_year' => $year,
         ]);
 
-        return redirect()->route('admin.list_callpaper_Admin')->with('success', 'Data added successfully!');
+        return redirect()->route('admin.list_callpaper_Admin');
     }
 
     public function edit(CallPaper $callPaper)
@@ -70,13 +70,13 @@ class CallPaperController extends Controller
             'content' => $request->content,
         ]);
 
-        return redirect()->route('admin.list_callpaper_Admin')->with('success', 'Data updated successfully!');
+        return redirect()->route('admin.list_callpaper_Admin');
     }
 
     public function destroy(CallPaper $callPaper)
     {
         $callPaper->delete();
-        return redirect()->route('admin.list_callpaper_Admin')->with('success', 'Data deleted successfully!');
+        return redirect()->route('admin.list_callpaper_Admin');
     }
 
     public function show(CallPaper $callPaper)

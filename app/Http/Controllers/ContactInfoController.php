@@ -64,26 +64,25 @@ class ContactInfoController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.list_contacts_Admin')
-                        ->with('success', 'Contact Info added successfully!');
+        return redirect()->route('admin.list_contacts_Admin');
     }
 
     public function destroyInfo($id)
     {
         ContactInfo::findOrFail($id)->delete();
-        return back()->with('success', 'Contact Info deleted successfully!');
+        return back();
     }
 
     public function destroyMessage($id)
     {
         ContactMessage::findOrFail($id)->delete();
-        return back()->with('success', 'Contact Message deleted successfully!');
+        return back();
     }
 
     public function destroyMap($id)
     {
         MapLocation::findOrFail($id)->delete();
-        return back()->with('success', 'Map Location deleted successfully!');
+        return back();
     }
 
     // Edit Contact Info
@@ -102,7 +101,7 @@ class ContactInfoController extends Controller
     {
         $contactInfo = ContactInfo::findOrFail($id);
         $contactInfo->update($request->only(['type', 'title', 'value']));
-        return redirect()->route('admin.list_contacts_Admin')->with('success', 'Contact Info updated successfully!');
+        return redirect()->route('admin.list_contacts_Admin');
     }
 
     // Edit Map Location
@@ -121,7 +120,7 @@ class ContactInfoController extends Controller
     {
         $map = MapLocation::findOrFail($id);
         $map->update($request->only(['title', 'link']));
-        return redirect()->route('admin.list_contacts_Admin')->with('success', 'Map Location updated successfully!');
+        return redirect()->route('admin.list_contacts_Admin');
     }
 
 

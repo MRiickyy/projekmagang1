@@ -67,8 +67,7 @@ class HomeContentController extends Controller
         HomeContent::create($validated);
 
         return redirect()
-            ->route('admin.list_home_contents_admin')
-            ->with('success', 'Content added successfully!');
+            ->route('admin.list_home_contents_admin');
     }
 
 
@@ -88,7 +87,7 @@ class HomeContentController extends Controller
         $homeContent->content = $request->content;
         $homeContent->save();
 
-        return redirect()->route('admin.list_home_contents_admin')->with('success', 'Data updated successfully!');
+        return redirect()->route('admin.list_home_contents_admin');
     }
 
     public function show($id)
@@ -104,8 +103,7 @@ class HomeContentController extends Controller
         $homeContent->delete();
 
         return redirect()
-            ->route('admin.list_home_contents_admin')
-            ->with('success', 'Content deleted successfully!');
+            ->route('admin.list_home_contents_admin');
     }
 
     // Menampilkan form tambah timeline
@@ -129,8 +127,7 @@ class HomeContentController extends Controller
             'date' => $request->date,
         ]);
 
-        return redirect()->route('admin.list_home_contents_admin')
-            ->with('success', 'Timeline added successfully!');
+        return redirect()->route('admin.list_home_contents_admin');
     }
 
 
@@ -158,8 +155,7 @@ class HomeContentController extends Controller
         $timeline->date = $request->date;
         $timeline->save();
 
-        return redirect()->route('admin.list_home_contents_admin')
-            ->with('success', 'Timeline updated successfully!');
+        return redirect()->route('admin.list_home_contents_admin');
     }
 
     public function destroyTimeline(Timeline $timeline)
@@ -167,7 +163,6 @@ class HomeContentController extends Controller
         $timeline->delete();
 
         return redirect()
-            ->route('admin.list_home_contents_admin')
-            ->with('success', 'Timeline deleted successfully!');
+            ->route('admin.list_home_contents_admin');
     }
 }
