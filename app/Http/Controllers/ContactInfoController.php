@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Event;
 use App\Models\ContactInfo;
-use App\Models\ContactMessage;
 use App\Models\MapLocation;
+use Illuminate\Http\Request;
+use App\Models\ContactMessage;
 
 class ContactInfoController extends Controller
 {
     // Halaman user contact
     public function index()
     {
-        $contactInfos = ContactInfo::with('event')->get();
-        $map = MapLocation::with('event')->latest()->first();
+        $contactInfos = ContactInfo::with('event')
+        ->where('event_year', session('selected_event_year', date('Y')))
+        ->get();
+        $map = MapLocation::with('event')
+        ->where('event_year', session('selected_event_year', date('Y')))
+        ->latest()
+        ->first();
 
         return view('contact', compact('contactInfos', 'map'));
     }
@@ -21,9 +27,12 @@ class ContactInfoController extends Controller
     // Halaman admin list contacts
     public function listContact()
     {
-        $contactInfos = ContactInfo::all();
-        $mapLocations = MapLocation::all();
-        $contactMessages = ContactMessage::all();
+        $year = session('selected_event_year', date('Y'));
+        $event = Event::where('year', $year)->first();
+        
+        $contactInfos = ContactInfo::where('event_year', $event->year)->get();
+        $mapLocations = MapLocation::where('event_year', $event->year)->get();
+        $contactMessages = ContactMessage::where('event_year', $event->year)->get();
 
         return view('admin.list_contacts_Admin', compact('contactInfos', 'mapLocations', 'contactMessages'));
     }
@@ -36,6 +45,7 @@ class ContactInfoController extends Controller
 
     public function store(Request $request)
     {
+        $year = session('selected_event_year', date('Y'));
         $request->validate([
             'section' => 'required|string',
             'type'    => 'nullable|string',
@@ -49,34 +59,35 @@ class ContactInfoController extends Controller
                 'type'  => $request->type,
                 'title' => $request->title,
                 'value' => $request->value,
+                'event_year' => $year,
             ]);
         } elseif ($request->section === 'create_map_locations_table') {
             MapLocation::create([
                 'title' => $request->title,
                 'link'  => $request->link,
+                'event_year' => $year,
             ]);
         }
 
-        return redirect()->route('admin.list_contacts_Admin')
-                        ->with('success', 'Contact Info added successfully!');
+        return redirect()->route('admin.list_contacts_Admin');
     }
 
     public function destroyInfo($id)
     {
         ContactInfo::findOrFail($id)->delete();
-        return back()->with('success', 'Contact Info deleted successfully!');
+        return back();
     }
 
     public function destroyMessage($id)
     {
         ContactMessage::findOrFail($id)->delete();
-        return back()->with('success', 'Contact Message deleted successfully!');
+        return back();
     }
 
     public function destroyMap($id)
     {
         MapLocation::findOrFail($id)->delete();
-        return back()->with('success', 'Map Location deleted successfully!');
+        return back();
     }
 
     // Edit Contact Info
@@ -95,7 +106,7 @@ class ContactInfoController extends Controller
     {
         $contactInfo = ContactInfo::findOrFail($id);
         $contactInfo->update($request->only(['type', 'title', 'value']));
-        return redirect()->route('admin.list_contacts_Admin')->with('success', 'Contact Info updated successfully!');
+        return redirect()->route('admin.list_contacts_Admin');
     }
 
     // Edit Map Location
@@ -114,7 +125,7 @@ class ContactInfoController extends Controller
     {
         $map = MapLocation::findOrFail($id);
         $map->update($request->only(['title', 'link']));
-        return redirect()->route('admin.list_contacts_Admin')->with('success', 'Map Location updated successfully!');
+        return redirect()->route('admin.list_contacts_Admin');
     }
 
 

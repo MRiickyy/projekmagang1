@@ -14,36 +14,35 @@
 
 
     <style>
-        /* Animasi transisi */
-        .sidebar {
-            transition: width 0.5s ease, transform 0.5s ease;
-        }
+    .sidebar {
+        transition: width 0.5s ease, transform 0.5s ease;
+    }
 
-        .sidebar-closed {
-            transform: translateX(-100%);
-        }
+    .sidebar-closed {
+        transform: translateX(-100%);
+    }
     </style>
 
-    <!-- Script untuk tab Messages, Infos, Locations -->
+
     <script>
-        function openTab(evt, tabName) {
-            let tabcontent = document.getElementsByClassName("tabcontent");
-            for (let i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-
-            let tablinks = document.getElementsByClassName("tablink");
-            for (let i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("border-b-2", "border-teal-400", "text-teal-400");
-            }
-
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.classList.add("border-b-2", "border-teal-400", "text-teal-400");
+    function openTab(evt, tabName) {
+        let tabcontent = document.getElementsByClassName("tabcontent");
+        for (let i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
         }
 
-        window.onload = function() {
-            document.getElementById("defaultOpen").click();
+        let tablinks = document.getElementsByClassName("tablink");
+        for (let i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("border-b-2", "border-teal-400", "text-teal-400");
         }
+
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("border-b-2", "border-teal-400", "text-teal-400");
+    }
+
+    window.onload = function() {
+        document.getElementById("defaultOpen").click();
+    }
     </script>
 
 </head>
@@ -58,6 +57,83 @@
                 Dashboard Admin
             </div>
 
+            <div class="p-4">
+                <form action="{{ route('admin.setEvent') }}" method="POST">
+                    @csrf
+                    <label for="eventSelect" class="text-sm font-semibold text-white mb-2 block">Select Event
+                        Year</label>
+                    <div class="flex items-center space-x-2">
+                        <select name="year" id="eventSelect"
+                            class="bg-gray-800 text-white text-sm rounded px-2 py-1 w-full"
+                            onchange="this.form.submit()">
+                            @foreach(\App\Models\Event::orderByDesc('year')->get() as $event)
+                            <option value="{{ $event->year }}"
+                                {{ session('selected_event_year') == $event->year ? 'selected' : '' }}>
+                                {{ $event->event }} {{ $event->year }}
+                            </option>
+                            @endforeach
+                        </select>
+
+                        <!-- Tombol tambah tahun -->
+                        <button type="button"
+                            onclick="document.getElementById('addEventModal').classList.remove('hidden')"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-sm">
+                            +
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            {{-- Modal Tambah Event --}}
+            <div id="addEventModal"
+                class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                <div class="bg-white rounded-lg p-6 w-96 shadow-lg">
+                    <h3 class="text-lg font-semibold mb-4 text-gray-800">Add New Event Year</h3>
+
+                    <form action="{{ route('admin.addEvent') }}" method="POST">
+                        @csrf
+
+                        {{-- Event Name otomatis ICOICT --}}
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Event Name</label>
+                            <input type="text" name="event" value="ICOICT" readonly
+                                class="border border-gray-300 w-full rounded px-3 py-2 text-sm text-gray-900 bg-gray-100 cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-400">
+                        </div>
+
+                        {{-- Dropdown tahun --}}
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Year</label>
+                            @php
+                            $nextYear = date('Y') + 1;
+                            @endphp
+                            <div class="relative">
+                                <select name="year" required
+                                    class="appearance-none border border-gray-300 w-full rounded px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                    <option value="" disabled selected hidden>Select year</option>
+                                    <option value="{{ $nextYear }}">{{ $nextYear }}</option>
+                                </select>
+
+                                {{-- Panah bawah --}}
+                                <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none"
+                                    fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        {{-- Tombol aksi --}}
+                        <div class="flex justify-end space-x-2">
+                            <button type="button"
+                                onclick="document.getElementById('addEventModal').classList.add('hidden')"
+                                class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded text-sm transition">Cancel</button>
+
+                            <button type="submit"
+                                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm transition">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <nav class="flex-1 px-4 py-6 space-y-3 text-sm">
                 <a href="{{ route('admin.list_home_contents_admin') }}"
                     class="block px-3 py-2 rounded {{ request()->routeIs('admin.list_home_contents_admin') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Home
@@ -65,80 +141,94 @@
                 <a href="{{ route('admin.list_callpaper_Admin') }}"
                     class="block px-3 py-2 rounded {{ request()->routeIs('admin.list_callpaper_Admin') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">Call
                     For Paper</a>
-                <!-- Submenu Speakers -->
-                <div x-data="{ openSpeakers: false }">
-                    <button @click="openSpeakers = !openSpeakers"
-                        class="flex items-center justify-between w-full px-3 py-2 rounded hover:bg-[#334155] focus:outline-none">
+                <!-- SPEAKERS -->
+                @php
+                $isSpeakersActive = request()->routeIs('admin.speakers.*');
+                @endphp
+                <div x-data="{ open: {{ $isSpeakersActive ? 'true' : 'false' }} }" class="mt-2">
+                    <button @click="open = !open"
+                        class="flex items-center justify-between w-full px-3 py-2 rounded focus:outline-none
+                        border {{ $isSpeakersActive ? 'border-white bg-[#1e293b]' : 'border-transparent hover:bg-[#334155]' }}">
                         <span>Speakers</span>
-                        <svg :class="{'rotate-90': openSpeakers}" class="w-3 h-3 transition-transform" fill="none"
+                        <svg :class="{'rotate-90': open}" class="w-3 h-3 transition-transform" fill="none"
                             stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                         </svg>
                     </button>
 
-                    <div x-show="openSpeakers" x-collapse class="ml-4 space-y-2 mt-2">
+                    <div x-show="open" x-collapse class="ml-4 space-y-2 mt-2">
                         <a href="{{ route('admin.speakers.keynote') }}"
-                            class="block px-3 py-2 rounded 
-                            {{ request()->routeIs('admin.speakers.keynote') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
+                            class="block px-3 py-2 rounded {{ request()->routeIs('admin.speakers.keynote') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">
                             Keynote Speakers
                         </a>
                         <a href="{{ route('admin.speakers.tutorial') }}"
-                            class="block px-3 py-2 rounded 
-                            {{ request()->routeIs('admin.speakers.tutorial') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
+                            class="block px-3 py-2 rounded {{ request()->routeIs('admin.speakers.tutorial') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">
                             Tutorial Speakers
                         </a>
                     </div>
                 </div>
-                
-                <!-- Committees (with submenu) -->
-                <button @click="openCommittees = !openCommittees"
-                    class="flex items-center justify-between w-full px-3 py-2 rounded hover:bg-[#334155] focus:outline-none">
-                    <span>Committees</span>
-                    <svg :class="{'rotate-90': openCommittees}" class="w-3 h-3 transition-transform" fill="none"
-                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
-                <div x-show="openCommittees" x-collapse class="ml-4 space-y-2 mt-2">
-                    <a href="{{ route('admin.committees.steering') }}"
-                        class="block px-3 py-2 rounded {{ request()->routeIs('admin.committees.steering') ? 'text-[#00e676] font-semibold' : 'hover:text-[#00e676]' }}">
-                        Steering Committee
-                    </a>
-                    <a href="{{ route('admin.committees.technical_program') }}"
-                        class="block px-3 py-2 rounded {{ request()->routeIs('admin.committees.technical') ? 'text-[#00e676] font-semibold' : 'hover:text-[#00e676]' }}">
-                        Technical Program Committee
-                    </a>
-                    <a href="{{ route('admin.committees.organizing') }}"
-                        class="block px-3 py-2 rounded {{ request()->routeIs('admin.committees.organizing') ? 'text-[#00e676] font-semibold' : 'hover:text-[#00e676]' }}">
-                        Organizing Committee
-                    </a>
+
+                <!-- COMMITTEES -->
+                @php
+                $isCommitteesActive = request()->routeIs('admin.committees.*');
+                @endphp
+                <div x-data="{ open: {{ $isCommitteesActive ? 'true' : 'false' }} }" class="mt-2">
+                    <button @click="open = !open"
+                        class="flex items-center justify-between w-full px-3 py-2 rounded focus:outline-none
+                        border {{ $isCommitteesActive ? 'border-white bg-[#1e293b]' : 'border-transparent hover:bg-[#334155]' }}">
+                        <span>Committees</span>
+                        <svg :class="{'rotate-90': open}" class="w-3 h-3 transition-transform" fill="none"
+                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+
+                    <div x-show="open" x-collapse class="ml-4 space-y-2 mt-2">
+                        <a href="{{ route('admin.committees.steering') }}"
+                            class="block px-3 py-2 rounded {{ request()->routeIs('admin.committees.steering') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">
+                            Steering Committee
+                        </a>
+                        <a href="{{ route('admin.committees.technical_program') }}"
+                            class="block px-3 py-2 rounded {{ request()->routeIs('admin.committees.technical_program') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">
+                            Technical Program Committee
+                        </a>
+                        <a href="{{ route('admin.committees.organizing') }}"
+                            class="block px-3 py-2 rounded {{ request()->routeIs('admin.committees.organizing') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">
+                            Organizing Committee
+                        </a>
+                    </div>
                 </div>
-                
-                <!-- Submenu For Authors -->
-                <button @click="openAuthors = !openAuthors"
-                    class="flex items-center justify-between w-full px-3 py-2 rounded hover:bg-[#334155] focus:outline-none">
-                    <span>For Authors</span>
-                    <svg :class="{'rotate-90': openAuthors}" class="w-3 h-3 transition-transform" fill="none"
-                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
-                <div x-show="openAuthors" x-collapse class="ml-4 space-y-2 mt-2">
-                    <a href="{{ route('admin.forauthor.list_authorinformation_admin') }}"
-                        class="block px-3 py-2 rounded 
-                        {{ request()->routeIs('admin.forauthor.list_authorinformation_admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
-                        Author Informations
-                    </a>
-                    <a href="{{ route('admin.forauthor.list_registrations_admin') }}"
-                        class="block px-3 py-2 rounded 
-                        {{ request()->routeIs('admin.forauthor.list_registrations_admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
-                        Registration
-                    </a>
-                    <a href="{{ route('admin.list_contacts_Admin') }}"
-                        class="block px-3 py-2 rounded 
-                        {{ request()->routeIs('admin.list_contacts_Admin') ? 'text-[#00e676] font-semibold' : 'hover:bg-[#334155]' }}">
-                        Contacts
-                    </a>
+
+                <!-- FOR AUTHORS -->
+                @php
+                $isAuthorsActive = request()->routeIs('admin.forauthor.*') ||
+                request()->routeIs('admin.list_contacts_Admin');
+                @endphp
+                <div x-data="{ open: {{ $isAuthorsActive ? 'true' : 'false' }} }" class="mt-2">
+                    <button @click="open = !open"
+                        class="flex items-center justify-between w-full px-3 py-2 rounded focus:outline-none
+                        border {{ $isAuthorsActive ? 'border-white bg-[#1e293b]' : 'border-transparent hover:bg-[#334155]' }}">
+                        <span>For Authors</span>
+                        <svg :class="{'rotate-90': open}" class="w-3 h-3 transition-transform" fill="none"
+                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+
+                    <div x-show="open" x-collapse class="ml-4 space-y-2 mt-2">
+                        <a href="{{ route('admin.forauthor.list_authorinformation_admin') }}"
+                            class="block px-3 py-2 rounded {{ request()->routeIs('admin.forauthor.list_authorinformation_admin') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">
+                            Author Informations
+                        </a>
+                        <a href="{{ route('admin.forauthor.list_registrations_admin') }}"
+                            class="block px-3 py-2 rounded {{ request()->routeIs('admin.forauthor.list_registrations_admin') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">
+                            Registration
+                        </a>
+                        <a href="{{ route('admin.list_contacts_Admin') }}"
+                            class="block px-3 py-2 rounded {{ request()->routeIs('admin.list_contacts_Admin') ? 'bg-green-600' : 'hover:bg-[#334155]' }}">
+                            Contacts
+                        </a>
+                    </div>
                 </div>
 
                 <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Events</a>
@@ -164,7 +254,7 @@
                         <span>Selamat datang, <strong>{{ session('admin_username') }}</strong></span>
                         @endif
 
-                        <a href="/" class="hover:underline">Lihat website</a>
+                        <a href="{{ url('/ICOICT/' . session('selected_event_year', date('Y'))) }}" class="hover:underline">Lihat website</a>
                         <a href="{{ route('admin.login') }}" class="hover:underline">Logout</a>
                     </div>
                 </div>
@@ -181,56 +271,56 @@
 
     <!-- Sidebar Toggle Script -->
     <script>
-        const toggleBtn = document.getElementById("toggleSidebar");
-        const sidebar = document.getElementById("sidebar");
-        const mainContent = document.getElementById("mainContent");
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+    const mainContent = document.getElementById("mainContent");
 
-        let sidebarOpen = true;
+    let sidebarOpen = true;
 
-        toggleBtn.addEventListener("click", () => {
-            sidebarOpen = !sidebarOpen;
+    toggleBtn.addEventListener("click", () => {
+        sidebarOpen = !sidebarOpen;
 
-            if (!sidebarOpen) {
-                sidebar.classList.add("sidebar-closed");
-                mainContent.classList.remove("ml-64");
-                mainContent.classList.add("ml-0");
-            } else {
-                sidebar.classList.remove("sidebar-closed");
-                mainContent.classList.remove("ml-0");
-                mainContent.classList.add("ml-64");
-            }
-        });
+        if (!sidebarOpen) {
+            sidebar.classList.add("sidebar-closed");
+            mainContent.classList.remove("ml-64");
+            mainContent.classList.add("ml-0");
+        } else {
+            sidebar.classList.remove("sidebar-closed");
+            mainContent.classList.remove("ml-0");
+            mainContent.classList.add("ml-64");
+        }
+    });
     </script>
 
     <!-- Delete Confirmation -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const deleteForms = document.querySelectorAll('.delete-item');
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteForms = document.querySelectorAll('.delete-item');
 
-            if (deleteForms.length > 0) {
-                deleteForms.forEach(form => {
-                    form.addEventListener('submit', function(e) {
-                        e.preventDefault();
+        if (deleteForms.length > 0) {
+            deleteForms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
 
-                        Swal.fire({
-                            title: 'Are you sure?',
-                            text: "This action cannot be undone!",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Yes, delete it!',
-                            cancelButtonText: 'No, cancel'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                form.submit();
-                            }
-                        });
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "This action cannot be undone!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'No, cancel'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
                     });
                 });
-            }
-        });
+            });
+        }
+    });
     </script>
 </body>
 

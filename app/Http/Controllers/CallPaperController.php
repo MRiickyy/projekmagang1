@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\CallPaper;
 use Illuminate\Http\Request;
 
@@ -10,14 +11,18 @@ class CallPaperController extends Controller
     
     public function index()
     {
-        $callPapers = CallPaper::with('event')->get();
+        $callPapers = CallPaper::with('event')->get()
+        ->where('event_year', session('selected_event_year', date('Y')));
         return view('callpaper', compact('callPapers'));
     }
 
     
     public function listCallPaper()
     {
-        $callPapers = CallPaper::orderBy('section')->orderBy('id')->get();
+        $year = session('selected_event_year', date('Y'));
+        $event = Event::where('year', $year)->first();
+        
+        $callPapers = CallPaper::where('event_year', $event->year)->orderBy('section')->orderBy('id')->get();
         return view('admin.list_callpaper_Admin', compact('callPapers'));
     }
 
@@ -28,6 +33,8 @@ class CallPaperController extends Controller
 
     public function store(Request $request)
     {
+        $year = session('selected_event_year', date('Y'));
+
         $request->validate([
             'section' => 'required|string|max:255',
             'title' => 'nullable|string|max:255',
@@ -38,9 +45,10 @@ class CallPaperController extends Controller
             'section' => $request->section,
             'title' => $request->title,
             'content' => $request->content,
+            'event_year' => $year,
         ]);
 
-        return redirect()->route('admin.list_callpaper_Admin')->with('success', 'Data added successfully!');
+        return redirect()->route('admin.list_callpaper_Admin');
     }
 
     public function edit(CallPaper $callPaper)
@@ -63,13 +71,13 @@ class CallPaperController extends Controller
             'content' => $request->content,
         ]);
 
-        return redirect()->route('admin.list_callpaper_Admin')->with('success', 'Data updated successfully!');
+        return redirect()->route('admin.list_callpaper_Admin');
     }
 
     public function destroy(CallPaper $callPaper)
     {
         $callPaper->delete();
-        return redirect()->route('admin.list_callpaper_Admin')->with('success', 'Data deleted successfully!');
+        return redirect()->route('admin.list_callpaper_Admin');
     }
 
     public function show(CallPaper $callPaper)

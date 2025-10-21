@@ -2,20 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AuthorInformation;
+use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Models\AuthorInformation;
 
 class AuthorInformationController extends Controller
 {
     public function index()
     {
-        $authorInfos = AuthorInformation::with('event')->get()->groupBy('section');
+        $authorInfos = AuthorInformation::with('event')->get()->groupBy('section')
+        ->where('event_year', session('selected_event_year', date('Y')));
         return view('author', compact('authorInfos'));
     }
 
     public function listAuthor()
     {
-        $authorInfos = AuthorInformation::all();
+        $year = session('selected_event_year', date('Y'));
+        $event = Event::where('year', $year)->first();
+        
+        $authorInfos = AuthorInformation::where('event_year', $event->year)->get();
         return view('admin.forauthor.list_authorinformation_admin', compact('authorInfos'));
     }
 
@@ -26,12 +31,16 @@ class AuthorInformationController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $year = session('selected_event_year', date('Y'));
+
+        $validated = $request->validate([
             'section' => 'required|string',
             'content' => 'required|string',
         ]);
 
-        AuthorInformation::create($request->only('section', 'content'));
+        $validated['event_year'] = $year;
+
+        AuthorInformation::create($validated);
 
         return redirect()->route('admin.forauthor.list_authorinformation_admin')->with('success', 'Content added successfully!');
     }

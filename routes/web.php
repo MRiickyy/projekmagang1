@@ -1,22 +1,24 @@
 <?php
 
+use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\HomeContentController;
-use App\Http\Controllers\CallPaperController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\SpeakerController;
+use App\Http\Controllers\CallPaperController;
 use App\Http\Controllers\CommitteeController;
-use App\Http\Controllers\AuthorInformationController;
 use App\Http\Controllers\ContactInfoController;
-use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\HomeContentController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\AuthorInformationController;
 
+
+Route::get('/', function () {
+    $event = Event::latest('year')->first(); // ambil event terbaru
+    return redirect("/ICOICT/{$event->year}");
+});
 Route::get('/ICOICT/{event_year}', [HomeContentController::class, 'index'])->name('home');
-
-
-// Route::get('/call-for-papers', function () {
-//     return view('callpaper');
-// });
 
 Route::get('/login', function () {
     return view('login');
@@ -39,8 +41,8 @@ Route::middleware(['web'])->group(function () {
     })->name('admin.logout');
 });
 
-
-
+Route::post('/admin/set-event', [EventController::class, 'setEvent'])->name('admin.setEvent');
+Route::post('/admin/add-event', [EventController::class, 'addEvent'])->name('admin.addEvent');
 
 // Route Speaker
 Route::get('/{event_year}/keynote-speakers', [SpeakerController::class, 'keynote'])->name('keynote.speakers');
@@ -49,8 +51,8 @@ Route::get('/{event_year}/speakers/{slug}', [SpeakerController::class, 'detailSp
 
 // Route Speaker Admin
 Route::get('/admin/speakers', [SpeakerController::class, 'listSpeakers'])->name('admin.speakers');
-Route::get('/admin/speakers/keynote', [SpeakerController::class, 'listKeynoteSpeakers'])->name('admin.speakers.keynote');
-Route::get('/admin/speakers/tutorial', [SpeakerController::class, 'listTutorialSpeakers'])->name('admin.speakers.tutorial');
+Route::get('/admin/speaker/keynote', [SpeakerController::class, 'listKeynoteSpeakers'])->name('admin.speakers.keynote');
+Route::get('/admin/speaker/tutorial', [SpeakerController::class, 'listTutorialSpeakers'])->name('admin.speakers.tutorial');
 Route::get('/admin/speaker/add', [SpeakerController::class, 'addForm'])->name('add.form.speakers');
 Route::post('/admin/speaker/add', [SpeakerController::class, 'addSpeaker'])->name('add.speakers');
 Route::get('/admin/speaker/{slug}/edit', [SpeakerController::class, 'editForm'])->name('edit.speakers');
@@ -90,14 +92,11 @@ Route::get('/admin/home-contents/timelines/{timeline}/detail', [HomeContentContr
 Route::put('/admin/home-contents/timelines/{timeline}', [HomeContentController::class, 'updateTimeline'])->name('admin.update_timeline_home_admin');
 Route::delete('/admin/home-contents/timelines/{timeline}', [HomeContentController::class, 'destroyTimeline'])->name('admin.delete_timeline_home_admin');
 
-
-
-
 //Route Contact
 // User mengirim pesan
-Route::post('/contacts', [ContactMessageController::class, 'store'])->name('contact.send');
+Route::post('/{event_year}/contact/send', [ContactMessageController::class, 'store'])->name('contact.send');
 Route::get('/{event_year}/contacts', [ContactInfoController::class, 'index'])->name('contact'); 
-Route::get('/admin/contacts', [ContactInfoController::class, 'listContact'])->name('admin.list_contacts_Admin');
+Route::get('/admin/contact', [ContactInfoController::class, 'listContact'])->name('admin.list_contacts_Admin');
 Route::get('/admin/contacts/add', [ContactInfoController::class, 'addContact'])->name('admin.add_contacts_Admin');
 Route::post('/admin/contacts/store', [ContactInfoController::class, 'store'])->name('admin.store_contacts_Admin');
 Route::delete('/admin/contact-infos/{id}', [ContactInfoController::class, 'destroyInfo'])->name('admin.delete_contact_info');
@@ -174,6 +173,10 @@ Route::get('/admin/contacts/tambah', function () {
 
 
 
+
+Route::get('/admin/LupaPasswordAdmin', function () {
+    return view('admin.LupaPasswordAdmin');
+});
 
 Route::get('/admin/speakerss', function () {
     return view('speakerAdmin'); // file: resources/views/keyspeakers.blade.php

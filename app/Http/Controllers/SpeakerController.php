@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Speaker;
-use App\Models\DescriptionSpeaker;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\DescriptionSpeaker;
 
 class SpeakerController extends Controller
 {
@@ -16,6 +17,7 @@ class SpeakerController extends Controller
     public function keynote()
     {
         $speakers = Speaker::with('event')
+            ->where('event_year', session('selected_event_year', date('Y')))
             ->where('speaker_type', 'keynote')
             ->get();
 
@@ -25,6 +27,7 @@ class SpeakerController extends Controller
     public function tutorial()
     {
         $speakers = Speaker::with('event')
+            ->where('event_year', session('selected_event_year', date('Y')))
             ->where('speaker_type', 'tutorial')
             ->get();
 
@@ -43,31 +46,6 @@ class SpeakerController extends Controller
     // ==============================
     // ======== ADMIN AREA ==========
     // ==============================
-
-    public function listSpeakers(Request $request)
-    {
-        $query = Speaker::query();
-
-        // 🔍 Search by name or university
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('university', 'like', "%{$search}%");
-            });
-        }
-
-        // 🎯 Filter by speaker type (keynote/tutorial)
-        if ($request->filled('type')) {
-            $query->where('speaker_type', $request->type);
-        }
-
-        // 🔠 Sort ascending by name
-        $speakers = $query->orderBy('name', 'asc')->paginate(10);
-        $speakers->appends($request->all());
-
-        return view('admin.speakers.list_speakers', compact('speakers'));
-    }
 
     // ===== FORM TAMBAH SPEAKER =====
     public function addForm()
@@ -91,8 +69,9 @@ class SpeakerController extends Controller
         ]);
 
         $slug = $validated['slug'] ?? Str::slug($validated['name']);
+        $year = session('selected_event_year', date('Y'));
 
-        // 🖼 Upload image
+        // Upload image
         $imagePath = null;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -109,6 +88,7 @@ class SpeakerController extends Controller
             'image'         => $imagePath,
             'speaker_type'  => $validated['speaker_type'],
             'biodata'       => $validated['biodata'] ?? null,
+            'event_year'    => $year,
         ]);
 
         // 📝 Simpan DescriptionSpeaker (jika ada)
@@ -265,7 +245,10 @@ class SpeakerController extends Controller
 
     public function listKeynoteSpeakers(Request $request)
     {
-        $query = Speaker::where('speaker_type', 'keynote');
+        $year = session('selected_event_year', date('Y'));
+        $event = Event::where('year', $year)->first();
+
+        $query = Speaker::where('event_year', $event->year)->where('speaker_type', 'keynote');
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -287,7 +270,10 @@ class SpeakerController extends Controller
 
     public function listTutorialSpeakers(Request $request)
     {
-        $query = Speaker::where('speaker_type', 'tutorial');
+        $year = session('selected_event_year', date('Y'));
+        $event = Event::where('year', $year)->first();
+
+        $query = Speaker::where('event_year', $event->year)->where('speaker_type', 'tutorial');
 
         if ($request->filled('search')) {
             $search = $request->search;
