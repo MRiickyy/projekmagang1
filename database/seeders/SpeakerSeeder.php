@@ -21,7 +21,7 @@ class SpeakerSeeder extends Seeder
             'slug' => 'assoc-prof-ts-dr-afizan-azman',
             'biodata' => 'Short biodata about Afizan Azman...',
             'speaker_type' => 'keynote',
-            'event_year' => 2025
+            'event_id' => 1
         ]);
 
         // Insert Deskripsi Speaker

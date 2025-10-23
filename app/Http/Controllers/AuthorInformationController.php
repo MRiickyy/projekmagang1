@@ -10,17 +10,31 @@ class AuthorInformationController extends Controller
 {
     public function index()
     {
+        $selectedEventId = session('selected_event_id');
+
+        $event = Event::find($selectedEventId);
+
         $authorInfos = AuthorInformation::with('event')->get()->groupBy('section')
-        ->where('event_year', session('selected_event_year', date('Y')));
-        return view('author', compact('authorInfos'));
+            ->where('event_id', $selectedEventId);
+        return view('author', compact('authorInfos', 'event'));
     }
 
     public function listAuthor()
     {
-        $year = session('selected_event_year', date('Y'));
-        $event = Event::where('year', $year)->first();
-        
-        $authorInfos = AuthorInformation::where('event_year', $event->year)->get();
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            $latestEvent = Event::latest('year')->first();
+            if (!$latestEvent) {
+                return back()->with('error', 'No event found.');
+            }
+            $selectedEventId = $latestEvent->id;
+            session(['selected_event_id' => $selectedEventId]);
+        }
+
+        $event = Event::find($selectedEventId);
+
+        $authorInfos = AuthorInformation::where('event_id', $selectedEventId)->get();
         return view('admin.forauthor.list_authorinformation_admin', compact('authorInfos'));
     }
 
@@ -31,14 +45,18 @@ class AuthorInformationController extends Controller
 
     public function store(Request $request)
     {
-        $year = session('selected_event_year', date('Y'));
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            return back()->with('error', 'Please select an event first.');
+        }
 
         $validated = $request->validate([
             'section' => 'required|string',
             'content' => 'required|string',
         ]);
 
-        $validated['event_year'] = $year;
+        $validated['event_id'] = $selectedEventId;
 
         AuthorInformation::create($validated);
 

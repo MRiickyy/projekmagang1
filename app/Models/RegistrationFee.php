@@ -12,11 +12,11 @@ class RegistrationFee extends Model
         'idr_physical',
         'usd_online', 
         'idr_online',
-        'event_year',
+        'event_id',
     ];
 
     public function event()
     {
-        return $this->belongsTo(Event::class, 'event_year', 'year');
+        return $this->belongsTo(Event::class);
     }
 }

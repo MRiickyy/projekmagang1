@@ -9,11 +9,11 @@ class ContactInfo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['section', 'type', 'title', 'value', 'link', 'event_year'];
+    protected $fillable = ['section', 'type', 'title', 'value', 'link', 'event_id'];
 
     public function event()
     {
-        return $this->belongsTo(Event::class, 'event_year', 'year');
+        return $this->belongsTo(Event::class);
     }
 
 }

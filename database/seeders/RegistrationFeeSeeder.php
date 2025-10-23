@@ -18,7 +18,7 @@ class RegistrationFeeSeeder extends Seeder
                 'idr_physical' => 4700000,
                 'usd_online' => 300,
                 'idr_online' => 4000000,
-                'event_year' => 2025
+                'event_id' => 1
             ],
             [
                 'category' => 'Non-IEEE Member',
@@ -26,7 +26,7 @@ class RegistrationFeeSeeder extends Seeder
                 'idr_physical' => 5700000,
                 'usd_online' => 350,
                 'idr_online' => 5000000,
-                'event_year' => 2025
+                'event_id' => 1
             ],
             [
                 'category' => 'Student IEEE Member',
@@ -34,7 +34,7 @@ class RegistrationFeeSeeder extends Seeder
                 'idr_physical' => 4000000,
                 'usd_online' => 250,
                 'idr_online' => 3000000,
-                'event_year' => 2025
+                'event_id' => 1
             ],
             [
                 'category' => 'Student Non-IEEE Member',
@@ -42,7 +42,7 @@ class RegistrationFeeSeeder extends Seeder
                 'idr_physical' => 4500000,
                 'usd_online' => 280,
                 'idr_online' => 3500000,
-                'event_year' => 2025
+                'event_id' => 1
             ],
             [
                 'category' => 'Non-Presenter',
@@ -50,7 +50,7 @@ class RegistrationFeeSeeder extends Seeder
                 'idr_physical' => 1500000,
                 'usd_online' => 50,
                 'idr_online' => 800000,
-                'event_year' => 2025
+                'event_id' => 1
             ],
             [
                 'category' => 'Additional Page (fee for 1 page)',
@@ -58,7 +58,7 @@ class RegistrationFeeSeeder extends Seeder
                 'idr_physical' => 600000,
                 'usd_online' => 40,
                 'idr_online' => 600000,
-                'event_year' => 2025
+                'event_id' => 1
             ],
         ]);
     }

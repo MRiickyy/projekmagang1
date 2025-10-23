@@ -14,25 +14,25 @@ class ContactInfoSeeder extends Seeder
                 'type' => 'website',
                 'title' => 'Conference Website',
                 'value' => 'https://conference-website.com',
-                'event_year' => 2025
+                'event_id' => 1
             ],
             [
                 'type' => 'email',
                 'title' => 'Official Email Address',
                 'value' => 'conference@email.com',
-                'event_year' => 2025
+                'event_id' => 1
             ],
             [
                 'type' => 'edas',
                 'title' => 'EDAS Submission Link',
                 'value' => 'https://edas.info/conference',
-                'event_year' => 2025
+                'event_id' => 1
             ],
             [
                 'type' => 'phone',
                 'title' => 'Phone (WhatsApp)',
                 'value' => '+62 812 3456 7890',
-                'event_year' => 2025
+                'event_id' => 1
             ],
         ];
 

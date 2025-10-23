@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('image')->nullable(); // kalau kadang ga ada foto
             $table->text('biodata')->nullable();
             $table->enum('speaker_type', ['keynote', 'tutorial']); // hanya 2 pilihan
-            $table->integer('event_year');
-            $table->foreign('event_year')->references('year')->on('events')->cascadeOnDelete();
+            $table->unsignedBigInteger('event_id');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->timestamps();
         });
     }

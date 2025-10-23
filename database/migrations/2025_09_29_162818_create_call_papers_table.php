@@ -12,8 +12,8 @@ return new class extends Migration {
             $table->string('section'); 
             $table->string('title')->nullable(); 
             $table->longText('content');
-            $table->integer('event_year');
-            $table->foreign('event_year')->references('year')->on('events')->cascadeOnDelete();
+            $table->unsignedBigInteger('event_id');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->timestamps();
         });
         
