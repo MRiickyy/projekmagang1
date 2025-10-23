@@ -19,10 +19,20 @@ class CallPaperController extends Controller
     
     public function listCallPaper()
     {
-        $year = session('selected_event_year', date('Y'));
-        $event = Event::where('year', $year)->first();
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            $latestEvent = Event::latest('year')->first();
+            if (!$latestEvent) {
+                return back()->with('error', 'No event found.');
+            }
+            $selectedEventId = $latestEvent->id;
+            session(['selected_event_id' => $selectedEventId]);
+        }
+
+        $event = Event::find($selectedEventId);
         
-        $callPapers = CallPaper::where('event_year', $event->year)->orderBy('section')->orderBy('id')->get();
+        $callPapers = CallPaper::where('event_id', $selectedEventId)->orderBy('section')->orderBy('id')->get();
         return view('admin.list_callpaper_Admin', compact('callPapers'));
     }
 
@@ -33,7 +43,11 @@ class CallPaperController extends Controller
 
     public function store(Request $request)
     {
-        $year = session('selected_event_year', date('Y'));
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            return back()->with('error', 'Please select an event first.');
+        }
 
         $request->validate([
             'section' => 'required|string|max:255',
@@ -45,7 +59,7 @@ class CallPaperController extends Controller
             'section' => $request->section,
             'title' => $request->title,
             'content' => $request->content,
-            'event_year' => $year,
+            'event_id' => $selectedEventId,
         ]);
 
         return redirect()->route('admin.list_callpaper_Admin');

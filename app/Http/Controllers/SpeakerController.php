@@ -56,6 +56,12 @@ class SpeakerController extends Controller
     // ===== SIMPAN SPEAKER BARU =====
     public function addSpeaker(Request $request)
     {
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            return back()->with('error', 'Please select an event first.');
+        }
+
         $validated = $request->validate([
             'name'          => 'required|string|max:255',
             'slug'          => 'nullable|string|max:255|unique:speakers,slug',
@@ -71,7 +77,6 @@ class SpeakerController extends Controller
         $slug = $validated['slug'] ?? Str::slug($validated['name']);
         $year = session('selected_event_year', date('Y'));
 
-        // Upload image
         $imagePath = null;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -80,7 +85,6 @@ class SpeakerController extends Controller
             $imagePath = $filename;
         }
 
-        // 💾 Simpan Speaker
         $speaker = Speaker::create([
             'name'          => $validated['name'],
             'slug'          => $slug,
@@ -88,10 +92,9 @@ class SpeakerController extends Controller
             'image'         => $imagePath,
             'speaker_type'  => $validated['speaker_type'],
             'biodata'       => $validated['biodata'] ?? null,
-            'event_year'    => $year,
+            'event_id'    => $selectedEventId,
         ]);
 
-        // 📝 Simpan DescriptionSpeaker (jika ada)
         if (isset($validated['descriptions']['title'])) {
             foreach ($request->descriptions['title'] as $index => $title) {
                 if (!empty($title)) {
@@ -104,7 +107,6 @@ class SpeakerController extends Controller
             }
         }
 
-        // 🔁 Redirect sesuai tipe speaker
         $route = $speaker->speaker_type === 'keynote'
             ? 'admin.speakers.keynote'
             : 'admin.speakers.tutorial';
@@ -141,7 +143,6 @@ class SpeakerController extends Controller
 
         $slug = $validated['slug'] ?? Str::slug($validated['name']);
 
-        // 🖼 Upload new image jika ada
         if ($request->hasFile('image')) {
             if ($speaker->image && file_exists(public_path('images/speakers/' . $speaker->image))) {
                 unlink(public_path('images/speakers/' . $speaker->image));
@@ -153,7 +154,6 @@ class SpeakerController extends Controller
             $speaker->image = $filename;
         }
 
-        // 🔄 Update data speaker
         $speaker->update([
             'name'         => $validated['name'],
             'slug'         => $slug,
@@ -162,7 +162,6 @@ class SpeakerController extends Controller
             'biodata'      => $validated['biodata'] ?? null,
         ]);
 
-        // 🔧 Update Descriptions
         $existingDescriptions = $speaker->descriptions->pluck('id')->toArray();
         $requestTitles = $request->descriptions['title'] ?? [];
         $requestContents = $request->descriptions['content'] ?? [];
@@ -245,10 +244,23 @@ class SpeakerController extends Controller
 
     public function listKeynoteSpeakers(Request $request)
     {
-        $year = session('selected_event_year', date('Y'));
-        $event = Event::where('year', $year)->first();
+        $selectedEventId = session('selected_event_id');
 
-        $query = Speaker::where('event_year', $event->year)->where('speaker_type', 'keynote');
+        if (!$selectedEventId) {
+            $selectedEvent = Event::latest('year')->first();
+
+            if (!$selectedEvent) {
+                return back()->with('error', 'No event found.');
+            }
+
+            $selectedEventId = $selectedEvent->id;
+            session(['selected_event_id' => $selectedEventId]);
+        }
+
+        $event = Event::find($selectedEventId);
+
+        $query = Speaker::where('event_id', $selectedEventId)
+            ->where('speaker_type', 'keynote');
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -263,17 +275,31 @@ class SpeakerController extends Controller
 
         return view('admin.speakers.list_speakers', [
             'speakers' => $speakers,
-            'pageTitle' => 'Keynote Speakers List',
-            'type' => 'keynote'
+            'pageTitle' => 'Keynote Speakers List - ' . $event->name . ' (' . $event->year . ')',
+            'type' => 'keynote',
+            'event' => $event
         ]);
     }
 
     public function listTutorialSpeakers(Request $request)
     {
-        $year = session('selected_event_year', date('Y'));
-        $event = Event::where('year', $year)->first();
+        $selectedEventId = session('selected_event_id');
 
-        $query = Speaker::where('event_year', $event->year)->where('speaker_type', 'tutorial');
+        if (!$selectedEventId) {
+            $selectedEvent = Event::latest('year')->first();
+
+            if (!$selectedEvent) {
+                return back()->with('error', 'No event found.');
+            }
+
+            $selectedEventId = $selectedEvent->id;
+            session(['selected_event_id' => $selectedEventId]);
+        }
+
+        $event = Event::find($selectedEventId);
+
+        $query = Speaker::where('event_id', $selectedEventId)
+            ->where('speaker_type', 'tutorial');
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -288,8 +314,9 @@ class SpeakerController extends Controller
 
         return view('admin.speakers.list_speakers', [
             'speakers' => $speakers,
-            'pageTitle' => 'Tutorial Speakers List',
-            'type' => 'tutorial'
+            'pageTitle' => 'Tutorial Speakers List - ' . $event->name . ' (' . $event->year . ')',
+            'type' => 'tutorial',
+            'event' => $event
         ]);
     }
 }

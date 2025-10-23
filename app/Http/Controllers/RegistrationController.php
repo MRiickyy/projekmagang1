@@ -30,12 +30,22 @@ class RegistrationController extends Controller
     //==== ADMIN ====\\
     public function adminIndex()
     {
-        $year = session('selected_event_year', date('Y'));
-        $event = Event::where('year', $year)->first();
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            $latestEvent = Event::latest('year')->first();
+            if (!$latestEvent) {
+                return back()->with('error', 'No event found.');
+            }
+            $selectedEventId = $latestEvent->id;
+            session(['selected_event_id' => $selectedEventId]);
+        }
+
+        $event = Event::find($selectedEventId);
         
-        $registrations = RegistrationModel::where('event_year', $event->year)->get();
-        $fees = RegistrationFee::where('event_year', $event->year)->get();
-        $paymentMethods = PaymentMethod::where('event_year', $event->year)->get();
+        $registrations = RegistrationModel::where('event_id', $selectedEventId)->get();
+        $fees = RegistrationFee::where('event_id', $selectedEventId)->get();
+        $paymentMethods = PaymentMethod::where('event_id', $selectedEventId)->get();
 
         return view('admin.forauthor.list_registrations_admin', [
             'registrations' => $registrations,
@@ -51,14 +61,18 @@ class RegistrationController extends Controller
 
     public function adminRegisStore(Request $request)
     {
-        $year = session('selected_event_year', date('Y'));
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            return back()->with('error', 'Please select an event first.');
+        }
 
         $validated = $request->validate([
             'section' => 'required|string',
             'content' => 'required|string',
         ]);
 
-        $validated['event_year'] = $year;
+        $validated['event_id'] = $selectedEventId;
         
         RegistrationModel::create($validated);
 
