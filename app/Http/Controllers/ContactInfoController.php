@@ -13,13 +13,14 @@ class ContactInfoController extends Controller
     // Halaman user contact
     public function index()
     {
+        $selectedEventId = session('selected_event_id');
+
+        $event = Event::find($selectedEventId);
+
         $contactInfos = ContactInfo::with('event')
-        ->where('event_year', session('selected_event_year', date('Y')))
-        ->get();
+            ->where('event_id', $selectedEventId)->get();
         $map = MapLocation::with('event')
-        ->where('event_year', session('selected_event_year', date('Y')))
-        ->latest()
-        ->first();
+            ->where('event_id', $selectedEventId)->first();
 
         return view('contact', compact('contactInfos', 'map'));
     }

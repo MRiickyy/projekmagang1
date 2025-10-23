@@ -8,15 +8,27 @@ use Illuminate\Http\Request;
 
 class CallPaperController extends Controller
 {
-    
+
     public function index()
     {
-        $callPapers = CallPaper::with('event')->get()
-        ->where('event_year', session('selected_event_year', date('Y')));
-        return view('callpaper', compact('callPapers'));
+        $selectedEventId = session('selected_event_id');
+        if (!$selectedEventId) {
+            $latestEvent = Event::latest('year')->first();
+            if (!$latestEvent) {
+                return back()->with('error', 'No event found.');
+            }
+            $selectedEventId = $latestEvent->id;
+            session(['selected_event_id' => $selectedEventId]);
+        }
+
+        $event = Event::find($selectedEventId);
+        $callPapers = CallPaper::where('event_id', $selectedEventId)->get();
+
+        return view('callpaper', compact('callPapers', 'event'));
     }
 
-    
+
+
     public function listCallPaper()
     {
         $selectedEventId = session('selected_event_id');
@@ -31,7 +43,7 @@ class CallPaperController extends Controller
         }
 
         $event = Event::find($selectedEventId);
-        
+
         $callPapers = CallPaper::where('event_id', $selectedEventId)->orderBy('section')->orderBy('id')->get();
         return view('admin.list_callpaper_Admin', compact('callPapers'));
     }
@@ -99,5 +111,4 @@ class CallPaperController extends Controller
         // kirim flag 'isDetail' ke view untuk membedakan mode
         return view('admin.edit_callpaper_Admin', compact('callPaper'))->with('isDetail', true);
     }
-
 }

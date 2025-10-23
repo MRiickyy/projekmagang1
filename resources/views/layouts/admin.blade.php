@@ -14,35 +14,35 @@
 
 
     <style>
-    .sidebar {
-        transition: width 0.5s ease, transform 0.5s ease;
-    }
+        .sidebar {
+            transition: width 0.5s ease, transform 0.5s ease;
+        }
 
-    .sidebar-closed {
-        transform: translateX(-100%);
-    }
+        .sidebar-closed {
+            transform: translateX(-100%);
+        }
     </style>
 
 
     <script>
-    function openTab(evt, tabName) {
-        let tabcontent = document.getElementsByClassName("tabcontent");
-        for (let i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
+        function openTab(evt, tabName) {
+            let tabcontent = document.getElementsByClassName("tabcontent");
+            for (let i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            let tablinks = document.getElementsByClassName("tablink");
+            for (let i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("border-b-2", "border-teal-400", "text-teal-400");
+            }
+
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.classList.add("border-b-2", "border-teal-400", "text-teal-400");
         }
 
-        let tablinks = document.getElementsByClassName("tablink");
-        for (let i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove("border-b-2", "border-teal-400", "text-teal-400");
+        window.onload = function() {
+            document.getElementById("defaultOpen").click();
         }
-
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.classList.add("border-b-2", "border-teal-400", "text-teal-400");
-    }
-
-    window.onload = function() {
-        document.getElementById("defaultOpen").click();
-    }
     </script>
 
 </head>
@@ -60,21 +60,21 @@
             <div class="p-4">
                 <form action="{{ route('admin.setEvent') }}" method="POST">
                     @csrf
-                    <label for="eventSelect" class="text-sm font-semibold text-white mb-2 block">Select Event
-                        Year</label>
+                    <label for="eventSelect" class="text-sm font-semibold text-white mb-2 block">
+                        Select Event
+                    </label>
                     <div class="flex items-center space-x-2">
-                        <select name="year" id="eventSelect"
+                        <select name="event_id" id="eventSelect"
                             class="bg-gray-800 text-white text-sm rounded px-2 py-1 w-full"
                             onchange="this.form.submit()">
                             @foreach(\App\Models\Event::orderByDesc('year')->get() as $event)
-                            <option value="{{ $event->year }}"
-                                {{ session('selected_event_year') == $event->year ? 'selected' : '' }}>
+                            <option value="{{ $event->id }}"
+                                {{ session('selected_event_id') == $event->id ? 'selected' : '' }}>
                                 {{ $event->event }} {{ $event->year }}
                             </option>
                             @endforeach
                         </select>
 
-                        <!-- Tombol tambah tahun -->
                         <button type="button"
                             onclick="document.getElementById('addEventModal').classList.remove('hidden')"
                             class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-sm">
@@ -83,6 +83,7 @@
                     </div>
                 </form>
             </div>
+
 
             {{-- Modal Tambah Event --}}
             <div id="addEventModal"
@@ -271,56 +272,56 @@
 
     <!-- Sidebar Toggle Script -->
     <script>
-    const toggleBtn = document.getElementById("toggleSidebar");
-    const sidebar = document.getElementById("sidebar");
-    const mainContent = document.getElementById("mainContent");
+        const toggleBtn = document.getElementById("toggleSidebar");
+        const sidebar = document.getElementById("sidebar");
+        const mainContent = document.getElementById("mainContent");
 
-    let sidebarOpen = true;
+        let sidebarOpen = true;
 
-    toggleBtn.addEventListener("click", () => {
-        sidebarOpen = !sidebarOpen;
+        toggleBtn.addEventListener("click", () => {
+            sidebarOpen = !sidebarOpen;
 
-        if (!sidebarOpen) {
-            sidebar.classList.add("sidebar-closed");
-            mainContent.classList.remove("ml-64");
-            mainContent.classList.add("ml-0");
-        } else {
-            sidebar.classList.remove("sidebar-closed");
-            mainContent.classList.remove("ml-0");
-            mainContent.classList.add("ml-64");
-        }
-    });
+            if (!sidebarOpen) {
+                sidebar.classList.add("sidebar-closed");
+                mainContent.classList.remove("ml-64");
+                mainContent.classList.add("ml-0");
+            } else {
+                sidebar.classList.remove("sidebar-closed");
+                mainContent.classList.remove("ml-0");
+                mainContent.classList.add("ml-64");
+            }
+        });
     </script>
 
     <!-- Delete Confirmation -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const deleteForms = document.querySelectorAll('.delete-item');
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteForms = document.querySelectorAll('.delete-item');
 
-        if (deleteForms.length > 0) {
-            deleteForms.forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
+            if (deleteForms.length > 0) {
+                deleteForms.forEach(form => {
+                    form.addEventListener('submit', function(e) {
+                        e.preventDefault();
 
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "This action cannot be undone!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!',
-                        cancelButtonText: 'No, cancel'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            form.submit();
-                        }
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "This action cannot be undone!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, delete it!',
+                            cancelButtonText: 'No, cancel'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
                     });
                 });
-            });
-        }
-    });
+            }
+        });
     </script>
 </body>
 

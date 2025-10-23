@@ -13,17 +13,22 @@ class RegistrationController extends Controller
     //==== USER ====\\
     public function index()
     {
+        $selectedEventId = session('selected_event_id');
+
+        $event = Event::find($selectedEventId);
+
         $registration = RegistrationModel::with('event')->get()->keyBy('section')
-        ->where('event_year', session('selected_event_year', date('Y')));
+            ->where('event_id', $selectedEventId);
         $fees = RegistrationFee::with('event')->get()
-        ->where('event_year', session('selected_event_year', date('Y')));
+            ->where('event_id', $selectedEventId);
         $paymentMethods = PaymentMethod::with('event')->get()
-        ->where('event_year', session('selected_event_year', date('Y')));
+            ->where('event_id', $selectedEventId);
 
         return view('registration', [
             'registration' => $registration,
             'fees' => $fees,
             'paymentMethods' => $paymentMethods,
+            'event' => $event,
         ]);
     }
 
@@ -186,7 +191,11 @@ class RegistrationController extends Controller
 
     public function adminPaymentMethodStore(Request $request)
     {
-        $year = session('selected_event_year', date('Y'));
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            return back()->with('error', 'Please select an event first.');
+        }
 
         $validated = $request->validate([
             'method_name' => 'required|string|in:Virtual Account,PayPal',
@@ -205,7 +214,7 @@ class RegistrationController extends Controller
             ]);
         }
 
-        $data = array_merge($validated, ['event_year' => $year]);
+        $data = array_merge($validated, ['event_id' => $selectedEventId]);
 
         PaymentMethod::create($data);
 

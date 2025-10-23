@@ -13,29 +13,41 @@ class CommitteeController extends Controller
     // ==============================
     public function steering()
     {
+        $selectedEventId = session('selected_event_id');
+
+        $event = Event::find($selectedEventId);
+
         $committees = Committee::with('event')
-            ->where('event_year', session('selected_event_year', date('Y')))
+            ->where('event_id', $selectedEventId)
             ->where('type', 'steering')->get();
 
-        return view('committees.SteeringCommittes', compact('committees'));
+        return view('committees.SteeringCommittes', compact('committees', 'event'));
     }
 
     public function technical()
     {
+        $selectedEventId = session('selected_event_id');
+
+        $event = Event::find($selectedEventId);
+
         $committees = Committee::with('event')
-            ->where('event_year', session('selected_event_year', date('Y')))
+            ->where('event_id', $selectedEventId)
             ->where('type', 'technical program')->get();
 
-        return view('committees.TechnicalProgramCommittee', compact('committees'));
+        return view('committees.TechnicalProgramCommittee', compact('committees', 'event'));
     }
 
     public function organizing()
     {
+        $selectedEventId = session('selected_event_id');
+
+        $event = Event::find($selectedEventId);
+
         $committees = Committee::with('event')
-            ->where('event_year', session('selected_event_year', date('Y')))
+            ->where('event_id', $selectedEventId)
             ->where('type', 'organizing')->get();
 
-        return view('committees.OrganizingCommittees', compact('committees'));
+        return view('committees.OrganizingCommittees', compact('committees', 'event'));
     }
 
     // ==============================

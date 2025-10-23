@@ -10,9 +10,13 @@ class AuthorInformationController extends Controller
 {
     public function index()
     {
+        $selectedEventId = session('selected_event_id');
+
+        $event = Event::find($selectedEventId);
+
         $authorInfos = AuthorInformation::with('event')->get()->groupBy('section')
-            ->where('event_year', session('selected_event_year', date('Y')));
-        return view('author', compact('authorInfos'));
+            ->where('event_id', $selectedEventId);
+        return view('author', compact('authorInfos', 'event'));
     }
 
     public function listAuthor()

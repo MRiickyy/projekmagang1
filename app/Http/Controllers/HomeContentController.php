@@ -12,11 +12,14 @@ class HomeContentController extends Controller
 {
     public function index()
     {
+        $selectedEventId = session('selected_event_id');
+
+        $event = Event::find($selectedEventId);
 
         $homeContents = HomeContent::with('event')->get()->keyBy('section')
-            ->where('event_year', session('selected_event_year', date('Y')));
+            ->where('event_id', $selectedEventId);
         $timelines = Timeline::with('event')->get()->groupBy('round_number')
-            ->where('event_year', session('selected_event_year', date('Y')));
+            ->where('event_id', $selectedEventId);
 
 
         $homeContents['icoict_links'] = $homeContents
@@ -31,7 +34,7 @@ class HomeContentController extends Controller
             ->get()
             ->groupBy('round_number');
 
-        return view('home', compact('homeContents', 'timelines'));
+        return view('home', compact('homeContents', 'timelines', 'event'));
     }
 
 

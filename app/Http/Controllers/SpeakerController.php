@@ -16,22 +16,30 @@ class SpeakerController extends Controller
 
     public function keynote()
     {
+        $selectedEventId = session('selected_event_id');
+
+        $event = Event::find($selectedEventId);
+
         $speakers = Speaker::with('event')
-            ->where('event_year', session('selected_event_year', date('Y')))
+            ->where('event_id', $selectedEventId)
             ->where('speaker_type', 'keynote')
             ->get();
 
-        return view('speakers.keynote', compact('speakers'));
+        return view('speakers.keynote', compact('speakers', 'event'));
     }
 
     public function tutorial()
     {
+        $selectedEventId = session('selected_event_id');
+
+        $event = Event::find($selectedEventId);
+
         $speakers = Speaker::with('event')
-            ->where('event_year', session('selected_event_year', date('Y')))
+            ->where('event_id', $selectedEventId)
             ->where('speaker_type', 'tutorial')
             ->get();
 
-        return view('speakers.tutorial', compact('speakers'));
+        return view('speakers.tutorial', compact('speakers', 'event'));
     }
 
     public function detailSpeaker($slug)

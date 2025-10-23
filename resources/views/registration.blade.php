@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Registration - ICOICT 2025')
+@section('title', 'Registration')
 
 @section('content')
 <main class="bg-white my-12">
