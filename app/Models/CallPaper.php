@@ -10,6 +10,6 @@ class CallPaper extends Model
 
     public function event()
     {
-        return $this->belongsTo(Event::class, 'event_id', 'year');
+        return $this->belongsTo(Event::class);
     }
 }

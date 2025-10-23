@@ -17,7 +17,7 @@ class Event extends Model
 
     public function authorInformations()
     {
-        return $this->hasMany(AuthorInformation::class, 'event_id');
+        return $this->hasMany(AuthorInformation::class);
     }
 
     public function speakers()
@@ -27,6 +27,6 @@ class Event extends Model
 
     public function committees()
     {
-        return $this->hasMany(Committee::class, 'event_id');
+        return $this->hasMany(Committee::class);
     }
 }
