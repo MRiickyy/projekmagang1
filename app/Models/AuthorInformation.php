@@ -14,11 +14,11 @@ class AuthorInformation extends Model
     protected $fillable = [
         'section',
         'content',
-        'event_year',
+        'event_id',
     ];
 
     public function event()
     {
-        return $this->belongsTo(Event::class, 'event_year', 'year');
+        return $this->belongsTo(Event::class, 'event_id', 'year');
     }
 }

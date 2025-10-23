@@ -14,6 +14,6 @@ class Timeline extends Model
 
     public function event()
     {
-        return $this->belongsTo(Event::class, 'event_year', 'year', 'event_year');
+        return $this->belongsTo(Event::class, 'event_id', 'year', 'event_id');
     }
 }
