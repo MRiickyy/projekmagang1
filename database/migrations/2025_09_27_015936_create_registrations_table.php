@@ -12,8 +12,8 @@ return new class extends Migration
             $table->id();
             $table->string('section');
             $table->text('content')->nullable();
-            $table->integer('event_year');
-            $table->foreign('event_year')->references('year')->on('events')->cascadeOnDelete();
+            $table->unsignedBigInteger('event_id');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -24,8 +24,8 @@ return new class extends Migration
             $table->integer('idr_physical')->nullable();
             $table->integer('usd_online')->nullable();
             $table->integer('idr_online')->nullable();
-            $table->integer('event_year');
-            $table->foreign('event_year')->references('year')->on('events')->cascadeOnDelete();
+            $table->unsignedBigInteger('event_id');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -45,8 +45,8 @@ return new class extends Migration
             // Catatan penting
             $table->text('important_notes')->nullable();
             
-            $table->integer('event_year');
-            $table->foreign('event_year')->references('year')->on('events')->cascadeOnDelete();
+            $table->unsignedBigInteger('event_id');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->timestamps();
         });
 

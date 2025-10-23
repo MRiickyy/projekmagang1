@@ -19,7 +19,7 @@ class CommitteeSeeder extends Seeder
             'university' => 'Ahmad Dahlan University',
             'country' => 'Indonesia',
             'type' => 'steering',
-            'event_year' => 2025
+            'event_id' => 1
         ]);
     }
 }

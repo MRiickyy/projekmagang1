@@ -14,11 +14,11 @@ class EventSeeder extends Seeder
     public function run(): void
     {
         $event = Event::firstOrCreate([
-            'event' => 'ICOICT',
+            'name' => 'ICOICT',
             'year' => 2025,
         ]);
         $event = Event::firstOrCreate([
-            'event' => 'ICOICT',
+            'name' => 'ICOICT',
             'year' => 2024,
         ]);
     }
