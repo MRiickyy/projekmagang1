@@ -14,8 +14,8 @@ class AuthorInformationController extends Controller
 
         $event = Event::find($selectedEventId);
 
-        $authorInfos = AuthorInformation::with('event')->get()->groupBy('section')
-            ->where('event_id', $selectedEventId);
+        $authorInfos = AuthorInformation::with('event')->where('event_id', $selectedEventId)->get()->groupBy('section');
+            
         return view('author', compact('authorInfos', 'event'));
     }
 
