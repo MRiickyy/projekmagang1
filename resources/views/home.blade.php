@@ -78,10 +78,10 @@
                     </button>
                     <div
                         class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
-                        <a href="/author-information" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Author
+                        <a href="/2025/author-information" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Author
                             Information</a>
-                        <a href="/registration" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Registration</a>
-                        <a href="/contacts" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Contacts</a>
+                        <a href="/2025/registration" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Registration</a>
+                        <a href="/2025/contacts" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Contacts</a>
                     </div>
                 </div>
 
