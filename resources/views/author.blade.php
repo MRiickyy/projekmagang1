@@ -19,11 +19,11 @@
         <!-- CTA Box -->
         <div class="mt-10 bg-[#1a1f27] rounded-xl p-8 shadow-xl space-y-6 text-center text-white">
             <p class="mb-2 text-white text-lg md:text-xl">
-                {{ $authorInfos['cta_text']->content ?? 'Authors are requested to utilize the provided presentation format.' }}
+                {{ optional($authorInfos['cta_text'][0] ?? null)->content ?? 'Authors are requested to utilize the provided presentation format.' }}
             </p>
-            <a href="{{ $authorInfos['cta_link']->content ?? '#' }}"
+            <a href="{{ optional($authorInfos['cta_link'][0] ?? null)->content ?? '#' }}"
                 class="inline-flex items-center justify-center rounded-full bg-sky-500 hover:bg-sky-600 transition px-6 py-2 md:px-8 md:py-3 font-semibold shadow">
-                {{ $authorInfos['cta_button']->content ?? 'Download Slide Format' }}
+                {{ optional($authorInfos['cta_button'][0] ?? null)->content ?? 'Download Slide Format' }}
             </a>
         </div>
 
@@ -39,8 +39,8 @@
 
             <p>
                 Please submit your paper via
-                <a href="{{ $authorInfos['submission_link'][0]->content ?? '#' }}" class="text-sky-400 underline">
-                    {{ $authorInfos['submission_link'][0]->content ?? 'https://edas.info/newPaper.php?c=33220' }}
+                <a href="{{ optional($authorInfos['submission_link'][0] ?? null)->content ?? '#' }}" class="text-sky-400 underline">
+                    {{ optional($authorInfos['submission_link'][0] ?? null)->content ?? 'https://edas.info/newPaper.php?c=33220' }}
                 </a>.
             </p>
         </div>
