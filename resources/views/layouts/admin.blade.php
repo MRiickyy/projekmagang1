@@ -70,7 +70,7 @@
                             @foreach(\App\Models\Event::orderByDesc('year')->get() as $event)
                             <option value="{{ $event->id }}"
                                 {{ session('selected_event_id') == $event->id ? 'selected' : '' }}>
-                                {{ $event->event }} {{ $event->year }}
+                                {{ $event->name }} {{ $event->year }}
                             </option>
                             @endforeach
                         </select>
