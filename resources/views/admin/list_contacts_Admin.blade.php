@@ -38,7 +38,7 @@
                 <table class="w-full border-collapse">
                     <thead class="bg-gray-200 text-gray-700">
                         <tr>
-                            <th class="px-4 py-2 border">ID</th>
+                            <th class="px-4 py-2 border">No</th>
                             <th class="px-4 py-2 border">Type</th>
                             <th class="px-4 py-2 border">Title</th>
                             <th class="px-4 py-2 border">Value</th>
@@ -50,7 +50,7 @@
                     <tbody>
                         @foreach($contactInfos as $contactInfo)
                         <tr class="hover:bg-gray-100 text-gray-800">
-                            <td class="px-4 py-2 border">{{ $contactInfo->id }}</td>
+                            <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
                             <td class="px-4 py-2 border">{{ ucfirst($contactInfo->type) }}</td>
                             <td class="px-4 py-2 border">{{ $contactInfo->title }}</td>
                             <td class="px-4 py-2 border">{{ $contactInfo->value }}</td>
@@ -88,7 +88,7 @@
                 <table class="w-full border-collapse">
                     <thead class="bg-gray-200 text-gray-700">
                         <tr>
-                            <th class="px-4 py-2 border">ID</th>
+                            <th class="px-4 py-2 border">No</th>
                             <th class="px-4 py-2 border">Name</th>
                             <th class="px-4 py-2 border">Email</th>
                             <th class="px-4 py-2 border">Message</th>
@@ -100,7 +100,7 @@
                     <tbody>
                         @forelse($contactMessages as $message)
                         <tr class="hover:bg-gray-100 text-gray-800">
-                            <td class="px-4 py-2 border">{{ $message->id }}</td>
+                            <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
                             <td class="px-4 py-2 border">{{ $message->name }}</td>
                             <td class="px-4 py-2 border">{{ $message->email }}</td>
                             <td class="px-4 py-2 border">{{ $message->message }}</td>
@@ -126,7 +126,7 @@
                         @empty
                         <tr>
                             <td colspan="7" class="px-4 py-2 border text-center text-gray-500">
-                                Tidak ada pesan
+                                No messages found for contact message.
                             </td>
                         </tr>
                         @endforelse
@@ -150,7 +150,7 @@
                 <table class="w-full border-collapse">
                     <thead class="bg-gray-200 text-gray-700">
                         <tr>
-                            <th class="px-4 py-2 border">ID</th>
+                            <th class="px-4 py-2 border">No</th>
                             <th class="px-4 py-2 border">Title</th>
                             <th class="px-4 py-2 border">Link</th>
                             <th class="px-4 py-2 border">Created At</th>
@@ -161,7 +161,7 @@
                     <tbody>
                         @forelse($mapLocations as $map)
                         <tr class="hover:bg-gray-100 text-gray-800">
-                            <td class="px-4 py-2 border">{{ $map->id }}</td>
+                            <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
                             <td class="px-4 py-2 border">{{ $map->title }}</td>
                             <td class="px-4 py-2 border max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                                 <a href="{{ $map->link }}" class="text-blue-600 hover:underline">{{ $map->link }}</a>

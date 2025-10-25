@@ -23,7 +23,7 @@
                 <table class="w-full border-collapse border border-gray-300 table-auto">
                     <thead class="bg-gray-200 text-slate-900">
                         <tr>
-                            <th class="px-4 py-2 border border-gray-300">ID</th>
+                            <th class="px-4 py-2 border border-gray-300">No</th>
                             <th class="px-4 py-2 border border-gray-300">Section</th>
                             <th class="px-4 py-2 border border-gray-300">Title</th>
                             <th class="px-4 py-2 border border-gray-300">Content</th>
@@ -33,18 +33,11 @@
                     <tbody class="bg-white text-slate-800">
                         @foreach($callPapers as $call)
                         <tr class="hover:bg-gray-100">
-                            <td class="px-4 py-2 border border-gray-300 text-center">{{ $call->id }}</td>
+                            <td class="px-4 py-2 border border-gray-300 text-center">{{ $loop->iteration }}</td>
                             <td class="px-4 py-2 border border-gray-300">{{ $call->section }}</td>
                             <td class="px-4 py-2 border border-gray-300 font-semibold">{{ $call->title }}</td>
-                            <td class="px-4 py-2 border border-gray-300">
-                                @if($call->content)
-                                <ul class="list-disc list-inside">
-                                    @foreach(explode("\n", $call->content) as $line)
-                                    <li>{{ $line }}</li>
-                                    @endforeach
-                                </ul>
-                                @endif
-                            </td>
+                            <td class="px-4 py-2 border border-gray-300">{!! nl2br(e($call->content)) !!}</td>
+
                             <td class="px-4 py-2 border border-gray-300 text-center space-x-2">
                                 <div class="flex justify-center gap-2">
                                     <a href="{{ route('admin.edit_callpaper_Admin', $call->id) }}"

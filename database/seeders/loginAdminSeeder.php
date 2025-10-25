@@ -11,11 +11,14 @@ class LoginAdminSeeder extends Seeder
   
     public function run(): void
     {
-        DB::table('admins_login')->insert([
-            'username' => 'admin',
-            'password' => Hash::make('admin123'),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        if (DB::table('admins_login')->count() === 0) {
+            DB::table('admins_login')->insert([
+                'username' => 'admin',
+                'password' => Hash::make('admin123'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
+
 }
