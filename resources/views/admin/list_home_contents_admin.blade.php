@@ -35,7 +35,7 @@
                 <table class="w-full border border-gray-300 rounded-lg overflow-hidden">
                     <thead class="bg-gray-200 text-slate-900">
                         <tr>
-                            <th class="px-4 py-2 border">ID</th>
+                            <th class="px-4 py-2 border">No</th>
                             <th class="px-4 py-2 border">Section</th>
                             <th class="px-4 py-2 border">Content</th>
                             <th class="px-4 py-2 border">Created At</th>
@@ -46,7 +46,7 @@
                     <tbody class="bg-white text-slate-800">
                         @foreach ($homeContents as $homeContent)
                         <tr class="hover:bg-gray-100">
-                            <td class="px-4 py-2 border">{{ $homeContent->id }}</td>
+                            <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
                             <td class="px-4 py-2 border">{{ $homeContent->section }}</td>
                             <td class="px-4 py-2 border">{{ $homeContent->content }}</td>
                             <td class="px-4 py-2 border">{{ $homeContent->created_at }}</td>
@@ -107,7 +107,7 @@
 
                         <tr class="bg-gray-200 text-slate-900 font-semibold round-header"
                             data-round="round-{{ $round }}" style="{{ $loop->first ? '' : 'display:none;' }}">
-                            <th class="px-4 py-2 border">ID</th>
+                            <th class="px-4 py-2 border">No</th>
                             <th class="px-4 py-2 border">Title</th>
                             <th class="px-4 py-2 border">Date</th>
                             <th class="px-4 py-2 border">Created At</th>
@@ -118,7 +118,7 @@
                         @foreach ($items as $item)
                         <tr class="hover:bg-gray-50 round-item" data-round="round-{{ $round }}"
                             style="{{ $loop->parent->first ? '' : 'display:none;' }}">
-                            <td class="px-4 py-2 border">{{ $item->id }}</td>
+                            <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
                             <td class="px-4 py-2 border">{{ $item->title }}</td>
                             <td class="px-4 py-2 border">{{ $item->date }}</td>
                             <td class="px-4 py-2 border">{{ $item->created_at }}</td>

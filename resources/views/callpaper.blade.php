@@ -5,6 +5,20 @@
 @section('content')
 
 {{-- CALL FOR PAPERS --}}
+
+<style>
+.submission-text {
+    white-space: pre-line;
+}
+
+.submission-text span.indent {
+    display: block;
+    margin-left: 1em;
+
+}
+</style>
+
+{{-- Call for Papers --}}
 <section class="max-w-7xl mx-auto px-5 py-16">
     <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 mb-12 
         relative block text-center
@@ -14,23 +28,23 @@
     </h2>
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
         @foreach ($callPapers->where('section', 'call_for_papers') as $cfp)
-            <div class="bg-[#F2F6F9] rounded-2xl shadow-md p-6 hover:shadow-xl transition">
-                <h5 class="text-center font-bold text-lg mb-3">{{ $cfp->title }}</h5>
+        <div class="bg-[#F2F6F9] rounded-2xl shadow-md p-6 hover:shadow-xl transition">
+            <h5 class="text-center font-bold text-lg mb-3">{{ $cfp->title }}</h5>
 
-                @php
-                    $items = json_decode($cfp->content, true);
-                @endphp
+            @php
+            $items = json_decode($cfp->content, true);
+            @endphp
 
-                @if (is_array($items))
-                    <ul class="list-disc list-inside text-slate-600">
-                        @foreach ($items as $item)
-                            <li>{{ $item }}</li>
-                        @endforeach
-                    </ul>
-                @else
-                    <p class="text-slate-600">{{ $cfp->content }}</p>
-                @endif
-            </div>
+            @if (is_array($items))
+            <ul class="list-disc list-inside text-slate-600">
+                @foreach ($items as $item)
+                <li>{{ $item }}</li>
+                @endforeach
+            </ul>
+            @else
+            <p class="text-slate-600">{{ $cfp->content }}</p>
+            @endif
+        </div>
         @endforeach
     </div>
 </section>
@@ -42,18 +56,24 @@
         after:mt-2 after:bg-gradient-to-r after:from-[#00e676] after:to-[#38bdf8]">
         SUBMISSION GUIDELINES
     </h3>
+    <<<<<<< Updated upstream @php $guidelines=$callPapers->where('section', 'submission_guidelines')->first();
+        @endphp
 
-    @php
-        $guidelines = $callPapers->where('section', 'submission_guidelines')->first();
-    @endphp
-
-    @if ($guidelines)
+        @if ($guidelines)
         <p class="text-slate-700 leading-relaxed whitespace-pre-line">
             {{ $guidelines->content }}
         </p>
-    @else
+        @else
         <p class="text-slate-500 italic">No submission guidelines available.</p>
-    @endif
+        @endif
+        =======
+        <p class="text-slate-700 leading-relaxed submission-text">
+            {!! preg_replace('/^\s{4,}(.*)$/m', '<span class="indent">$1</span>', e($callPapers->where('section',
+            'submission_guidelines')->first()->content ?? '')) !!}
+        </p>
+
+
+        >>>>>>> Stashed changes
 </section>
 
 {{-- IMPORTANT DATES --}}
@@ -65,16 +85,16 @@
     </h3>
     <div class="flex flex-wrap gap-4 mt-6">
         @forelse ($callPapers->where('section', 'important_dates') as $date)
-            <div class="bg-[#F2F6F9] border border-slate-300 rounded-xl px-6 py-3 text-center shadow-sm">
-                <p class="font-semibold text-slate-800">{{ $date->title }}</p>
-                @foreach (explode("\n", $date->content) as $line)
-                    @if (trim($line) !== '')
-                        <p class="italic text-slate-600">{{ $line }}</p>
-                    @endif
-                @endforeach
-            </div>
+        <div class="bg-[#F2F6F9] border border-slate-300 rounded-xl px-6 py-3 text-center shadow-sm">
+            <p class="font-semibold text-slate-800">{{ $date->title }}</p>
+            @foreach (explode("\n", $date->content) as $line)
+            @if (trim($line) !== '')
+            <p class="italic text-slate-600">{{ $line }}</p>
+            @endif
+            @endforeach
+        </div>
         @empty
-            <p class="text-slate-500 italic">No important dates available.</p>
+        <p class="text-slate-500 italic">No important dates available.</p>
         @endforelse
     </div>
 </section>
