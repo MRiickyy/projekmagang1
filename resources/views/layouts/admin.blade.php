@@ -67,7 +67,7 @@
                         <select name="event_id" id="eventSelect"
                             class="bg-gray-800 text-white text-sm rounded px-2 py-1 w-full"
                             onchange="this.form.submit()">
-                            @foreach(\App\Models\Event::orderByDesc('year')->get() as $event)
+                            @foreach(\App\Models\Event::orderBy('name', 'asc')->orderBy('year', 'asc')->get() as $event)
                             <option value="{{ $event->id }}"
                                 {{ session('selected_event_id') == $event->id ? 'selected' : '' }}>
                                 {{ $event->name }} {{ $event->year }}
@@ -83,6 +83,7 @@
                     </div>
                 </form>
             </div>
+
 
 
             {{-- Modal Tambah Event --}}
