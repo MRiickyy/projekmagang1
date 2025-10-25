@@ -34,7 +34,7 @@ class AdminController extends Controller
         $recaptcha = $response->json();
 
         if (!($recaptcha['success'] ?? false)) {
-            return back()->with('error', 'Verifikasi captcha gagal. Silakan coba lagi.');
+            return back()->with('error', 'Captcha verification failed. Please try again.');
         }
 
         
@@ -44,7 +44,7 @@ class AdminController extends Controller
             session(['admin_logged_in' => true, 'admin_username' => $admin->username]);
             return redirect()->route('admin.list_home_contents_admin');
         } else {
-            return back()->with('error', 'Username atau password salah!');
+            return back()->with('error', 'Wrong username or password!');
         }
     }
 
