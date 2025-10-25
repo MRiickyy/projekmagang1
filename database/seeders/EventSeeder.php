@@ -8,9 +8,7 @@ use App\Models\Event;
 
 class EventSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    
     public function run(): void
     {
         $event = Event::firstOrCreate([

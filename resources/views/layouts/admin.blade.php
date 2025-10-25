@@ -14,35 +14,35 @@
 
 
     <style>
-        .sidebar {
-            transition: width 0.5s ease, transform 0.5s ease;
-        }
+    .sidebar {
+        transition: width 0.5s ease, transform 0.5s ease;
+    }
 
-        .sidebar-closed {
-            transform: translateX(-100%);
-        }
+    .sidebar-closed {
+        transform: translateX(-100%);
+    }
     </style>
 
 
     <script>
-        function openTab(evt, tabName) {
-            let tabcontent = document.getElementsByClassName("tabcontent");
-            for (let i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-
-            let tablinks = document.getElementsByClassName("tablink");
-            for (let i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("border-b-2", "border-teal-400", "text-teal-400");
-            }
-
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.classList.add("border-b-2", "border-teal-400", "text-teal-400");
+    function openTab(evt, tabName) {
+        let tabcontent = document.getElementsByClassName("tabcontent");
+        for (let i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
         }
 
-        window.onload = function() {
-            document.getElementById("defaultOpen").click();
+        let tablinks = document.getElementsByClassName("tablink");
+        for (let i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("border-b-2", "border-teal-400", "text-teal-400");
         }
+
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("border-b-2", "border-teal-400", "text-teal-400");
+    }
+
+    window.onload = function() {
+        document.getElementById("defaultOpen").click();
+    }
     </script>
 
 </head>
@@ -97,21 +97,27 @@
                         {{-- Event Name otomatis ICOICT --}}
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Event Name</label>
-                            <input type="text" name="event" value="ICOICT" readonly
-                                class="border border-gray-300 w-full rounded px-3 py-2 text-sm text-gray-900 bg-gray-100 cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-400">
+                            <input type="text" name="name" placeholder="Enter event name"
+                                class="border border-gray-300 w-full rounded px-3 py-2 text-sm text-gray-900 bg-white  focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                required>
+
                         </div>
 
                         {{-- Dropdown tahun --}}
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Year</label>
                             @php
-                            $nextYear = date('Y') + 1;
+                            $currentYear = date('Y');
                             @endphp
                             <div class="relative">
                                 <select name="year" required
                                     class="appearance-none border border-gray-300 w-full rounded px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400">
                                     <option value="" disabled selected hidden>Select year</option>
-                                    <option value="{{ $nextYear }}">{{ $nextYear }}</option>
+
+                                    {{-- Tampilkan tahun dari sekarang sampai +5 tahun ke depan --}}
+                                    @for ($i = 0; $i <= 5; $i++) <option value="{{ $currentYear + $i }}">
+                                        {{ $currentYear + $i }}</option>
+                                        @endfor
                                 </select>
 
                                 {{-- Panah bawah --}}
@@ -120,6 +126,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
                                 </svg>
                             </div>
+
                         </div>
 
                         {{-- Tombol aksi --}}
@@ -255,7 +262,8 @@
                         <span>Selamat datang, <strong>{{ session('admin_username') }}</strong></span>
                         @endif
 
-                        <a href="{{ url('/ICOICT/' . session('selected_event_year', date('Y'))) }}" class="hover:underline">Lihat website</a>
+                        <a href="{{ url('/ICOICT/' . session('selected_event_year', date('Y'))) }}"
+                            class="hover:underline">Lihat website</a>
                         <a href="{{ route('admin.login') }}" class="hover:underline">Logout</a>
                     </div>
                 </div>
@@ -272,56 +280,56 @@
 
     <!-- Sidebar Toggle Script -->
     <script>
-        const toggleBtn = document.getElementById("toggleSidebar");
-        const sidebar = document.getElementById("sidebar");
-        const mainContent = document.getElementById("mainContent");
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+    const mainContent = document.getElementById("mainContent");
 
-        let sidebarOpen = true;
+    let sidebarOpen = true;
 
-        toggleBtn.addEventListener("click", () => {
-            sidebarOpen = !sidebarOpen;
+    toggleBtn.addEventListener("click", () => {
+        sidebarOpen = !sidebarOpen;
 
-            if (!sidebarOpen) {
-                sidebar.classList.add("sidebar-closed");
-                mainContent.classList.remove("ml-64");
-                mainContent.classList.add("ml-0");
-            } else {
-                sidebar.classList.remove("sidebar-closed");
-                mainContent.classList.remove("ml-0");
-                mainContent.classList.add("ml-64");
-            }
-        });
+        if (!sidebarOpen) {
+            sidebar.classList.add("sidebar-closed");
+            mainContent.classList.remove("ml-64");
+            mainContent.classList.add("ml-0");
+        } else {
+            sidebar.classList.remove("sidebar-closed");
+            mainContent.classList.remove("ml-0");
+            mainContent.classList.add("ml-64");
+        }
+    });
     </script>
 
     <!-- Delete Confirmation -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const deleteForms = document.querySelectorAll('.delete-item');
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteForms = document.querySelectorAll('.delete-item');
 
-            if (deleteForms.length > 0) {
-                deleteForms.forEach(form => {
-                    form.addEventListener('submit', function(e) {
-                        e.preventDefault();
+        if (deleteForms.length > 0) {
+            deleteForms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
 
-                        Swal.fire({
-                            title: 'Are you sure?',
-                            text: "This action cannot be undone!",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Yes, delete it!',
-                            cancelButtonText: 'No, cancel'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                form.submit();
-                            }
-                        });
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "This action cannot be undone!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'No, cancel'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
                     });
                 });
-            }
-        });
+            });
+        }
+    });
     </script>
 </body>
 

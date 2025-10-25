@@ -13,6 +13,7 @@ class Event extends Model
     protected $fillable = [
         'event',
         'year',
+        'name',
     ];
 
     public function authorInformations()
