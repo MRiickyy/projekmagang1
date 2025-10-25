@@ -27,13 +27,26 @@ class EventController extends Controller
         return back()->with('success', "Switched to {$event->name} {$event->year}");
     }
 
-    // Tambah event baru
+    
     public function addEvent(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'year' => 'required|integer|unique:events,year',
+            'year' => 'required|integer',
+        ], [
+            'name.required' => 'Event name is required.',
+            'year.required' => 'Year is required.',
         ]);
+        
+        $exists = Event::where('name', $request->name)
+                       ->where('year', $request->year)
+                       ->exists();
+        
+        if ($exists) {
+            return back()->with('error', 'Event with the same name and year already exists.');
+        }
+        
+        
 
         // Buat event baru
         $event = Event::create([
