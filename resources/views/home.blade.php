@@ -19,7 +19,7 @@
             <!-- Logo -->
             <a href="{{ route('home', ['event_year' => $eventYear]) }}"
                 class="text-2xl font-extrabold tracking-wide bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
-                SAIN 2025
+                {{ $event->name ?? 'Event' }} {{ $event->year ?? '' }}
             </a>
 
             <!-- Menu -->
