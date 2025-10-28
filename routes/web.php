@@ -13,6 +13,7 @@ use App\Http\Controllers\HomeContentController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\AuthorInformationController;
+use App\Http\Controllers\HeaderController;
 
 Route::get('/', function () {
     // Ambil event ICOICT 2025 dari database
@@ -61,33 +62,6 @@ Route::post('/admin/reset-password', [AdminPasswordResetController::class, 'rese
 Route::post('/admin/set-event', [EventController::class, 'setEvent'])->name('admin.setEvent');
 Route::post('/admin/add-event', [EventController::class, 'addEvent'])->name('admin.addEvent');
 
-
-Route::prefix('{event_name}/{event_year}')->group(function () {
-    Route::get('/', [HomeContentController::class, 'index'])->name('home');
-
-    // Route Call Paper
-    Route::get('/call-for-papers', [CallPaperController::class, 'index'])->name('call_papers');
-
-    // Route Speaker
-    Route::get('speakers/keynote-speakers', [SpeakerController::class, 'keynote'])->name('keynote.speakers');
-    Route::get('speakers/tutorial-speakers', [SpeakerController::class, 'tutorial'])->name('tutorial.speakers');
-    Route::get('speakers/{slug}', [SpeakerController::class, 'detailSpeaker'])->name('detail.speaker');
-
-    // Route Committees
-    Route::get('/steering-committees', [CommitteeController::class, 'steering'])->name('steering.committees');
-    Route::get('/technical-program-committees', [CommitteeController::class, 'technical'])->name('technical.committees');
-    Route::get('/organizing-committees', [CommitteeController::class, 'organizing'])->name('organizing.committees');
-
-    // Route Author Information
-    Route::get('/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
-
-    // Route Registration
-    Route::get('/registration', [RegistrationController::class, 'index'])->name('registration.index');
-
-    // Route Contact
-    Route::get('/contacts', [ContactInfoController::class, 'index'])->name('contact');
-    Route::post('/contact/send', [ContactMessageController::class, 'store'])->name('contact.send');
-});
 
 // Route Speaker Admin
 Route::get('/admin/speakers', [SpeakerController::class, 'listSpeakers'])->name('admin.speakers');
@@ -206,3 +180,39 @@ Route::get('/admin/timelines/tambah', function () {
 Route::get('/admin/timelines', function () {
     return view('/admin/timelinesAdmin'); // file: resources/views/committees.blade.php
 })->name('admin.timelines');
+
+//===ROUTE HEADER ADMIN===\\
+Route::get('/admin/list_header', [HeaderController::class, 'index'])->name('admin.header.list_header');
+Route::get('/admin/add_header', [HeaderController::class, 'create'])->name('admin.header.add_header');
+Route::post('/admin/store_header', [HeaderController::class, 'store'])->name('admin.header.store');
+Route::get('/admin/edit_header/{id}', [HeaderController::class, 'edit'])->name('admin.header.edit_header');
+Route::put('/admin/update_header/{id}', [HeaderController::class, 'update'])->name('admin.header.update');
+Route::delete('/admin/delete_header/{id}', [HeaderController::class, 'destroy'])->name('admin.header.delete_header');
+Route::get('/admin/detail_header/{id}', [HeaderController::class, 'show'])->name('admin.header.detail_header');
+
+Route::prefix('{event_name}/{event_year}')->group(function () {
+    Route::get('/', [HomeContentController::class, 'index'])->name('home');
+
+    // Route Call Paper
+    Route::get('/call-for-papers', [CallPaperController::class, 'index'])->name('call_papers');
+
+    // Route Speaker
+    Route::get('speakers/keynote-speakers', [SpeakerController::class, 'keynote'])->name('keynote.speakers');
+    Route::get('speakers/tutorial-speakers', [SpeakerController::class, 'tutorial'])->name('tutorial.speakers');
+    Route::get('speakers/{slug}', [SpeakerController::class, 'detailSpeaker'])->name('detail.speaker');
+
+    // Route Committees
+    Route::get('/steering-committees', [CommitteeController::class, 'steering'])->name('steering.committees');
+    Route::get('/technical-program-committees', [CommitteeController::class, 'technical'])->name('technical.committees');
+    Route::get('/organizing-committees', [CommitteeController::class, 'organizing'])->name('organizing.committees');
+
+    // Route Author Information
+    Route::get('/author-information', [AuthorInformationController::class, 'index'])->name('author-information.index');
+
+    // Route Registration
+    Route::get('/registration', [RegistrationController::class, 'index'])->name('registration.index');
+
+    // Route Contact
+    Route::get('/contacts', [ContactInfoController::class, 'index'])->name('contact');
+    Route::post('/contact/send', [ContactMessageController::class, 'store'])->name('contact.send');
+});
