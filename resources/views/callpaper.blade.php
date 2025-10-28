@@ -7,15 +7,15 @@
 {{-- CALL FOR PAPERS --}}
 
 <style>
-.submission-text {
-    white-space: pre-line;
-}
+    .submission-text {
+        white-space: pre-line;
+    }
 
-.submission-text span.indent {
-    display: block;
-    margin-left: 1em;
+    .submission-text span.indent {
+        display: block;
+        margin-left: 1em;
 
-}
+    }
 </style>
 
 {{-- Call for Papers --}}
@@ -56,24 +56,20 @@
         after:mt-2 after:bg-gradient-to-r after:from-[#00e676] after:to-[#38bdf8]">
         SUBMISSION GUIDELINES
     </h3>
-    <<<<<<< Updated upstream @php $guidelines=$callPapers->where('section', 'submission_guidelines')->first();
-        @endphp
+    @php $guidelines=$callPapers->where('section', 'submission_guidelines')->first();
+    @endphp
 
-        @if ($guidelines)
-        <p class="text-slate-700 leading-relaxed whitespace-pre-line">
-            {{ $guidelines->content }}
-        </p>
-        @else
-        <p class="text-slate-500 italic">No submission guidelines available.</p>
-        @endif
-        =======
-        <p class="text-slate-700 leading-relaxed submission-text">
-            {!! preg_replace('/^\s{4,}(.*)$/m', '<span class="indent">$1</span>', e($callPapers->where('section',
-            'submission_guidelines')->first()->content ?? '')) !!}
-        </p>
-
-
-        >>>>>>> Stashed changes
+    @if ($guidelines)
+    <p class="text-slate-700 leading-relaxed whitespace-pre-line">
+        {{ $guidelines->content }}
+    </p>
+    @else
+    <p class="text-slate-500 italic">No submission guidelines available.</p>
+    @endif
+    <p class="text-slate-700 leading-relaxed submission-text">
+        {!! preg_replace('/^\s{4,}(.*)$/m', '<span class="indent">$1</span>', e($callPapers->where('section',
+        'submission_guidelines')->first()->content ?? '')) !!}
+    </p>
 </section>
 
 {{-- IMPORTANT DATES --}}

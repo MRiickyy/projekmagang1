@@ -10,18 +10,23 @@ use Illuminate\Support\Facades\Schema;
 
 class HomeContentController extends Controller
 {
-    public function index()
+    public function index($event_name, $event_year)
     {
-        $selectedEventId = session('selected_event_id');
+        $event = Event::where('name', $event_name)
+            ->where('year', $event_year)
+            ->firstOrFail();
 
-        $event = Event::find($selectedEventId);
+        $homeContents = HomeContent::where('event_id', $event->id)
+            ->get()
+            ->keyBy('section');
 
-        $homeContents = HomeContent::with('event')->get()->keyBy('section')
-            ->where('event_id', $selectedEventId);
-        $timelines = Timeline::with('event')->get()->groupBy('round_number')
-            ->where('event_id', $selectedEventId);
+        $timelines = Timeline::where('event_id', $event->id)
+            ->orderBy('round_number')
+            ->orderBy('date')
+            ->get()
+            ->groupBy('round_number');
 
-
+        // Proses icoict_links
         $homeContents['icoict_links'] = $homeContents
             ->filter(fn($item, $key) => str_starts_with($key, 'icoict_link_'))
             ->mapWithKeys(function ($item, $key) {
@@ -29,14 +34,8 @@ class HomeContentController extends Controller
                 return [$year => $item->content];
             });
 
-        $timelines = Timeline::orderBy('round_number')
-            ->orderBy('date')
-            ->get()
-            ->groupBy('round_number');
-
         return view('home', compact('homeContents', 'timelines', 'event'));
     }
-
 
     public function listHome()
     {

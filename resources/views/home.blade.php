@@ -9,22 +9,19 @@
 </head>
 
 <body class="bg-white text-slate-100 antialiased">
-    @php
-    $eventYear = request()->route('event_year') ?? 2025; // default 2025 kalau gak ada param
-    @endphp
 
     <!-- Topbar / Navbar -->
     <nav class="bg-[#1a1f27]/95 backdrop-blur supports-backdrop-blur sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
             <!-- Logo -->
-            <a href="{{ route('home', ['event_year' => $eventYear]) }}"
+            <a href="{{ $event ? route('home', ['event_name' => $event->name, 'event_year' => $event->year]) : '#' }}"
                 class="text-2xl font-extrabold tracking-wide bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
                 {{ $event->name ?? 'Event' }} {{ $event->year ?? '' }}
             </a>
 
             <!-- Menu -->
             <div class="hidden md:flex items-center gap-8 font-semibold text-slate-200">
-                <a href="{{ route('call_papers', ['event_year' => $eventYear]) }}" class="hover:text-[#9ae6b4]">Call for
+                <a href="{{ route('call_papers', ['event_name' => $event->name, 'event_year' => $event->year]) }}" class="hover:text-[#9ae6b4]">Call for
                     Papers</a>
 
                 <!-- Speakers dengan dropdown -->
@@ -37,10 +34,10 @@
                     </button>
                     <div
                         class="dropdown-menu absolute left-0 mt-2 w-48 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
-                        <a href="{{ route('keynote.speakers', ['event_year' => $eventYear]) }}"
+                        <a href="{{ route('keynote.speakers', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                             class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Keynote
                             Speakers</a>
-                        <a href="{{ route('tutorial.speakers', ['event_year' => $eventYear]) }}"
+                        <a href="{{ route('tutorial.speakers', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                             class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Tutorial
                             Speakers</a>
                     </div>
@@ -56,13 +53,13 @@
                     </button>
                     <div
                         class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
-                        <a href="{{ route('steering.committees', ['event_year' => $eventYear]) }}"
+                        <a href="{{ route('steering.committees', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                             class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Steering
                             Committees</a>
-                        <a href="{{ route('technical.committees', ['event_year' => $eventYear]) }}"
+                        <a href="{{ route('technical.committees', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                             class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Technical
                             Program Committees</a>
-                        <a href="{{ route('organizing.committees', ['event_year' => $eventYear]) }}"
+                        <a href="{{ route('organizing.committees', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                             class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Organizing
                             Committees</a>
                     </div>
@@ -78,11 +75,11 @@
                     </button>
                     <div
                         class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
-                        <a href="{{route('author-information.index', ['event_year' => $eventYear])}}" 
+                        <a href="{{route('author-information.index', ['event_name' => $event->name, 'event_year' => $event->year])}}" 
                             class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Author Information</a>
-                        <a href="{{ route('registration.index', ['event_year' => $eventYear]) }}" 
+                        <a href="{{ route('registration.index', ['event_name' => $event->name, 'event_year' => $event->year]) }}" 
                             class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Registration</a>
-                        <a href="{{ route('contact', ['event_year' => $eventYear]) }}" 
+                        <a href="{{ route('contact', ['event_name' => $event->name, 'event_year' => $event->year]) }}" 
                             class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Contacts</a>
                     </div>
                 </div>
