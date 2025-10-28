@@ -9,20 +9,13 @@ use Illuminate\Http\Request;
 class CallPaperController extends Controller
 {
 
-    public function index()
+    public function index($event_name, $event_year)
     {
-        $selectedEventId = session('selected_event_id');
-        if (!$selectedEventId) {
-            $latestEvent = Event::latest('year')->first();
-            if (!$latestEvent) {
-                return back()->with('error', 'No event found.');
-            }
-            $selectedEventId = $latestEvent->id;
-            session(['selected_event_id' => $selectedEventId]);
-        }
-
-        $event = Event::find($selectedEventId);
-        $callPapers = CallPaper::where('event_id', $selectedEventId)->get();
+        $event = Event::where('name', $event_name)
+                      ->where('year', $event_year)
+                      ->firstOrFail();
+                      
+        $callPapers = CallPaper::where('event_id', $event->id)->get();
 
         return view('callpaper', compact('callPapers', 'event'));
     }

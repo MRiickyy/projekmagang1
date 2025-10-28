@@ -8,13 +8,13 @@ use App\Models\AuthorInformation;
 
 class AuthorInformationController extends Controller
 {
-    public function index()
+    public function index($event_name, $event_year)
     {
-        $selectedEventId = session('selected_event_id');
+        $event = Event::where('name', $event_name)
+                      ->where('year', $event_year)
+                      ->firstOrFail();
 
-        $event = Event::find($selectedEventId);
-
-        $authorInfos = AuthorInformation::with('event')->where('event_id', $selectedEventId)->get()->groupBy('section');
+        $authorInfos = AuthorInformation::with('event')->where('event_id', $event->id)->get()->groupBy('section');
             
         return view('author', compact('authorInfos', 'event'));
     }

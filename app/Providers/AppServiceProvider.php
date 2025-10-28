@@ -21,29 +21,32 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Buat variabel $event dan $header tersedia di semua view
         View::composer('*', function ($view) {
-            $selectedEventId = session('selected_event_id');
+            // Jika route prefix dimulai dengan "admin", ambil event dari session
+            if (request()->is('admin/*')) {
+                $selectedEventId = session('selected_event_id');
+                $event = $selectedEventId ? Event::find($selectedEventId) : null;
+            }
+            // Kalau bukan admin (halaman publik), ambil dari parameter URL
+            else {
+                $route = request()->route();
 
-            // Jika belum ada event terpilih, ambil event terbaru
-            if (!$selectedEventId) {
-                $latestEvent = Event::latest('year')->first();
-                if ($latestEvent) {
-                    $selectedEventId = $latestEvent->id;
-                    session(['selected_event_id' => $selectedEventId]);
+                $eventName = $route?->parameter('event_name');
+                $eventYear = $route?->parameter('event_year');
+
+                if ($eventName && $eventYear) {
+                    $event = Event::where('name', $eventName)
+                        ->where('year', $eventYear)
+                        ->first();
+                } else {
+                    // fallback ke event default
+                    $event = Event::where('name', 'icoict')
+                        ->where('year', 2025)
+                        ->first();
                 }
             }
 
-            // Ambil event aktif
-            $event = null;
-            if ($selectedEventId) {
-                $event = Event::find($selectedEventId);
-            }
-
-            // Bagikan ke semua view
-            $view->with([
-                'event' => $event,
-            ]);
+            $view->with('event', $event);
         });
     }
 }

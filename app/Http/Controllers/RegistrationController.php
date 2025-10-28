@@ -11,18 +11,18 @@ use App\Models\RegistrationModel;
 class RegistrationController extends Controller
 {
     //==== USER ====\\
-    public function index()
+    public function index($event_name, $event_year)
     {
-        $selectedEventId = session('selected_event_id');
-
-        $event = Event::find($selectedEventId);
+        $event = Event::where('name', $event_name)
+                      ->where('year', $event_year)
+                      ->firstOrFail();
 
         $registration = RegistrationModel::with('event')->get()->keyBy('section')
-            ->where('event_id', $selectedEventId);
+            ->where('event_id', $event->id);
         $fees = RegistrationFee::with('event')->get()
-            ->where('event_id', $selectedEventId);
+            ->where('event_id', $event->id);
         $paymentMethods = PaymentMethod::with('event')->get()
-            ->where('event_id', $selectedEventId);
+            ->where('event_id', $event->id);
 
         return view('registration', [
             'registration' => $registration,

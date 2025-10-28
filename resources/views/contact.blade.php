@@ -4,10 +4,6 @@
 
 @section('content')
 
-@php
-$eventYear = request()->route('event_year') ?? 2025;
-@endphp
-
 <!-- SPEAKERS -->
 <section class="max-w-7xl mx-auto my-12 px-5">
     <h3 class="text-center text-3xl font-bold mb-10">
@@ -46,7 +42,7 @@ $eventYear = request()->route('event_year') ?? 2025;
 
     <!-- CONTACT FORM -->
     <h3 class="font-bold text-gray-800 mb-4">SEND US A MESSAGE</h3>
-    <form action="{{ route('contact.send', ['event_year' => $eventYear]) }}" method="POST" class="space-y-4 w-full">
+    <form action="{{ route('contact.send', ['event_year' => $event->year, 'event_name' => $event->name]) }}" method="POST" class="space-y-4 w-full">
         @csrf
         <div>
             <label class="block font-medium">Name</label>

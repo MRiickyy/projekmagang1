@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <a href="{{ route('detail.speaker', ['event_year' => $speaker->event->year,
+            <a href="{{ route('detail.speaker', ['event_name' => $event->name, 'event_year' => $event->year,
                     'slug' => $speaker->slug]) }}"
                 class="self-end bg-[#0a2a43] hover:bg-[#103d60] text-white px-5 py-2 rounded-full text-sm flex items-center gap-2">
                 Read More
