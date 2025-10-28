@@ -5,7 +5,7 @@
 @section('content')
 <div class="w-full bg-[#F2F6F9] shadow-md rounded-lg p-6 overflow-x-auto">
     <h2 class="text-lg font-semibold text-slate-900 mb-6">
-        {{ ucfirst($type ?? 'All') }} Speakers
+        {{ ucfirst($type ?? 'All') }} Speakers - {{ $event->name }} ({{ $event->year }})
     </h2>
 
     <!-- Tombol Tambah & Search -->

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedInteger('round_number');
             $table->date('date');
             $table->string('title');
-            $table->integer('event_year');
-            $table->foreign('event_year')->references('year')->on('events')->cascadeOnDelete();
+            $table->unsignedBigInteger('event_id');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->timestamps();
         });
     }

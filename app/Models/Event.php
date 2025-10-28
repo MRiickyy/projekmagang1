@@ -8,25 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     //
-     protected $table = 'events';
+    protected $table = 'events';
 
     protected $fillable = [
         'event',
         'year',
+        'name',
     ];
 
     public function authorInformations()
     {
-        return $this->hasMany(AuthorInformation::class, 'event_year');
+        return $this->hasMany(AuthorInformation::class);
     }
 
     public function speakers()
     {
-        return $this->hasMany(Speaker::class, 'event_year');
+        return $this->hasMany(Speaker::class);
     }
 
     public function committees()
     {
-        return $this->hasMany(Committee::class, 'event_year');
+        return $this->hasMany(Committee::class);
     }
 }

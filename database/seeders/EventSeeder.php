@@ -8,17 +8,15 @@ use App\Models\Event;
 
 class EventSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    
     public function run(): void
     {
         $event = Event::firstOrCreate([
-            'event' => 'ICOICT',
+            'name' => 'ICOICT',
             'year' => 2025,
         ]);
         $event = Event::firstOrCreate([
-            'event' => 'ICOICT',
+            'name' => 'ICOICT',
             'year' => 2024,
         ]);
     }

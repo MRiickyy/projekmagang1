@@ -13,29 +13,41 @@ class CommitteeController extends Controller
     // ==============================
     public function steering()
     {
+        $selectedEventId = session('selected_event_id');
+
+        $event = Event::find($selectedEventId);
+
         $committees = Committee::with('event')
-            ->where('event_year', session('selected_event_year', date('Y')))    
+            ->where('event_id', $selectedEventId)
             ->where('type', 'steering')->get();
 
-        return view('committees.SteeringCommittes', compact('committees'));
+        return view('committees.SteeringCommittes', compact('committees', 'event'));
     }
 
     public function technical()
     {
+        $selectedEventId = session('selected_event_id');
+
+        $event = Event::find($selectedEventId);
+
         $committees = Committee::with('event')
-            ->where('event_year', session('selected_event_year', date('Y')))
+            ->where('event_id', $selectedEventId)
             ->where('type', 'technical program')->get();
 
-        return view('committees.TechnicalProgramCommittee', compact('committees'));
+        return view('committees.TechnicalProgramCommittee', compact('committees', 'event'));
     }
 
     public function organizing()
     {
+        $selectedEventId = session('selected_event_id');
+
+        $event = Event::find($selectedEventId);
+
         $committees = Committee::with('event')
-            ->where('event_year', session('selected_event_year', date('Y')))
+            ->where('event_id', $selectedEventId)
             ->where('type', 'organizing')->get();
-            
-        return view('committees.OrganizingCommittees', compact('committees'));
+
+        return view('committees.OrganizingCommittees', compact('committees', 'event'));
     }
 
     // ==============================
@@ -43,70 +55,112 @@ class CommitteeController extends Controller
     // ==============================
     public function listSteering(Request $request)
     {
-        $year = session('selected_event_year', date('Y'));
-        $event = Event::where('year', $year)->first();
+        $selectedEventId = session('selected_event_id');
 
-        $query = Committee::where('event_year', $event->year)->where('type', 'steering');
+        if (!$selectedEventId) {
+            $latestEvent = Event::latest('year')->first();
+            if (!$latestEvent) {
+                return back()->with('error', 'No event found.');
+            }
+            $selectedEventId = $latestEvent->id;
+            session(['selected_event_id' => $selectedEventId]);
+        }
+
+        $event = Event::find($selectedEventId);
+
+        $query = Committee::where('event_id', $selectedEventId)
+            ->where('type', 'steering');
 
         if ($request->filled('search')) {
-            $query->where(function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('university', 'like', '%' . $request->search . '%');
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('university', 'like', "%{$search}%");
             });
         }
 
         $committees = $query->orderBy('name', 'asc')->paginate(10);
+        $committees->appends($request->all());
 
         return view('admin.committees.list_committees', [
             'committees' => $committees,
-            'title' => 'Steering Committee',
-            'type' => 'steering'
+            'title' => 'Steering Committee - ' . $event->name . ' (' . $event->year . ')',
+            'type' => 'steering',
+            'event' => $event,
         ]);
     }
 
     public function listTechnical(Request $request)
     {
-        $year = session('selected_event_year', date('Y'));
-        $event = Event::where('year', $year)->first();
+        $selectedEventId = session('selected_event_id');
 
-        $query = Committee::where('event_year', $event->year)->where('type', 'technical program');
+        if (!$selectedEventId) {
+            $latestEvent = Event::latest('year')->first();
+            if (!$latestEvent) {
+                return back()->with('error', 'No event found.');
+            }
+            $selectedEventId = $latestEvent->id;
+            session(['selected_event_id' => $selectedEventId]);
+        }
+
+        $event = Event::find($selectedEventId);
+
+        $query = Committee::where('event_id', $selectedEventId)
+            ->where('type', 'technical program');
 
         if ($request->filled('search')) {
-            $query->where(function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('university', 'like', '%' . $request->search . '%');
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('university', 'like', "%{$search}%");
             });
         }
 
         $committees = $query->orderBy('name', 'asc')->paginate(10);
+        $committees->appends($request->all());
 
         return view('admin.committees.list_committees', [
             'committees' => $committees,
-            'title' => 'Technical Program Committee',
-            'type' => 'technical program'
+            'title' => 'Technical Program Committee - ' . $event->name . ' (' . $event->year . ')',
+            'type' => 'technical program',
+            'event' => $event,
         ]);
     }
 
     public function listOrganizing(Request $request)
     {
-        $year = session('selected_event_year', date('Y'));
-        $event = Event::where('year', $year)->first();
+        $selectedEventId = session('selected_event_id');
 
-        $query = Committee::where('event_year', $event->year)->where('type', 'organizing');
+        if (!$selectedEventId) {
+            $latestEvent = Event::latest('year')->first();
+            if (!$latestEvent) {
+                return back()->with('error', 'No event found.');
+            }
+            $selectedEventId = $latestEvent->id;
+            session(['selected_event_id' => $selectedEventId]);
+        }
+
+        $event = Event::find($selectedEventId);
+
+        $query = Committee::where('event_id', $selectedEventId)
+            ->where('type', 'organizing');
 
         if ($request->filled('search')) {
-            $query->where(function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('university', 'like', '%' . $request->search . '%');
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('university', 'like', "%{$search}%");
             });
         }
 
         $committees = $query->orderBy('name', 'asc')->paginate(10);
+        $committees->appends($request->all());
 
         return view('admin.committees.list_committees', [
             'committees' => $committees,
-            'title' => 'Organizing Committee',
-            'type' => 'organizing'
+            'title' => 'Organizing Committee - ' . $event->name . ' (' . $event->year . ')',
+            'type' => 'organizing',
+            'event' => $event,
         ]);
     }
 
@@ -120,7 +174,11 @@ class CommitteeController extends Controller
 
     public function addCommittee(Request $request)
     {
-        $year = session('selected_event_year', date('Y'));
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            return back()->with('error', 'Please select an event first.');
+        }
 
         $validated = $request->validate([
             'name'       => 'required|string|max:255',
@@ -130,11 +188,10 @@ class CommitteeController extends Controller
             'type'       => 'required|in:steering,technical program,organizing',
         ]);
 
-        $validated['event_year'] = $year;
+        $validated['event_id'] = $selectedEventId;
 
         Committee::create($validated);
 
-        // redirect ke list sesuai type
         return redirect()->route('admin.committees.' . str_replace(' ', '_', $validated['type']))
             ->with('success', ucfirst($validated['type']) . ' committee added successfully!');
     }

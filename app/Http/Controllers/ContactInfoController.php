@@ -13,13 +13,14 @@ class ContactInfoController extends Controller
     // Halaman user contact
     public function index()
     {
+        $selectedEventId = session('selected_event_id');
+
+        $event = Event::find($selectedEventId);
+
         $contactInfos = ContactInfo::with('event')
-        ->where('event_year', session('selected_event_year', date('Y')))
-        ->get();
+            ->where('event_id', $selectedEventId)->get();
         $map = MapLocation::with('event')
-        ->where('event_year', session('selected_event_year', date('Y')))
-        ->latest()
-        ->first();
+            ->where('event_id', $selectedEventId)->first();
 
         return view('contact', compact('contactInfos', 'map'));
     }
@@ -27,12 +28,22 @@ class ContactInfoController extends Controller
     // Halaman admin list contacts
     public function listContact()
     {
-        $year = session('selected_event_year', date('Y'));
-        $event = Event::where('year', $year)->first();
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            $latestEvent = Event::latest('year')->first();
+            if (!$latestEvent) {
+                return back()->with('error', 'No event found.');
+            }
+            $selectedEventId = $latestEvent->id;
+            session(['selected_event_id' => $selectedEventId]);
+        }
+
+        $event = Event::find($selectedEventId);
         
-        $contactInfos = ContactInfo::where('event_year', $event->year)->get();
-        $mapLocations = MapLocation::where('event_year', $event->year)->get();
-        $contactMessages = ContactMessage::where('event_year', $event->year)->get();
+        $contactInfos = ContactInfo::where('event_id', $selectedEventId)->get();
+        $mapLocations = MapLocation::where('event_id', $selectedEventId)->get();
+        $contactMessages = ContactMessage::where('event_id', $selectedEventId)->get();
 
         return view('admin.list_contacts_Admin', compact('contactInfos', 'mapLocations', 'contactMessages'));
     }
@@ -45,7 +56,12 @@ class ContactInfoController extends Controller
 
     public function store(Request $request)
     {
-        $year = session('selected_event_year', date('Y'));
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            return back()->with('error', 'Please select an event first.');
+        }
+
         $request->validate([
             'section' => 'required|string',
             'type'    => 'nullable|string',
@@ -59,13 +75,13 @@ class ContactInfoController extends Controller
                 'type'  => $request->type,
                 'title' => $request->title,
                 'value' => $request->value,
-                'event_year' => $year,
+                'event_id' => $selectedEventId,
             ]);
         } elseif ($request->section === 'create_map_locations_table') {
             MapLocation::create([
                 'title' => $request->title,
                 'link'  => $request->link,
-                'event_year' => $year,
+                'event_id' => $selectedEventId,
             ]);
         }
 

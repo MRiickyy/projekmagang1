@@ -3,6 +3,7 @@
 use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminPasswordResetController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\SpeakerController;
 use App\Http\Controllers\CallPaperController;
@@ -40,6 +41,16 @@ Route::middleware(['web'])->group(function () {
         return redirect()->route('admin.login')->with('success', 'Logout berhasil.');
     })->name('admin.logout');
 });
+//route reset pass admin
+Route::get('/admin/resetPassword', [AdminPasswordResetController::class, 'showForm'])->name('admin.password.form');
+Route::post('/admin/send-code', [AdminPasswordResetController::class, 'sendResetCode'])->name('admin.password.sendCode');
+Route::get('/admin/resetPassword/form', [AdminPasswordResetController::class, 'showResetForm'])->name('admin.password.resetForm');
+Route::post('/admin/reset-password', [AdminPasswordResetController::class, 'resetPassword'])->name('admin.password.reset');
+
+
+
+
+
 
 Route::post('/admin/set-event', [EventController::class, 'setEvent'])->name('admin.setEvent');
 Route::post('/admin/add-event', [EventController::class, 'addEvent'])->name('admin.addEvent');
@@ -174,9 +185,7 @@ Route::get('/admin/contacts/tambah', function () {
 
 
 
-Route::get('/admin/LupaPasswordAdmin', function () {
-    return view('admin.LupaPasswordAdmin');
-});
+
 
 Route::get('/admin/speakerss', function () {
     return view('speakerAdmin'); // file: resources/views/keyspeakers.blade.php

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->string('university')->nullable();
             $table->string('country')->nullable();
             $table->enum('type', ['steering', 'technical program', 'organizing'])->nullable();
-            $table->integer('event_year');
-            $table->foreign('event_year')->references('year')->on('events')->cascadeOnDelete();
+            $table->unsignedBigInteger('event_id');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->timestamps();
         });
     }

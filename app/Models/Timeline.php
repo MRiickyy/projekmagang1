@@ -10,10 +10,11 @@ class Timeline extends Model
         'round_number',
         'date',
         'title',
+        'event_id',
     ];
 
     public function event()
     {
-        return $this->belongsTo(Event::class, 'event_year', 'year', 'event_year');
+        return $this->belongsTo(Event::class);
     }
 }

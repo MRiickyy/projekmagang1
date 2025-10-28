@@ -12,11 +12,14 @@ class HomeContentController extends Controller
 {
     public function index()
     {
+        $selectedEventId = session('selected_event_id');
+
+        $event = Event::find($selectedEventId);
 
         $homeContents = HomeContent::with('event')->get()->keyBy('section')
-        ->where('event_year', session('selected_event_year', date('Y')));
+            ->where('event_id', $selectedEventId);
         $timelines = Timeline::with('event')->get()->groupBy('round_number')
-        ->where('event_year', session('selected_event_year', date('Y')));
+            ->where('event_id', $selectedEventId);
 
 
         $homeContents['icoict_links'] = $homeContents
@@ -31,17 +34,27 @@ class HomeContentController extends Controller
             ->get()
             ->groupBy('round_number');
 
-        return view('home', compact('homeContents', 'timelines'));
+        return view('home', compact('homeContents', 'timelines', 'event'));
     }
 
 
     public function listHome()
     {
-        $year = session('selected_event_year', date('Y'));
-        $event = Event::where('year', $year)->first();
+        $selectedEventId = session('selected_event_id');
 
-        $homeContents = HomeContent::where('event_year', $event->year)->get();
-        $timelines = Timeline::where('event_year', $event->year)
+        if (!$selectedEventId) {
+            $latestEvent = Event::latest('year')->first();
+            if (!$latestEvent) {
+                return back()->with('error', 'No event found.');
+            }
+            $selectedEventId = $latestEvent->id;
+            session(['selected_event_id' => $selectedEventId]);
+        }
+
+        $event = Event::find($selectedEventId);
+
+        $homeContents = HomeContent::where('event_id', $selectedEventId)->get();
+        $timelines = Timeline::where('event_id', $selectedEventId)
             ->orderBy('round_number')->orderBy('id')
             ->get()->groupBy('round_number');
 
@@ -57,14 +70,18 @@ class HomeContentController extends Controller
 
     public function store(Request $request)
     {
-        $year = session('selected_event_year', date('Y'));
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            return back()->with('error', 'Please select an event first.');
+        }
 
         $validated = $request->validate([
             'section' => 'required|string',
             'content' => 'required|string',
         ]);
 
-        $validated['event_year'] = $year;
+        $validated['event_id'] = $selectedEventId;
 
         HomeContent::create($validated);
 
@@ -117,6 +134,12 @@ class HomeContentController extends Controller
     // Menyimpan timeline baru
     public function storeTimelineHome(Request $request)
     {
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            return back()->with('error', 'Please select an event first.');
+        }
+
         $request->validate([
             'round_number' => 'required|integer|min:1',
             'title' => 'required|string',
@@ -127,6 +150,7 @@ class HomeContentController extends Controller
             'round_number' => $request->round_number,
             'title' => $request->title,
             'date' => $request->date,
+            'event_id' => $selectedEventId,
         ]);
 
         return redirect()->route('admin.list_home_contents_admin');

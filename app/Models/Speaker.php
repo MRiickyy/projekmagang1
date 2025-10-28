@@ -16,7 +16,7 @@ class Speaker extends Model
         'image',
         'biodata',
         'speaker_type',
-        'event_year',
+        'event_id',
     ];
 
     // Relasi ke deskripsi
@@ -27,6 +27,6 @@ class Speaker extends Model
 
     public function event()
     {
-        return $this->belongsTo(Event::class, 'event_year', 'year');
+        return $this->belongsTo(Event::class);
     }
 }

@@ -60,21 +60,21 @@
             <div class="p-4">
                 <form action="{{ route('admin.setEvent') }}" method="POST">
                     @csrf
-                    <label for="eventSelect" class="text-sm font-semibold text-white mb-2 block">Select Event
-                        Year</label>
+                    <label for="eventSelect" class="text-sm font-semibold text-white mb-2 block">
+                        Select Event
+                    </label>
                     <div class="flex items-center space-x-2">
-                        <select name="year" id="eventSelect"
+                        <select name="event_id" id="eventSelect"
                             class="bg-gray-800 text-white text-sm rounded px-2 py-1 w-full"
                             onchange="this.form.submit()">
-                            @foreach(\App\Models\Event::orderByDesc('year')->get() as $event)
-                            <option value="{{ $event->year }}"
-                                {{ session('selected_event_year') == $event->year ? 'selected' : '' }}>
-                                {{ $event->event }} {{ $event->year }}
+                            @foreach(\App\Models\Event::orderBy('name', 'asc')->orderBy('year', 'asc')->get() as $event)
+                            <option value="{{ $event->id }}"
+                                {{ session('selected_event_id') == $event->id ? 'selected' : '' }}>
+                                {{ $event->name }} {{ $event->year }}
                             </option>
                             @endforeach
                         </select>
 
-                        <!-- Tombol tambah tahun -->
                         <button type="button"
                             onclick="document.getElementById('addEventModal').classList.remove('hidden')"
                             class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-sm">
@@ -83,6 +83,8 @@
                     </div>
                 </form>
             </div>
+
+
 
             {{-- Modal Tambah Event --}}
             <div id="addEventModal"
@@ -96,21 +98,27 @@
                         {{-- Event Name otomatis ICOICT --}}
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Event Name</label>
-                            <input type="text" name="event" value="ICOICT" readonly
-                                class="border border-gray-300 w-full rounded px-3 py-2 text-sm text-gray-900 bg-gray-100 cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-400">
+                            <input type="text" name="name" placeholder="Enter event name"
+                                class="border border-gray-300 w-full rounded px-3 py-2 text-sm text-gray-900 bg-white  focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                required>
+
                         </div>
 
                         {{-- Dropdown tahun --}}
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Year</label>
                             @php
-                            $nextYear = date('Y') + 1;
+                            $currentYear = date('Y');
                             @endphp
                             <div class="relative">
                                 <select name="year" required
                                     class="appearance-none border border-gray-300 w-full rounded px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400">
                                     <option value="" disabled selected hidden>Select year</option>
-                                    <option value="{{ $nextYear }}">{{ $nextYear }}</option>
+
+                                    {{-- Tampilkan tahun dari sekarang sampai +5 tahun ke depan --}}
+                                    @for ($i = 0; $i <= 5; $i++) <option value="{{ $currentYear + $i }}">
+                                        {{ $currentYear + $i }}</option>
+                                        @endfor
                                 </select>
 
                                 {{-- Panah bawah --}}
@@ -119,6 +127,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
                                 </svg>
                             </div>
+
                         </div>
 
                         {{-- Tombol aksi --}}
@@ -254,7 +263,8 @@
                         <span>Selamat datang, <strong>{{ session('admin_username') }}</strong></span>
                         @endif
 
-                        <a href="{{ url('/ICOICT/' . session('selected_event_year', date('Y'))) }}" class="hover:underline">Lihat website</a>
+                        <a href="{{ url('/ICOICT/' . session('selected_event_year', date('Y'))) }}"
+                            class="hover:underline">Lihat website</a>
                         <a href="{{ route('admin.login') }}" class="hover:underline">Logout</a>
                     </div>
                 </div>

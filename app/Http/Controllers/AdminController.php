@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
+
 
 class AdminController extends Controller
 {
@@ -20,18 +22,31 @@ class AdminController extends Controller
         $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
+            'g-recaptcha-response' => 'required', 
         ]);
 
+        
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => config('services.recaptcha.secret_key'),
+            'response' => $request->input('g-recaptcha-response'),
+        ]);
+
+        $recaptcha = $response->json();
+
+        if (!($recaptcha['success'] ?? false)) {
+            return back()->with('error', 'Captcha verification failed. Please try again.');
+        }
+
+        
         $admin = Admin::where('username', $request->username)->first();
 
         if ($admin && Hash::check($request->password, $admin->password)) {
-            // Jika berhasil login, arahkan ke halaman admin home
             session(['admin_logged_in' => true, 'admin_username' => $admin->username]);
-            return redirect()->route('admin.list_home_contents_admin')->with('success', 'Login berhasil!');
+            return redirect()->route('admin.list_home_contents_admin');
         } else {
-            // Jika gagal login
-            return back()->with('error', 'Username atau password salah!');
+            return back()->with('error', 'Wrong username or password!');
         }
     }
+
 
 }

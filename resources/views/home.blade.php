@@ -19,7 +19,7 @@
             <!-- Logo -->
             <a href="{{ route('home', ['event_year' => $eventYear]) }}"
                 class="text-2xl font-extrabold tracking-wide bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
-                ICOICT 2025
+                {{ $event->name ?? 'Event' }} {{ $event->year ?? '' }}
             </a>
 
             <!-- Menu -->
@@ -78,10 +78,12 @@
                     </button>
                     <div
                         class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
-                        <a href="/author-information" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Author
-                            Information</a>
-                        <a href="/registration" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Registration</a>
-                        <a href="/contacts" class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Contacts</a>
+                        <a href="{{route('author-information.index', ['event_year' => $eventYear])}}" 
+                            class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Author Information</a>
+                        <a href="{{ route('registration.index', ['event_year' => $eventYear]) }}" 
+                            class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Registration</a>
+                        <a href="{{ route('contact', ['event_year' => $eventYear]) }}" 
+                            class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Contacts</a>
                     </div>
                 </div>
 
