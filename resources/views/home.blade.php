@@ -129,24 +129,25 @@
         <div class="max-w-7xl mx-auto px-5 py-16 md:py-20 grid md:grid-cols-2 gap-8 items-center">
             <div>
                 <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-tight">
-                    {{ $homeContents['hero_title']->content ?? 'Default Title' }}
+                    {{ $event->main_title ?? 'Default Title' }}
                     <span
                         class="font-extrabold tracking-wide bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
-                        {{ $homeContents['hero_year']->content ?? '2025' }}
+                        {{ $event->year }}
                     </span>
                 </h1>
 
 
                 <p class="mt-4 text-slate-200 text-xl max-w-xl">
-                    {{ $homeContents['hero_subtitle']->content ?? 'Default Subtitle' }}
+                    {{ $event->subtitle }}
+
                 </p>
 
                 <div class="mt-6 flex items-center gap-3">
-                    <a href="/newacc" class="inline-flex items-center gap-2 bg-slate-800/70 hover:bg-slate-700 text-white 
+                    <a href="{{ $event->register_link }}" class="inline-flex items-center gap-2 bg-slate-800/70 hover:bg-slate-700 text-white 
            text-lg px-7 py-3 rounded-full shadow-lg">
                         Register Now
                     </a>
-                    <a href="/login" class="inline-flex items-center gap-2 bg-[#47BA77] hover:bg-[#1fb857] 
+                    <a href="{{ $event->submit_link }}" class="inline-flex items-center gap-2 bg-[#47BA77] hover:bg-[#1fb857] 
            text-black font-semibold text-lg px-7 py-3 rounded-full shadow-lg">
                         Submit Your Paper
                     </a>
@@ -173,7 +174,7 @@
                     </svg>
                 </div>
                 <p class="text-lg text-slate-200 mb-3">
-                    {{ $homeContents['hero_location_date']->content ?? 'Bandung (Hybrid), 30–31 July 2025' }}
+                    {{ $event->location }}, {{ $event->date_range }}
                 </p>
                 <div class="flex justify-center">
                     <!-- Box Luaran -->

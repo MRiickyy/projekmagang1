@@ -4,33 +4,31 @@
     <div class="max-w-7xl mx-auto px-5 py-16 md:py-20 grid md:grid-cols-2 gap-8 items-center">
         <div>
             <h1 class="text-4xl md:text-5xl font-extrabold leading-snug text-white">
-                THE 13TH ICOICT
+                {{ $event->main_title }}
                 <span class="bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
-                    2025
+                    {{ $event->year }}
                 </span>
             </h1>
 
             <p class="mt-4 text-slate-200 text-xl max-w-xl">
-                International Conference on Information and Communication Technology
+                {{ $event->subtitle }}
             </p>
 
             <div class="mt-6 flex items-center gap-3">
-                <a href="/newacc" class="inline-flex items-center gap-2 bg-slate-800/70 hover:bg-slate-700 text-white 
-           text-lg px-7 py-3 rounded-full shadow-lg">
+                <a href="{{ $event->register_link }}" class="inline-flex items-center gap-2 bg-slate-800/70 hover:bg-slate-700 text-white 
+                    text-lg px-7 py-3 rounded-full shadow-lg">
                     Register Now
                 </a>
-                <a href="/login" class="inline-flex items-center gap-2 bg-[#47BA77] hover:bg-[#1fb857] 
-           text-black font-semibold text-lg px-7 py-3 rounded-full shadow-lg">
+                <a href="{{ $event->submit_link }}" class="inline-flex items-center gap-2 bg-[#47BA77] hover:bg-[#1fb857] 
+                    text-black font-semibold text-lg px-7 py-3 rounded-full shadow-lg">
                     Submit Your Paper
                 </a>
-
             </div>
         </div>
 
-        <!-- countdown glass card -->
+        <!-- Countdown -->
         <div class="flex flex-col md:items-end items-center">
             <div class="flex gap-4 mt-4 text-slate-300">
-                <!-- simple social icons -->
                 <svg class="h-9 w-9" viewBox="0 0 24 24" fill="currentColor">
                     <path
                         d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 3a.75.75 0 110 1.5A.75.75 0 0117 5zM12 7a5 5 0 110 10 5 5 0 010-10z" />
@@ -44,7 +42,12 @@
                     <path d="M21 7a2 2 0 00-2-2H5C3.9 5 3 5.9 3 7v10a2 2 0 002 2h14a2 2 0 002-2V7zM5 17V7h14v10H5z" />
                 </svg>
             </div>
-            <p class="text-lg text-slate-200 mb-3">Bandung (Hybrid), 30–31 July 2025</p>
+
+            <p class="text-lg text-slate-200 mb-3">
+                {{ $event->location }}, {{ $event->date_range }}
+            </p>
+
+            {{-- Countdown static dulu, bisa nanti pakai JS --}}
             <div class="flex gap-6 p-6 rounded-3xl shadow-2xl bg-gradient-to-br from-[#2B3545] to-[#3B4A60]">
                 @foreach (['DAYS'=>24,'HOURS'=>14,'MINUTES'=>5,'SECONDS'=>40] as $label=>$val)
                 <div

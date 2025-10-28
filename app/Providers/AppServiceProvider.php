@@ -21,12 +21,29 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Buat variabel $event dan $header tersedia di semua view
         View::composer('*', function ($view) {
-            $event = null;
-            if (session()->has('selected_event_id')) {
-                $event = Event::find(session('selected_event_id'));
+            $selectedEventId = session('selected_event_id');
+
+            // Jika belum ada event terpilih, ambil event terbaru
+            if (!$selectedEventId) {
+                $latestEvent = Event::latest('year')->first();
+                if ($latestEvent) {
+                    $selectedEventId = $latestEvent->id;
+                    session(['selected_event_id' => $selectedEventId]);
+                }
             }
-            $view->with('event', $event);
+
+            // Ambil event aktif
+            $event = null;
+            if ($selectedEventId) {
+                $event = Event::find($selectedEventId);
+            }
+
+            // Bagikan ke semua view
+            $view->with([
+                'event' => $event,
+            ]);
         });
     }
 }

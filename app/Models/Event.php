@@ -14,6 +14,13 @@ class Event extends Model
         'event',
         'year',
         'name',
+        'main_title',
+        'highlight_text',
+        'subtitle',
+        'location',
+        'date_range',
+        'register_link',
+        'submit_link',
     ];
 
     public function authorInformations()
