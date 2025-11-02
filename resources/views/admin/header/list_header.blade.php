@@ -8,7 +8,9 @@
     <main class="flex-1 px-6 py-10 space-y-10">
 
         <div class="bg-[#F2F6F9] shadow-md rounded-lg p-6 overflow-x-auto">
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">Header List (Event)</h2>
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">
+                Header List ({{ $event->year }})
+            </h2>
 
             <!-- Tombol Add -->
             <a href="{{ route('admin.header.add_header') }}"
@@ -33,10 +35,8 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white text-slate-800">
-                    @php $no = 1; @endphp
-                    @foreach ($events as $event)
                     <tr class="hover:bg-gray-100">
-                        <td class="px-4 py-2 border">{{ $no++ }}</td>
+                        <td class="px-4 py-2 border">1</td>
                         <td class="px-4 py-2 border">{{ $event->name }}</td>
                         <td class="px-4 py-2 border">{{ $event->year }}</td>
                         <td class="px-4 py-2 border">{{ $event->main_title }}</td>
@@ -48,7 +48,6 @@
 
                         <td class="px-4 py-2 border">
                             <div class="flex justify-center gap-2">
-
                                 <!-- Edit -->
                                 <a href="{{ route('admin.header.edit_header', $event->id) }}"
                                     class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600">
@@ -74,7 +73,6 @@
                             </div>
                         </td>
                     </tr>
-                    @endforeach
                 </tbody>
             </table>
         </div>
