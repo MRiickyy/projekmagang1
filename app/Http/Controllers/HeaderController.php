@@ -8,15 +8,32 @@ use App\Models\Event;
 
 class HeaderController extends Controller
 {
-    public function index()
+    public function listHeader()
     {
-        $events = Event::orderBy('year', 'desc')->get();
-        return view('admin.header.list_header', compact('events'));
+        $selectedEventId = session('selected_event_id');
+        if (!$selectedEventId) {
+            $latestEvent = Event::latest('year')->first();
+
+            if (!$latestEvent) {
+                return back()->with('error', 'No event found.');
+            }
+
+            $selectedEventId = $latestEvent->id;
+            session(['selected_event_id' => $selectedEventId]);
+        }
+
+        $event = Event::find($selectedEventId);
+
+        if (!$event) {
+            session()->forget('selected_event_id');
+            return back()->with('error', 'Selected event not found.');
+        }
+        return view('admin.header.list_header', compact('event'));
     }
 
     public function addHeader()
     {
-        return view('admin.add_header');
+        return view('admin.header.add_header');
     }
 
     public function store(Request $request)
@@ -39,7 +56,7 @@ class HeaderController extends Controller
     public function edit($id)
     {
         $event = Event::findOrFail($id);
-        return view('admin.edit_header', compact('event'));
+        return view('admin.header.edit_header', compact('event'));
     }
 
     public function update(Request $request, $id)
@@ -71,6 +88,6 @@ class HeaderController extends Controller
     public function show($id)
     {
         $event = Event::findOrFail($id);
-        return view('admin.detail_header', compact('event'));
+        return view('admin.header.detail_header', compact('event'));
     }
 }

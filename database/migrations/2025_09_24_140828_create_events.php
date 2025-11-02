@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('year')->unique();
-            $table->string('main_title'); // contoh: "THE 13TH ICOICT"
+            $table->integer('year');
+            $table->string('main_title')->nullable(); // contoh: "THE 13TH ICOICT"
             $table->string('subtitle')->nullable(); // contoh: "International Conference on Information and Communication Technology"
             $table->string('location')->nullable(); // contoh: "Bandung (Hybrid)"
             $table->string('date_range')->nullable(); // contoh: "30–31 July 2025"

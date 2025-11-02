@@ -5,7 +5,7 @@
 @section('content')
 
 <main class="flex-1 px-6 py-10 flex justify-center">
-    <div class="w-full max-w-5xl bg-[#F2F6F9] rounded-lg shadow-xl p-6 text-slate-800">
+    <div class="w-full max-w-3xl bg-[#F2F6F9] rounded-lg shadow-xl p-6 text-slate-800">
         <h2 class="text-lg font-semibold text-slate-900 mb-6">Add Registration Fee</h2>
 
         <form action="{{ route('admin.forauthor.store_registrationsfee_admin') }}" method="POST" class="space-y-5">

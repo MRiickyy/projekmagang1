@@ -182,8 +182,8 @@ Route::get('/admin/timelines', function () {
 })->name('admin.timelines');
 
 //===ROUTE HEADER ADMIN===\\
-Route::get('/admin/list_header', [HeaderController::class, 'index'])->name('admin.header.list_header');
-Route::get('/admin/add_header', [HeaderController::class, 'create'])->name('admin.header.add_header');
+Route::get('/admin/list_header', [HeaderController::class, 'listHeader'])->name('admin.header.list_header');
+Route::get('/admin/add_header', [HeaderController::class, 'addHeader'])->name('admin.header.add_header');
 Route::post('/admin/store_header', [HeaderController::class, 'store'])->name('admin.header.store');
 Route::get('/admin/edit_header/{id}', [HeaderController::class, 'edit'])->name('admin.header.edit_header');
 Route::put('/admin/update_header/{id}', [HeaderController::class, 'update'])->name('admin.header.update');
