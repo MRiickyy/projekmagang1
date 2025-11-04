@@ -40,7 +40,7 @@ class HeaderController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'year' => 'required|integer|unique:events,year',
+            'year' => 'required|integer',
             'main_title' => 'required',
             'subtitle' => 'required',
             'location' => 'required',
@@ -64,8 +64,6 @@ class HeaderController extends Controller
         $event = Event::findOrFail($id);
 
         $request->validate([
-            'name' => 'required',
-            'year' => 'required|integer|unique:events,year,' . $event->id,
             'main_title' => 'required',
             'subtitle' => 'required',
             'location' => 'required',
