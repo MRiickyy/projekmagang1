@@ -11,38 +11,37 @@ class RegistrationSeeder extends Seeder
     {
         $data = [
             [
-                'section' => 'cta_title',
+                'section' => 'title_link',
                 'content' => 'Please Register Here',
                 'event_id' => 1
             ],
             [
-                'section' => 'cta_button',
+                'section' => 'button_link',
                 'content' => 'Registration Form',
                 'event_id' => 1
             ],
             [
-                'section' => 'cta_link',
-                'content' => '#',
+                'section' => 'link',
+                'content' => 'https://docs.google.com/forms/d/e/1FAIpQLSdVchPrm1JybVSr8RrPAdqGR74Gva3kg02xEvPvJ317ZP4HBg/viewform',
                 'event_id' => 1
             ],
             [
                 'section' => 'notes',
-                'content' => "Maximum number of pages for a normal paper is 6\n" .
-                             "To be eligible for the IEEE Member rate you must be an active IEEE Member\n" .
-                             "To be eligible for the student rate you must provide your student ID/Letter of proof",
+                'content' => "The Payment is non-refundable.\n" .
+                             "Payment must be made in Full Amount (PayPal, or Bank Transfer should add a 6% transfer fee ).",
                 'event_id' => 1
             ],
             [
-                'section' => 'conference_fee_include',
-                'content' => 'To be announced.',
+                'section' => 'registration_fee_include',
+                'content' => "Journal Publication Fee,\n" .
+                             "Access to all sessions in SAIN’24, including Plenary Sessions, Conference Track Presentations.",
                 'event_id' => 1
             ],
             [
                 'section' => 'registration_procedures',
-                'content' => "Complete the payment according to the method of your choice.\n" .
-                             "Register for the conference using the following link: https://iee.ucd.id/icoict2025\n" .
-                             "If registering at the IEEE member or student rate, attach a copy of your IEEE member card or student card/verification letter.\n" .
-                             "Ensure all required information and supporting documents (e.g., payment proof/slip) are included before submitting the form.",
+                'content' => "xxxxxx\n" .
+                             "xxxxxx\n" .
+                             "xxxxxx",
                 'event_id' => 1
             ],
         ];

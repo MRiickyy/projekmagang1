@@ -13,11 +13,6 @@
             <span class="block h-1 w-40 mx-auto mt-2 bg-gradient-to-r from-green-500 to-blue-500"></span>
         </h3>
 
-        <!-- Subtitle -->
-        <div class="mt-8 bg-slate-600 text-white font-bold text-center py-3 px-6 rounded-xl shadow-md">
-            THE ICOICT 2026 TECHNICAL PROGRAM COMMITTEES
-        </div>
-
         <!-- Committees List -->
         <div class="mt-8 space-y-4">
             @forelse($committees as $committee)
@@ -26,13 +21,33 @@
                         <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zM12 14c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
                     </svg>
                     <div>
-                        <p class="font-semibold text-slate-800">{{ $committee->name }} <span class="text-sm text-slate-500">({{ $committee->role }})</span></p>
-                        <p class="text-sm text-slate-600 italic">{{ $committee->university }}, {{ $committee->country }}</p>
+                        <p class="font-semibold text-slate-800">
+                            {{ $committee->name }}
+                            @if($committee->role)
+                                <span class="text-sm text-slate-500">({{ $committee->role }})</span>
+                            @endif
+                        </p>
+
+                        @php
+                            // Pisahkan berdasarkan titik koma
+                            $universities = array_map('trim', explode(';', $committee->university));
+                            $countries = array_map('trim', explode(';', $committee->country));
+                        @endphp
+
+                        <p class="text-sm text-slate-600 italic leading-snug">
+                            @foreach($universities as $index => $univ)
+                                {{ $univ }}
+                                @if(isset($countries[$index]) && $countries[$index] !== '')
+                                    , {{ $countries[$index] }}
+                                @endif
+                                @if(!$loop->last)<br>@endif
+                            @endforeach
+                        </p>
                     </div>
                 </div>
-                @empty
+            @empty
                 <div class="text-center text-gray-600 bg-gray-100 py-10 rounded-lg shadow-md">
-                    <p class="text-lg font-semibold">There are no Technical Program Committees available yet.</p>
+                    <p class="text-lg font-semibold">There are no Organizing Committees available yet.</p>
                 </div>
             @endforelse
         </div>

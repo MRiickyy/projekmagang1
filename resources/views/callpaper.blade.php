@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Call for Papers - ICOICT 2025')
+@section('title', 'Call for Papers')
 
 @section('content')
 

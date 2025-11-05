@@ -13,11 +13,6 @@ class HomeContentSeeder extends Seeder
         DB::table('home_contents')->truncate();
 
         $data = [
-            ['section' => 'hero_title', 'content' => 'THE 13TH ICOICT', 'event_id' => 1],
-            ['section' => 'hero_year', 'content' => '2025', 'event_id' => 1],
-            ['section' => 'hero_location_date', 'content' => 'Bandung (Hybrid), 30–31 July 2025', 'event_id' => 1],
-            ['section' => 'hero_subtitle', 'content' => 'International Conference on Information and Communication Technology', 'event_id' => 1],
-
             ['section' => 'banner_text', 'content' => 'Driving a Sustainable Future with AI, IoT, and Data Science Technologies', 'event_id' => 1],
 
             // Welcome section

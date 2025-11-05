@@ -102,10 +102,8 @@
                     <tr>
                         <th class="px-4 py-2 border">No</th>
                         <th class="px-4 py-2 border">Category</th>
-                        <th class="px-4 py-2 border">USD (Physical)</th>
-                        <th class="px-4 py-2 border">IDR (Physical)</th>
-                        <th class="px-4 py-2 border">USD (Online)</th>
-                        <th class="px-4 py-2 border">IDR (Online)</th>
+                        <th class="px-4 py-2 border">Early Bird (USD)</th>
+                        <th class="px-4 py-2 border">Reguler (USD)</th>
                         <th class="px-4 py-2 border">Action</th>
                     </tr>
                 </thead>
@@ -115,10 +113,8 @@
                     <tr class="hover:bg-gray-100">
                         <td class="px-4 py-2 border text-center">{{ $no++ }}</td>
                         <td class="px-4 py-2 border">{{ $fee->category }}</td>
-                        <td class="px-4 py-2 border">{{ $fee->usd_physical }}</td>
-                        <td class="px-4 py-2 border">{{ $fee->idr_physical }}</td>
-                        <td class="px-4 py-2 border">{{ $fee->usd_online }}</td>
-                        <td class="px-4 py-2 border">{{ $fee->idr_online }}</td>
+                        <td class="px-4 py-2 border">{{ $fee->usd_early_bird }}</td>
+                        <td class="px-4 py-2 border">{{ $fee->usd_reguler }}</td>
                         <td class="px-4 py-2 border">
                             <div class="flex justify-center gap-2">
                                 <a href="{{ route('admin.forauthor.edit_registrationsfee_admin', $fee->id) }}"
@@ -166,7 +162,7 @@
                 <div class="flex items-center gap-2">
                     <label for="paymentFilter" class="text-sm font-medium text-gray-700">Filter by Type:</label>
                     <select id="paymentFilter" class="px-3 py-2 border rounded-md text-black text-sm">
-                        <option value="va" selected>Virtual Account</option>
+                        <option value="va" selected>Bank Transfer</option>
                         <option value="paypal">PayPal</option>
                     </select>
                 </div>
@@ -179,7 +175,7 @@
                         <th class="px-4 py-2 border">Method Name</th>
                         <th class="px-4 py-2 border">Bank Name</th>
                         <th class="px-4 py-2 border">Account Name</th>
-                        <th class="px-4 py-2 border">Virtual Account Number</th>
+                        <th class="px-4 py-2 border">Bank Number</th>
                         <th class="px-4 py-2 border">Important Notes</th>
                         <th class="px-4 py-2 border">Action</th>
                     </tr>
@@ -195,7 +191,7 @@
                             <!-- VA Columns -->
                             <td class="px-4 py-2 border va-col">{{ $method->bank_name }}</td>
                             <td class="px-4 py-2 border va-col">{{ $method->account_name }}</td>
-                            <td class="px-4 py-2 border va-col">{{ $method->virtual_account_number }}</td>
+                            <td class="px-4 py-2 border va-col">{{ $method->bank_number }}</td>
                             <td class="px-4 py-2 border va-col">{{ $method->important_notes }}</td>
                             <!-- PayPal Columns -->
                             <td class="px-4 py-2 border paypal-col hidden">{!! $method->paypal_email !!}</td>
@@ -259,7 +255,7 @@
                         <th class="px-4 py-2 border">Method Name</th>
                         <th class="px-4 py-2 border">Bank Name</th>
                         <th class="px-4 py-2 border">Account Name</th>
-                        <th class="px-4 py-2 border">Virtual Account Number</th>
+                        <th class="px-4 py-2 border">Bank Number</th>
                         <th class="px-4 py-2 border">Important Notes</th>
                         <th class="px-4 py-2 border">Action</th>
                     </tr>

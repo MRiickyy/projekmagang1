@@ -17,9 +17,9 @@
         <!-- CTA Box -->
         <div class="mt-10 bg-[#1a1f27] rounded-xl p-8 shadow-xl space-y-6 text-center text-white">
             <p class="mb-2 text-white text-lg md:text-xl">
-                {{ $registration['cta_title']->content ?? 'Please Register Here' }}
+                {{ $registration['title_link']->content ?? 'Please Register Here' }}
             </p>
-            <a href="{{ $registration['cta_link']->content ?? '#' }}"
+            <a href="{{ $registration['link']->content ?? '#' }}"
             class="inline-flex items-center justify-center rounded-full bg-[#25d366] hover:bg-[#1fb857] transition px-6 py-2 md:px-8 md:py-3 font-semibold shadow">
                 {{ $registration['cta_button']->content ?? 'Registration Form' }}
             </a>
@@ -32,25 +32,16 @@
                     <thead class="bg-gray-100">
                         <tr>
                             <th class="border border-gray-200 px-4 py-3 text-left">Category</th>
-                            <th colspan="2" class="border border-gray-200 px-4 py-3">Physical Mode</th>
-                            <th colspan="2" class="border border-gray-200 px-4 py-3">Online Mode</th>
-                        </tr>
-                        <tr>
-                            <th class="border border-gray-200 px-4 py-2"></th>
-                            <th class="border border-gray-200 px-4 py-2">USD</th>
-                            <th class="border border-gray-200 px-4 py-2">IDR</th>
-                            <th class="border border-gray-200 px-4 py-2">USD</th>
-                            <th class="border border-gray-200 px-4 py-2">IDR</th>
+                            <th class="border border-gray-200 px-4 py-3" colspan="1">Early Bird (USD)</th>
+                            <th class="border border-gray-200 px-4 py-3" colspan="1">Reguler (USD)</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($fees as $fee)
                             <tr class="odd:bg-white even:bg-gray-50">
                                 <td class="border border-gray-200 px-4 py-2 text-left">{{ $fee->category }}</td>
-                                <td class="border border-gray-200 px-4 py-2">{{ $fee->usd_physical }}</td>
-                                <td class="border border-gray-200 px-4 py-2">{{ number_format($fee->idr_physical) }}</td>
-                                <td class="border border-gray-200 px-4 py-2">{{ $fee->usd_online }}</td>
-                                <td class="border border-gray-200 px-4 py-2">{{ number_format($fee->idr_online) }}</td>
+                                <td class="border border-gray-200 px-4 py-2">{{ $fee->usd_early_bird }}</td>
+                                <td class="border border-gray-200 px-4 py-2">{{ $fee->usd_reguler }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -73,10 +64,10 @@
                 @endif
             </ul>
 
-            <h2 class="text-lg font-semibold mt-4 mb-2">The conference fee includes:</h2>
+            <h2 class="text-lg font-semibold mt-4 mb-2">The registration fee includes:</h2>
             <ul class="list-disc list-inside">
-                @if(isset($registration['conference_fee_include']) && $registration['conference_fee_include']->content)
-                    @foreach(explode("\n", $registration['conference_fee_include']->content) as $item)
+                @if(isset($registration['registration_fee_include']) && $registration['registration_fee_include']->content)
+                    @foreach(explode("\n", $registration['registration_fee_include']->content) as $item)
                         <li>{{ $item }}</li>
                     @endforeach
                 @else
@@ -89,28 +80,27 @@
         <div class="mt-6 space-y-4 text-black leading-relaxed">
             <h1 class="text-3xl font-bold mb-6 text-center text-[#1a1f27]/95">Payment Methods</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Gabungan semua Virtual Account -->
                 @php
-                    $virtualAccounts = $paymentMethods->where('method_name', 'Virtual Account');
+                    $bankTransfer = $paymentMethods->where('method_name', 'Bank Transfer');
                     $paypal = $paymentMethods->where('method_name', 'PayPal');
                 @endphp
 
-                @if($virtualAccounts->count() > 0)
+                @if($bankTransfer->count() > 0)
                     <div class="p-6 bg-gray-100 rounded-xl shadow-lg">
-                        <h3 class="text-xl text-center font-bold mb-4">Virtual Account</h3>
+                        <h3 class="text-xl text-center font-bold mb-4">Bank Transfer</h3>
 
                         <!-- Tampilkan info VA -->
-                        @foreach($virtualAccounts as $index => $va)
-                            <div class="mb-4 pb-3 @if($index < $virtualAccounts->count() - 1) border-b border-gray-300 @endif">
+                        @foreach($bankTransfer as $index => $va)
+                            <div class="mb-4 pb-3 @if($index < $bankTransfer->count() - 1) border-b border-gray-300 @endif">
                                 <p><span class="font-bold">Bank Name:</span> {{ $va->bank_name }}</p>
                                 <p><span class="font-bold">Account Name:</span> {{ $va->account_name }}</p>
-                                <p><span class="font-bold">Virtual Account Number:</span> {{ $va->virtual_account_number }}</p>
+                                <p><span class="font-bold">Bank Number:</span> {{ $va->bank_number }}</p>
                             </div>
                         @endforeach
 
                         <!-- Gabungkan semua important_notes di bawah semua VA -->
                         @php
-                            $allImportantNotes = $virtualAccounts->pluck('important_notes')->filter();
+                            $allImportantNotes = $bankTransfer->pluck('important_notes')->filter();
                         @endphp
 
                         @if($allImportantNotes->count() > 0)
@@ -127,26 +117,22 @@
                         <h3 class="text-xl text-center font-bold mb-4">PayPal</h3>
 
                         <p class="font-bold mb-2">PayPal Email Address:</p>
-
                         <ul class="list-disc list-inside space-y-1 text-gray-800">
                             @foreach($paypal as $method)
                                 <li>{{ $method->paypal_email }}</li>
                             @endforeach
                         </ul>
 
+                        <!-- Gabungkan semua Additional Information seperti Important Notes -->
                         @php
-                            $additionalInfo = $paypal->pluck('additional_info')->filter()->unique()->implode("\n");
-                            $infoItems = preg_split('/\r\n|\r|\n/', trim($additionalInfo));
-                            $infoItems = array_filter($infoItems, fn($item) => !empty(trim($item)));
+                            $allAdditionalInfo = $paypal->pluck('additional_info')->filter();
                         @endphp
 
-                        @if(!empty($infoItems))
-                            <p class="mt-4 font-bold">Additional Information:</p>
-                            <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-1">
-                                @foreach($infoItems as $info)
-                                    <li>{{ $info }}</li>
-                                @endforeach
-                            </ul>
+                        @if($allAdditionalInfo->count() > 0)
+                            <p class="font-bold mt-4 mb-2">Additional Information:</p>
+                            @foreach($allAdditionalInfo as $info)
+                                <p class="text-red-600 font-semibold">{{ $info }}</p>
+                            @endforeach
                         @endif
                     </div>
                 @endif

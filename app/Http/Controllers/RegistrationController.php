@@ -127,17 +127,13 @@ class RegistrationController extends Controller
         $request->validate([
             'category' => 'required|string|max:255',
             'usd_physical' => 'required|numeric',
-            'idr_physical' => 'required|numeric',
             'usd_online' => 'required|numeric',
-            'idr_online' => 'required|numeric',
         ]);
 
         RegistrationFee::create([
             'category' => $request->category,
             'usd_physical' => $request->usd_physical,
-            'idr_physical' => $request->idr_physical,
             'usd_online' => $request->usd_online,
-            'idr_online' => $request->idr_online,
             'event_year' => $year,
         ]);
 
@@ -155,18 +151,14 @@ class RegistrationController extends Controller
         $request->validate([
             'category' => 'required|string|max:255',
             'usd_physical' => 'required|numeric',
-            'idr_physical' => 'required|numeric',
             'usd_online' => 'required|numeric',
-            'idr_online' => 'required|numeric',
         ]);
 
         $fee = RegistrationFee::findOrFail($id);
         $fee->update([
             'category' => $request->category,
             'usd_physical' => $request->usd_physical,
-            'idr_physical' => $request->idr_physical,
             'usd_online' => $request->usd_online,
-            'idr_online' => $request->idr_online,
         ]);
 
         return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Registration Fee updated successfully!');
@@ -198,13 +190,13 @@ class RegistrationController extends Controller
         }
 
         $validated = $request->validate([
-            'method_name' => 'required|string|in:Virtual Account,PayPal',
+            'method_name' => 'required|string|in:Bank Transfer,PayPal',
         ]);
-        if ($request->method_name === 'Virtual Account') {
+        if ($request->method_name === 'Bank Transfer') {
             $request->validate([
                 'bank_name' => 'nullable|string|max:255',
                 'account_name' => 'nullable|string|max:255',
-                'virtual_account_number' => 'nullable|string|max:50',
+                'bank_number' => 'nullable|string|max:50',
                 'important_notes' => 'nullable|string',
             ]);
         } elseif ($request->method_name === 'PayPal') {
@@ -232,14 +224,14 @@ class RegistrationController extends Controller
         $paymentMethod = PaymentMethod::findOrFail($id);
 
         $request->validate([
-            'method_name' => 'required|string|in:Virtual Account,PayPal',
+            'method_name' => 'required|string|in:Bank Transfer,PayPal',
         ]);
 
-        if ($request->method_name === 'Virtual Account') {
+        if ($request->method_name === 'Bank Transfer') {
             $request->validate([
                 'bank_name' => 'nullable|string|max:255',
                 'account_name' => 'nullable|string|max:255',
-                'virtual_account_number' => 'nullable|string|max:50',
+                'bank_number' => 'nullable|string|max:50',
                 'important_notes' => 'nullable|string',
             ]);
         } elseif ($request->method_name === 'PayPal') {
@@ -253,7 +245,7 @@ class RegistrationController extends Controller
             'method_name',
             'bank_name',
             'account_name',
-            'virtual_account_number',
+            'bank_number',
             'important_notes',
             'paypal_email',
             'additional_info',

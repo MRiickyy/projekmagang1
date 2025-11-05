@@ -209,7 +209,7 @@ class CommitteeController extends Controller
     {
         $validated = $request->validate([
             'name'       => 'required|string|max:255',
-            'role'       => 'required|string|max:255',
+            'role'       => 'nullable|string|max:255',
             'university' => 'nullable|string|max:255',
             'country'    => 'nullable|string|max:255',
             'type'       => 'required|in:steering,technical program,organizing',

@@ -17,7 +17,7 @@
                 <select name="method_name" id="methodSelect"
                     class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none" required>
                     <option value="">-- Choose Payment Method --</option>
-                    <option value="Virtual Account" {{ old('method_name') == 'Virtual Account' ? 'selected' : '' }}>Virtual Account</option>
+                    <option value="Bank Transfer" {{ old('method_name') == 'Bank Transfer' ? 'selected' : '' }}>Bank Transfer</option>
                     <option value="PayPal" {{ old('method_name') == 'PayPal' ? 'selected' : '' }}>PayPal</option>
                 </select>
                 @error('method_name')
@@ -51,11 +51,11 @@
 
                 <!-- Virtual Account Number -->
                 <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-2">Virtual Account Number</label>
-                    <input type="text" name="virtual_account_number" value="{{ old('virtual_account_number') }}"
+                    <label class="block text-sm font-bold text-slate-900 mb-2">Bank Number</label>
+                    <input type="text" name="bank_number" value="{{ old('bank_number') }}"
                         class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"
                         placeholder="e.g. 1234567890">
-                    @error('virtual_account_number')
+                    @error('bank_number')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
