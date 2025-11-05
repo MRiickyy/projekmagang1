@@ -15,7 +15,7 @@ class PaymentMethod extends Model
         'method_name',
         'bank_name',
         'account_name',
-        'virtual_account_number',
+        'bank_number',
         'paypal_email',
         'additional_info',
         'important_notes',

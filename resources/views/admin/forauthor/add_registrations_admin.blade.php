@@ -17,12 +17,12 @@
                 <select name="section"
                     class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none" required>
                     <option value="">-- Choose Section --</option>
-                    <option value="cta_title">cta_title</option>
-                    <option value="cta_button">cta_button</option>
-                    <option value="cta_link">cta_link</option>
+                    <option value="title_link">title link</option>
+                    <option value="button_link">button link</option>
+                    <option value="link">link</option>
                     <option value="notes">notes</option>
-                    <option value="conference_fee_include">conference_fee_include</option>
-                    <option value="registration_procedures">registration_procedures</option>
+                    <option value="registration_fee_include">registration fee include</option>
+                    <option value="registration_procedures">registration procedures</option>
                 </select>
                 @error('section')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>

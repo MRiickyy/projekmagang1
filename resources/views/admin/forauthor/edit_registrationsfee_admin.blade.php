@@ -25,44 +25,22 @@
 
             <!-- USD (Physical) -->
             <div>
-                <label class="block text-sm font-bold text-slate-900 mb-1" for="usd_physical">USD (Physical)</label>
-                <input type="number" name="usd_physical" id="usd_physical"
-                    value="{{ old('usd_physical', $fee->usd_physical ?? '') }}"
+                <label class="block text-sm font-bold text-slate-900 mb-1" for="usd_physical">Early Bird (USD)</label>
+                <input type="number" name="usd_early_bird" id="usd_early_bird"
+                    value="{{ old('usd_early_bird', $fee->usd_early_bird ?? '') }}"
                     class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none">
-                @error('usd_physical')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- IDR (Physical) -->
-            <div>
-                <label class="block text-sm font-bold text-slate-900 mb-1" for="idr_physical">IDR (Physical)</label>
-                <input type="number" name="idr_physical" id="idr_physical"
-                    value="{{ old('idr_physical', $fee->idr_physical ?? '') }}"
-                    class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none">
-                @error('idr_physical')
+                @error('usd_early_bird')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
             <!-- USD (Online) -->
             <div>
-                <label class="block text-sm font-bold text-slate-900 mb-1" for="usd_online">USD (Online)</label>
-                <input type="number" name="usd_online" id="usd_online"
-                    value="{{ old('usd_online', $fee->usd_online ?? '') }}"
+                <label class="block text-sm font-bold text-slate-900 mb-1" for="usd_reguler">Reguler (USD)</label>
+                <input type="number" name="usd_reguler" id="usd_reguler"
+                    value="{{ old('usd_reguler', $fee->usd_reguler ?? '') }}"
                     class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none">
-                @error('usd_online')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- IDR (Online) -->
-            <div>
-                <label class="block text-sm font-bold text-slate-900 mb-1" for="idr_online">IDR (Online)</label>
-                <input type="number" name="idr_online" id="idr_online"
-                    value="{{ old('idr_online', $fee->idr_online ?? '') }}"
-                    class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none">
-                @error('idr_online')
+                @error('usd_reguler')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>

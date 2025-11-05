@@ -19,7 +19,7 @@ class ContactInfoSeeder extends Seeder
             [
                 'type' => 'email',
                 'title' => 'Official Email Address',
-                'value' => 'conference@email.com',
+                'value' => 'sain@ijain.org',
                 'event_id' => 1
             ],
             [
@@ -31,7 +31,7 @@ class ContactInfoSeeder extends Seeder
             [
                 'type' => 'phone',
                 'title' => 'Phone (WhatsApp)',
-                'value' => '+62 812 3456 7890',
+                'value' => '+62 8139 255 4050',
                 'event_id' => 1
             ],
         ];

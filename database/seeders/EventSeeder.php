@@ -12,12 +12,12 @@ class EventSeeder extends Seeder
     public function run(): void
     {
         $event = Event::firstOrCreate([
-            'name' => 'ICOICT',
+            'name' => 'SAIN IJAIN',
             'year' => 2025,
-            'main_title' => 'THE 13TH ICOICT',
-            'subtitle' => 'International Conference on Information and Communication Technology',
-            'location' => 'Bandung (Hybrid)',
-            'date_range' => '30–31 July 2025',
+            'main_title' => 'The 8th International SAIN',
+            'subtitle' => 'Symposium on Advanced Intelligent Informatics (SAIN) Internasional Journal of Advances in Intelligent Informatics (IJAIN)',
+            'location' => 'Seoul, Korea (Hybrid)',
+            'date_range' => '12–13 November 2025',
             'register_link' => '/newacc',
             'submit_link' => '/login',
         ]);

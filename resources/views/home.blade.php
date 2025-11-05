@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ICOICT 2025</title>
+    <title>{{ strtoupper($event->name ?? 'EVENT') }} {{ $event->year ?? date('Y') }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -288,34 +288,41 @@
         </div>
     </section>
 
-
-
     <!-- Important Dates -->
     <section class="bg-white text-slate-700">
         <div class="max-w-7xl mx-auto px-5 py-10">
+
             <h3 class="text-xl md:text-2xl font-extrabold mb-4">Important Dates :</h3>
-            <div class="grid md:grid-cols-2 gap-6">
+
+            @php
+                $timelineCount = $timelines->count();
+            @endphp
+
+            <div class="{{ $timelineCount > 1 ? 'grid md:grid-cols-2 gap-6' : '' }}">
                 @forelse ($timelines as $round => $items)
-                <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6 mb-6">
-                    <h5 class="text-center font-extrabold tracking-wide text-slate-700 mb-4">
-                        TIMELINE ROUND {{ $round }}
-                    </h5>
-                    <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-3">
-                        @foreach ($items as $timeline)
-                        <div class="text-[#df3a3a] font-bold">
-                            {{ \Carbon\Carbon::parse($timeline->date)->translatedFormat('F d, Y') }}
+                    <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6 mb-6 
+                        {{ $timelineCount == 1 ? 'w-full' : '' }}">
+                        
+                        <h5 class="text-center font-extrabold tracking-wide text-slate-700 mb-4">
+                            {{ $timelineCount == 1 ? 'TIMELINE' : 'TIMELINE ROUND ' . $round }}
+                        </h5>
+
+                        <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-3">
+                            @foreach ($items as $timeline)
+                                <div class="text-[#df3a3a] font-bold">
+                                    {{ \Carbon\Carbon::parse($timeline->date)->translatedFormat('F d, Y') }}
+                                </div>
+                                <div>{{ $timeline->title }}</div>
+                            @endforeach
                         </div>
-                        <div>{{ $timeline->title }}</div>
-                        @endforeach
                     </div>
-                </div>
                 @empty
-                <div class="col-span-2">
-                    <div
-                        class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6 mb-6 flex justify-center items-center min-h-[150px]">
-                        <p class="text-gray-500 font-semibold text-center">Belum ada data timeline yang tersedia.</p>
+                    <div class="col-span-2">
+                        <div
+                            class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6 mb-6 flex justify-center items-center min-h-[150px]">
+                            <p class="text-gray-500 font-semibold text-center">Belum ada data timeline yang tersedia.</p>
+                        </div>
                     </div>
-                </div>
                 @endforelse
             </div>
         </div>
