@@ -34,7 +34,18 @@
         <!-- Date Range -->
         <div>
             <label class="block text-sm font-semibold text-slate-900 mb-1">Date Range</label>
-            <input type="text" name="date_range"
+            <input type="text" 
+                name="date_range"
+                placeholder="Example: 01-02 month year"
+                class="w-full border border-gray-300 bg-gray-100 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
+
+        <!-- Event Time -->
+        <div>
+            <label class="block text-sm font-semibold text-slate-900 mb-1">Event Time</label>
+            <input type="text" 
+                name="event_time"
+                placeholder="Example: 09:00"
                 class="w-full border border-gray-300 bg-gray-100 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
         </div>
 

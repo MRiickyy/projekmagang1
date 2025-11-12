@@ -173,40 +173,69 @@
                 <p class="text-lg text-slate-200 mb-3">
                     {{ $event->location }}, {{ $event->date_range }}
                 </p>
-                <div class="flex justify-center">
-                    <!-- Box Luaran -->
-                    <div class="flex gap-6 p-6 rounded-3xl shadow-2xl bg-gradient-to-br from-[#2B3545] to-[#3B4A60]">
+                @if ($event && $event->event_time)
+                    @php
+                        // Ambil tanggal pertama dari rentang (contoh: 20–21 November 2025)
+                        preg_match('/\d{1,2}/', $event->date_range, $dayMatch);
+                        $day = $dayMatch[0] ?? 1;
 
-                        <!-- Box 1 -->
-                        <div
-                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
-                            <div class="text-5xl font-bold text-white">24</div>
-                            <div class="text-sm tracking-wider text-slate-200 mt-1">DAYS</div>
-                        </div>
+                        // Ambil bulan dan tahun
+                        preg_match('/([A-Za-z]+)\s(\d{4})/', $event->date_range, $monthYearMatch);
+                        $month = $monthYearMatch[1] ?? 'January';
+                        $year = $monthYearMatch[2] ?? '1970';
 
-                        <!-- Box 2 -->
-                        <div
-                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
-                            <div class="text-5xl font-bold text-white">14</div>
-                            <div class="text-sm tracking-wider text-slate-200 mt-1">HOURS</div>
-                        </div>
+                        // Gabungkan jadi datetime lengkap untuk countdown
+                        $targetDatetime = \Carbon\Carbon::parse("$day $month $year {$event->event_time}")->format('Y-m-d H:i:s');
+                    @endphp
 
-                        <!-- Box 3 -->
-                        <div
-                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
-                            <div class="text-5xl font-bold text-white">5</div>
-                            <div class="text-sm tracking-wider text-slate-200 mt-1">MINUTES</div>
-                        </div>
-
-                        <!-- Box 4 -->
-                        <div
-                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
-                            <div class="text-5xl font-bold text-white">40</div>
-                            <div class="text-sm tracking-wider text-slate-200 mt-1">SECONDS</div>
-                        </div>
-
+                    <div id="countdown-wrapper"
+                        class="flex gap-6 p-6 rounded-3xl shadow-2xl bg-gradient-to-br from-[#2B3545] to-[#3B4A60]"
+                        data-target="{{ $targetDatetime }}">
+                        @foreach (['DAYS' => '--', 'HOURS' => '--', 'MINUTES' => '--', 'SECONDS' => '--'] as $label => $val)
+                            <div
+                                class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75] text-center text-white">
+                                <div id="{{ strtolower($label) }}" class="text-5xl font-bold">{{ $val }}</div>
+                                <div class="text-[11px] tracking-wider text-slate-300">{{ $label }}</div>
+                            </div>
+                        @endforeach
                     </div>
-                </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const wrapper = document.getElementById('countdown-wrapper');
+                            if (!wrapper) return;
+
+                            const targetTime = new Date(wrapper.dataset.target).getTime();
+
+                            function updateCountdown() {
+                                const now = new Date().getTime();
+                                const distance = targetTime - now;
+
+                                if (distance <= 0) {
+                                    wrapper.innerHTML = `
+                                        <p class="text-center w-full text-white text-xl font-semibold">🎉 Event Has Started!</p>
+                                    `;
+                                    return;
+                                }
+
+                                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                                document.getElementById('days').textContent = days;
+                                document.getElementById('hours').textContent = hours;
+                                document.getElementById('minutes').textContent = minutes;
+                                document.getElementById('seconds').textContent = seconds;
+                            }
+
+                            updateCountdown();
+                            setInterval(updateCountdown, 1000);
+                        });
+                    </script>
+                @else
+                    <p class="text-center text-gray-400">No active event or event date not set.</p>
+                @endif
             </div>
         </div>
     </header>
@@ -320,7 +349,7 @@
                     <div class="col-span-2">
                         <div
                             class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6 mb-6 flex justify-center items-center min-h-[150px]">
-                            <p class="text-gray-500 font-semibold text-center">Belum ada data timeline yang tersedia.</p>
+                            <p class="text-gray-500 font-semibold text-center">There are no important dates yet.</p>
                         </div>
                     </div>
                 @endforelse
@@ -353,7 +382,7 @@
                     <p class="mt-3 text-slate-300">
                         {!!$homeContents['speakers_keynote_text']->content ??'Distinguished experts...'!!}
                     </p>
-                    <a href="/keynote-speakers-2025"
+                    <a href="{{ route('keynote.speakers', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                         class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
                         Read More <span aria-hidden="true">›</span>
                     </a>
@@ -364,7 +393,7 @@
                     <p class="mt-3 text-slate-300">
                         {!!$homeContents['speakers_tutorial_text']->content ??'Renowned subject-matter...' !!}
                     </p>
-                    <a href="/tutorial-speakers-2025"
+                    <a href="{{ route('tutorial.speakers', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                         class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
                         Read More <span aria-hidden="true">›</span>
                     </a>

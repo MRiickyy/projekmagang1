@@ -29,6 +29,7 @@
                         <th class="px-4 py-2 border">Subtitle</th>
                         <th class="px-4 py-2 border">Location</th>
                         <th class="px-4 py-2 border">Date Range</th>
+                        <th class="px-4 py-2 border">Event Time</th>
                         <th class="px-4 py-2 border">Register Link</th>
                         <th class="px-4 py-2 border">Submit Link</th>
                         <th class="px-4 py-2 border">Action</th>
@@ -43,6 +44,7 @@
                         <td class="px-4 py-2 border">{{ $event->subtitle }}</td>
                         <td class="px-4 py-2 border">{{ $event->location }}</td>
                         <td class="px-4 py-2 border">{{ $event->date_range }}</td>
+                        <td class="px-4 py-2 border">{{ $event->event_time }}</td>
                         <td class="px-4 py-2 border">{{ $event->register_link }}</td>
                         <td class="px-4 py-2 border">{{ $event->submit_link }}</td>
 
