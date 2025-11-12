@@ -48,15 +48,66 @@
             </p>
 
             {{-- Countdown static dulu, bisa nanti pakai JS --}}
-            <div class="flex gap-6 p-6 rounded-3xl shadow-2xl bg-gradient-to-br from-[#2B3545] to-[#3B4A60]">
-                @foreach (['DAYS'=>24,'HOURS'=>14,'MINUTES'=>5,'SECONDS'=>40] as $label=>$val)
-                <div
-                    class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75] text-center text-white">
-                    <div class="text-5xl font-bold">{{ $val }}</div>
-                    <div class="text-[11px] tracking-wider text-slate-300">{{ $label }}</div>
+            @if ($event && $event->event_time)
+                @php
+                    preg_match('/\d{1,2}/', $event->date_range, $dayMatch);
+                    $day = $dayMatch[0] ?? 1;
+
+                    preg_match('/([A-Za-z]+)\s(\d{4})/', $event->date_range, $monthYearMatch);
+                    $month = $monthYearMatch[1] ?? 'January';
+                    $year = $monthYearMatch[2] ?? '1970';
+
+                    $targetDatetime = \Carbon\Carbon::parse("$day $month $year {$event->event_time}")->format('Y-m-d H:i:s');
+                @endphp
+
+                <div id="countdown-wrapper"
+                    class="flex gap-6 p-6 rounded-3xl shadow-2xl bg-gradient-to-br from-[#2B3545] to-[#3B4A60]"
+                    data-target="{{ $targetDatetime }}">
+                    @foreach (['DAYS' => '--', 'HOURS' => '--', 'MINUTES' => '--', 'SECONDS' => '--'] as $label => $val)
+                        <div
+                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75] text-center text-white">
+                            <div id="{{ strtolower($label) }}" class="text-5xl font-bold">{{ $val }}</div>
+                            <div class="text-[11px] tracking-wider text-slate-300">{{ $label }}</div>
+                        </div>
+                    @endforeach
                 </div>
-                @endforeach
-            </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const wrapper = document.getElementById('countdown-wrapper');
+                        if (!wrapper) return;
+
+                        const targetTime = new Date(wrapper.dataset.target).getTime();
+
+                        function updateCountdown() {
+                            const now = new Date().getTime();
+                            const distance = targetTime - now;
+
+                            if (distance <= 0) {
+                                wrapper.innerHTML = `
+                                    <p class="text-center w-full text-white text-xl font-semibold">🎉 Event Has Started!</p>
+                                `;
+                                return;
+                            }
+
+                            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                            document.getElementById('days').textContent = days;
+                            document.getElementById('hours').textContent = hours;
+                            document.getElementById('minutes').textContent = minutes;
+                            document.getElementById('seconds').textContent = seconds;
+                        }
+
+                        updateCountdown();
+                        setInterval(updateCountdown, 1000);
+                    });
+                </script>
+            @else
+                <p class="text-center text-gray-400">No active event or event date not set.</p>
+            @endif
         </div>
     </div>
 </header>

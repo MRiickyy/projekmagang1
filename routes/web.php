@@ -16,9 +16,7 @@ use App\Http\Controllers\AuthorInformationController;
 use App\Http\Controllers\HeaderController;
 
 Route::get('/', function () {
-    // Ambil event ICOICT 2025 dari database
-    $event = Event::where('name', 'icoict')
-        ->where('year', 2025)
+    $event = Event::where('year', 2025)
         ->first();
 
     if ($event) {
@@ -29,7 +27,7 @@ Route::get('/', function () {
     }
 
     // Jika event belum ada di database
-    return abort(404, 'Default event ICOICT 2025 not found.');
+    return abort(404, 'Default event not found.');
 });
 
 Route::get('/login', function () {

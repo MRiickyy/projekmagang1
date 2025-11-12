@@ -77,6 +77,17 @@
                 @enderror
             </div>
 
+            <!-- Event Time -->
+            <div>
+                <label class="block text-sm font-bold text-slate-900 mb-1" for="event_time">Event Time</label>
+                <input type="text" name="event_time" id="event_time"
+                    value="{{ old('event_time', $event->event_time ?? '') }}"
+                    class="w-full border border-gray-400 rounded-md px-3 py-2 focus:outline-none bg-white" />
+                @error('event_time')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
             <!-- Register Link -->
             <div>
                 <label class="block text-sm font-bold text-slate-900 mb-1" for="register_link">Register Link</label>

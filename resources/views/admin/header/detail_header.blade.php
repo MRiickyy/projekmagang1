@@ -60,6 +60,14 @@
                     readonly disabled />
             </div>
 
+            <!-- Event Time -->
+            <div>
+                <label class="block text-sm font-bold text-slate-900 mb-1">Event Time</label>
+                <input type="text" value="{{ $event->event_time ?? '' }}"
+                    class="w-full border border-gray-400 bg-gray-200 rounded-md px-3 py-2 text-gray-700 cursor-not-allowed"
+                    readonly disabled />
+            </div>
+
             <!-- Register Link -->
             <div>
                 <label class="block text-sm font-bold text-slate-900 mb-1">Register Link</label>
