@@ -20,34 +20,22 @@
 
 {{-- Call for Papers --}}
 <section class="max-w-7xl mx-auto px-5 py-16">
-    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 mb-12 
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 mb-1 
         relative block text-center
         after:content-[''] after:block after:w-24 after:h-0.5 
         after:mt-4 after:mx-auto after:bg-gradient-to-r after:from-[#00e676] after:to-[#38bdf8]">
         CALL FOR PAPERS
     </h2>
 
-    @php $introcall=$callPapers->where('section', 'intro_call')->first();
-    @endphp
-
-    @if ($introcall)
-    <p class="text-slate-700 leading-relaxed whitespace-pre-line">
-        {{ $introcall->content }}
-    </p>
-    @else
-    <p class="text-slate-500 italic"> </p>
-    @endif
-    <p class="text-slate-700 leading-relaxed submission-text">
-        {!! preg_replace('/^\s{4,}(.*)$/m', '<span class="indent">$1</span>', e($callPapers->where('section',
-        'introcall')->first()->content ?? '')) !!}
+    <p class="text-slate-700 leading-relaxed submission-text mt-1 mb-4">
+        {!! preg_replace('/^\s{4,}(.*)$/m', '<span class="indent">$1</span>', e($callPapers->where('section','intro_call')->first()->content ?? '')) !!}
     </p>
 
-    <div class="grid justify-center gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        @foreach ($callPapers->where('section', 'call_for_papers') as $cfp)
+    <div class="grid justify-center gap-8 sm:grid-cols-2 lg:grid-cols-4 mt-2">
+        @foreach ($cfpItems as $cfp)
             <div class="bg-[#F2F6F9] rounded-2xl shadow-md p-6 hover:shadow-xl transition 
                         flex flex-col justify-start items-center text-center">
                 
-                {{-- Judul tampil kalau ada --}}
                 @if (!empty($cfp->title))
                     <h5 class="font-bold text-lg mb-3">{{ $cfp->title }}</h5>
                 @endif
@@ -56,7 +44,6 @@
                     $items = json_decode($cfp->content, true);
                 @endphp
 
-                {{-- Konten --}}
                 @if (is_array($items))
                     @if (count($items) > 1)
                         <ul class="list-disc list-inside text-slate-600 text-left">
@@ -76,63 +63,72 @@
 </section>
 
 
+
 {{-- SUBMISSION GUIDELINES --}}
-@php
-$guidelines = $callPapers->where('section', 'submission_guidelines')->first();
+<section class="bg-[#FFFFFF] text-slate-700">
+    <div class="max-w-7xl mx-auto px-5 mt-1">
+        <div class="mt-1">
+            <h3 class="text-2xl font-bold text-slate-800 relative inline-block
+                after:content-[''] after:block after:w-full after:h-0.5 
+                after:mt-2 after:bg-gradient-to-r after:from-[#00e676] after:to-[#38bdf8]">
+                {!! $callPapers['submission_title']->content ?? 'Default prev title...' !!}
+            </h3>
+            
+            <p class="mt-4 leading-relaxed">
+                {!! $callPapers['submission_intro']->content ?? 'Default tracks intro...' !!}
+            </p>
+            
+            <ol class="list-decimal list-inside space-y-1 mt-3">
+                @if(isset($callPapers['submission_guidelines']) && $callPapers['submission_guidelines']->content)
+                    @foreach(explode("\n", $callPapers['submission_guidelines']->content) as $line)
+                        
+                        @php
+                            $trim = trim($line);
+                        @endphp
 
-function formatGuidelines($text) {
-    $escaped = e($text);
-    $escaped = preg_replace_callback(
-        '/\((https?:\/\/[^\s)]+)\)\s*([^\n]+)/',
-        function ($matches) {
-            $url = trim($matches[1]);
-            $label = trim($matches[2]);
-            return '<a href="' . $url . '" target="_blank" class="text-blue-600 hover:underline">' . $label . '</a>';
-        },
-        $escaped
-    );
-    $escaped = preg_replace('/^\s*-\s*(.+)$/m', '<li class="ml-5 list-disc">$1</li>', $escaped);
-    $escaped = preg_replace('/(<li.+<\/li>)/s', '<ul class="pl-6 list-outside">$1</ul>', $escaped, 1);
+                        @if($trim !== '')
 
-    return $escaped;
-}
-@endphp
+                            {{-- Jika baris mulai dengan "-" → jadikan bullet --}}
+                            @if(Str::startsWith($trim, '- '))
+                                <ul class="list-disc list-inside ml-6">
+                                    <li>{{ ltrim($trim, '- ') }}</li>
+                                </ul>
 
-<section class="max-w-7xl mx-auto px-5 py-3">
-    <h3 class="text-2xl font-bold mb-4 text-slate-800 relative inline-block
-        after:content-[''] after:block after:w-full after:h-0.5 
-        after:mt-2 after:bg-gradient-to-r after:from-[#00e676] after:to-[#38bdf8]">
-        SUBMISSION GUIDELINES
-    </h3>
+                            {{-- Selain itu → item utama --}}
+                            @else
+                                <li>{{ $trim }}</li>
+                            @endif
 
-    @if ($guidelines)
-        <div class="text-slate-700 whitespace-pre-line leading-snug text-[15px]">
-            {!! formatGuidelines($guidelines->content) !!}
+                        @endif
+                    @endforeach
+                @else
+                    <li></li>
+                @endif
+            </ol>
         </div>
-    @else
-        <p class="text-slate-500 italic">No submission guidelines available.</p>
-    @endif
+    </div>
 </section>
 
 {{-- IMPORTANT DATES --}}
 <section class="max-w-7xl mx-auto px-5 py-5">
-    <h3 class="text-2xl font-bold mb-4 text-slate-800 relative inline-block
+    <h3 class="text-2xl font-bold text-slate-800 relative inline-block
         after:content-[''] after:block after:w-full after:h-0.5 
         after:mt-2 after:bg-gradient-to-r after:from-[#00e676] after:to-[#38bdf8]">
         IMPORTANT DATES
     </h3>
     <div class="flex flex-wrap gap-4 mt-6">
-        @forelse ($callPapers->where('section', 'important_dates') as $date)
+        @forelse ($importantDates as $date)
         <div class="bg-[#F2F6F9] border border-slate-300 rounded-xl px-6 py-3 text-center shadow-sm">
             <p class="font-semibold text-slate-800">{{ $date->title }}</p>
+
             @foreach (explode("\n", $date->content) as $line)
-            @if (trim($line) !== '')
-            <p class="italic text-slate-600">{{ $line }}</p>
-            @endif
+                @if (trim($line) !== '')
+                    <p class="italic text-slate-600">{{ $line }}</p>
+                @endif
             @endforeach
         </div>
         @empty
-        <p class="text-slate-500 italic">No important dates available.</p>
+            <p class="text-slate-500 italic">No important dates available.</p>
         @endforelse
     </div>
 </section>

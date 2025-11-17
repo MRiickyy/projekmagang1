@@ -15,9 +15,22 @@ class CallPaperController extends Controller
                       ->where('year', $event_year)
                       ->firstOrFail();
                       
-        $callPapers = CallPaper::where('event_id', $event->id)->get();
+        $callPapers = CallPaper::where('event_id', $event->id)
+            ->whereIn('section', ['submission_title', 'submission_intro', 'submission_guidelines', 'intro_call', 'join_section'])
+            ->get()
+            ->keyBy('section');
 
-        return view('callpaper', compact('callPapers', 'event'));
+        $importantDates = CallPaper::where('event_id', $event->id)
+            ->where('section', 'important_dates')
+            ->orderBy('id')
+            ->get();
+
+        $cfpItems = CallPaper::where('event_id', $event->id)
+            ->where('section', 'call_for_papers')
+            ->orderBy('title')
+            ->get();
+
+        return view('callpaper', compact('callPapers', 'importantDates', 'cfpItems', 'event'));
     }
 
 
