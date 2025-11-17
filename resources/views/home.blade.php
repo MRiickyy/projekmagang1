@@ -1,3 +1,6 @@
+@php
+$events = \App\Models\Event::orderBy('year', 'desc')->get();
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -84,7 +87,22 @@
                     </div>
                 </div>
 
-                <a href="#" class="hover:text-[#9ae6b4]">Events</a>
+                <div class="relative dropdown">
+                <button class="dropdown-btn flex items-center gap-1 hover:text-[#9ae6b4]">
+                Events
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+                </button>
+                <div class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
+                @foreach ($events as $ev)
+                <a href="{{ route('home', ['event_name' => $ev->name, 'event_year' => $ev->year]) }}"
+                class="block px-4 py-2 text-sm hover:bg-[#2d3748]">
+                {{ $ev->name }} {{ $ev->year }}
+                </a>
+                @endforeach
+                </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -245,74 +263,191 @@
     <section class="bg-white">
         <div class="max-w-7xl mx-auto px-5">
             <!-- Banner -->
-            <img src="{{ asset('images/telkom.jpg') }}" alt="city"
+            <img src="{{ asset('images/logoAscee.png') }}" alt="city"
                 class="w-screen h-64 md:h-80 object-cover rounded-sm">
 
             <div class="flex items-center justify-between gap-6 -mt-10 md:-mt-12">
                 <div class="bg-[#df3a3a] text-white text-base md:text-lg px-8 py-4 rounded-full shadow-lg flex-grow">
                     {{ $homeContents['banner_text']->content ?? 'Default Banner Text' }}
                 </div>
-                <img src="{{ asset('images/logo.png') }}" class="h-10 md:h-12" alt="logo">
+                <img src="{{ asset('images/logoSain.png') }}" class="h-10 md:h-12" alt="logo">
             </div>
 
         </div>
     </section>
 
-
-    <!-- Welcome -->
     <section class="bg-[#FFFFFF] text-slate-700">
         <div class="max-w-7xl mx-auto px-5 mt-8">
-            <h3 class="text-xl md:text-2xl font-extrabold">
-                {!! $homeContents['welcome_title']->content ?? 'Welcome to ICoICT 2025!' !!}
-            </h3>
 
             <p class="mt-4 leading-relaxed">
-                {!! $homeContents['welcome_text']->content ?? 'Default welcome text...' !!}
+                {!! $homeContents['intro_home']->content ?? 'Default welcome text...' !!}
             </p>
 
             <div class="bg-[#F2F6F9] ring-1 ring-white/10 p-5 md:p-6 rounded-xl mt-6">
-                <p class="font-semibold mb-3">
-                    {!! $homeContents['welcome_tracks_intro']->content ?? 'Default tracks intro...' !!}
-                </p>
+                <h2 class="text-xl md:text-2xl font-bold mb-4">
+                    {!! $homeContents['prev_conf_title']->content ?? 'Default prev title...' !!}
+                </h2>
 
                 <ol class="list-decimal list-inside space-y-1">
-                    {!! collect(explode('<br>', $homeContents['welcome_tracks']->content ?? 'Artificial
-                    Intelligence<br>Data Science'))->map(fn($track) => "<li>$track</li>")->implode('') !!}
+                    @if(isset($homeContents['previous_conference']) && $homeContents['previous_conference']->content)
+                        @foreach(explode("\n", $homeContents['previous_conference']->content) as $item)
+                            @if(trim($item) !== '')
+                                <li>{{ $item }}</li>
+                            @endif
+                        @endforeach
+                    @else
+                        <li></li>
+                    @endif
                 </ol>
-
-                <p class="mt-4 text-sm">
-                    {!! $homeContents['welcome_tracks_footer']->content ?? 'Default footer text...' !!}
-                </p>
             </div>
         </div>
 
         <div class="max-w-7xl mx-auto px-5 mt-10">
             <h3 class="text-xl md:text-2xl font-extrabold mb-4">
-                {!! $homeContents['welcome_prev_title']->content ?? 'Default prev title...' !!}
+                {!! $homeContents['scope_title']->content ?? 'Default prev title...' !!}
             </h3>
 
-            <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                @foreach ($homeContents['icoict_links'] ?? [] as $year => $url)
-                <a href="{{ $url }}" target="_blank"
-                    class="block rounded-xl border border-slate-700/60 bg-[#F2F6F9] px-4 py-4 hover:bg-slate-700/40 transition shadow">
-                    <div class="font-bold">ICoICT {{ $year }} :</div>
-                    <div class="text-slate-700 text-sm leading-5 break-words">
-                        {{ $url }}
-                    </div>
-                </a>
-                @endforeach
+            <p class="mt-4 leading-relaxed">
+                {!! $homeContents['scope_intro']->content ?? 'Default tracks intro...' !!}
+            </p>
+
+            <ol class="list-decimal list-inside space-y-1">
+                @if(isset($homeContents['scope_list']) && $homeContents['scope_list']->content)
+                    @foreach(explode("\n", $homeContents['scope_list']->content) as $item)
+                        @if(trim($item) !== '')
+                            <li>{{ $item }}</li>
+                        @endif
+                    @endforeach
+                @else
+                    <li></li>
+                @endif
+            </ol>
+
+            <div class="mt-7">
+                <h3 class="text-xl md:text-2xl font-extrabold mb-4">
+                    {!! $homeContents['publications_title']->content ?? 'Default prev title...' !!}
+                </h3>
+                
+                <p class="mt-4 leading-relaxed">
+                    {!! $homeContents['publications_intro']->content ?? 'Default tracks intro...' !!}
+                </p>
+                
+                <ol class="list-decimal list-inside space-y-1">
+                    @if(isset($homeContents['publications_list']) && $homeContents['publications_list']->content)
+                        @foreach(explode("\n", $homeContents['publications_list']->content) as $item)
+                            @if(trim($item) !== '')
+                                <li>{{ $item }}</li>
+                            @endif
+                        @endforeach
+                    @else
+                        <li></li>
+                    @endif
+                </ol>
             </div>
 
+            <div class="mt-7">
+                <h3 class="text-xl md:text-2xl font-extrabold mb-4">
+                    {!! $homeContents['editors_title']->content ?? 'Default prev title...' !!}
+                </h3>
+                
+                <ol class="list-decimal list-inside space-y-1">
+                    @if(isset($homeContents['editors']) && $homeContents['editors']->content)
+                        @foreach(explode("\n", $homeContents['editors']->content) as $item)
+                            @if(trim($item) !== '')
+                                <li>{{ $item }}</li>
+                            @endif
+                        @endforeach
+                    @else
+                        <li></li>
+                    @endif
+                </ol>
+            </div>
 
+            <div class="mt-7">
+                <h3 class="text-xl md:text-2xl font-extrabold mb-4">
+                    {!! $callPapers['submission_title']->content ?? 'Default prev title...' !!}
+                </h3>
+                
+                <p class="mt-4 leading-relaxed">
+                    {!! $callPapers['submission_intro']->content ?? 'Default tracks intro...' !!}
+                </p>
+                
+                <ol class="list-decimal list-inside space-y-1 mt-3">
+                    @if(isset($callPapers['submission_guidelines']) && $callPapers['submission_guidelines']->content)
+                        @foreach(explode("\n", $callPapers['submission_guidelines']->content) as $line)
+                            
+                            @php
+                                $trim = trim($line);
+                            @endphp
 
-            <div class="mt-8">
-                <h4 class="font-extrabold text-slate-700">
-                    {!! $homeContents['welcome_isbn_title']->content ?? 'With ISBN Information:' !!}
-                </h4>
-                <p class="mt-2 text-slate-700 text-sm">
-                    {!! $homeContents['welcome_isbn_text']->content ?? 'Electronic ISBN: 000-0-0000-0000-0' !!}
-                </p>
-                </p>
+                            @if($trim !== '')
+
+                                {{-- Jika baris mulai dengan "-" → jadikan bullet --}}
+                                @if(Str::startsWith($trim, '- '))
+                                    <ul class="list-disc list-inside ml-6">
+                                        <li>{{ ltrim($trim, '- ') }}</li>
+                                    </ul>
+
+                                {{-- Selain itu → item utama --}}
+                                @else
+                                    <li>{{ $trim }}</li>
+                                @endif
+
+                            @endif
+                        @endforeach
+                    @else
+                        <li></li>
+                    @endif
+                </ol>
+            </div>
+
+            <!-- Pricing Table -->
+            <div class="overflow-x-auto mt-10">
+                <div class="overflow-hidden rounded-lg shadow-md border border-gray-200">
+                    <table class="w-full text-center">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border border-gray-200 px-4 py-3 text-left">Category</th>
+                                <th class="border border-gray-200 px-4 py-3" colspan="1">Early Bird (USD)</th>
+                                <th class="border border-gray-200 px-4 py-3" colspan="1">Reguler (USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($fees as $fee)
+                                <tr class="odd:bg-white even:bg-gray-50">
+                                    <td class="border border-gray-200 px-4 py-2 text-left">{{ $fee->category }}</td>
+                                    <td class="border border-gray-200 px-4 py-2">{{ $fee->usd_early_bird }}</td>
+                                    <td class="border border-gray-200 px-4 py-2">{{ $fee->usd_reguler }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Notes Section -->
+            <div class="mt-6 bg-gray-100 rounded-xl p-6 shadow-lg">
+                <h2 class="text-lg font-semibold mb-3">Notes:</h2>
+                <ul class="list-disc list-inside space-y-1">
+                    @if(isset($registration['notes']) && $registration['notes']->content)
+                        @foreach(explode("\n", $registration['notes']->content) as $note)
+                            <li>{{ $note }}</li>
+                        @endforeach
+                    @else
+                        <li></li>
+                    @endif
+                </ul>
+
+                <h2 class="text-lg font-semibold mt-4 mb-2">The registration fee includes:</h2>
+                <ul class="list-disc list-inside">
+                    @if(isset($registration['registration_fee_include']) && $registration['registration_fee_include']->content)
+                        @foreach(explode("\n", $registration['registration_fee_include']->content) as $item)
+                            <li>{{ $item }}</li>
+                        @endforeach
+                    @else
+                        <li>To be announced.</li>
+                    @endif
+                </ul>
             </div>
         </div>
     </section>
@@ -321,7 +456,7 @@
     <section class="bg-white text-slate-700">
         <div class="max-w-7xl mx-auto px-5 py-10">
 
-            <h3 class="text-xl md:text-2xl font-extrabold mb-4">Important Dates :</h3>
+            <h3 class="text-xl md:text-2xl font-extrabold mb-4">IMPORTANT DATES:</h3>
 
             @php
                 $timelineCount = $timelines->count();

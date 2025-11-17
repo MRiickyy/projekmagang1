@@ -265,8 +265,17 @@
                         <span>Selamat datang, <strong>{{ session('admin_username') }}</strong></span>
                         @endif
 
-                        <a href="{{ url('' . session('selected_event_year', date('Y'))) }}"
-                            class="hover:underline">Lihat website</a>
+                        @php
+                            $eventName = session('selected_event_name') ?? 'SAIN IJAIN';
+                            $eventYear = session('selected_event_year') ?? 2025;
+                        @endphp
+
+                        <a href="{{ route('home', [
+                            'event_name' => $eventName,
+                            'event_year' => $eventYear,
+                        ]) }}" class="hover:underline">
+                            Go To The Website
+                        </a>
                         <a href="{{ route('admin.login') }}" class="hover:underline">Logout</a>
                     </div>
                 </div>

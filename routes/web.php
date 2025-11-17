@@ -16,8 +16,17 @@ use App\Http\Controllers\AuthorInformationController;
 use App\Http\Controllers\HeaderController;
 
 Route::get('/', function () {
-    $event = Event::where('year', 2025)
-        ->first();
+
+    // Jika admin sudah memilih event → pakai itu
+    if (session()->has('selected_event_name') && session()->has('selected_event_year')) {
+        return redirect()->route('home', [
+            'event_name' => session('selected_event_name'),
+            'event_year' => session('selected_event_year'),
+        ]);
+    }
+
+    // Kalau belum ada session, baru gunakan default 2025
+    $event = Event::where('year', 2025)->first();
 
     if ($event) {
         return redirect()->route('home', [
@@ -26,9 +35,9 @@ Route::get('/', function () {
         ]);
     }
 
-    // Jika event belum ada di database
     return abort(404, 'Default event not found.');
 });
+
 
 Route::get('/login', function () {
     return view('login');

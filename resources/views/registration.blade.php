@@ -58,9 +58,7 @@
                         <li>{{ $note }}</li>
                     @endforeach
                 @else
-                    <li>Maximum number of pages for a normal paper is 6</li>
-                    <li>To be eligible for the IEEE Member rate you must be an active IEEE Member</li>
-                    <li>To be eligible for the student rate you must provide your student ID/Letter of proof</li>
+                    <li></li>
                 @endif
             </ul>
 
@@ -148,10 +146,7 @@
                         <li>{!! $procedure !!}</li>
                     @endforeach
                 @else
-                    <li>Complete the payment according to the method of your choice.</li>
-                    <li>Register for the conference using the link provided.</li>
-                    <li>If registering at the IEEE member or student rate, attach proof of eligibility.</li>
-                    <li>Ensure all required information and supporting documents are included before submitting.</li>
+                    <li></li>
                 @endif
             </ol>
         </div>

@@ -21,6 +21,7 @@ class EventController extends Controller
         // Simpan ID dan tahun ke session
         session([
             'selected_event_id' => $event->id,
+            'selected_event_name' => $event->name,
             'selected_event_year' => $event->year,
         ]);
 
@@ -57,6 +58,7 @@ class EventController extends Controller
         // Simpan langsung ke session
         session([
             'selected_event_id' => $event->id,
+            'selected_event_name' => $event->name,
             'selected_event_year' => $event->year,
         ]);
 

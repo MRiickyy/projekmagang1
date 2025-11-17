@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Timeline;
 use App\Models\HomeContent;
+use App\Models\CallPaper;
+use App\Models\RegistrationModel;
+use App\Models\RegistrationFee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 
@@ -26,7 +29,20 @@ class HomeContentController extends Controller
             ->get()
             ->groupBy('round_number');
 
-        // Proses icoict_links
+        // CALL FOR PAPERS
+        $callPapers = CallPaper::where('event_id', $event->id)
+            ->get()
+            ->keyBy('section');
+
+        // REGISTRATION DATA
+        $registration = RegistrationModel::where('event_id', $event->id)
+            ->get()
+            ->keyBy('section');
+
+        // FEES
+        $fees = RegistrationFee::where('event_id', $event->id)->get();
+
+        // ICOICT LINKS
         $homeContents['icoict_links'] = $homeContents
             ->filter(fn($item, $key) => str_starts_with($key, 'icoict_link_'))
             ->mapWithKeys(function ($item, $key) {
@@ -34,7 +50,14 @@ class HomeContentController extends Controller
                 return [$year => $item->content];
             });
 
-        return view('home', compact('homeContents', 'timelines', 'event'));
+        return view('home', [
+            'homeContents' => $homeContents,
+            'timelines' => $timelines,
+            'event' => $event,
+            'callPapers' => $callPapers,
+            'fees' => $fees,
+            'registration' => $registration,
+        ]);
     }
 
     public function listHome()
