@@ -14,6 +14,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\AuthorInformationController;
 use App\Http\Controllers\HeaderController;
+use App\Http\Controllers\FooterSectionController;
 
 Route::get('/', function () {
 
@@ -196,6 +197,20 @@ Route::get('/admin/edit_header/{id}', [HeaderController::class, 'edit'])->name('
 Route::put('/admin/update_header/{id}', [HeaderController::class, 'update'])->name('admin.header.update');
 Route::delete('/admin/delete_header/{id}', [HeaderController::class, 'destroy'])->name('admin.header.delete_header');
 Route::get('/admin/detail_header/{id}', [HeaderController::class, 'show'])->name('admin.header.detail_header');
+
+//===ROUTE FOOTER ADMIN===\\
+Route::get('/admin/footer', [FooterSectionController::class, 'listFooter'])->name('admin.footer.list');
+Route::get('/admin/footer/add', [FooterSectionController::class, 'add'])->name('admin.footer.add');
+Route::post('/admin/footer/store', [FooterSectionController::class, 'store'])->name('admin.footer.store');
+Route::get('admin/footer/edit-hostAndPartners/{id}', [FooterSectionController::class, 'editHostAndPartners'])->name('admin.footer.edit_hostAndPartners');
+Route::get('admin/footer/edit-hosted/{id}', [FooterSectionController::class, 'editHosted'])->name('admin.footer.edit_hosted');
+Route::get('admin/footer/edit-visitors/{id}', [FooterSectionController::class, 'editVisitors'])->name('admin.footer.edit_visitors');
+Route::put('/admin/footer/update/{id}', [FooterSectionController::class, 'update'])->name('admin.footer.update');
+Route::delete('/admin/footer/delete/{id}', [FooterSectionController::class, 'destroy'])->name('admin.footer.delete');
+Route::get('/admin/footer/detail/{id}', [FooterSectionController::class, 'show'])->name('admin.footer.detail');
+
+
+
 
 Route::prefix('{event_name}/{event_year}')->group(function () {
     Route::get('/', [HomeContentController::class, 'index'])->name('home');
