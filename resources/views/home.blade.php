@@ -262,15 +262,33 @@ $events = \App\Models\Event::orderBy('year', 'desc')->get();
     <!-- Banner image + red pill headline -->
     <section class="bg-white">
         <div class="max-w-7xl mx-auto px-5">
-            <!-- Banner -->
-            <img src="{{ asset('images/logoAscee.png') }}" alt="city"
-                class="w-screen h-64 md:h-80 object-cover rounded-sm">
 
-            <div class="flex items-center justify-between gap-6 -mt-10 md:-mt-12">
-                <div class="bg-[#df3a3a] text-white text-base md:text-lg px-8 py-4 rounded-full shadow-lg flex-grow">
-                    {{ $homeContents['banner_text']->content ?? 'Default Banner Text' }}
+            <!-- Banner Wrapper -->
+            <div class="relative w-full overflow-hidden rounded-sm">
+
+                <!-- Image -->
+                <img src="{{ asset('images/' . ($homeContents['banner_image']->content ?? 'default-logoAscee.png')) }}"
+                    alt="banner"
+                    class="w-full h-auto object-cover">
+
+                <!-- Overlay (text + logo) -->
+                <div class="absolute bottom-0 left-0 w-full px-5 pb-4">
+                    <div class="flex items-center justify-between gap-6">
+
+                        <!-- Banner Text -->
+                        <div class="bg-[#df3a3a] text-white text-base md:text-lg px-8 py-4 rounded-full shadow-lg flex-grow">
+                            {{ $homeContents['banner_text']->content ?? 'Default Banner Text' }}
+                        </div>
+
+                        <!-- Banner Logo -->
+                        <div class="h-12 md:h-14 aspect-square rounded-full overflow-hidden shadow-md flex items-center justify-center bg-white">
+                            <img src="{{ asset('images/' . ($homeContents['banner_logo']->content ?? 'default-logo.png')) }}"
+                                alt="logo"
+                                class="w-full h-full object-cover">
+                        </div>
+                    </div>
                 </div>
-                <img src="{{ asset('images/logoSain.png') }}" class="h-10 md:h-12" alt="logo">
+
             </div>
 
         </div>

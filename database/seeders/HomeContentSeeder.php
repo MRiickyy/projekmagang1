@@ -13,6 +13,18 @@ class HomeContentSeeder extends Seeder
         DB::table('home_contents')->truncate();
 
         $data = [
+            [
+                'section' => 'banner_image',
+                'content' => 'logoAscee.png',
+                'event_id' => 1
+            ],
+
+            [
+                'section' => 'banner_logo',
+                'content' => 'logoSain.png',
+                'event_id' => 1
+            ],
+
             ['section' => 'banner_text', 
              'content' => 'Symposium on Advanced Intelligent Informatics (SAIN) Internasional Journal of Advances in Intelligent Informatics (IJAIN)', 
              'event_id' => 1
