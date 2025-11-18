@@ -42,7 +42,7 @@ class AdminController extends Controller
 
         if ($admin && Hash::check($request->password, $admin->password)) {
             session(['admin_logged_in' => true, 'admin_username' => $admin->username]);
-            return redirect()->route('admin.list_home_contents_admin');
+            return redirect()->route('admin.header.list_header');
         } else {
             return back()->with('error', 'Wrong username or password!');
         }
