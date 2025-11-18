@@ -98,17 +98,35 @@ class HomeContentController extends Controller
             return back()->with('error', 'Please select an event first.');
         }
 
+        // Validasi
         $validated = $request->validate([
             'section' => 'required|string',
-            'content' => 'required|string',
+            'content' => 'nullable|string',
+            'content_file' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096', // 4MB
         ]);
 
-        $validated['event_id'] = $selectedEventId;
+        $data = [
+            'section' => $validated['section'],
+            'event_id' => $selectedEventId,
+        ];
 
-        HomeContent::create($validated);
+        // Jika upload file
+        if ($request->hasFile('content_file')) {
+            $file = $request->file('content_file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images'), $filename);
+
+            $data['content'] = $filename;  // Simpan nama file di database
+        } else {
+            // Jika tidak mengupload file, pakai text biasa
+            $data['content'] = $validated['content'];
+        }
+
+        HomeContent::create($data);
 
         return redirect()
-            ->route('admin.list_home_contents_admin');
+            ->route('admin.list_home_contents_admin')
+            ->with('success', 'Content successfully added!');
     }
 
 
@@ -120,15 +138,44 @@ class HomeContentController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'content' => 'required|string',
+        $homeContent = HomeContent::findOrFail($id);
+
+        // Tentukan apakah ini section image
+        $isImageSection = in_array($homeContent->section, ['banner_image', 'banner_logo']);
+
+        // Validation
+        $validated = $request->validate([
+            'content' => $isImageSection ? 'nullable' : 'required|string',
+            'content_file' => $isImageSection ? 'nullable|image|mimes:jpg,png,jpeg,webp|max:4096' : 'nullable',
         ]);
 
-        $homeContent = HomeContent::findOrFail($id);
-        $homeContent->content = $request->content;
+        // === Jika ini section GAMBAR ===
+        if ($isImageSection) {
+
+            if ($request->hasFile('content_file')) {
+
+                // Hapus gambar lama jika ada
+                if ($homeContent->content && file_exists(public_path('images/' . $homeContent->content))) {
+                    @unlink(public_path('images/' . $homeContent->content));
+                }
+
+                // Upload gambar baru
+                $file = $request->file('content_file');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('images'), $filename);
+
+                $homeContent->content = $filename;
+            }
+
+        } else {
+            // === Jika ini TEXT SECTION ===
+            $homeContent->content = $validated['content'];
+        }
+
         $homeContent->save();
 
-        return redirect()->route('admin.list_home_contents_admin');
+        return redirect()->route('admin.list_home_contents_admin')
+                        ->with('success', 'Content updated successfully!');
     }
 
     public function show($id)

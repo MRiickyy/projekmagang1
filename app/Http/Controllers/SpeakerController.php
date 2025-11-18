@@ -227,6 +227,28 @@ class SpeakerController extends Controller
         return redirect()->route($route)->with('success', 'Speaker deleted successfully!');
     }
 
+    public function adminDetail($slug)
+    {
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            return back()->with('error', 'Please select an event first.');
+        }
+
+        $event = Event::findOrFail($selectedEventId);
+
+        $speaker = Speaker::where('slug', $slug)
+            ->where('event_id', $selectedEventId)
+            ->with('descriptions')
+            ->firstOrFail();
+
+        return view('admin.speakers.detail_speaker', [
+            'speaker' => $speaker,
+            'event'   => $event,
+            'type'    => $speaker->speaker_type,
+        ]);
+    }
+
     public function listKeynoteSpeakers(Request $request)
     {
         $selectedEventId = session('selected_event_id');

@@ -241,8 +241,6 @@
                         </a>
                     </div>
                 </div>
-
-                <a href="#" class="block px-3 py-2 rounded hover:bg-[#334155]">Events</a>
             </nav>
         </aside>
 
