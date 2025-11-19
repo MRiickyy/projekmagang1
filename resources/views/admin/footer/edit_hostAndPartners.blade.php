@@ -52,7 +52,7 @@
 
                         <!-- Tombol Hapus -->
                         <button type="button" onclick="removeLogo(this)"
-                            class="px-2 py-1 bg-red-500 text-white rounded">×</button>
+                            class="px-2 py-1 bg-red-500 text-white rounded">Delete</button>
                     </div>
                     @endif
                     @endforeach
@@ -60,7 +60,7 @@
 
                 <!-- Tombol Tambah Logo Baru -->
                 <button type="button" onclick="addLogo()" class="mt-3 px-4 py-2 bg-green-500 text-white rounded">
-                    + Tambah
+                    + Add
                 </button>
             </div>
 

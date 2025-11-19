@@ -77,14 +77,14 @@
                         <!-- Remove button -->
                         <div class="flex-none">
                             <button type="button"
-                                class="px-3 py-1 bg-red-500 text-white rounded remove-item">Hapus</button>
+                                class="px-3 py-1 bg-red-500 text-white rounded remove-item">Delete</button>
                         </div>
                     </div>
                     @endforeach
                 </div>
 
                 <button type="button" id="add-country-btn" class="mt-3 px-4 py-2 bg-green-500 text-white rounded">
-                    + Tambah
+                    + Add
                 </button>
             </div>
 
@@ -154,7 +154,7 @@ document.getElementById('add-country-btn').addEventListener('click', function() 
             <input type="number" name="items[${itemCount}][count]" value="0" class="w-full border border-gray-300 rounded px-2 py-1 participant-input">
         </div>
         <div class="flex-none">
-            <button type="button" class="px-3 py-1 bg-red-500 text-white rounded remove-item">Hapus</button>
+            <button type="button" class="px-3 py-1 bg-red-500 text-white rounded remove-item">Delete</button>
         </div>
     `;
 
