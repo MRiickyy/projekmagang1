@@ -262,7 +262,7 @@
                     </div>
                     <div class="space-x-6 text-sm">
                         @if(session('admin_logged_in'))
-                        <span>Selamat datang, <strong>{{ session('admin_username') }}</strong></span>
+                        <span>Welcome, <strong>{{ session('admin_username') }}</strong></span>
                         @endif
 
                         @php
