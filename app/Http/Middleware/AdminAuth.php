@@ -10,7 +10,7 @@ class AdminAuth
     public function handle(Request $request, Closure $next)
     {
         if (!session()->has('admin_logged_in') || session('admin_logged_in') !== true) {
-            return redirect()->route('admin.login')->with('error', 'Silakan login terlebih dahulu.');
+            return redirect()->route('admin.login')->with('error', 'Please log in first!');
         }
 
         return $next($request);

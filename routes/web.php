@@ -15,6 +15,7 @@ use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\AuthorInformationController;
 use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\FooterSectionController;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
 
@@ -60,12 +61,21 @@ Route::middleware(['web'])->group(function () {
     Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.process');
 
-    Route::get('/admin/logout', function () {
-        $request->session()->regenerate();
-        session()->invalidate();        // HAPUS seluruh session
-        session()->regenerateToken();   // Buat token baru (keamanan)
-        return redirect()->route('admin.login')->with('success', 'Logout berhasil');
-    });
+    Route::get('/admin/logout', function (Request $request) {
+
+        // Hapus seluruh data session (termasuk di table sessions)
+        $request->session()->flush();       
+    
+        // Hapus session ID lama
+        $request->session()->invalidate();
+    
+        // Regenerasi CSRF token baru
+        $request->session()->regenerateToken();
+    
+        return redirect()->route('admin.login')->with('success', 'Logout successful');
+    })->name('admin.logout');
+    
+   
     
 });
 //route reset pass admin
