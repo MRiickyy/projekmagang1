@@ -276,7 +276,9 @@
                         ]) }}" class="hover:underline">
                             Go To The Website
                         </a>
-                        <a href="{{ route('admin.login') }}" class="hover:underline">Logout</a>
+                        <a href="{{ route('admin.logout') }}" class="hover:underline">Logout</a>
+
+
                     </div>
                 </div>
             </header>
