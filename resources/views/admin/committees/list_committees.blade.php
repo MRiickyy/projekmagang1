@@ -49,8 +49,6 @@
                     <th class="px-4 py-2 border">University</th>
                     <th class="px-4 py-2 border">Country</th>
                     <th class="px-4 py-2 border">Type</th>
-                    <th class="px-4 py-2 border">Created At</th>
-                    <th class="px-4 py-2 border">Updated At</th>
                     <th class="px-4 py-2 border">Action</th>
                 </tr>
             </thead>
@@ -63,8 +61,6 @@
                     <td class="px-4 py-2 border">{{ $committee->university }}</td>
                     <td class="px-4 py-2 border">{{ $committee->country }}</td>
                     <td class="px-4 py-2 border capitalize">{{ $committee->type }}</td>
-                    <td class="px-4 py-2 border">{{ $committee->created_at->format('Y-m-d') }}</td>
-                    <td class="px-4 py-2 border">{{ $committee->updated_at->format('Y-m-d') }}</td>
                     <td class="px-4 py-2 border">
                         <div class="flex justify-center gap-2">
                             <a href="{{ route('edit.committees', $committee->id) }}"

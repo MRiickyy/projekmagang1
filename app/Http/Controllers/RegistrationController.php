@@ -122,19 +122,23 @@ class RegistrationController extends Controller
 
     public function adminRegisFeeStore(Request $request)
     {
-        $year = session('selected_event_year', date('Y'));
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            return back()->with('error', 'Please select an event first.');
+        }
 
         $request->validate([
             'category' => 'required|string|max:255',
-            'usd_physical' => 'required|numeric',
-            'usd_online' => 'required|numeric',
+            'usd_early_bird' => 'required|numeric',
+            'usd_reguler' => 'required|numeric',
         ]);
 
         RegistrationFee::create([
             'category' => $request->category,
-            'usd_physical' => $request->usd_physical,
-            'usd_online' => $request->usd_online,
-            'event_year' => $year,
+            'usd_early_bird' => $request->usd_early_bird,
+            'usd_reguler' => $request->usd_reguler,
+            'event_id' => $selectedEventId,  // <<< WAJIB
         ]);
 
         return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Data added successfully!');
@@ -150,15 +154,15 @@ class RegistrationController extends Controller
     {
         $request->validate([
             'category' => 'required|string|max:255',
-            'usd_physical' => 'required|numeric',
-            'usd_online' => 'required|numeric',
+            'usd_early_bird' => 'required|numeric',
+            'usd_reguler' => 'required|numeric',
         ]);
 
         $fee = RegistrationFee::findOrFail($id);
         $fee->update([
             'category' => $request->category,
-            'usd_physical' => $request->usd_physical,
-            'usd_online' => $request->usd_online,
+            'usd_early_bird' => $request->usd_early_bird,
+            'usd_reguler' => $request->usd_reguler,
         ]);
 
         return redirect()->route('admin.forauthor.list_registrations_admin')->with('success', 'Registration Fee updated successfully!');

@@ -42,8 +42,6 @@
                             <th class="px-4 py-2 border">Type</th>
                             <th class="px-4 py-2 border">Title</th>
                             <th class="px-4 py-2 border">Value</th>
-                            <th class="px-4 py-2 border">Created At</th>
-                            <th class="px-4 py-2 border">Updated At</th>
                             <th class="px-4 py-2 border">Action</th>
                         </tr>
                     </thead>
@@ -54,8 +52,6 @@
                             <td class="px-4 py-2 border">{{ ucfirst($contactInfo->type) }}</td>
                             <td class="px-4 py-2 border">{{ $contactInfo->title }}</td>
                             <td class="px-4 py-2 border">{{ $contactInfo->value }}</td>
-                            <td class="px-4 py-2 border">{{ $contactInfo->created_at }}</td>
-                            <td class="px-4 py-2 border">{{ $contactInfo->updated_at }}</td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center gap-2">
                                     <a href="{{ route('admin.edit_contacts_Admin', $contactInfo->id) }}"
@@ -92,8 +88,6 @@
                             <th class="px-4 py-2 border">Name</th>
                             <th class="px-4 py-2 border">Email</th>
                             <th class="px-4 py-2 border">Message</th>
-                            <th class="px-4 py-2 border">Created At</th>
-                            <th class="px-4 py-2 border">Updated At</th>
                             <th class="px-4 py-2 border">Action</th>
                         </tr>
                     </thead>
@@ -104,8 +98,6 @@
                             <td class="px-4 py-2 border">{{ $message->name }}</td>
                             <td class="px-4 py-2 border">{{ $message->email }}</td>
                             <td class="px-4 py-2 border">{{ $message->message }}</td>
-                            <td class="px-4 py-2 border">{{ $message->created_at }}</td>
-                            <td class="px-4 py-2 border">{{ $message->updated_at }}</td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center gap-2">
                                     <form action="{{ route('admin.delete_contact_message', $message->id) }}"
@@ -153,8 +145,6 @@
                             <th class="px-4 py-2 border">No</th>
                             <th class="px-4 py-2 border">Title</th>
                             <th class="px-4 py-2 border">Link</th>
-                            <th class="px-4 py-2 border">Created At</th>
-                            <th class="px-4 py-2 border">Updated At</th>
                             <th class="px-4 py-2 border">Action</th>
                         </tr>
                     </thead>
@@ -166,8 +156,6 @@
                             <td class="px-4 py-2 border max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                                 <a href="{{ $map->link }}" class="text-blue-600 hover:underline">{{ $map->link }}</a>
                             </td>
-                            <td class="px-4 py-2 border">{{ $map->created_at }}</td>
-                            <td class="px-4 py-2 border">{{ $map->updated_at }}</td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center gap-2">
                                     <a href="{{ route('admin.edit_map_location', $map->id) }}"

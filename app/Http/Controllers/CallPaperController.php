@@ -56,7 +56,13 @@ class CallPaperController extends Controller
 
     public function addCallPaper()
     {
-        return view('admin.add_callpaper_Admin');
+        $selectedEventId = session('selected_event_id');
+
+        $existingSections = CallPaper::where('event_id', $selectedEventId)
+            ->where('section', '!=', 'call_for_papers')
+            ->pluck('section')
+            ->toArray();
+        return view('admin.add_callpaper_Admin', compact('existingSections'));
     }
 
     public function store(Request $request)

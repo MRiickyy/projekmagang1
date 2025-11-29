@@ -52,7 +52,7 @@
     <div x-data="{ openAuthors: false, openCommittees: false }" class="flex min-h-screen w-full">
 
         <!-- Sidebar -->
-        <aside id="sidebar" class="sidebar w-64 bg-[#1a1f27]/95 shadow-md text-white flex flex-col fixed h-full z-20">
+        <aside id="sidebar" class="sidebar w-64 bg-[#1a1f27]/95 shadow-md text-white flex flex-col fixed h-screen z-20 overflow-y-auto">
             <div class="px-6 py-6 text-lg font-bold border-b border-gray-700">
                 Dashboard Admin
             </div>

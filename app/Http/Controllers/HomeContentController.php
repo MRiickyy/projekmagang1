@@ -87,7 +87,11 @@ class HomeContentController extends Controller
 
     public function addHome()
     {
-        return view('admin.add_home_contents_admin');
+        $selectedEventId = session('selected_event_id');
+        $existingSections = HomeContent::where('event_id', $selectedEventId)
+            ->pluck('section')
+            ->toArray();
+        return view('admin.add_home_contents_admin', compact('existingSections'));
     }
 
     public function store(Request $request)
