@@ -38,8 +38,6 @@
                             <th class="px-4 py-2 border">No</th>
                             <th class="px-4 py-2 border">Section</th>
                             <th class="px-4 py-2 border">Content</th>
-                            <th class="px-4 py-2 border">Created At</th>
-                            <th class="px-4 py-2 border">Updated At</th>
                             <th class="px-4 py-2 border">Action</th>
                         </tr>
                     </thead>
@@ -49,8 +47,6 @@
                             <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
                             <td class="px-4 py-2 border">{{ $homeContent->section }}</td>
                             <td class="px-4 py-2 border">{{ $homeContent->content }}</td>
-                            <td class="px-4 py-2 border">{{ $homeContent->created_at }}</td>
-                            <td class="px-4 py-2 border">{{ $homeContent->updated_at }}</td>
                             <td class="px-4 py-2 border space-x-2">
                                 <div class="flex justify-center gap-2">
                                     <a href="{{ route('admin.edit_home_contents_admin', $homeContent->id) }}"
@@ -110,8 +106,6 @@
                             <th class="px-4 py-2 border">No</th>
                             <th class="px-4 py-2 border">Title</th>
                             <th class="px-4 py-2 border">Date</th>
-                            <th class="px-4 py-2 border">Created At</th>
-                            <th class="px-4 py-2 border">Updated At</th>
                             <th class="px-4 py-2 border">Action</th>
                         </tr>
 
@@ -121,8 +115,6 @@
                             <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
                             <td class="px-4 py-2 border">{{ $item->title }}</td>
                             <td class="px-4 py-2 border">{{ $item->date }}</td>
-                            <td class="px-4 py-2 border">{{ $item->created_at }}</td>
-                            <td class="px-4 py-2 border">{{ $item->updated_at }}</td>
                             <td class="px-4 py-2 border space-x-2">
                                 <div class="flex justify-center gap-2">
                                     <a href="{{ route('admin.edit_timeline_home_admin', $item->id) }}"

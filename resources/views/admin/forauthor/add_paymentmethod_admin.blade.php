@@ -121,7 +121,7 @@
 
         function toggleFields() {
             const value = methodSelect.value;
-            vaFields.classList.toggle('hidden', value !== 'Virtual Account');
+            vaFields.classList.toggle('hidden', value !== 'Bank Transfer');
             paypalFields.classList.toggle('hidden', value !== 'PayPal');
         }
 

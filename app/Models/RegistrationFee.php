@@ -8,10 +8,8 @@ class RegistrationFee extends Model
 {
     protected $fillable = [
         'category', 
-        'usd_physical', 
-        'idr_physical',
-        'usd_online', 
-        'idr_online',
+        'usd_early_bird', 
+        'usd_reguler', 
         'event_id',
     ];
 

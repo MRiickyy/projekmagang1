@@ -48,8 +48,6 @@
                     <th class="px-4 py-2 border">University</th>
                     <th class="px-4 py-2 border">Type</th>
                     <th class="px-4 py-2 border">Biodata</th>
-                    <th class="px-4 py-2 border">Created At</th>
-                    <th class="px-4 py-2 border">Updated At</th>
                     <th class="px-4 py-2 border">Action</th>
                 </tr>
             </thead>
@@ -63,8 +61,6 @@
                     <td class="px-4 py-2 border">{{ $speaker->university }}</td>
                     <td class="px-4 py-2 border capitalize">{{ $speaker->speaker_type }}</td>
                     <td class="px-4 py-2 border">{{ Str::limit($speaker->biodata, 80) }}</td>
-                    <td class="px-4 py-2 border">{{ $speaker->created_at->format('Y-m-d') }}</td>
-                    <td class="px-4 py-2 border">{{ $speaker->updated_at->format('Y-m-d') }}</td>
                     <td class="px-4 py-2 border">
                         <div class="flex justify-center gap-2">
                             <a href="{{ route('edit.speakers', $speaker->slug) }}"

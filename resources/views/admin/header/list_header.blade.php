@@ -12,12 +12,6 @@
                 Header List ({{ $event->year }})
             </h2>
 
-            <!-- Tombol Add -->
-            <a href="{{ route('admin.header.add_header') }}"
-                class="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 mb-4 inline-block">
-                Add
-            </a>
-
             <!-- Table -->
             <table class="w-full border border-gray-300 rounded-lg overflow-hidden">
                 <thead class="bg-gray-200 text-slate-900">
