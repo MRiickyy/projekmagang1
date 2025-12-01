@@ -51,40 +51,52 @@
 
     <div x-data="{ openAuthors: false, openCommittees: false }" class="flex min-h-screen w-full">
 
-        <!-- Sidebar -->
-        <aside id="sidebar" class="sidebar w-64 bg-[#1a1f27]/95 shadow-md text-white flex flex-col fixed h-screen z-20 overflow-y-auto">
-            <div class="px-6 py-6 text-lg font-bold border-b border-gray-700">
-                Dashboard Admin
-            </div>
+            <!-- Sidebar -->
+            <aside id="sidebar" class="sidebar w-64 bg-[#1a1f27]/95 shadow-md text-white flex flex-col fixed h-screen z-20 overflow-y-auto">
+                <div class="px-6 py-6 text-lg font-bold border-b border-gray-700">
+                    Dashboard Admin
+                </div>
 
-            <div class="p-4">
-                <form action="{{ route('admin.setEvent') }}" method="POST">
-                    @csrf
-                    <label for="eventSelect" class="text-sm font-semibold text-white mb-2 block">
-                        Select Event
-                    </label>
-                    <div class="flex items-center space-x-2">
-                        <select name="event_id" id="eventSelect"
-                            class="bg-gray-800 text-white text-sm rounded px-2 py-1 w-full"
-                            onchange="this.form.submit()">
-                            @foreach(\App\Models\Event::orderBy('name', 'asc')->orderBy('year', 'asc')->get() as $event)
-                            <option value="{{ $event->id }}"
-                                {{ session('selected_event_id') == $event->id ? 'selected' : '' }}>
-                                {{ $event->name }} {{ $event->year }}
-                            </option>
-                            @endforeach
-                        </select>
+                <div class="p-4">
+        <form action="{{ route('admin.setEvent') }}" method="POST" class="flex items-center space-x-2 w-full">
+            @csrf
+            <label for="eventSelect" class="text-sm font-semibold text-white mb-2 block w-full">
+                Select Event
+            </label>
+        </form>
 
-                        <button type="button"
-                            onclick="document.getElementById('addEventModal').classList.remove('hidden')"
-                            class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-sm">
-                            +
-                        </button>
-                    </div>
-                </form>
-            </div>
+        <div class="flex items-center space-x-2 w-full mt-1">
+            <form action="{{ route('admin.setEvent') }}" method="POST" class="flex-1">
+                @csrf
+                <select name="event_id" id="eventSelect"
+                    class="bg-gray-800 text-white text-sm rounded px-2 py-1 w-full"
+                    onchange="this.form.submit()">
+                    @foreach(\App\Models\Event::orderBy('name','asc')->orderBy('year','asc')->get() as $event)
+                        <option value="{{ $event->id }}"
+                            {{ session('selected_event_id') == $event->id ? 'selected' : '' }}>
+                            {{ $event->name }} {{ $event->year }}
+                        </option>
+                    @endforeach
+                </select>
+            </form>
 
+            <button type="button"
+                onclick="document.getElementById('addEventModal').classList.remove('hidden')"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-sm">
+                +
+            </button>
 
+            <form action="{{ route('admin.deleteEvent') }}" method="POST" class="ml-auto"
+                onsubmit="return confirm('Delete this event?')">
+                @csrf
+                @method('DELETE')
+                <input type="hidden" name="event_id" value="{{ session('selected_event_id') }}">
+                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded text-sm">
+                    Delete
+                </button>
+            </form>
+        </div>
+    </div>
 
             {{-- Modal Tambah Event --}}
             <div id="addEventModal"
@@ -318,33 +330,33 @@
     <!-- Delete Confirmation -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const deleteForms = document.querySelectorAll('.delete-item');
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("eventSelect").addEventListener("change", function () {
+            // Update hidden field for delete form
+            document.getElementById("selectedEventDelete").value = this.value;
+        });
 
-        if (deleteForms.length > 0) {
-            deleteForms.forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "This action cannot be undone!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!',
-                        cancelButtonText: 'No, cancel'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            form.submit();
-                        }
-                    });
-                });
+        const deleteForm = document.getElementById("deleteEventForm");
+        deleteForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: "Delete This Event?",
+                text: "All related data may be affected!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete!",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteForm.submit();
+                }
             });
-        }
+        });
     });
     </script>
+
 </body>
 
 </html>
