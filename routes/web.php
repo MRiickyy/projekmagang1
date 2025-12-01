@@ -90,6 +90,7 @@ Route::middleware(['web', 'admin.auth'])->prefix('admin')->group(function () {
 
     Route::post('/set-event', [EventController::class, 'setEvent'])->name('admin.setEvent');
     Route::post('/add-event', [EventController::class, 'addEvent'])->name('admin.addEvent');
+    Route::delete('/delete-event', [EventController::class, 'deleteEvent'])->name('admin.deleteEvent');
 
 
     // Route Speaker Admin

@@ -64,4 +64,12 @@ class EventController extends Controller
 
         return back()->with('success', "Event {$event->name} {$event->year} added and selected.");
     }
+
+    public function deleteEvent(Request $request)
+    {
+        $event = Event::findOrFail($request->event_id);
+        $event->delete();
+
+        return back()->with('success', 'Event deleted successfully!');
+    }
 }
