@@ -22,32 +22,16 @@
 
             <!-- USD Physical -->
             <div>
-                <label class="block text-sm font-bold text-slate-900 mb-1" for="usd_physical">USD (Physical)</label>
-                <input type="text" id="usd_physical" value="{{ $fee->usd_physical ?? '' }}"
-                    class="w-full border border-gray-400 bg-gray-200 rounded-md px-3 py-2 text-gray-700 cursor-not-allowed"
-                    readonly disabled />
-            </div>
-
-            <!-- IDR Physical -->
-            <div>
-                <label class="block text-sm font-bold text-slate-900 mb-1" for="idr_physical">IDR (Physical)</label>
-                <input type="text" id="idr_physical" value="{{ $fee->idr_physical ?? '' }}"
+                <label class="block text-sm font-bold text-slate-900 mb-1" for="usd_early_bird">Early Bird (USD)</label>
+                <input type="text" id="usd_early_bird" value="{{ $fee->usd_early_bird ?? '' }}"
                     class="w-full border border-gray-400 bg-gray-200 rounded-md px-3 py-2 text-gray-700 cursor-not-allowed"
                     readonly disabled />
             </div>
 
             <!-- USD Online -->
             <div>
-                <label class="block text-sm font-bold text-slate-900 mb-1" for="usd_online">USD (Online)</label>
-                <input type="text" id="usd_online" value="{{ $fee->usd_online ?? '' }}"
-                    class="w-full border border-gray-400 bg-gray-200 rounded-md px-3 py-2 text-gray-700 cursor-not-allowed"
-                    readonly disabled />
-            </div>
-
-            <!-- IDR Online -->
-            <div>
-                <label class="block text-sm font-bold text-slate-900 mb-1" for="idr_online">IDR (Online)</label>
-                <input type="text" id="idr_online" value="{{ $fee->idr_online ?? '' }}"
+                <label class="block text-sm font-bold text-slate-900 mb-1" for="usd_reguler">Reguler (USD)</label>
+                <input type="text" id="usd_reguler" value="{{ $fee->usd_reguler ?? '' }}"
                     class="w-full border border-gray-400 bg-gray-200 rounded-md px-3 py-2 text-gray-700 cursor-not-allowed"
                     readonly disabled />
             </div>

@@ -20,10 +20,8 @@ return new class extends Migration
         Schema::create('registration_fees', function (Blueprint $table) {
             $table->id();
             $table->string('category');
-            $table->integer('usd_physical')->nullable();
-            $table->integer('idr_physical')->nullable();
-            $table->integer('usd_online')->nullable();
-            $table->integer('idr_online')->nullable();
+            $table->integer('usd_early_bird')->nullable();
+            $table->integer('usd_reguler')->nullable();
             $table->unsignedBigInteger('event_id');
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->timestamps();
@@ -36,7 +34,7 @@ return new class extends Migration
             // Virtual Account fields
             $table->string('bank_name')->nullable();
             $table->string('account_name')->nullable();
-            $table->string('virtual_account_number')->nullable();
+            $table->string('bank_number')->nullable();
 
             // PayPal fields
             $table->string('paypal_email')->nullable();

@@ -5,7 +5,7 @@
 @section('content')
 
 <main class="flex-1 px-6 py-10 flex justify-center">
-    <div class="w-full max-w-5xl bg-[#F2F6F9] rounded-lg shadow-xl p-6 text-slate-800">
+    <div class="w-full max-w-3xl bg-[#F2F6F9] rounded-lg shadow-xl p-6 text-slate-800">
         <h2 class="text-lg font-semibold text-slate-900 mb-6">Add Registration Fee</h2>
 
         <form action="{{ route('admin.forauthor.store_registrationsfee_admin') }}" method="POST" class="space-y-5">
@@ -24,44 +24,22 @@
 
             <!-- USD (Physical) -->
             <div>
-                <label class="block text-sm font-bold text-slate-900 mb-2">USD (Physical)</label>
-                <input type="number" name="usd_physical" value="{{ old('usd_physical') }}"
+                <label class="block text-sm font-bold text-slate-900 mb-2">Early Bird (USD)</label>
+                <input type="number" name="usd_early_bird" value="{{ old('usd_early_bird') }}"
                     class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"
                     placeholder="e.g. 400" required>
-                @error('usd_physical')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- IDR (Physical) -->
-            <div>
-                <label class="block text-sm font-bold text-slate-900 mb-2">IDR (Physical)</label>
-                <input type="number" name="idr_physical" value="{{ old('idr_physical') }}"
-                    class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"
-                    placeholder="e.g. 4700000" required>
-                @error('idr_physical')
+                @error('usd_early_bird')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
             <!-- USD (Online) -->
             <div>
-                <label class="block text-sm font-bold text-slate-900 mb-2">USD (Online)</label>
-                <input type="number" name="usd_online" value="{{ old('usd_online') }}"
+                <label class="block text-sm font-bold text-slate-900 mb-2">Reguler (USD)</label>
+                <input type="number" name="usd_reguler" value="{{ old('usd_reguler') }}"
                     class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"
                     placeholder="e.g. 300" required>
-                @error('usd_online')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- IDR (Online) -->
-            <div>
-                <label class="block text-sm font-bold text-slate-900 mb-2">IDR (Online)</label>
-                <input type="number" name="idr_online" value="{{ old('idr_online') }}"
-                    class="w-full border border-gray-400 bg-gray-100 rounded-md px-3 py-2 focus:outline-none"
-                    placeholder="e.g. 4000000" required>
-                @error('idr_online')
+                @error('usd_reguler')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>

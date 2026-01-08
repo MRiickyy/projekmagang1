@@ -11,19 +11,19 @@ class PaymentMethodsSeeder extends Seeder
     {
         // Virtual Account
         PaymentMethod::create([
-            'method_name' => 'Virtual Account',
-            'bank_name' => 'Bank Negara Indonesia (PERSERO)',
-            'account_name' => 'Telkom University – ICOICT 2025',
-            'virtual_account_number' => '832106204020127',
-            'important_notes' => 'Please include your paper ID information on the payment slip.',
+            'method_name' => 'Bank Transfer',
+            'bank_name' => 'xxxxxx',
+            'account_name' => 'xxxxxx',
+            'bank_number' => 'xxxxxx',
+            'important_notes' => 'xxxxxx',
             'event_id' => 1
         ]);
 
         // PayPal
         PaymentMethod::create([
             'method_name' => 'PayPal',
-            'paypal_email' => 'kangandrian@telkomuniversity.ac.id',
-            'additional_info' => "Transfer the full registration fee plus a 5% PayPal currency conversion fee. Ensure the fee is transferred under the registrant’s name, clearly stated on the payment slip. Include your paper ID information on the payment slip.",
+            'paypal_email' => 'xxx@xxx',
+            'additional_info' => "xxxxxx",
             'event_id' => 1
         ]);
     }

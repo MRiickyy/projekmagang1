@@ -11,18 +11,18 @@ use App\Models\ContactMessage;
 class ContactInfoController extends Controller
 {
     // Halaman user contact
-    public function index()
+    public function index($event_name, $event_year)
     {
-        $selectedEventId = session('selected_event_id');
-
-        $event = Event::find($selectedEventId);
+        $event = Event::where('name', $event_name)
+                      ->where('year', $event_year)
+                      ->firstOrFail();
 
         $contactInfos = ContactInfo::with('event')
-            ->where('event_id', $selectedEventId)->get();
+            ->where('event_id', $event->id)->get();
         $map = MapLocation::with('event')
-            ->where('event_id', $selectedEventId)->first();
+            ->where('event_id', $event->id)->first();
 
-        return view('contact', compact('contactInfos', 'map'));
+        return view('contact', compact('contactInfos', 'map', 'event'));
     }
 
     // Halaman admin list contacts

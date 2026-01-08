@@ -5,7 +5,7 @@
 @section('content')
 <div class="flex-1 flex flex-col">
     <main class="flex-1 px-6 py-10 flex justify-center">
-        <div class="w-full max-w-4xl bg-[#F2F6F9] rounded-lg shadow-xl p-6 text-slate-800" x-data="{ section: '' }">
+        <div class="w-full max-w-3xl bg-[#F2F6F9] rounded-lg shadow-xl p-6 text-slate-800" x-data="{ section: '' }">
             <h2 class="text-lg font-semibold text-slate-900 mb-6">Contact Information</h2>
 
             <form action="{{ route('admin.store_contacts_Admin') }}" method="POST">

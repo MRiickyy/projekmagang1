@@ -4,33 +4,31 @@
     <div class="max-w-7xl mx-auto px-5 py-16 md:py-20 grid md:grid-cols-2 gap-8 items-center">
         <div>
             <h1 class="text-4xl md:text-5xl font-extrabold leading-snug text-white">
-                THE 13TH ICOICT
+                {{ $event->main_title }}
                 <span class="bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
-                    2025
+                    {{ $event->year }}
                 </span>
             </h1>
 
             <p class="mt-4 text-slate-200 text-xl max-w-xl">
-                International Conference on Information and Communication Technology
+                {{ $event->subtitle }}
             </p>
 
             <div class="mt-6 flex items-center gap-3">
-                <a href="/newacc" class="inline-flex items-center gap-2 bg-slate-800/70 hover:bg-slate-700 text-white 
-           text-lg px-7 py-3 rounded-full shadow-lg">
+                <a href="{{ $event->register_link }}" class="inline-flex items-center gap-2 bg-slate-800/70 hover:bg-slate-700 text-white 
+                    text-lg px-7 py-3 rounded-full shadow-lg">
                     Register Now
                 </a>
-                <a href="/login" class="inline-flex items-center gap-2 bg-[#47BA77] hover:bg-[#1fb857] 
-           text-black font-semibold text-lg px-7 py-3 rounded-full shadow-lg">
+                <a href="{{ $event->submit_link }}" class="inline-flex items-center gap-2 bg-[#47BA77] hover:bg-[#1fb857] 
+                    text-black font-semibold text-lg px-7 py-3 rounded-full shadow-lg">
                     Submit Your Paper
                 </a>
-
             </div>
         </div>
 
-        <!-- countdown glass card -->
+        <!-- Countdown -->
         <div class="flex flex-col md:items-end items-center">
             <div class="flex gap-4 mt-4 text-slate-300">
-                <!-- simple social icons -->
                 <svg class="h-9 w-9" viewBox="0 0 24 24" fill="currentColor">
                     <path
                         d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 3a.75.75 0 110 1.5A.75.75 0 0117 5zM12 7a5 5 0 110 10 5 5 0 010-10z" />
@@ -44,16 +42,72 @@
                     <path d="M21 7a2 2 0 00-2-2H5C3.9 5 3 5.9 3 7v10a2 2 0 002 2h14a2 2 0 002-2V7zM5 17V7h14v10H5z" />
                 </svg>
             </div>
-            <p class="text-lg text-slate-200 mb-3">Bandung (Hybrid), 30–31 July 2025</p>
-            <div class="flex gap-6 p-6 rounded-3xl shadow-2xl bg-gradient-to-br from-[#2B3545] to-[#3B4A60]">
-                @foreach (['DAYS'=>24,'HOURS'=>14,'MINUTES'=>5,'SECONDS'=>40] as $label=>$val)
-                <div
-                    class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75] text-center text-white">
-                    <div class="text-5xl font-bold">{{ $val }}</div>
-                    <div class="text-[11px] tracking-wider text-slate-300">{{ $label }}</div>
+
+            <p class="text-lg text-slate-200 mb-3">
+                {{ $event->location }}, {{ $event->date_range }}
+            </p>
+
+            {{-- Countdown static dulu, bisa nanti pakai JS --}}
+            @if ($event && $event->event_time)
+                @php
+                    preg_match('/\d{1,2}/', $event->date_range, $dayMatch);
+                    $day = $dayMatch[0] ?? 1;
+
+                    preg_match('/([A-Za-z]+)\s(\d{4})/', $event->date_range, $monthYearMatch);
+                    $month = $monthYearMatch[1] ?? 'January';
+                    $year = $monthYearMatch[2] ?? '1970';
+
+                    $targetDatetime = \Carbon\Carbon::parse("$day $month $year {$event->event_time}")->format('Y-m-d H:i:s');
+                @endphp
+
+                <div id="countdown-wrapper"
+                    class="flex gap-6 p-6 rounded-3xl shadow-2xl bg-gradient-to-br from-[#2B3545] to-[#3B4A60]"
+                    data-target="{{ $targetDatetime }}">
+                    @foreach (['DAYS' => '--', 'HOURS' => '--', 'MINUTES' => '--', 'SECONDS' => '--'] as $label => $val)
+                        <div
+                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75] text-center text-white">
+                            <div id="{{ strtolower($label) }}" class="text-5xl font-bold">{{ $val }}</div>
+                            <div class="text-[11px] tracking-wider text-slate-300">{{ $label }}</div>
+                        </div>
+                    @endforeach
                 </div>
-                @endforeach
-            </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const wrapper = document.getElementById('countdown-wrapper');
+                        if (!wrapper) return;
+
+                        const targetTime = new Date(wrapper.dataset.target).getTime();
+
+                        function updateCountdown() {
+                            const now = new Date().getTime();
+                            const distance = targetTime - now;
+
+                            if (distance <= 0) {
+                                wrapper.innerHTML = `
+                                    <p class="text-center w-full text-white text-xl font-semibold">🎉 Event Has Started!</p>
+                                `;
+                                return;
+                            }
+
+                            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                            document.getElementById('days').textContent = days;
+                            document.getElementById('hours').textContent = hours;
+                            document.getElementById('minutes').textContent = minutes;
+                            document.getElementById('seconds').textContent = seconds;
+                        }
+
+                        updateCountdown();
+                        setInterval(updateCountdown, 1000);
+                    });
+                </script>
+            @else
+                <p class="text-center text-gray-400">No active event or event date not set.</p>
+            @endif
         </div>
     </div>
 </header>

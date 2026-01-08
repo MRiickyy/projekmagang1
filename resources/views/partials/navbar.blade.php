@@ -1,18 +1,19 @@
 @php
 $eventYear = request()->route('event_year') ?? 2025; // default 2025 kalau gak ada param
+$events = \App\Models\Event::orderBy('year', 'desc')->get();
 @endphp
 <!-- Topbar / Navbar -->
 <nav class="bg-[#1a1f27]/95 backdrop-blur supports-backdrop-blur sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
         <!-- Logo -->
-        <a href="{{ route('home', ['event_year' => $eventYear]) }}"
+        <a href="{{ route('home', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
             class="text-2xl font-extrabold tracking-wide bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
             {{ $event->name ?? 'Event' }} {{ $event->year ?? '' }}
         </a>
 
         <!-- Menu -->
         <div class="hidden md:flex items-center gap-8 font-semibold text-slate-200">
-            <a href="{{ route('call_papers', ['event_year' => $eventYear]) }}" class="hover:text-[#9ae6b4]">Call for
+            <a href="{{ route('call_papers', ['event_name' => $event->name, 'event_year' => $event->year]) }}" class="hover:text-[#9ae6b4]">Call for
                 Papers</a>
 
             <!-- Speakers dengan dropdown -->
@@ -25,9 +26,9 @@ $eventYear = request()->route('event_year') ?? 2025; // default 2025 kalau gak a
                 </button>
                 <div
                     class="dropdown-menu absolute left-0 mt-2 w-48 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
-                    <a href="{{ route('keynote.speakers', ['event_year' => $eventYear]) }}"
+                    <a href="{{ route('keynote.speakers', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                         class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Keynote Speakers</a>
-                    <a href="{{ route('tutorial.speakers', ['event_year' => $eventYear]) }}"
+                    <a href="{{ route('tutorial.speakers', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                         class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Tutorial Speakers</a>
                 </div>
             </div>
@@ -42,11 +43,11 @@ $eventYear = request()->route('event_year') ?? 2025; // default 2025 kalau gak a
                 </button>
                 <div
                     class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
-                    <a href="{{ route('steering.committees', ['event_year' => $eventYear]) }}"
+                    <a href="{{ route('steering.committees', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                         class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Steering Committees</a>
-                    <a href="{{ route('technical.committees', ['event_year' => $eventYear]) }}"
+                    <a href="{{ route('technical.committees', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                         class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Technical Program Committees</a>
-                    <a href="{{ route('organizing.committees', ['event_year' => $eventYear]) }}"
+                    <a href="{{ route('organizing.committees', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                         class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Organizing Committees</a>
                 </div>
             </div>
@@ -61,16 +62,32 @@ $eventYear = request()->route('event_year') ?? 2025; // default 2025 kalau gak a
                 </button>
                 <div
                     class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
-                    <a href="{{ route('author-information.index', ['event_year' => $eventYear]) }}"
+                    <a href="{{ route('author-information.index', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                         class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Author Information</a>
-                    <a href="{{ route('registration.index', ['event_year' => $eventYear]) }}"
+                    <a href="{{ route('registration.index', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                         class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Registration</a>
-                    <a href="{{ route('contact', ['event_year' => $eventYear]) }}"
+                    <a href="{{ route('contact', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                         class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Contacts</a>
                 </div>
             </div>
 
-            <a href="#" class="hover:text-[#9ae6b4]">Events</a>
+            <!-- Events dropdown -->
+            <div class="relative dropdown">
+            <button class="dropdown-btn flex items-center gap-1 hover:text-[#9ae6b4]">
+            Events
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+            </button>
+            <div class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
+            @foreach ($events as $ev)
+            <a href="{{ route('home', ['event_name' => $ev->name, 'event_year' => $ev->year]) }}"
+            class="block px-4 py-2 text-sm hover:bg-[#2d3748]">
+            {{ $ev->name }} {{ $ev->year }}
+            </a>
+            @endforeach
+            </div>
+            </div>
         </div>
     </div>
 </nav>

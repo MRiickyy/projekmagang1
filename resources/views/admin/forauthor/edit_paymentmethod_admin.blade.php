@@ -38,9 +38,9 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-bold mb-1" for="virtual_account_number">Virtual Account Number</label>
-                    <input type="text" name="virtual_account_number" id="virtual_account_number"
-                        value="{{ old('virtual_account_number', $paymentMethod->virtual_account_number) }}"
+                    <label class="block text-sm font-bold mb-1" for="bank_number">Bank Number</label>
+                    <input type="text" name="bank_number" id="bank_number"
+                        value="{{ old('bank_number', $paymentMethod->bank_number) }}"
                         class="w-full border border-gray-400 rounded-md px-3 py-2 focus:outline-none" />
                 </div>
 

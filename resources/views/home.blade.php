@@ -1,30 +1,33 @@
+@php
+$events = \App\Models\Event::orderBy('year', 'desc')->get();
+@endphp
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ICOICT 2025</title>
+    <title>{{ strtoupper($event->name ?? 'EVENT') }} {{ $event->year ?? date('Y') }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-white text-slate-100 antialiased">
-    @php
-    $eventYear = request()->route('event_year') ?? 2025; // default 2025 kalau gak ada param
-    @endphp
 
     <!-- Topbar / Navbar -->
     <nav class="bg-[#1a1f27]/95 backdrop-blur supports-backdrop-blur sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
             <!-- Logo -->
-            <a href="{{ route('home', ['event_year' => $eventYear]) }}"
+            <a href="{{ $event ? route('home', ['event_name' => $event->name, 'event_year' => $event->year]) : '#' }}"
                 class="text-2xl font-extrabold tracking-wide bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
                 {{ $event->name ?? 'Event' }} {{ $event->year ?? '' }}
             </a>
 
             <!-- Menu -->
             <div class="hidden md:flex items-center gap-8 font-semibold text-slate-200">
-                <a href="{{ route('call_papers', ['event_year' => $eventYear]) }}" class="hover:text-[#9ae6b4]">Call for
+                <a href="{{ route('call_papers', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
+                    class="hover:text-[#9ae6b4]">Call for
                     Papers</a>
 
                 <!-- Speakers dengan dropdown -->
@@ -37,10 +40,10 @@
                     </button>
                     <div
                         class="dropdown-menu absolute left-0 mt-2 w-48 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
-                        <a href="{{ route('keynote.speakers', ['event_year' => $eventYear]) }}"
+                        <a href="{{ route('keynote.speakers', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                             class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Keynote
                             Speakers</a>
-                        <a href="{{ route('tutorial.speakers', ['event_year' => $eventYear]) }}"
+                        <a href="{{ route('tutorial.speakers', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                             class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Tutorial
                             Speakers</a>
                     </div>
@@ -56,13 +59,13 @@
                     </button>
                     <div
                         class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
-                        <a href="{{ route('steering.committees', ['event_year' => $eventYear]) }}"
+                        <a href="{{ route('steering.committees', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                             class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Steering
                             Committees</a>
-                        <a href="{{ route('technical.committees', ['event_year' => $eventYear]) }}"
+                        <a href="{{ route('technical.committees', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                             class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Technical
                             Program Committees</a>
-                        <a href="{{ route('organizing.committees', ['event_year' => $eventYear]) }}"
+                        <a href="{{ route('organizing.committees', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                             class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Organizing
                             Committees</a>
                     </div>
@@ -78,16 +81,32 @@
                     </button>
                     <div
                         class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
-                        <a href="{{route('author-information.index', ['event_year' => $eventYear])}}" 
+                        <a href="{{route('author-information.index', ['event_name' => $event->name, 'event_year' => $event->year])}}"
                             class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Author Information</a>
-                        <a href="{{ route('registration.index', ['event_year' => $eventYear]) }}" 
+                        <a href="{{ route('registration.index', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                             class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Registration</a>
-                        <a href="{{ route('contact', ['event_year' => $eventYear]) }}" 
+                        <a href="{{ route('contact', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                             class="block px-4 py-2 text-sm hover:bg-[#2d3748]">Contacts</a>
                     </div>
                 </div>
 
-                <a href="#" class="hover:text-[#9ae6b4]">Events</a>
+                <div class="relative dropdown">
+                    <button class="dropdown-btn flex items-center gap-1 hover:text-[#9ae6b4]">
+                        Events
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div
+                        class="dropdown-menu absolute left-0 mt-2 w-56 bg-[#1a1f27] text-white rounded-md shadow-lg hidden">
+                        @foreach ($events as $ev)
+                        <a href="{{ route('home', ['event_name' => $ev->name, 'event_year' => $ev->year]) }}"
+                            class="block px-4 py-2 text-sm hover:bg-[#2d3748]">
+                            {{ $ev->name }} {{ $ev->year }}
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -129,24 +148,25 @@
         <div class="max-w-7xl mx-auto px-5 py-16 md:py-20 grid md:grid-cols-2 gap-8 items-center">
             <div>
                 <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-tight">
-                    {{ $homeContents['hero_title']->content ?? 'Default Title' }}
+                    {{ $event->main_title ?? 'Default Title' }}
                     <span
                         class="font-extrabold tracking-wide bg-gradient-to-r from-[#00e676] via-[#1dd1a1] to-[#38bdf8] bg-clip-text text-transparent">
-                        {{ $homeContents['hero_year']->content ?? '2025' }}
+                        {{ $event->year }}
                     </span>
                 </h1>
 
 
                 <p class="mt-4 text-slate-200 text-xl max-w-xl">
-                    {{ $homeContents['hero_subtitle']->content ?? 'Default Subtitle' }}
+                    {{ $event->subtitle }}
+
                 </p>
 
                 <div class="mt-6 flex items-center gap-3">
-                    <a href="/newacc" class="inline-flex items-center gap-2 bg-slate-800/70 hover:bg-slate-700 text-white 
+                    <a href="{{ $event->register_link }}" class="inline-flex items-center gap-2 bg-slate-800/70 hover:bg-slate-700 text-white 
            text-lg px-7 py-3 rounded-full shadow-lg">
                         Register Now
                     </a>
-                    <a href="/login" class="inline-flex items-center gap-2 bg-[#47BA77] hover:bg-[#1fb857] 
+                    <a href="{{ $event->submit_link }}" class="inline-flex items-center gap-2 bg-[#47BA77] hover:bg-[#1fb857] 
            text-black font-semibold text-lg px-7 py-3 rounded-full shadow-lg">
                         Submit Your Paper
                     </a>
@@ -173,42 +193,72 @@
                     </svg>
                 </div>
                 <p class="text-lg text-slate-200 mb-3">
-                    {{ $homeContents['hero_location_date']->content ?? 'Bandung (Hybrid), 30–31 July 2025' }}
+                    {{ $event->location }}, {{ $event->date_range }}
                 </p>
-                <div class="flex justify-center">
-                    <!-- Box Luaran -->
-                    <div class="flex gap-6 p-6 rounded-3xl shadow-2xl bg-gradient-to-br from-[#2B3545] to-[#3B4A60]">
+                @if ($event && $event->event_time)
+                @php
+                // Ambil tanggal pertama dari rentang (contoh: 20–21 November 2025)
+                preg_match('/\d{1,2}/', $event->date_range, $dayMatch);
+                $day = $dayMatch[0] ?? 1;
 
-                        <!-- Box 1 -->
-                        <div
-                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
-                            <div class="text-5xl font-bold text-white">24</div>
-                            <div class="text-sm tracking-wider text-slate-200 mt-1">DAYS</div>
-                        </div>
+                // Ambil bulan dan tahun
+                preg_match('/([A-Za-z]+)\s(\d{4})/', $event->date_range, $monthYearMatch);
+                $month = $monthYearMatch[1] ?? 'January';
+                $year = $monthYearMatch[2] ?? '1970';
 
-                        <!-- Box 2 -->
-                        <div
-                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
-                            <div class="text-5xl font-bold text-white">14</div>
-                            <div class="text-sm tracking-wider text-slate-200 mt-1">HOURS</div>
-                        </div>
+                // Gabungkan jadi datetime lengkap untuk countdown
+                $targetDatetime = \Carbon\Carbon::parse("$day $month $year {$event->event_time}")->format('Y-m-d
+                H:i:s');
+                @endphp
 
-                        <!-- Box 3 -->
-                        <div
-                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
-                            <div class="text-5xl font-bold text-white">5</div>
-                            <div class="text-sm tracking-wider text-slate-200 mt-1">MINUTES</div>
-                        </div>
-
-                        <!-- Box 4 -->
-                        <div
-                            class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75]">
-                            <div class="text-5xl font-bold text-white">40</div>
-                            <div class="text-sm tracking-wider text-slate-200 mt-1">SECONDS</div>
-                        </div>
-
+                <div id="countdown-wrapper"
+                    class="flex gap-6 p-6 rounded-3xl shadow-2xl bg-gradient-to-br from-[#2B3545] to-[#3B4A60]"
+                    data-target="{{ $targetDatetime }}">
+                    @foreach (['DAYS' => '--', 'HOURS' => '--', 'MINUTES' => '--', 'SECONDS' => '--'] as $label => $val)
+                    <div
+                        class="flex flex-col items-center rounded-2xl px-5 py-4 shadow-xl bg-gradient-to-br from-[#38465A] to-[#4A5C75] text-center text-white">
+                        <div id="{{ strtolower($label) }}" class="text-5xl font-bold">{{ $val }}</div>
+                        <div class="text-[11px] tracking-wider text-slate-300">{{ $label }}</div>
                     </div>
+                    @endforeach
                 </div>
+
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const wrapper = document.getElementById('countdown-wrapper');
+                    if (!wrapper) return;
+
+                    const targetTime = new Date(wrapper.dataset.target).getTime();
+
+                    function updateCountdown() {
+                        const now = new Date().getTime();
+                        const distance = targetTime - now;
+
+                        if (distance <= 0) {
+                            wrapper.innerHTML = `
+                                        <p class="text-center w-full text-white text-xl font-semibold">🎉 Event Has Started!</p>
+                                    `;
+                            return;
+                        }
+
+                        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                        document.getElementById('days').textContent = days;
+                        document.getElementById('hours').textContent = hours;
+                        document.getElementById('minutes').textContent = minutes;
+                        document.getElementById('seconds').textContent = seconds;
+                    }
+
+                    updateCountdown();
+                    setInterval(updateCountdown, 1000);
+                });
+                </script>
+                @else
+                <p class="text-center text-gray-400">No active event or event date not set.</p>
+                @endif
             </div>
         </div>
     </header>
@@ -217,91 +267,234 @@
     <!-- Banner image + red pill headline -->
     <section class="bg-white">
         <div class="max-w-7xl mx-auto px-5">
-            <!-- Banner -->
-            <img src="{{ asset('images/telkom.jpg') }}" alt="city"
-                class="w-screen h-64 md:h-80 object-cover rounded-sm">
 
-            <div class="flex items-center justify-between gap-6 -mt-10 md:-mt-12">
-                <div class="bg-[#df3a3a] text-white text-base md:text-lg px-8 py-4 rounded-full shadow-lg flex-grow">
-                    {{ $homeContents['banner_text']->content ?? 'Default Banner Text' }}
+            <!-- Banner Wrapper -->
+            <div class="relative w-full overflow-hidden rounded-sm">
+
+                <!-- Image -->
+                <img src="{{ asset('images/' . ($homeContents['banner_image']->content ?? 'default-logoAscee.png')) }}"
+                    alt="banner" class="w-full h-auto object-cover">
+
+                <!-- Overlay (text + logo) -->
+                <div class="absolute bottom-0 left-0 w-full px-5 pb-4">
+                    <div class="flex items-center justify-between gap-6">
+
+                        <!-- Banner Text -->
+                        <div
+                            class="bg-[#df3a3a] text-white text-base md:text-lg px-8 py-4 rounded-full shadow-lg flex-grow">
+                            {{ $homeContents['banner_text']->content ?? 'Default Banner Text' }}
+                        </div>
+
+                        <!-- Banner Logo -->
+                        <div
+                            class="h-12 md:h-14 aspect-square rounded-full overflow-hidden shadow-md flex items-center justify-center bg-white">
+                            <img src="{{ asset('images/' . ($homeContents['banner_logo']->content ?? 'default-logo.png')) }}"
+                                alt="logo" class="w-full h-full object-cover">
+                        </div>
+                    </div>
                 </div>
-                <img src="{{ asset('images/logo.png') }}" class="h-10 md:h-12" alt="logo">
+
             </div>
 
         </div>
     </section>
 
-
-    <!-- Welcome -->
     <section class="bg-[#FFFFFF] text-slate-700">
         <div class="max-w-7xl mx-auto px-5 mt-8">
-            <h3 class="text-xl md:text-2xl font-extrabold">
-                {!! $homeContents['welcome_title']->content ?? 'Welcome to ICoICT 2025!' !!}
-            </h3>
 
             <p class="mt-4 leading-relaxed">
-                {!! $homeContents['welcome_text']->content ?? 'Default welcome text...' !!}
+                {!! $homeContents['intro_home']->content ?? 'Default welcome text...' !!}
             </p>
 
             <div class="bg-[#F2F6F9] ring-1 ring-white/10 p-5 md:p-6 rounded-xl mt-6">
-                <p class="font-semibold mb-3">
-                    {!! $homeContents['welcome_tracks_intro']->content ?? 'Default tracks intro...' !!}
-                </p>
+                <h2 class="text-xl md:text-2xl font-bold mb-4">
+                    {!! $homeContents['prev_conf_title']->content ?? 'Default prev title...' !!}
+                </h2>
 
                 <ol class="list-decimal list-inside space-y-1">
-                    {!! collect(explode('<br>', $homeContents['welcome_tracks']->content ?? 'Artificial
-                    Intelligence<br>Data Science'))->map(fn($track) => "<li>$track</li>")->implode('') !!}
+                    @if(isset($homeContents['previous_conference']) && $homeContents['previous_conference']->content)
+                    @foreach(explode("\n", $homeContents['previous_conference']->content) as $item)
+                    @if(trim($item) !== '')
+                    <li>{{ $item }}</li>
+                    @endif
+                    @endforeach
+                    @else
+                    <li></li>
+                    @endif
                 </ol>
-
-                <p class="mt-4 text-sm">
-                    {!! $homeContents['welcome_tracks_footer']->content ?? 'Default footer text...' !!}
-                </p>
             </div>
         </div>
 
         <div class="max-w-7xl mx-auto px-5 mt-10">
             <h3 class="text-xl md:text-2xl font-extrabold mb-4">
-                {!! $homeContents['welcome_prev_title']->content ?? 'Default prev title...' !!}
+                {!! $homeContents['scope_title']->content ?? 'Default prev title...' !!}
             </h3>
 
-            <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                @foreach ($homeContents['icoict_links'] ?? [] as $year => $url)
-                <a href="{{ $url }}" target="_blank"
-                    class="block rounded-xl border border-slate-700/60 bg-[#F2F6F9] px-4 py-4 hover:bg-slate-700/40 transition shadow">
-                    <div class="font-bold">ICoICT {{ $year }} :</div>
-                    <div class="text-slate-700 text-sm leading-5 break-words">
-                        {{ $url }}
-                    </div>
-                </a>
+            <p class="mt-4 leading-relaxed">
+                {!! $homeContents['scope_intro']->content ?? 'Default tracks intro...' !!}
+            </p>
+
+            <ol class="list-decimal list-inside space-y-1">
+                @if(isset($homeContents['scope_list']) && $homeContents['scope_list']->content)
+                @foreach(explode("\n", $homeContents['scope_list']->content) as $item)
+                @if(trim($item) !== '')
+                <li>{{ $item }}</li>
+                @endif
                 @endforeach
+                @else
+                <li></li>
+                @endif
+            </ol>
+
+            <div class="mt-7">
+                <h3 class="text-xl md:text-2xl font-extrabold mb-4">
+                    {!! $homeContents['publications_title']->content ?? 'Default prev title...' !!}
+                </h3>
+
+                <p class="mt-4 leading-relaxed">
+                    {!! $homeContents['publications_intro']->content ?? 'Default tracks intro...' !!}
+                </p>
+
+                <ol class="list-decimal list-inside space-y-1">
+                    @if(isset($homeContents['publications_list']) && $homeContents['publications_list']->content)
+                    @foreach(explode("\n", $homeContents['publications_list']->content) as $item)
+                    @if(trim($item) !== '')
+                    <li>{{ $item }}</li>
+                    @endif
+                    @endforeach
+                    @else
+                    <li></li>
+                    @endif
+                </ol>
             </div>
 
+            <div class="mt-7">
+                <h3 class="text-xl md:text-2xl font-extrabold mb-4">
+                    {!! $homeContents['editors_title']->content ?? 'Default prev title...' !!}
+                </h3>
 
+                <ol class="list-decimal list-inside space-y-1">
+                    @if(isset($homeContents['editors']) && $homeContents['editors']->content)
+                    @foreach(explode("\n", $homeContents['editors']->content) as $item)
+                    @if(trim($item) !== '')
+                    <li>{{ $item }}</li>
+                    @endif
+                    @endforeach
+                    @else
+                    <li></li>
+                    @endif
+                </ol>
+            </div>
 
-            <div class="mt-8">
-                <h4 class="font-extrabold text-slate-700">
-                    {!! $homeContents['welcome_isbn_title']->content ?? 'With ISBN Information:' !!}
-                </h4>
-                <p class="mt-2 text-slate-700 text-sm">
-                    {!! $homeContents['welcome_isbn_text']->content ?? 'Electronic ISBN: 000-0-0000-0000-0' !!}
+            <div class="mt-7">
+                <h3 class="text-xl md:text-2xl font-extrabold mb-4">
+                    {!! $callPapers['submission_title']->content ?? 'Default prev title...' !!}
+                </h3>
+
+                <p class="mt-4 leading-relaxed">
+                    {!! $callPapers['submission_intro']->content ?? 'Default tracks intro...' !!}
                 </p>
-                </p>
+
+                <ol class="list-decimal list-inside space-y-1 mt-3">
+                    @if(isset($callPapers['submission_guidelines']) && $callPapers['submission_guidelines']->content)
+                    @foreach(explode("\n", $callPapers['submission_guidelines']->content) as $line)
+
+                    @php
+                    $trim = trim($line);
+                    @endphp
+
+                    @if($trim !== '')
+
+                    {{-- Jika baris mulai dengan "-" → jadikan bullet --}}
+                    @if(Str::startsWith($trim, '- '))
+                    <ul class="list-disc list-inside ml-6">
+                        <li>{{ ltrim($trim, '- ') }}</li>
+                    </ul>
+
+                    {{-- Selain itu → item utama --}}
+                    @else
+                    <li>{{ $trim }}</li>
+                    @endif
+
+                    @endif
+                    @endforeach
+                    @else
+                    <li></li>
+                    @endif
+                </ol>
+            </div>
+
+            <!-- Pricing Table -->
+            <div class="overflow-x-auto mt-10">
+                <div class="overflow-hidden rounded-lg shadow-md border border-gray-200">
+                    <table class="w-full text-center">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border border-gray-200 px-4 py-3 text-left">Category</th>
+                                <th class="border border-gray-200 px-4 py-3" colspan="1">Early Bird (USD)</th>
+                                <th class="border border-gray-200 px-4 py-3" colspan="1">Reguler (USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($fees as $fee)
+                            <tr class="odd:bg-white even:bg-gray-50">
+                                <td class="border border-gray-200 px-4 py-2 text-left">{{ $fee->category }}</td>
+                                <td class="border border-gray-200 px-4 py-2">{{ $fee->usd_early_bird }}</td>
+                                <td class="border border-gray-200 px-4 py-2">{{ $fee->usd_reguler }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Notes Section -->
+            <div class="mt-6 bg-gray-100 rounded-xl p-6 shadow-lg">
+                <h2 class="text-lg font-semibold mb-3">Notes:</h2>
+                <ul class="list-disc list-inside space-y-1">
+                    @if(isset($registration['notes']) && $registration['notes']->content)
+                    @foreach(explode("\n", $registration['notes']->content) as $note)
+                    <li>{{ $note }}</li>
+                    @endforeach
+                    @else
+                    <li></li>
+                    @endif
+                </ul>
+
+                <h2 class="text-lg font-semibold mt-4 mb-2">The registration fee includes:</h2>
+                <ul class="list-disc list-inside">
+                    @if(isset($registration['registration_fee_include']) &&
+                    $registration['registration_fee_include']->content)
+                    @foreach(explode("\n", $registration['registration_fee_include']->content) as $item)
+                    <li>{{ $item }}</li>
+                    @endforeach
+                    @else
+                    <li>To be announced.</li>
+                    @endif
+                </ul>
             </div>
         </div>
     </section>
 
-
-
     <!-- Important Dates -->
     <section class="bg-white text-slate-700">
         <div class="max-w-7xl mx-auto px-5 py-10">
-            <h3 class="text-xl md:text-2xl font-extrabold mb-4">Important Dates :</h3>
-            <div class="grid md:grid-cols-2 gap-6">
+
+            <h3 class="text-xl md:text-2xl font-extrabold mb-4">IMPORTANT DATES:</h3>
+
+            @php
+            $timelineCount = $timelines->count();
+            @endphp
+
+            <div class="{{ $timelineCount > 1 ? 'grid md:grid-cols-2 gap-6' : '' }}">
                 @forelse ($timelines as $round => $items)
-                <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6 mb-6">
+                <div class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6 mb-6 
+                        {{ $timelineCount == 1 ? 'w-full' : '' }}">
+
                     <h5 class="text-center font-extrabold tracking-wide text-slate-700 mb-4">
-                        TIMELINE ROUND {{ $round }}
+                        {{ $timelineCount == 1 ? 'TIMELINE' : 'TIMELINE ROUND ' . $round }}
                     </h5>
+
                     <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-3">
                         @foreach ($items as $timeline)
                         <div class="text-[#df3a3a] font-bold">
@@ -315,7 +508,7 @@
                 <div class="col-span-2">
                     <div
                         class="bg-[#F2F6F9] rounded-xl shadow-md ring-1 ring-slate-200 p-6 mb-6 flex justify-center items-center min-h-[150px]">
-                        <p class="text-gray-500 font-semibold text-center">Belum ada data timeline yang tersedia.</p>
+                        <p class="text-gray-500 font-semibold text-center">There are no important dates yet.</p>
                     </div>
                 </div>
                 @endforelse
@@ -326,7 +519,7 @@
     <!-- Don't miss it + Speakers -->
     <section class="bg-white">
         <div
-            class="max-w-7xl mx-auto px-5 pt-4 background: linear-gradient(90deg, #1E293B 0%, #1A202C 0%, #212C40 30%, #334155 55%, #0F172A 100%);">
+            class="max-w-7xl mx-auto px-5 pt-4 pb-16 background: linear-gradient(90deg, #1E293B 0%, #1A202C 0%, #212C40 30%, #334155 55%, #0F172A 100%);">
             <div class="text-center mb-6 p-6 rounded-2xl bg-[#2A394E]">
                 <div class="text-2xl md:text-3xl font-extrabold">
                     <span
@@ -348,7 +541,7 @@
                     <p class="mt-3 text-slate-300">
                         {!!$homeContents['speakers_keynote_text']->content ??'Distinguished experts...'!!}
                     </p>
-                    <a href="/keynote-speakers-2025"
+                    <a href="{{ route('keynote.speakers', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                         class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
                         Read More <span aria-hidden="true">›</span>
                     </a>
@@ -359,7 +552,7 @@
                     <p class="mt-3 text-slate-300">
                         {!!$homeContents['speakers_tutorial_text']->content ??'Renowned subject-matter...' !!}
                     </p>
-                    <a href="/tutorial-speakers-2025"
+                    <a href="{{ route('tutorial.speakers', ['event_name' => $event->name, 'event_year' => $event->year]) }}"
                         class="mt-4 inline-flex items-center gap-2 text-[#ff5b5b] font-semibold">
                         Read More <span aria-hidden="true">›</span>
                     </a>
@@ -375,30 +568,7 @@
         </p>
     </section>
     @endif
-
-    <!-- Footer (3 columns) -->
-    <footer class="mt-10 bg-gradient-to-br from-[#0f172a] to-[#1f2937]">
-        <div class="max-w-7xl mx-auto px-5 py-10 grid md:grid-cols-3 gap-6">
-            <div class="rounded-xl bg-[#F2F6F9] ring-1 ring-white/10 p-6 text-center">
-                <div class="text-slate-700 font-extrabold mb-2">ICoICT 2025 Organized By :</div>
-                <div class="text-slate-700">Telkom University Indonesia</div>
-                <img src="{{ asset('images/logoTelkom.png') }}" class="h-8 md:h-8 mx-auto mt-4" alt="logoTelkom">
-                <div class="mt-4 text-slate-700 text-sm">Co – Hosts :<br />Multimedia University Malaysia</div>
-                <img src="{{ asset('images/logoMMU.png') }}" class="h-6 md:h-8 mx-auto mt-4" alt="logoMMU">
-            </div>
-
-            <div class="rounded-xl bg-[#F2F6F9] ring-1 ring-white/10 p-6 text-center">
-                <div class="text-slate-700 font-extrabold mb-2">Sponsored By :</div>
-                <div class="text-slate-700">IEEE Indonesia Section</div>
-                <img src="{{ asset('images/logoIEEE.png') }}" class="h-8 md:h-12 mx-auto" alt="logoIEEE">
-            </div>
-
-            <div class="rounded-xl bg-[#F2F6F9] ring-1 ring-white/10 p-6 text-center">
-                <div class="text-slate-700 font-extrabold mb-2">Visitors</div>
-                <img src="{{ asset('images/benderaVisitor.png') }}" class="h-25 md:h-25 mx-auto" alt="benderaVisitor">
-            </div>
-        </div>
-    </footer>
+    @include('partials.footer')
 
 </body>
 

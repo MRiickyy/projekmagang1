@@ -42,9 +42,9 @@
 
                 <!-- Virtual Account -->
                 <div>
-                    <label class="block text-sm font-bold text-slate-900 mb-1" for="virtual_account">Virtual Account Number</label>
-                    <input type="text" id="virtual_account" 
-                        value="{{ $paymentMethod->virtual_account_number ?? '' }}"
+                    <label class="block text-sm font-bold text-slate-900 mb-1" for="bank_number">Bank Number</label>
+                    <input type="text" id="bank_number" 
+                        value="{{ $paymentMethod->bank_number ?? '' }}"
                         class="w-full border border-gray-400 bg-gray-200 rounded-md px-3 py-2 text-gray-700 cursor-not-allowed"
                         readonly disabled />
                 </div>

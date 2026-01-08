@@ -11,41 +11,44 @@ class CommitteeController extends Controller
     // ==============================
     // 🔹 FRONTEND PAGES
     // ==============================
-    public function steering()
+    public function steering($event_name, $event_year)
     {
-        $selectedEventId = session('selected_event_id');
-
-        $event = Event::find($selectedEventId);
+        $event = Event::where('name', $event_name)
+                      ->where('year', $event_year)
+                      ->firstOrFail();
 
         $committees = Committee::with('event')
-            ->where('event_id', $selectedEventId)
-            ->where('type', 'steering')->get();
+            ->where('event_id', $event->id)
+            ->where('type', 'steering')
+            ->get();
 
         return view('committees.SteeringCommittes', compact('committees', 'event'));
     }
 
-    public function technical()
+    public function technical($event_name, $event_year)
     {
-        $selectedEventId = session('selected_event_id');
-
-        $event = Event::find($selectedEventId);
+        $event = Event::where('name', $event_name)
+                      ->where('year', $event_year)
+                      ->firstOrFail();
 
         $committees = Committee::with('event')
-            ->where('event_id', $selectedEventId)
-            ->where('type', 'technical program')->get();
+            ->where('event_id', $event->id)
+            ->where('type', 'technical program')
+            ->get();
 
         return view('committees.TechnicalProgramCommittee', compact('committees', 'event'));
     }
 
-    public function organizing()
+    public function organizing($event_name, $event_year)
     {
-        $selectedEventId = session('selected_event_id');
-
-        $event = Event::find($selectedEventId);
+        $event = Event::where('name', $event_name)
+                      ->where('year', $event_year)
+                      ->firstOrFail();
 
         $committees = Committee::with('event')
-            ->where('event_id', $selectedEventId)
-            ->where('type', 'organizing')->get();
+            ->where('event_id', $event->id)
+            ->where('type', 'organizing')
+            ->get();
 
         return view('committees.OrganizingCommittees', compact('committees', 'event'));
     }
@@ -206,7 +209,7 @@ class CommitteeController extends Controller
     {
         $validated = $request->validate([
             'name'       => 'required|string|max:255',
-            'role'       => 'required|string|max:255',
+            'role'       => 'nullable|string|max:255',
             'university' => 'nullable|string|max:255',
             'country'    => 'nullable|string|max:255',
             'type'       => 'required|in:steering,technical program,organizing',

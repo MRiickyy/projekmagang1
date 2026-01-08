@@ -10,58 +10,61 @@ use App\Models\DescriptionSpeaker;
 
 class SpeakerController extends Controller
 {
-    // ==============================
-    // ======= FRONTEND AREA ========
-    // ==============================
+    // =======================================
+    // ============ FRONTEND AREA ============
+    // =======================================
 
-    public function keynote()
+    public function keynote($event_name, $event_year)
     {
-        $selectedEventId = session('selected_event_id');
-
-        $event = Event::find($selectedEventId);
+        $event = Event::where('name', $event_name)
+                      ->where('year', $event_year)
+                      ->firstOrFail();
 
         $speakers = Speaker::with('event')
-            ->where('event_id', $selectedEventId)
+            ->where('event_id', $event->id)
             ->where('speaker_type', 'keynote')
             ->get();
 
         return view('speakers.keynote', compact('speakers', 'event'));
     }
 
-    public function tutorial()
+    public function tutorial($event_name, $event_year)
     {
-        $selectedEventId = session('selected_event_id');
-
-        $event = Event::find($selectedEventId);
+        $event = Event::where('name', $event_name)
+                      ->where('year', $event_year)
+                      ->firstOrFail();
 
         $speakers = Speaker::with('event')
-            ->where('event_id', $selectedEventId)
+            ->where('event_id', $event->id)
             ->where('speaker_type', 'tutorial')
             ->get();
 
         return view('speakers.tutorial', compact('speakers', 'event'));
     }
 
-    public function detailSpeaker($slug)
+    public function detailSpeaker($event_name, $event_year, $slug)
     {
+        $event = Event::where('name', $event_name)
+                      ->where('year', $event_year)
+                      ->firstOrFail();
+
         $speaker = Speaker::where('slug', $slug)
+            ->where('event_id', $event->id)
             ->with('descriptions')
             ->firstOrFail();
 
-        return view('speakers.detail', compact('speaker'));
+        return view('speakers.detail', compact('speaker', 'event'));
     }
 
-    // ==============================
-    // ======== ADMIN AREA ==========
-    // ==============================
+    // =======================================
+    // ============== ADMIN AREA =============
+    // =======================================
 
-    // ===== FORM TAMBAH SPEAKER =====
     public function addForm()
     {
         return view('admin.speakers.add_speaker');
     }
 
-    // ===== SIMPAN SPEAKER BARU =====
     public function addSpeaker(Request $request)
     {
         $selectedEventId = session('selected_event_id');
@@ -83,7 +86,6 @@ class SpeakerController extends Controller
         ]);
 
         $slug = $validated['slug'] ?? Str::slug($validated['name']);
-        $year = session('selected_event_year', date('Y'));
 
         $imagePath = null;
         if ($request->hasFile('image')) {
@@ -100,9 +102,10 @@ class SpeakerController extends Controller
             'image'         => $imagePath,
             'speaker_type'  => $validated['speaker_type'],
             'biodata'       => $validated['biodata'] ?? null,
-            'event_id'    => $selectedEventId,
+            'event_id'      => $selectedEventId,
         ]);
 
+        // Simpan deskripsi tambahan
         if (isset($validated['descriptions']['title'])) {
             foreach ($request->descriptions['title'] as $index => $title) {
                 if (!empty($title)) {
@@ -122,7 +125,6 @@ class SpeakerController extends Controller
         return redirect()->route($route)->with('success', 'Speaker has been added successfully!');
     }
 
-    // ===== FORM EDIT SPEAKER =====
     public function editForm($slug)
     {
         $speaker = Speaker::where('slug', $slug)
@@ -132,7 +134,6 @@ class SpeakerController extends Controller
         return view('admin.speakers.edit_speaker', compact('speaker'));
     }
 
-    // ===== UPDATE SPEAKER =====
     public function updateSpeaker(Request $request, $slug)
     {
         $speaker = Speaker::with('descriptions')->where('slug', $slug)->firstOrFail();
@@ -170,6 +171,7 @@ class SpeakerController extends Controller
             'biodata'      => $validated['biodata'] ?? null,
         ]);
 
+        // Update deskripsi
         $existingDescriptions = $speaker->descriptions->pluck('id')->toArray();
         $requestTitles = $request->descriptions['title'] ?? [];
         $requestContents = $request->descriptions['content'] ?? [];
@@ -181,10 +183,7 @@ class SpeakerController extends Controller
             if (isset($request->descriptions['id'][$index])) {
                 $desc = DescriptionSpeaker::find($request->descriptions['id'][$index]);
                 if ($desc) {
-                    $desc->update([
-                        'title'   => $title,
-                        'content' => $content
-                    ]);
+                    $desc->update(['title' => $title, 'content' => $content]);
                     $newDescriptionIds[] = $desc->id;
                 }
             } else {
@@ -197,58 +196,58 @@ class SpeakerController extends Controller
             }
         }
 
-        // 🗑 Hapus deskripsi yang dihapus dari form
         $toDelete = array_diff($existingDescriptions, $newDescriptionIds);
         if (!empty($toDelete)) {
             DescriptionSpeaker::whereIn('id', $toDelete)->delete();
         }
 
-        // 🔁 Redirect sesuai tipe speaker
         $route = $speaker->speaker_type === 'keynote'
             ? 'admin.speakers.keynote'
             : 'admin.speakers.tutorial';
 
-        return redirect()->route($route)->with('success', 'Speaker has been updated successfully!');
+        return redirect()->route($route)->with('success', 'Speaker updated successfully!');
     }
 
-    // ===== DELETE SPEAKER =====
     public function deleteSpeaker($slug)
     {
         $speaker = Speaker::with('descriptions')->where('slug', $slug)->firstOrFail();
-
-        // Simpan tipe sebelum dihapus
         $type = $speaker->speaker_type;
 
-        // Hapus image jika ada
         if ($speaker->image && file_exists(public_path('images/speakers/' . $speaker->image))) {
             unlink(public_path('images/speakers/' . $speaker->image));
         }
 
-        // Hapus deskripsi & data speaker
         $speaker->descriptions()->delete();
         $speaker->delete();
 
-        // 🔁 Redirect sesuai tipe speaker
         $route = $type === 'keynote'
             ? 'admin.speakers.keynote'
             : 'admin.speakers.tutorial';
 
-        return redirect()->route($route)->with('success', 'Speaker has been deleted successfully!');
+        return redirect()->route($route)->with('success', 'Speaker deleted successfully!');
     }
 
-    // ===== DETAIL SPEAKER ADMIN =====
     public function adminDetail($slug)
     {
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            return back()->with('error', 'Please select an event first.');
+        }
+
+        $event = Event::findOrFail($selectedEventId);
+
         $speaker = Speaker::where('slug', $slug)
+            ->where('event_id', $selectedEventId)
             ->with('descriptions')
             ->firstOrFail();
 
-        return view('admin.speakers.detail_speaker', compact('speaker'));
+        return view('admin.speakers.detail_speaker', [
+            'speaker' => $speaker,
+            'event'   => $event,
+            'type'    => $speaker->speaker_type,
+        ]);
     }
-
-    // ==============================
-    // ==== LIST PER TIPE ADMIN ====
-    // ==============================
 
     public function listKeynoteSpeakers(Request $request)
     {
@@ -283,7 +282,7 @@ class SpeakerController extends Controller
 
         return view('admin.speakers.list_speakers', [
             'speakers' => $speakers,
-            'pageTitle' => 'Keynote Speakers List - ' . $event->name . ' (' . $event->year . ')',
+            'pageTitle' => 'Keynote Speakers - ' . $event->name . ' (' . $event->year . ')',
             'type' => 'keynote',
             'event' => $event
         ]);
@@ -322,7 +321,7 @@ class SpeakerController extends Controller
 
         return view('admin.speakers.list_speakers', [
             'speakers' => $speakers,
-            'pageTitle' => 'Tutorial Speakers List - ' . $event->name . ' (' . $event->year . ')',
+            'pageTitle' => 'Tutorial Speakers - ' . $event->name . ' (' . $event->year . ')',
             'type' => 'tutorial',
             'event' => $event
         ]);

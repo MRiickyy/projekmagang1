@@ -9,22 +9,28 @@ use Illuminate\Http\Request;
 class CallPaperController extends Controller
 {
 
-    public function index()
+    public function index($event_name, $event_year)
     {
-        $selectedEventId = session('selected_event_id');
-        if (!$selectedEventId) {
-            $latestEvent = Event::latest('year')->first();
-            if (!$latestEvent) {
-                return back()->with('error', 'No event found.');
-            }
-            $selectedEventId = $latestEvent->id;
-            session(['selected_event_id' => $selectedEventId]);
-        }
+        $event = Event::where('name', $event_name)
+                      ->where('year', $event_year)
+                      ->firstOrFail();
+                      
+        $callPapers = CallPaper::where('event_id', $event->id)
+            ->whereIn('section', ['submission_title', 'submission_intro', 'submission_guidelines', 'intro_call', 'join_section'])
+            ->get()
+            ->keyBy('section');
 
-        $event = Event::find($selectedEventId);
-        $callPapers = CallPaper::where('event_id', $selectedEventId)->get();
+        $importantDates = CallPaper::where('event_id', $event->id)
+            ->where('section', 'important_dates')
+            ->orderBy('id')
+            ->get();
 
-        return view('callpaper', compact('callPapers', 'event'));
+        $cfpItems = CallPaper::where('event_id', $event->id)
+            ->where('section', 'call_for_papers')
+            ->orderBy('title')
+            ->get();
+
+        return view('callpaper', compact('callPapers', 'importantDates', 'cfpItems', 'event'));
     }
 
 
@@ -50,7 +56,13 @@ class CallPaperController extends Controller
 
     public function addCallPaper()
     {
-        return view('admin.add_callpaper_Admin');
+        $selectedEventId = session('selected_event_id');
+
+        $existingSections = CallPaper::where('event_id', $selectedEventId)
+            ->where('section', '!=', 'call_for_papers')
+            ->pluck('section')
+            ->toArray();
+        return view('admin.add_callpaper_Admin', compact('existingSections'));
     }
 
     public function store(Request $request)
