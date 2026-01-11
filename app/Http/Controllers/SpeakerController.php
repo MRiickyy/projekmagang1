@@ -304,4 +304,13 @@ class SpeakerController extends Controller
             'event' => $event
         ]);
     }
+
+    public function adminDetail($slug)
+    {
+        $speaker = Speaker::where('slug', $slug)
+            ->with('descriptions', 'event')
+            ->firstOrFail();
+            
+        return view('admin.speakers.detail_speaker', compact('speaker'));
+    }
 }

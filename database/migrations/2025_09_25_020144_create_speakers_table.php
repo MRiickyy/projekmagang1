@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('university');
-            $table->string('image')->nullable(); // kalau kadang ga ada foto
+            $table->string('image')->nullable();
             $table->text('biodata')->nullable();
-            $table->enum('speaker_type', ['keynote', 'tutorial']); // hanya 2 pilihan
+            $table->enum('speaker_type', ['keynote', 'tutorial']);
             $table->unsignedBigInteger('event_id');
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->timestamps();
