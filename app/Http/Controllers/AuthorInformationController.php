@@ -40,7 +40,17 @@ class AuthorInformationController extends Controller
 
     public function addAuthor()
     {
-        return view('admin.forauthor.add_authorinformation_admin');
+        $selectedEventId = session('selected_event_id');
+
+        if (!$selectedEventId) {
+            return back()->with('error', 'Please select an event first.');
+        }
+
+        $existingSections = AuthorInformation::where('event_id', $selectedEventId)
+            ->pluck('section')
+            ->toArray();
+
+        return view('admin.forauthor.add_authorinformation_admin', compact('existingSections'));
     }
 
     public function store(Request $request)

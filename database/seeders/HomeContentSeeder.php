@@ -13,37 +13,91 @@ class HomeContentSeeder extends Seeder
         DB::table('home_contents')->truncate();
 
         $data = [
-            ['section' => 'banner_text', 'content' => 'Driving a Sustainable Future with AI, IoT, and Data Science Technologies', 'event_id' => 1],
+            [
+                'section' => 'banner_image',
+                'content' => 'logoAscee.png',
+                'event_id' => 1
+            ],
 
-            // Welcome section
-            ['section' => 'welcome_title', 'content' => 'Welcome to ICoICT 2025!', 'event_id' => 1],
-            ['section' => 'welcome_text', 'content' => 'We are thrilled to invite you to the International Conference on Information and Communication Technology (ICoICT) 2025...', 'event_id' => 1],
-            ['section' => 'welcome_tracks_intro', 'content' => 'We welcome submissions of technical paper in the following tracks (but not limited to):', 'event_id' => 1],
-            ['section' => 'welcome_tracks', 'content' => 'Artificial Intelligence and Machine Learning<br>Data Science and Its Implementations<br>IoT System and Infrastructure<br>Information Technology Applications', 'event_id' => 1],
-            ['section' => 'welcome_tracks_footer', 'content' => 'Accepted and presented papers will be submitted for inclusion into the IEEE Xplore subject to meeting IEEE’s scope and quality requirements.', 'event_id' => 1],
-            ['section' => 'welcome_prev_title', 'content' => 'Papers from the previous ICoICT 2013 until 2024 have been published in IEEE Xplore and indexed in Scopus:', 'event_id' => 1],
-            ['section' => 'welcome_isbn_title', 'content' => 'With ISBN Information:', 'event_id' => 1],
-            ['section' => 'welcome_isbn_text', 'content' => 'Electronic ISBN: 978-1-6654-0447-1<br>USB ISBN: 978-1-6654-0446-4', 'event_id' => 1],
+            [
+                'section' => 'banner_logo',
+                'content' => 'logoSain.png',
+                'event_id' => 1
+            ],
 
-            // ICoICT links Section
-            ['section' => 'icoict_link_2013', 'content' => 'https://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=123456', 'event_id' => 1],
-            ['section' => 'icoict_link_2014', 'content' => 'https://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=234567', 'event_id' => 1],
-            ['section' => 'icoict_link_2015', 'content' => 'https://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=345678', 'event_id' => 1],
-            ['section' => 'icoict_link_2016', 'content' => 'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=7565234', 'event_id' => 1],
-            ['section' => 'icoict_link_2017', 'content' => 'http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=8054654', 'event_id' => 1],
-            ['section' => 'icoict_link_2018', 'content' => 'https://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=8509820', 'event_id' => 1],
-            ['section' => 'icoict_link_2019', 'content' => 'https://ieeexplore.ieee.org/xpl/conhome/8825728/proceeding', 'event_id' => 1],
-            ['section' => 'icoict_link_2020', 'content' => 'https://ieeexplore.ieee.org/xpl/conhome/9162155/proceeding', 'event_id' => 1],
-            ['section' => 'icoict_link_2021', 'content' => 'https://ieeexplore.ieee.org/xpl/conhome/9527366/proceeding', 'event_id' => 1],
-            ['section' => 'icoict_link_2022', 'content' => 'https://ieeexplore.ieee.org/xpl/conhome/9914624/proceeding', 'event_id' => 1],
-            ['section' => 'icoict_link_2023', 'content' => 'https://ieeexplore.ieee.org/xpl/conhome/10262402/proceeding', 'event_id' => 1],
-            ['section' => 'icoict_link_2024', 'content' => 'https://ieeexplore.ieee.org/xpl/conhome/10697981/proceeding', 'event_id' => 1],
+            ['section' => 'banner_text', 
+             'content' => 'Symposium on Advanced Intelligent Informatics (SAIN) Internasional Journal of Advances in Intelligent Informatics (IJAIN)', 
+             'event_id' => 1
+            ],
 
-            // Speaker Section
-            ['section' => 'speakers_keynote_title', 'content' => 'KEYNOTE SPEAKERS', 'event_id' => 1],
-            ['section' => 'speakers_keynote_text', 'content' => 'Distinguished experts are invited to deliver a speech...', 'event_id' => 1],
-            ['section' => 'speakers_tutorial_title', 'content' => 'TUTORIAL SPEAKERS', 'event_id' => 1],
-            ['section' => 'speakers_tutorial_text', 'content' => 'Renowned subject-matter experts are invited...', 'event_id' => 1],
+            // callpaper section
+            ['section' => 'intro_home', 
+             'content' => 'The 2025 8th International Symposium on Advanced Intelligent Informatics (SAIN) is an international symposium that covers Intelligent Informatics scope that includes four (4) majors areas, 1) Machine Learning and Soft Computing, 2) Data Mining & Big Data Analytics, 3) Computer Vision and Pattern Recognition, and 4) Automated reasoning. SAIN 2025 will be held Hybrid Virtually and Offline in Seoul, Korea, on December 12-13, 2025, and hosted in Seoul-Korea. Association for Scientific Computing Electronics and Engineering (ASCEE) hosts this conference and is jointly organized with International Journal of Advances in Intelligent Informatics; Universitas Negeri Malang,  Universitas Mulawarman, Universitas Muslim Indonesia, Universitas Pembangunan Nasional Veteran Yogyakarta.',
+             'event_id' => 1
+            ],
+
+            // previous conferences section
+            ['section' => 'prev_conf_title', 
+             'content' => 'PREVIOUS CONFERENCES',
+             'event_id' => 1
+            ],
+
+            ['section' => 'previous_conference', 
+             'content' => "The 2018 1st International Symposium on Advanced Intelligent Informatics (SAIN), Yogyakarta – Indonesia, August 29-30, 2018, http://sain.ijain.org/2018/, Published in IEEE Xplore (indexed by SCOPUS, EI Compendex, Web of Science/Clarivate Analytics, etc.) – https://ieeexplore.ieee.org/xpl/conhome/8671676/proceeding\n" .
+                          "The 2019 2nd International Symposium on Advanced Intelligent Informatics (SAIN), Fukuoka – Japan, September 2-4, 2019 – http://sain.ijain.org/2019/, Published in SCOPUS Elsevier indexed journal.",
+             'event_id' => 1
+            ],
+
+            // scope section
+            ['section' => 'scope_title', 
+             'content' => 'SCOPE',
+             'event_id' => 1
+            ],
+
+            ['section' => 'scope_intro', 
+             'content' => 'SAIN’24 invites original articles within the whole spectrum of intelligent informatics, which includes, but is not limited to:',
+             'event_id' => 1
+            ],
+
+            ['section' => 'scope_list', 
+             'content' => "Machine Learning & Soft Computing: Artificial Immune Systems, Ant Colony; Bioinformatics, Biologically Inspired Intelligence; Chaos Theory and intelligent control systems; Computational Paradigms and complexity; Deep learning; Evolutionary Computing; Fault detection, fault analysis, and diagnostics; Fuzzy Computing; Hybrid Methods & Computing; Immunological Computing; Memetic computing; Morphic Computing; Neuro Computing; Particle Swarm; Probabilistic Computing; Rough Sets and granular computing; Soft computing in P2P, Grid, Cloud and Internet Computing Technologies; Support Vector Machines; Wavelet.\n" .
+                          "Data Mining & Big Data Analytics: Business Analytics; Big data infrastructure and visualization; Cloud computing; Data characteristics and complexities; Data and knowledge creation, discovery, processing, modeling, mapping, search, interopera­bility, exchange, integration, and visualization; Data mining; Intelligent databases, indexing, and query processing; social analytics, and text analytics; Information retrieval and extraction; Ontologies and the Semantic Web; Privacy and security in Big Data; Large-scale optimization; Scalable computing and high-performance computing for big data; Statistical and mathematical techniques; Ubiquitous, grid and high-performance computing; Web and mobile Intelligence.",
+             'event_id' => 1
+            ],
+
+            // publications section
+            ['section' => 'publications_title', 
+             'content' => 'PUBLICATIONS',
+             'event_id' => 1
+            ],
+
+            ['section' => 'publications_intro', 
+             'content' => 'All accepted and presented papers will be published in one of the following journals:',
+             'event_id' => 1
+            ],
+
+            ['section' => 'publications_list', 
+             'content' => "International Journal of Advances in Intelligent Informatics (Q3, SCOPUS Indexed).\n" .
+                          "International Journal on Advanced Science, Engineering and Information Technology(Q3 SCOPUS Indexed journal).\n" .
+                          "or other SCOPUS/Web of SCience indexed journals.",
+             'event_id' => 1
+            ],
+
+            // editors section
+            ['section' => 'editors_title', 
+             'content' => 'EDITORS',
+             'event_id' => 1
+            ],
+
+            ['section' => 'editors', 
+             'content' => "Andri Pranolo (Universitas Ahmad Dahlan, Indonesia)\n" .
+                          "Rafal Drezewski (AGH University of Science and Technology, Poland)\n" .
+                          "Shi-Jinn Horng (National Taiwan University Sains & Technology (NTUST), Taiwan)\n" .
+                          "Huynh Thi Thanh Binh (Hanoi University of Science and Technology (HUST)), Vietnam)\n" .
+                          "Aji Prasetya Wibawa (Universitas Negeri Malang, Indoensia)\n" .
+                          "Haviluddin (Universitas Mulawarman, Indonesia)",
+             'event_id' => 1
+            ],
         ];
 
         foreach ($data as $item) {

@@ -33,7 +33,7 @@ class RegistrationSeeder extends Seeder
             ],
             [
                 'section' => 'registration_fee_include',
-                'content' => "Journal Publication Fee,\n" .
+                'content' => "Journal Publication Fee\n" .
                              "Access to all sessions in SAIN’24, including Plenary Sessions, Conference Track Presentations.",
                 'event_id' => 1
             ],

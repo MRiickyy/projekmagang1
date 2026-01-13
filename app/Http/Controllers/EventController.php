@@ -20,6 +20,7 @@ class EventController extends Controller
 
         session([
             'selected_event_id' => $event->id,
+            'selected_event_name' => $event->name,
             'selected_event_year' => $event->year,
         ]);
 
@@ -52,9 +53,18 @@ class EventController extends Controller
 
         session([
             'selected_event_id' => $event->id,
+            'selected_event_name' => $event->name,
             'selected_event_year' => $event->year,
         ]);
 
         return back()->with('success', "Event {$event->name} {$event->year} added and selected.");
+    }
+
+    public function deleteEvent(Request $request)
+    {
+        $event = Event::findOrFail($request->event_id);
+        $event->delete();
+
+        return back()->with('success', 'Event deleted successfully!');
     }
 }

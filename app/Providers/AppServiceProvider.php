@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Event;
+use App\Models\FooterSection;
 use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,31 +25,28 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('*', function ($view) {
 
-            // Jika route prefix dimulai dengan "admin", ambil event dari session
+            // Jika route prefix dimulai dengan "admin"
             if (request()->is('admin/*')) {
                 $selectedEventId = session('selected_event_id');
                 $event = $selectedEventId ? Event::find($selectedEventId) : null;
-            }
-
-            // Kalau bukan admin (halaman publik), ambil dari parameter URL
-            else {
+            } else {
                 $route = request()->route();
                 $eventName = $route?->parameter('event_name');
                 $eventYear = $route?->parameter('event_year');
 
                 if ($eventName && $eventYear) {
-                    $event = Event::where('name', $eventName)
+                    $event = Event::where('name', str_replace('-', ' ', $eventName))
                         ->where('year', $eventYear)
                         ->first();
                 } else {
-                    // fallback ke event default
-                    $event = Event::where('name', 'icoict')
+                    // fallback
+                    $event = Event::where('name', 'SAIN IJAIN')
                         ->where('year', 2025)
                         ->first();
                 }
             }
 
-            // Hitung countdown jika ada event_time
+            // countdown
             $timeLeft = null;
 
             if ($event && $event->event_time) {
@@ -68,7 +66,16 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
 
-            $view->with(compact('event', 'timeLeft'));
+            // Kirim daftar event untuk dropdown
+            $eventsList = Event::orderBy('year', 'desc')->get();
+
+            $view->with(compact('event', 'timeLeft', 'eventsList'));
         });
+
+        View::composer('*', function ($view) {
+            $view->with('sections', FooterSection::all());
+        });
+
+        
     }
 }
