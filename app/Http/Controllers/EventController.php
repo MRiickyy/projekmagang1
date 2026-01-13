@@ -18,7 +18,6 @@ class EventController extends Controller
             return back()->with('error', 'Event not found.');
         }
 
-        // Simpan ID dan tahun ke session
         session([
             'selected_event_id' => $event->id,
             'selected_event_name' => $event->name,
@@ -47,15 +46,11 @@ class EventController extends Controller
             return back()->with('error', 'Event with the same name and year already exists.');
         }
         
-        
-
-        // Buat event baru
         $event = Event::create([
             'name' => $request->name,
             'year' => $request->year,
         ]);
 
-        // Simpan langsung ke session
         session([
             'selected_event_id' => $event->id,
             'selected_event_name' => $event->name,

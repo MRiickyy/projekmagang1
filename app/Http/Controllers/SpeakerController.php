@@ -326,4 +326,5 @@ class SpeakerController extends Controller
             'event' => $event
         ]);
     }
+
 }

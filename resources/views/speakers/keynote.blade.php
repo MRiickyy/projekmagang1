@@ -13,7 +13,7 @@
     @forelse ($speakers as $speaker)
     <!-- CARD -->
     <div class="bg-gray-100 rounded-lg shadow-md flex items-start mb-6 overflow-hidden">
-        <img src="{{ asset($speaker->image) }}" alt="{{ $speaker->name }}"
+        <img src="{{ asset('images/speakers/' . $speaker->image) }}" alt="{{ $speaker->name }}"
             class="w-40 h-40 object-cover rounded-xl m-4">
         <div class="flex flex-col justify-between p-4 flex-1">
             <div>

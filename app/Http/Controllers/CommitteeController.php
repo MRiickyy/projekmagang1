@@ -14,8 +14,8 @@ class CommitteeController extends Controller
     public function steering($event_name, $event_year)
     {
         $event = Event::where('name', $event_name)
-                      ->where('year', $event_year)
-                      ->firstOrFail();
+            ->where('year', $event_year)
+            ->firstOrFail();
 
         $committees = Committee::with('event')
             ->where('event_id', $event->id)
@@ -28,8 +28,8 @@ class CommitteeController extends Controller
     public function technical($event_name, $event_year)
     {
         $event = Event::where('name', $event_name)
-                      ->where('year', $event_year)
-                      ->firstOrFail();
+            ->where('year', $event_year)
+            ->firstOrFail();
 
         $committees = Committee::with('event')
             ->where('event_id', $event->id)
@@ -42,8 +42,8 @@ class CommitteeController extends Controller
     public function organizing($event_name, $event_year)
     {
         $event = Event::where('name', $event_name)
-                      ->where('year', $event_year)
-                      ->firstOrFail();
+            ->where('year', $event_year)
+            ->firstOrFail();
 
         $committees = Committee::with('event')
             ->where('event_id', $event->id)
