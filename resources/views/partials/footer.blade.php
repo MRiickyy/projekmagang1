@@ -30,17 +30,19 @@ $sections = $sections ?? collect();
             <div class="mt-4 grid grid-cols-2 gap-2">
                 @foreach($items as $v)
                 @php
-                $countryCode = strtoupper($v['country']);
+                $countryCode = strtolower($v['country']);
                 $flagPath = 'flags/' . $countryCode . '.png'; // otomatis ambil file sesuai country code
+                $countryCodeDisplay = strtoupper($v['country']);
                 @endphp
                 <div class="flex items-center justify-between bg-white p-2 rounded-lg shadow">
                     <div class="flex items-center gap-2">
                         @if(file_exists(public_path($flagPath)))
-                        <img src="{{ asset($flagPath) }}" class="h-5 object-cover rounded-sm" alt="{{ $countryCode }}">
+                        <img src="{{ asset($flagPath) }}" class="h-5 object-cover rounded-sm"
+                            alt="{{ $countryCodeDisplay }}">
                         @else
                         <span class="text-gray-400 text-sm">No flag</span>
                         @endif
-                        <span>{{ $countryCode }}</span>
+                        <span>{{ $countryCodeDisplay }}</span>
                     </div>
                     <span class="font-bold">{{ number_format($v['count'] ?? 0) }}</span>
                 </div>
