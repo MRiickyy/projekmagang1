@@ -137,7 +137,7 @@ class SpeakerController extends Controller
     public function updateSpeaker(Request $request, $slug)
     {
         $speaker = Speaker::with('descriptions')->where('slug', $slug)->firstOrFail();
-
+    
         $validated = $request->validate([
             'name'          => 'required|string|max:255',
             'slug'          => 'nullable|string|max:255|unique:speakers,slug,' . $speaker->id,
@@ -149,37 +149,51 @@ class SpeakerController extends Controller
             'descriptions.title'   => 'array',
             'descriptions.content' => 'array',
         ]);
-
+    
         $slug = $validated['slug'] ?? Str::slug($validated['name']);
-
+    
+        // --- Handle image upload ---
         if ($request->hasFile('image')) {
+            // hapus file lama jika ada
             if ($speaker->image && file_exists(public_path('images/speakers/' . $speaker->image))) {
                 unlink(public_path('images/speakers/' . $speaker->image));
             }
-
+    
             $image = $request->file('image');
-            $filename = time() . '_' . $image->getClientOriginalName();
+    
+            // buat nama file aman dan unik
+            $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension    = $image->getClientOriginalExtension();
+            $sanitized    = Str::slug($originalName); // hapus spasi & karakter aneh
+            $filename     = time() . '_' . $sanitized . '.' . $extension;
+    
+            // simpan file ke public/images/speakers
             $image->move(public_path('images/speakers'), $filename);
+    
+            // simpan langsung ke field image speaker
             $speaker->image = $filename;
+            $speaker->save();
         }
-
+    
+        // --- Update speaker data ---
         $speaker->update([
             'name'         => $validated['name'],
             'slug'         => $slug,
             'university'   => $validated['university'] ?? null,
             'speaker_type' => $validated['speaker_type'],
             'biodata'      => $validated['biodata'] ?? null,
+            // jika gambar di-update, field sudah diset di atas ($speaker->image)
         ]);
-
-        // Update deskripsi
+    
+        // --- Update deskripsi ---
         $existingDescriptions = $speaker->descriptions->pluck('id')->toArray();
         $requestTitles = $request->descriptions['title'] ?? [];
         $requestContents = $request->descriptions['content'] ?? [];
         $newDescriptionIds = [];
-
+    
         foreach ($requestTitles as $index => $title) {
             $content = $requestContents[$index] ?? '';
-
+    
             if (isset($request->descriptions['id'][$index])) {
                 $desc = DescriptionSpeaker::find($request->descriptions['id'][$index]);
                 if ($desc) {
@@ -195,18 +209,19 @@ class SpeakerController extends Controller
                 $newDescriptionIds[] = $desc->id;
             }
         }
-
+    
         $toDelete = array_diff($existingDescriptions, $newDescriptionIds);
         if (!empty($toDelete)) {
             DescriptionSpeaker::whereIn('id', $toDelete)->delete();
         }
-
+    
         $route = $speaker->speaker_type === 'keynote'
             ? 'admin.speakers.keynote'
             : 'admin.speakers.tutorial';
-
+    
         return redirect()->route($route)->with('success', 'Speaker updated successfully!');
     }
+
 
     public function deleteSpeaker($slug)
     {
